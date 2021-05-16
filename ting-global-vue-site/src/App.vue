@@ -1,12 +1,41 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <h1 class="counter">
+    {{ counter }}
+  </h1>
 </template>
 
+<script>
+import socket from "socket.io-client";
+
+export default {
+  data() {
+    return {
+      counter: 2000,
+      io: socket("http://193.46.199.76:8087"),
+    };
+  },
+  methods: {
+    initSocket() {
+      this.io.on("updateCounter", ({ newCount }) => {
+        this.counter = newCount;
+      });
+    },
+  },
+  created() {
+    this.initSocket();
+  },
+};
+</script>
+
 <style lang="scss">
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -15,16 +44,11 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.counter {
+  font-size: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
