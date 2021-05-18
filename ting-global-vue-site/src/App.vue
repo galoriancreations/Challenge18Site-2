@@ -23,6 +23,7 @@ export default {
   },
   created() {
     this.initSocket();
+    console.log("This is a console");
   },
 };
 </script>
