@@ -1,4 +1,4 @@
-# ting-global-vue-site
+# ting-global-vue2-site
 
 ## Project setup
 ```

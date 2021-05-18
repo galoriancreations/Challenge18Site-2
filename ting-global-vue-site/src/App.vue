@@ -1,7 +1,9 @@
 <template>
-  <h1 class="counter">
-    {{ counter }}
-  </h1>
+  <div id="app">
+    <h1 class="counter">
+      {{ counter }}
+    </h1>
+  </div>
 </template>
 
 <script>
@@ -23,7 +25,6 @@ export default {
   },
   created() {
     this.initSocket();
-    console.log("This is a console");
   },
 };
 </script>
