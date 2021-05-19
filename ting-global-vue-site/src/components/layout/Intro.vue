@@ -13,6 +13,7 @@
         tournament a trophy is awarded to the winning clubs.
       </p>
     </div>
+    <BaseButton link="/register">Register</BaseButton>
   </section>
 </template>
 
@@ -21,18 +22,19 @@
 
 .intro {
   //   min-height: 70rem;
-  background-image: url(../../assets/intro-bg.jpg);
+  background-image: linear-gradient(to right, rgba(#000, 0.2), rgba(#000, 0.2)),
+    url(../../assets/intro-bg.jpg);
   background-position: center;
   background-size: cover;
-  padding: 17rem $padding-sides-desktop;
+  padding: 23rem $padding-sides-desktop 17rem;
   color: #fff;
 
   @include respond(tablet) {
-    padding: 14rem $padding-sides-desktop;
+    padding: 20rem $padding-sides-desktop 14rem;
   }
 
   @include respond(mobile) {
-    padding: 12rem $padding-sides-mobile;
+    padding: 17rem $padding-sides-mobile 12rem;
   }
 
   &__content {
@@ -40,7 +42,7 @@
     justify-content: space-between;
     align-items: center;
     max-width: 95rem;
-    margin: auto;
+    margin: 0 auto 5rem;
 
     @include respond(tablet) {
       flex-direction: column;
@@ -73,6 +75,17 @@
 
     @include respond(mobile) {
       font-size: 1.9rem;
+    }
+  }
+
+  .button {
+    margin: auto;
+    font-size: 1.9rem;
+    font-weight: 600;
+    width: 25rem;
+
+    @include respond(mobile) {
+      font-size: 1.7rem;
     }
   }
 }
