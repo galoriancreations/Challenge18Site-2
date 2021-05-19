@@ -1,3 +1,41 @@
 <template>
-  <div></div>
+  <div class="page">
+    <TheHeader />
+    <PageHeading v-if="showHeading" :title="title" :name="name" />
+    <slot />
+    <TheFooter />
+  </div>
 </template>
+
+<script>
+import TheHeader from "./TheHeader";
+import PageHeading from "./PageHeading";
+import TheFooter from "./TheFooter";
+
+export default {
+  components: { TheHeader, PageHeading, TheFooter },
+  props: {
+    title: String,
+    name: String,
+    showHeading: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  created() {
+    document.title = this.title
+      ? `${this.title} – The Innovation Nation Games`
+      : "The Innovation Nation Games";
+    window.scrollTo(0, 0);
+  },
+};
+</script>
+
+<style lang="scss">
+.page {
+  min-height: 200vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+</style>

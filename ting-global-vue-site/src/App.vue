@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <TheHeader />
-    <RouterView />
-    <TheFooter />
+    <Transition name="page" mode="out-in">
+      <RouterView />
+    </Transition>
   </div>
 </template>
 
 <script>
-import TheHeader from "./components/layout/TheHeader";
-import TheFooter from "./components/layout/TheFooter";
-export default {
-  components: { TheHeader, TheFooter },
-};
+export default {};
 </script>
 
 <style lang="scss">
@@ -31,15 +27,30 @@ html {
   font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
   overflow: hidden;
-  min-height: 100vh;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  min-height: 100vh;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.page-enter-active {
+  transition: opacity 0.4s;
+}
+
+.page-leave-active {
+  transition: opacity 0.4s;
+}
+
+.page-enter-to,
+.page-leave-from {
+  opacity: 1;
 }
 </style>

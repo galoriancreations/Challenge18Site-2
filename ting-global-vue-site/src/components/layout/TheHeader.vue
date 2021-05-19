@@ -1,5 +1,9 @@
 <template>
-  <header class="header">
-    The header here
-  </header>
+  <header class="header"></header>
 </template>
+
+<style lang="scss">
+.header {
+  position: absolute;
+}
+</style>
