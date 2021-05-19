@@ -5,7 +5,7 @@ import Home from "../views/Home";
 import WhatWeDo from "../views/WhatWeDo";
 import About from "../views/About";
 import Blog from "../views/Blog";
-import Scores from "../views/Home";
+import Scores from "../views/Scores";
 import Players from "../views/Players";
 import Contact from "../views/Contact";
 import Login from "../views/Login";
