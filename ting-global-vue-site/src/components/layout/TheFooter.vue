@@ -48,13 +48,32 @@
   position: relative;
   padding: 17rem $padding-sides-desktop 8rem;
 
+  @include respond(tablet) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  @include respond(mobile) {
+    padding: 11rem $padding-sides-mobile 5rem;
+  }
+
   &__column {
     max-width: 30rem;
     display: flex;
     flex-direction: column;
 
+    @include respond(mobile) {
+      max-width: initial;
+    }
+
     &:not(:last-child) {
       margin-right: 4rem;
+
+      @include respond(tablet) {
+        margin-right: 0;
+        margin-bottom: 5rem;
+      }
     }
   }
 
@@ -62,14 +81,26 @@
     font-size: 2.2rem;
     color: $color-gold-1;
     margin-bottom: 1.5rem;
+
+    @include respond(mobile) {
+      font-size: 2rem;
+    }
   }
 
   &__text {
     font-size: 1.55rem;
     line-height: 1.6;
+
+    @include respond(mobile) {
+      font-size: 1.45rem;
+    }
   }
 
   &__list {
+    @include respond(tablet) {
+      list-style: none;
+    }
+
     li {
       &:not(:last-child) {
         margin-bottom: 0.8rem;
