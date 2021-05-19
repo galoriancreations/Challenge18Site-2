@@ -13,10 +13,10 @@ export default {
 <style lang="scss">
 @import "../../sass/base.scss";
 .logo {
-  height: 12rem;
+  height: 11rem;
 
   @include respond(mobile) {
-    height: 10rem;
+    height: 8rem;
   }
 }
 </style>

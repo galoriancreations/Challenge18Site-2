@@ -149,7 +149,7 @@ export default {
     }
     &__nav-item {
       opacity: 0;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       transform: translateX(-70vw);
       transition: all 0.5s;
       &.reverse {

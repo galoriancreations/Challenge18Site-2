@@ -34,7 +34,7 @@
   }
 
   @include respond(mobile) {
-    padding: 17rem $padding-sides-mobile 12rem;
+    padding: 15rem $padding-sides-mobile 12rem;
   }
 
   &__content {
@@ -74,7 +74,7 @@
     }
 
     @include respond(mobile) {
-      font-size: 1.9rem;
+      font-size: 1.8rem;
     }
   }
 
@@ -85,7 +85,7 @@
     width: 25rem;
 
     @include respond(mobile) {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
     }
   }
 }
