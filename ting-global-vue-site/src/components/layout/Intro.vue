@@ -26,7 +26,7 @@
     url(../../assets/intro-bg.jpg);
   background-position: center;
   background-size: cover;
-  padding: 23rem $padding-sides-desktop 17rem;
+  padding: 23rem $padding-sides-desktop 15rem;
   color: #fff;
 
   @include respond(tablet) {

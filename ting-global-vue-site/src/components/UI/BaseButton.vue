@@ -7,6 +7,14 @@
   </button>
 </template>
 
+<script>
+export default {
+  props: {
+    link: String,
+  },
+};
+</script>
+
 <style lang="scss">
 @import "../../sass/base.scss";
 
