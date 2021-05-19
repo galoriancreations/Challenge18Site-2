@@ -14,6 +14,7 @@
       </p>
     </div>
     <BaseButton link="/register">Register</BaseButton>
+    <WavePatternBottom />
   </section>
 </template>
 
@@ -26,15 +27,16 @@
     url(../../assets/intro-bg.jpg);
   background-position: center;
   background-size: cover;
-  padding: 23rem $padding-sides-desktop 15rem;
+  padding: 20rem $padding-sides-desktop 19rem;
   color: #fff;
+  position: relative;
 
   @include respond(tablet) {
-    padding: 20rem $padding-sides-desktop 14rem;
+    padding: 18rem $padding-sides-desktop 17rem;
   }
 
   @include respond(mobile) {
-    padding: 15rem $padding-sides-mobile 12rem;
+    padding: 14rem $padding-sides-mobile 13rem;
   }
 
   &__content {
