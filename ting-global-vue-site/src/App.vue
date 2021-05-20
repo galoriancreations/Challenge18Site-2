@@ -12,6 +12,7 @@ export default {};
 
 <style lang="scss">
 @import "./sass/base.scss";
+
 *,
 *::before,
 *::after {
@@ -68,5 +69,33 @@ a {
 .page-enter-to,
 .page-leave-from {
   opacity: 1;
+}
+
+.results-table {
+  max-width: 90rem;
+  margin: auto;
+
+  * {
+    text-align: center !important;
+    font-size: 1.6rem;
+
+    @include respond(mobile) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .total-column {
+    &,
+    button {
+      background-color: #ffcc04 !important;
+      font-weight: 700 !important;
+      color: $color-blue-1 !important;
+    }
+
+    span {
+      position: relative;
+      z-index: 10;
+    }
+  }
 }
 </style>

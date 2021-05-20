@@ -4,7 +4,7 @@
     <BaseSpinner v-if="loading" />
     <vue-good-table
       v-else
-      class="recent-results__table"
+      class="results-table"
       :columns="columns"
       :rows="rows"
       theme="polar-bear"
@@ -94,37 +94,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import "../../sass/base.scss";
-
-.recent-results {
-  &__table {
-    max-width: 90rem;
-    margin: auto;
-
-    * {
-      text-align: center !important;
-      font-size: 1.6rem;
-
-      @include respond(mobile) {
-        font-size: 1.5rem;
-      }
-    }
-
-    .total-column {
-      &,
-      button {
-        background-color: #ffcc04 !important;
-        font-weight: 700;
-        color: #000;
-      }
-
-      span {
-        position: relative;
-        z-index: 10;
-      }
-    }
-  }
-}
-</style>
