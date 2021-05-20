@@ -7,6 +7,7 @@
       class="recent-results__table"
       :columns="columns"
       :rows="rows"
+      theme="polar-bear"
     />
   </WhiteSection>
 </template>
@@ -102,11 +103,21 @@ export default {
     max-width: 90rem;
     margin: auto;
 
+    * {
+      text-align: center !important;
+      font-size: 1.6rem;
+
+      @include respond(mobile) {
+        font-size: 1.5rem;
+      }
+    }
+
     .total-column {
       &,
       button {
         background-color: #ffcc04 !important;
         font-weight: 700;
+        color: #000;
       }
 
       span {
