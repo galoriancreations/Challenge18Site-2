@@ -1,8 +1,6 @@
 <template>
-  <header
-    :class="{ header: true, active: navOpen, sticky: sticky }"
-    ref="header"
-  >
+  <header :class="{ header: true, active: navOpen, sticky }">
+    <LoginIcon />
     <Logo />
     <NavToggle />
     <nav class="header__navigation">
@@ -21,10 +19,11 @@
 <script>
 import Logo from "../UI/Logo";
 import NavToggle from "../UI/NavToggle";
+import LoginIcon from "../UI/LoginIcon";
 import NavItem from "../UI/NavItem";
 
 export default {
-  components: { Logo, NavToggle, NavItem },
+  components: { Logo, NavToggle, LoginIcon, NavItem },
   data() {
     return {
       navOpen: false,
@@ -81,7 +80,7 @@ export default {
   transition: all 0.5s;
 
   @include respond(mobile) {
-    padding: 1.5rem $padding-sides-mobile;
+    padding: 1rem $padding-sides-mobile;
   }
 
   &.sticky {
