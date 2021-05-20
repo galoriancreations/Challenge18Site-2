@@ -29,6 +29,10 @@ html {
   overflow: hidden;
   position: relative;
   min-height: 100vh;
+
+  @include respond(mobile) {
+    font-size: 1.5rem;
+  }
 }
 
 h1,

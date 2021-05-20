@@ -14,24 +14,31 @@
 <script>
 import socket from "socket.io-client";
 
-const listUsers = (users) => {
-  const usersArr = [];
-  for (let name in users) {
-    usersArr.push(`${name} (${users[name]})`);
-  }
-  return usersArr.join(", ");
-};
-
-const challengesArray = (challenges) => {
+const teamsArray = (challenges) => {
   const data = [];
   for (let key in challenges) {
     const { total, day, template } = challenges[key];
     data.push({
-      id: key,
-      users: listUsers(challenges[key].users),
+      team: key,
       total,
       day,
       template,
+    });
+  }
+  return data;
+};
+
+const challengesArray = (challenges) => {
+  const teams = teamsArray(challenges);
+  const data = [];
+  for (let i = 0; i < teams.length - 1; i += 2) {
+    data.push({
+      id: `${teams[i].team}-${teams[i + 1].team}`,
+      school1: teams[i].team,
+      score1: teams[i].total,
+      school2: teams[i + 1].team,
+      score2: teams[i + 1].total,
+      total: teams[i].total + teams[i + 1].total,
     });
   }
   return data;
@@ -44,20 +51,30 @@ export default {
       loading: true,
       columns: [
         {
-          label: "Users",
-          field: "users",
+          label: "School/Org",
+          field: "school1",
+          sortable: false,
+        },
+        {
+          label: "Score",
+          field: "score1",
+          sortable: false,
         },
         {
           label: "Total Score",
           field: "total",
+          thClass: "total-column",
+          tdClass: "total-column",
         },
         {
-          label: "Day",
-          field: "day",
+          label: "Score",
+          field: "score2",
+          sortable: false,
         },
         {
-          label: "Template",
-          field: "template",
+          label: "School/Org",
+          field: "school2",
+          sortable: false,
         },
       ],
       rows: [],
@@ -84,6 +101,19 @@ export default {
   &__table {
     max-width: 90rem;
     margin: auto;
+
+    .total-column {
+      &,
+      button {
+        background-color: #ffcc04 !important;
+        font-weight: 700;
+      }
+
+      span {
+        position: relative;
+        z-index: 10;
+      }
+    }
   }
 }
 </style>
