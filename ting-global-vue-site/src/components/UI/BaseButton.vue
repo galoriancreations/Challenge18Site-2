@@ -21,7 +21,7 @@ export default {
 .button {
   display: block;
   padding: 1rem;
-  background-color: $color-gold-3;
+  background-color: $color-gold-4;
   color: #000;
   text-transform: uppercase;
   font: inherit;

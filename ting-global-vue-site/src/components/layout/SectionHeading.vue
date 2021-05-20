@@ -36,7 +36,7 @@ export default {};
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: calc(100% + 1rem);
+    top: calc(100% + 0.8rem);
     height: 0.5rem;
     width: 80%;
     max-width: 18rem;

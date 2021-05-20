@@ -87,7 +87,7 @@ a {
   .total-column {
     &,
     button {
-      background-color: #ffcc04 !important;
+      background-color: $color-gold-4 !important;
       font-weight: 700 !important;
       color: $color-blue-1 !important;
     }

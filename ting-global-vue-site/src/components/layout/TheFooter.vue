@@ -79,7 +79,7 @@
 
   &__heading {
     font-size: 2.2rem;
-    color: $color-gold-1;
+    color: $color-gold-4;
     margin-bottom: 1.5rem;
 
     @include respond(mobile) {
