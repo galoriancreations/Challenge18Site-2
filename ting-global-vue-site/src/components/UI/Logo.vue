@@ -13,10 +13,19 @@ export default {
 <style lang="scss">
 @import "../../sass/base.scss";
 .logo {
-  height: 11rem;
+  height: 10rem;
+  transition: height 0.5s;
 
   @include respond(mobile) {
     height: 8rem;
+  }
+}
+
+.header.sticky .logo {
+  height: 7rem;
+
+  @include respond(mobile) {
+    height: 6rem;
   }
 }
 </style>

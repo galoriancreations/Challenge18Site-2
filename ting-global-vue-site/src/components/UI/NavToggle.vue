@@ -57,5 +57,9 @@ export default {
       }
     }
   }
+
+  &.sticky:not(.active) &__nav-toggle span {
+    background-color: #000;
+  }
 }
 </style>

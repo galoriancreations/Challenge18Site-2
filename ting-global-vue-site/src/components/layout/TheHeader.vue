@@ -1,5 +1,8 @@
 <template>
-  <header :class="{ header: true, active: navOpen }">
+  <header
+    :class="{ header: true, active: navOpen, sticky: sticky }"
+    ref="header"
+  >
     <Logo />
     <NavToggle />
     <nav class="header__navigation">
@@ -25,6 +28,7 @@ export default {
   data() {
     return {
       navOpen: false,
+      sticky: false,
     };
   },
   methods: {
@@ -40,11 +44,14 @@ export default {
       document.querySelector("body").style.overflow = value ? "hidden" : null;
     },
   },
-  created() {
+  mounted() {
     window.addEventListener("resize", () => {
       if (window.innerWidth > 1100 && this.navOpen) {
         this.navOpen = false;
       }
+    });
+    window.addEventListener("scroll", () => {
+      this.sticky = window.scrollY > 0 && !this.active;
     });
   },
   beforeDestroy() {
@@ -71,9 +78,27 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.5s;
 
   @include respond(mobile) {
     padding: 1.5rem $padding-sides-mobile;
+  }
+
+  &.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(#fff, 0.9);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  &.sticky &__nav-item {
+    @media only screen and (min-width: 1001px) {
+      color: #000;
+    }
   }
 
   &__navigation {
@@ -82,9 +107,7 @@ export default {
 
   &__nav-item {
     list-style: none;
-    // text-transform: uppercase;
     font-size: 1.6rem;
-    // letter-spacing: 0.15rem;
     font-weight: 500;
     display: block;
     color: #fff;
