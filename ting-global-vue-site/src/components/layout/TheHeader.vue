@@ -4,14 +4,14 @@
     <Logo />
     <NavToggle />
     <nav class="header__navigation">
-      <NavItem link="/">Home</NavItem>
-      <NavItem link="/what-we-do" reverse>What We Do</NavItem>
-      <NavItem link="/about">About</NavItem>
-      <NavItem link="/blog" reverse>Blog</NavItem>
-      <NavItem link="/scores">Scores</NavItem>
-      <NavItem link="/players" reverse>Players</NavItem>
-      <NavItem link="/contact">Contact</NavItem>
-      <NavItem link="/register" reverse>Register</NavItem>
+      <NavItem
+        v-for="(item, index) in navigationItems"
+        :key="item.link"
+        :link="item.link"
+        :reverse="index % 2 !== 0"
+      >
+        {{ item.text }}
+      </NavItem>
     </nav>
   </header>
 </template>
@@ -29,6 +29,24 @@ export default {
       navOpen: false,
       sticky: false,
     };
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuth;
+    },
+    navigationItems() {
+      const items = [
+        { link: "/", text: "Home" },
+        { link: "/what-we-do", text: "What We Do" },
+        { link: "/about", text: "About" },
+        { link: "/blog", text: "Blog" },
+        { link: "/scores", text: "Scores" },
+        { link: "/players", text: "Players" },
+        { link: "/contact", text: "Contact" },
+        { link: "/login", text: "Login", hide: this.isLoggedIn },
+      ];
+      return items.filter((item) => !item.hide);
+    },
   },
   methods: {
     toggleNav() {
@@ -85,9 +103,6 @@ export default {
 
   &.sticky {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     background-color: rgba(#fff, 0.9);
     box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
     padding-top: 0.5rem;

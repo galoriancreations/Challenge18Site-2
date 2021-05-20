@@ -126,6 +126,10 @@
   &__logo {
     margin-top: 6rem;
     width: 25rem;
+
+    @include respond(mobile) {
+      margin-top: 4rem;
+    }
   }
 }
 </style>

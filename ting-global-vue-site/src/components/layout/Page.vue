@@ -33,7 +33,6 @@ export default {
 
 <style lang="scss">
 .page {
-  min-height: 250vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
