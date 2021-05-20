@@ -11,6 +11,7 @@ export default {};
 </script>
 
 <style lang="scss">
+@import "./sass/base.scss";
 *,
 *::before,
 *::after {
