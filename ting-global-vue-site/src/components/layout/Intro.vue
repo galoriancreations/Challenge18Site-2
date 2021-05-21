@@ -27,6 +27,7 @@
     url(../../assets/intro-bg.jpg);
   background-position: center;
   background-size: cover;
+  background-attachment: fixed;
   padding: 20rem $padding-sides-desktop 19rem;
   color: #fff;
   position: relative;
@@ -37,6 +38,7 @@
 
   @include respond(mobile) {
     padding: 14rem $padding-sides-mobile 13rem;
+    background-attachment: initial;
   }
 
   &__content {
@@ -76,7 +78,7 @@
     }
 
     @include respond(mobile) {
-      font-size: 1.8rem;
+      font-size: 1.7rem;
     }
   }
 
@@ -87,7 +89,7 @@
     width: 25rem;
 
     @include respond(mobile) {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
     }
   }
 }

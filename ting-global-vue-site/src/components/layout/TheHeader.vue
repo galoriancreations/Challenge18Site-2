@@ -90,7 +90,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 2rem $padding-sides-desktop;
+  padding: 1.5rem $padding-sides-desktop;
   z-index: 999;
   display: flex;
   justify-content: space-between;
@@ -107,12 +107,6 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-  }
-
-  &.sticky &__nav-item {
-    @media only screen and (min-width: 1001px) {
-      color: #000;
-    }
   }
 
   &__navigation {
@@ -144,10 +138,23 @@ export default {
       transition: all 0.5s;
       &:hover,
       &.active {
-        color: $color-gold-1;
+        color: $color-gold-3;
       }
     }
   }
+  &.sticky &__nav-item {
+    color: #000;
+    @include respond(tablet) {
+      color: #fff;
+    }
+  }
+  // &.sticky:not(.active) &__nav-item a {
+  //   &:hover,
+  //   &.active {
+  //     color: $color-blue-3;
+  //   }
+  // }
+
   @include respond(tablet) {
     &::after {
       content: "";

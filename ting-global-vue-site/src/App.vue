@@ -7,7 +7,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    io() {
+      return this.$store.getters.io;
+    },
+  },
+  created() {
+    this.io.on("allBoards", ({ challenges }) =>
+      this.$store.dispatch("updateResults", challenges)
+    );
+  },
+};
 </script>
 
 <style lang="scss">

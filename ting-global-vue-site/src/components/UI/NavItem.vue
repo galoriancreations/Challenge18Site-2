@@ -1,6 +1,6 @@
 <template>
   <li :class="classes" @click="closeNav">
-    <RouterLink :to="link" activeClass="active" exact>
+    <RouterLink :to="link" activeClass="active" exact :class="linkClasses">
       <slot />
     </RouterLink>
   </li>
@@ -11,6 +11,7 @@ export default {
   props: {
     link: String,
     reverse: Boolean,
+    button: Boolean,
   },
   computed: {
     classes() {
@@ -18,6 +19,9 @@ export default {
         "header__nav-item": true,
         reverse: this.reverse,
       };
+    },
+    linkClasses() {
+      return this.button ? "button button--blue" : null;
     },
   },
   inject: ["closeNav"],

@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <TheHeader />
-    <PageHeading v-if="showHeading" :title="title" :name="name" />
+    <PageHeading v-if="showHeading" />
     <slot />
     <TheFooter />
   </div>
@@ -27,6 +27,12 @@ export default {
       ? `${this.title} – The Innovation Nation Games`
       : "The Innovation Nation Games";
     window.scrollTo(0, 0);
+  },
+  provide() {
+    return {
+      name: this.name,
+      title: this.title,
+    };
   },
 };
 </script>
