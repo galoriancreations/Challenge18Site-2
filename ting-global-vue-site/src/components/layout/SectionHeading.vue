@@ -1,13 +1,24 @@
 <template>
   <div class="section-heading-wrapper">
-    <h2 class="section-heading">
+    <h2 :class="classes">
       <slot />
     </h2>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    extraClass: String,
+  },
+  computed: {
+    classes() {
+      let classes = "section-heading";
+      if (this.extraClass) classes += ` ${this.extraClass}`;
+      return classes;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -37,10 +48,9 @@ export default {};
     left: 50%;
     transform: translateX(-50%);
     top: calc(100% + 1rem);
-    height: 0.5rem;
-    width: 60%;
+    width: 50%;
     max-width: 18rem;
-    background-color: $color-blue-3;
+    border-top: 0.5rem dotted $color-blue-3;
   }
 }
 </style>

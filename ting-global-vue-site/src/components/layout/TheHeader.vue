@@ -148,7 +148,8 @@ export default {
       width: auto;
       letter-spacing: initial;
       text-transform: none;
-      color: #fff;
+      color: #000;
+      font-weight: 500;
       font-size: inherit;
       padding: 1rem 4rem;
 
@@ -217,6 +218,12 @@ export default {
       &:not(:last-child) {
         margin-right: 0;
         margin-bottom: 3.5rem;
+      }
+      .button {
+        background-color: $color-gold-4;
+        color: #000;
+        font-weight: 600;
+        width: 20rem;
       }
     }
     &.active &__nav-item {

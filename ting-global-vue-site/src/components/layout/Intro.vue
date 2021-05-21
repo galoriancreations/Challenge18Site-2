@@ -83,12 +83,14 @@
 
   .button {
     margin: auto;
-    font-size: 1.9rem;
+    font-size: 1.8rem;
     font-weight: 600;
     width: 25rem;
+    padding: 1.2rem 0 1rem;
 
     @include respond(mobile) {
       font-size: 1.5rem;
+      padding: 1rem;
     }
   }
 }

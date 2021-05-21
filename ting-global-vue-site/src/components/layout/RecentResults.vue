@@ -71,14 +71,14 @@ export default {
 
 .recent-results {
   & &__button {
-    margin-top: 6rem;
+    margin-top: 5rem;
     font-size: 1.5rem;
     font-weight: 600;
     width: 22rem;
 
     @include respond(mobile) {
       margin-top: 4rem;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
   }
 }

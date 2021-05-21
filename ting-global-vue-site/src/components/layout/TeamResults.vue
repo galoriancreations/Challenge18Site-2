@@ -3,7 +3,9 @@
     <BaseSpinner v-if="loading" />
     <div v-else class="team-results__grid">
       <div v-for="team in teams" :key="team.team" class="team-results__item">
-        <h2 class="team-results__heading">{{ team.team }}</h2>
+        <SectionHeading extraClass="team-results__heading">
+          {{ team.team }}
+        </SectionHeading>
         <vue-good-table
           class="results-table team-results__table"
           :columns="columns"
@@ -54,7 +56,7 @@ export default {
   &__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 8rem;
+    row-gap: 8.5rem;
     column-gap: 7rem;
 
     @include respond(tablet-sm) {
@@ -63,16 +65,22 @@ export default {
 
     @include respond(mobile-land) {
       grid-template-columns: 1fr;
+      row-gap: 6.5rem;
     }
   }
 
-  &__heading {
+  & &__heading {
     font-size: 2.8rem;
     font-weight: 800;
     color: $color-blue-2;
     word-wrap: break-word;
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
+
+    @include respond(mobile) {
+      font-size: 2.4rem;
+      margin-bottom: 5rem;
+    }
   }
 }
 </style>
