@@ -148,7 +148,7 @@ export default {
       width: auto;
       letter-spacing: initial;
       text-transform: none;
-      color: #000;
+      color: #000 !important;
       font-weight: 500;
       font-size: inherit;
       padding: 1rem 4rem;

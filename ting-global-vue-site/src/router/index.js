@@ -26,7 +26,7 @@ export default new VueRouter({
         { path: "/players", component: Players },
         { path: "/contact", component: Contact },
         { path: "/login", component: Login },
-        { path: "/signup", component: Signup },
+        { path: "/register", component: Signup },
         { path: "/counter-test", component: CounterTest },
     ]
 });

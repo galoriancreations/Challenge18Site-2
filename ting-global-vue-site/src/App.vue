@@ -74,11 +74,11 @@ a {
 }
 
 .page-enter-active {
-  transition: opacity 0.4s;
+  transition: opacity 0.5s;
 }
 
 .page-leave-active {
-  transition: opacity 0.4s;
+  transition: opacity 0.5s;
 }
 
 .page-enter-to,
