@@ -42,5 +42,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #fff;
+  position: relative;
+  z-index: 10;
 }
 </style>

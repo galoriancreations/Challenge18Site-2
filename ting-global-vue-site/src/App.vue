@@ -3,11 +3,15 @@
     <Transition name="page" mode="out-in">
       <RouterView />
     </Transition>
+    <SpinningLogoBg />
   </div>
 </template>
 
 <script>
+import SpinningLogoBg from "./components/extras/SpinningLogoBg";
+
 export default {
+  components: { SpinningLogoBg },
   computed: {
     io() {
       return this.$store.getters.io;
