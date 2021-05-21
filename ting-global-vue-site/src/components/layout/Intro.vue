@@ -13,7 +13,7 @@
         tournament a trophy is awarded to the winning clubs.
       </p>
     </div>
-    <BaseButton link="/register">Register</BaseButton>
+    <BaseButton link="/register" variant="gold">Register</BaseButton>
     <WavePatternBottom />
   </section>
 </template>
@@ -22,7 +22,6 @@
 @import "../../sass/base.scss";
 
 .intro {
-  //   min-height: 70rem;
   background-image: linear-gradient(to right, rgba(#000, 0.2), rgba(#000, 0.2)),
     url(../../assets/intro-bg.jpg);
   background-position: center;

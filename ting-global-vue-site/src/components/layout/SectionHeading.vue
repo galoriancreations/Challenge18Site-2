@@ -36,15 +36,11 @@ export default {};
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: calc(100% + 0.8rem);
+    top: calc(100% + 1rem);
     height: 0.5rem;
-    width: 80%;
+    width: 60%;
     max-width: 18rem;
     background-color: $color-blue-3;
-
-    @include respond(mobile) {
-      height: 0.4rem;
-    }
   }
 }
 </style>

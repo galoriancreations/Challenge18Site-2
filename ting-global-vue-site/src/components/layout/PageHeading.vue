@@ -18,7 +18,6 @@ export default {
 
 .page-heading {
   height: 50rem;
-  background-color: blue;
   position: relative;
   background-position: center;
   background-size: cover;

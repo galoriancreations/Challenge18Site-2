@@ -9,6 +9,7 @@
         :key="item.link"
         :link="item.link"
         :reverse="index % 2 !== 0"
+        :button="item.button"
       >
         {{ item.text }}
       </NavItem>
@@ -43,7 +44,7 @@ export default {
         { link: "/scores", text: "Scores" },
         { link: "/players", text: "Players" },
         { link: "/contact", text: "Contact" },
-        { link: "/login", text: "Login", hide: this.isLoggedIn },
+        { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
       ];
       return items.filter((item) => !item.hide);
     },
@@ -111,11 +112,12 @@ export default {
 
   &__navigation {
     display: flex;
+    align-items: center;
   }
 
   &__nav-item {
     list-style: none;
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     font-weight: 500;
     display: block;
     color: #fff;
@@ -139,6 +141,19 @@ export default {
       &:hover,
       &.active {
         color: $color-gold-3;
+      }
+    }
+
+    .button {
+      width: auto;
+      letter-spacing: initial;
+      text-transform: none;
+      color: #fff;
+      font-size: inherit;
+      padding: 1rem 4rem;
+
+      &:hover {
+        color: $color-azure !important;
       }
     }
   }

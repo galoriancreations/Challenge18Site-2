@@ -2,13 +2,17 @@
   <WhiteSection class="recent-results">
     <SectionHeading>Recent Results</SectionHeading>
     <BaseSpinner v-if="loading" />
-    <vue-good-table
-      v-else
-      class="results-table"
-      :columns="columns"
-      :rows="rows"
-      theme="polar-bear"
-    />
+    <div v-else class="recent-results__content">
+      <vue-good-table
+        class="results-table"
+        :columns="columns"
+        :rows="rows"
+        theme="polar-bear"
+      />
+      <BaseButton link="/scores" variant="blue" class="recent-results__button">
+        View All
+      </BaseButton>
+    </div>
   </WhiteSection>
 </template>
 
@@ -61,3 +65,21 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "../../sass/base.scss";
+
+.recent-results {
+  & &__button {
+    margin-top: 6rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 22rem;
+
+    @include respond(mobile) {
+      margin-top: 4rem;
+      font-size: 1.4rem;
+    }
+  }
+}
+</style>

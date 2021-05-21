@@ -21,7 +21,7 @@ export default {
       };
     },
     linkClasses() {
-      return this.button ? "button button--blue" : null;
+      return this.button ? "button button--darkblue" : null;
     },
   },
   inject: ["closeNav"],
