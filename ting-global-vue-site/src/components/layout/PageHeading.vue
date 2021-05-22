@@ -108,8 +108,8 @@ export default {
     text-align: center;
 
     @include respond(mobile) {
-      font-size: 4.8rem;
-      margin-top: 22rem;
+      font-size: 4rem;
+      margin-top: 23rem;
     }
   }
 

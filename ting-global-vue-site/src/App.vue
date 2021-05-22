@@ -61,6 +61,11 @@ h4 {
 
 p {
   line-height: 1.6;
+  font-size: 1.75rem;
+
+  @include respond(mobile) {
+    font-size: 1.55rem;
+  }
 }
 
 a {

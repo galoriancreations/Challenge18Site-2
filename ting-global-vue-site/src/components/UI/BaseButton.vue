@@ -36,6 +36,10 @@ export default {
   padding: 1rem 3rem;
   margin: auto;
 
+  @include respond(mobile) {
+    font-size: 1.4rem;
+  }
+
   &--gold {
     background-color: $color-gold-4;
     color: #000;
