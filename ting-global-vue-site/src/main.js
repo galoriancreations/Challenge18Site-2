@@ -5,9 +5,7 @@ import store from "./store";
 
 import VueGoodTable from "vue-good-table";
 import "vue-good-table/dist/vue-good-table.css";
-import VueAwesomeSwiper from "vue-awesome-swiper";
-import "swiper/css/swiper.css";
-
+import VueAgile from "vue-agile";
 
 import Page from "./components/layout/Page";
 import BaseButton from "./components/UI/BaseButton";
@@ -20,7 +18,7 @@ import WavePatternTop from "./components/extras/WavePatternTop";
 Vue.config.productionTip = false;
 
 Vue.use(VueGoodTable);
-Vue.use(VueAwesomeSwiper);
+Vue.use(VueAgile);
 
 Vue.component("Page", Page);
 Vue.component("BaseButton", BaseButton);

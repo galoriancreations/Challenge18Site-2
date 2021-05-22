@@ -71,7 +71,6 @@ export default {
 
   & &__heading {
     font-size: 2.8rem;
-    font-weight: 800;
     color: $color-blue-2;
     word-wrap: break-word;
     text-align: center;

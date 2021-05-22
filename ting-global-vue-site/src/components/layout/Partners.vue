@@ -1,12 +1,11 @@
 <template>
   <section class="partners">
     <SectionHeading small>In Partnership With</SectionHeading>
-    <div class="partners__grid"></div>
-    <Swiper :options="swiperOptions">
-      <SwiperSlide v-for="image in images" :key="image">
+    <agile :options="swiperOptions">
+      <div v-for="image in images" :key="image" class="partners__slide">
         <img class="partners__img" :src="image" />
-      </SwiperSlide>
-    </Swiper>
+      </div>
+    </agile>
   </section>
 </template>
 
@@ -17,29 +16,32 @@ import image3 from "../../assets/partners/hanson.jpg";
 import image4 from "../../assets/partners/h+.jpg";
 import image5 from "../../assets/partners/tlvseed.jpg";
 
-const slides = () => {
-  return window.innerWidth < 750 ? 2 : window.innerWidth < 1000 ? 3 : 5;
-};
-
 export default {
   data() {
     return {
       images: [image1, image2, image3, image4, image5],
       swiperOptions: {
-        slidesPerView: slides(),
-        loop: true,
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false,
-        },
-        observer: true,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        slidesToShow: 2,
+        navButtons: false,
+        dots: false,
+        responsive: [
+          {
+            breakpoint: 750,
+            settings: {
+              slidesToShow: 3,
+            },
+          },
+          {
+            breakpoint: 1000,
+            settings: {
+              slidesToShow: 5,
+            },
+          },
+        ],
       },
     };
-  },
-  mounted() {
-    window.addEventListener("resize", () => {
-      this.swiperOptions.slidesPerView = slides();
-    });
   },
 };
 </script>

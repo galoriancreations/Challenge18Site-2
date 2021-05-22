@@ -132,7 +132,7 @@ export default {
     &:not(:last-child) {
       margin-right: 5rem;
       @include respond(tablet-land) {
-        margin-right: 4.5rem;
+        margin-right: 4rem;
       }
     }
     a {

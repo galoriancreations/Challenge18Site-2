@@ -34,7 +34,7 @@ export default {
   display: inline-block;
   font-size: 4rem;
   letter-spacing: -0.5px;
-  font-weight: 800;
+  font-weight: 600;
   position: relative;
   color: $color-blue-2;
   margin-bottom: 8rem;
