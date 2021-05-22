@@ -115,6 +115,7 @@ export default {
   .button {
     width: 20rem;
     margin-top: 2.5rem;
+    font-weight: 600;
 
     @include respond(tablet-land) {
       margin-top: 3.5rem;
@@ -166,15 +167,14 @@ export default {
 
   // TEMPORARY CODE UNTIL A BETTER SOLUTION IS FOUND
   &:not(:last-child) &__grid {
-    grid-template-columns: 1fr;
-    justify-content: center;
-    justify-items: center;
-
     .team-member {
-      max-width: 28rem;
+      position: relative;
+      left: 41vw;
+      transform: translateX(-50%);
 
       @include respond(mobile) {
-        max-width: initial;
+        left: initial;
+        transform: none;
       }
     }
   }
