@@ -1,8 +1,8 @@
 <template>
   <Page title="What We Do" name="what-we-do">
-    <main class="section-white what-we-do">
+    <WhiteSection tag="main" class="what-we-do">
       <section class="our-goals">
-        <SectionHeading>Our Goals</SectionHeading>
+        <SectionHeading small>Our Goals</SectionHeading>
         <p class="our-goals__text">
           On August 2, 2015, 193 UN member states agreed on THE 17 GOALS for the
           sustainable development of humanity, achieved by 2030. Goals that we,
@@ -16,7 +16,9 @@
         </p>
       </section>
       <section class="days-18">
-        <SectionHeading>18 Days of Sustainability & Leadership</SectionHeading>
+        <SectionHeading small>
+          18 Days of Sustainability & Leadership
+        </SectionHeading>
         <section class="days-18__subsection">
           <p>
             18-day challenge that is designed to allow players from one or two
@@ -123,7 +125,7 @@
         </section>
         <BaseButton link="/register" variant="gold">Join Me</BaseButton>
       </section>
-    </main>
+    </WhiteSection>
   </Page>
 </template>
 
@@ -133,11 +135,9 @@
   text-align: center;
 
   .section-heading {
-    font-size: 3.7rem;
     margin-bottom: 6rem;
 
     @include respond(mobile) {
-      font-size: 2.8rem;
       margin-bottom: 4.5rem;
     }
   }

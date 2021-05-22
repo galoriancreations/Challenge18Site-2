@@ -1,8 +1,19 @@
 <template>
-  <section class="section-white">
+  <component :is="tag" class="section-white">
     <slot />
-  </section>
+  </component>
 </template>
+
+<script>
+export default {
+  props: {
+    tag: {
+      type: String,
+      default: "section",
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 @import "../../sass/base.scss";

@@ -46,7 +46,7 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  padding: 17rem $padding-sides-desktop 8rem;
+  padding: 16rem $padding-sides-desktop 7rem;
 
   @include respond(tablet) {
     flex-direction: column;

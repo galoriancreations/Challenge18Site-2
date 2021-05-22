@@ -10,10 +10,12 @@
 export default {
   props: {
     extraClass: String,
+    small: Boolean,
   },
   computed: {
     classes() {
       let classes = "section-heading";
+      if (this.small) classes += " section-heading--small";
       if (this.extraClass) classes += ` ${this.extraClass}`;
       return classes;
     },
@@ -41,6 +43,14 @@ export default {
   @include respond(mobile) {
     font-size: 3.4rem;
     margin-bottom: 6rem;
+  }
+
+  &--small {
+    font-size: 3.7rem;
+
+    @include respond(mobile) {
+      font-size: 2.8rem;
+    }
   }
 
   &::after {
