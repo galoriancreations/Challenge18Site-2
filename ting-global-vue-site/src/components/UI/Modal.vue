@@ -1,11 +1,11 @@
 <template>
   <div :class="classes">
     <div class="container modal__container">
-      <i class="modal__close fa fa-times" @click="$emit('closed')" />
-      <h2 class="heading-2 modal__heading">Thank you for reaching out!</h2>
-      <p class="pargraph modal__text">We'll be in touch soon.</p>
+      <i class="modal__close fa fa-times" @click="closeModal" />
+      <h2 class="heading-2 modal__heading">{{ heading }}</h2>
+      <p class="pargraph modal__text">{{ text }}</p>
     </div>
-    <div class="modal__backdrop" @click="$emit('closed')" />
+    <div class="modal__backdrop" @click="closeModal" />
   </div>
 </template>
 
@@ -13,14 +13,24 @@
 export default {
   props: {
     active: Boolean,
+    error: Boolean,
   },
-  emits: ["closed"],
+  inject: ["closeModal"],
   computed: {
     classes() {
       return {
         modal: true,
         active: this.active,
+        error: this.error,
       };
+    },
+    heading() {
+      return !this.error ? "Thank you for reaching out!" : "An error occured";
+    },
+    text() {
+      return !this.error
+        ? "We'll be in touch soon."
+        : "Please try again in a few moments.";
     },
   },
 };
@@ -89,6 +99,14 @@ export default {
     }
   }
 
+  &.error &__close {
+    color: $color-error;
+
+    &:hover {
+      color: $color-azure;
+    }
+  }
+
   &__heading {
     color: $color-blue-2;
     letter-spacing: initial;
@@ -97,8 +115,13 @@ export default {
     font-size: 2.5rem;
   }
 
+  &.error &__heading {
+    color: $color-error;
+  }
+
   &__text {
     font-size: 1.65rem;
+
     @include respond(mobile) {
       font-size: 1.5rem;
     }

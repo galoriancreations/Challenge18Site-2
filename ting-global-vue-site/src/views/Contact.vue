@@ -9,7 +9,7 @@
       </p>
       <ContactForm @success="submitHandler" />
       <BaseSpinner v-if="sending" />
-      <SuccessModal :active="showModal" @closed="showModal = false" />
+      <Modal :active="showModal" :error="error" />
     </WhiteSection>
   </Page>
 </template>
@@ -17,10 +17,10 @@
 <script>
 import emailjs from "emailjs-com";
 import ContactForm from "../components/UI/ContactForm";
-import SuccessModal from "../components/UI/SuccessModal";
+import Modal from "../components/UI/Modal";
 
 export default {
-  components: { ContactForm, SuccessModal },
+  components: { ContactForm, Modal },
   data() {
     return {
       showModal: false,
@@ -49,10 +49,14 @@ export default {
         return false;
       }
     },
+    closeModal() {
+      this.showModal = false;
+    },
   },
   provide() {
     return {
       sendMessage: this.submitHanlder,
+      closeModal: this.closeModal,
     };
   },
 };
