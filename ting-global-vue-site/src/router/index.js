@@ -10,7 +10,8 @@ import Scores from "../views/Scores";
 import Players from "../views/Players";
 import Contact from "../views/Contact";
 import Login from "../views/Login";
-import Signup from "../views/Signup";
+import Register from "../views/Register";
+import NotFound from "../views/404";
 import CounterTest from "../CounterTest";
 
 Vue.use(VueRouter);
@@ -28,7 +29,8 @@ export default new VueRouter({
         { path: "/players", component: Players },
         { path: "/contact", component: Contact },
         { path: "/login", component: Login },
-        { path: "/register", component: Signup },
+        { path: "/register", component: Register },
         { path: "/counter-test", component: CounterTest },
+        { path: "/:notFound(.*)", component: NotFound },
     ]
 });

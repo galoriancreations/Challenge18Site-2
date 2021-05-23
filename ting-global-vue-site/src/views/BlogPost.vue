@@ -1,16 +1,18 @@
 <template>
-  <Page :title="post.title">
+  <Page v-if="post" :title="post.title">
     <BlogPostHeading>{{ post.title }}</BlogPostHeading>
-    <main class="section-white post-content" v-html="post.content" />
+    <WhiteSection tag="main" class="post-content" v-html="post.content" />
   </Page>
+  <NotFound v-else />
 </template>
 
 <script>
 import posts from "../data/blog";
 import BlogPostHeading from "../components/layout/BlogPostHeading";
+import NotFound from "./404";
 
 export default {
-  components: { BlogPostHeading },
+  components: { BlogPostHeading, NotFound },
   props: {
     postId: String,
   },

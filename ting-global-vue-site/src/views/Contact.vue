@@ -7,7 +7,7 @@
         issue? Interested in collaborating? Leave us a message and we'll get
         back to you as soon as we can.
       </p>
-      <ContactForm @success="submitHandler" />
+      <ContactForm />
       <BaseSpinner v-if="sending" />
       <Modal :active="showModal" :error="error" />
     </WhiteSection>

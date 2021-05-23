@@ -1,9 +1,9 @@
 <template>
   <div :class="classes">
-    <div class="container modal__container">
+    <div class="modal__container">
       <i class="modal__close fa fa-times" @click="closeModal" />
-      <h2 class="heading-2 modal__heading">{{ heading }}</h2>
-      <p class="pargraph modal__text">{{ text }}</p>
+      <h2 class="modal__heading">{{ heading }}</h2>
+      <p class="modal__text">{{ text }}</p>
     </div>
     <div class="modal__backdrop" @click="closeModal" />
   </div>
