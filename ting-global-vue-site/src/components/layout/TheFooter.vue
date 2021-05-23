@@ -19,9 +19,9 @@
     </div>
     <div class="footer__column">
       <h3 class="footer__heading">Contact Us</h3>
-      <div class="footer__contact footer__text">
-        <p><strong>Tel:</strong> +972-559721123</p>
-        <p>
+      <div class="footer__contact">
+        <p class="footer__text"><strong>Tel:</strong> +972-559721123</p>
+        <p class="footer__text">
           <strong>Email: </strong>
           <a class="footer__link" href="mailto:support@ting.global"
             >support@ting.global</a

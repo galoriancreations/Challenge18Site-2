@@ -1,8 +1,8 @@
 <template>
-  <RouterLink v-if="link" :to="link" :class="`button button--${variant}`">
+  <RouterLink v-if="link" :to="link" :class="classes">
     <slot />
   </RouterLink>
-  <button v-else class="button">
+  <button v-else :class="classes">
     <slot />
   </button>
 </template>
@@ -12,6 +12,11 @@ export default {
   props: {
     link: String,
     variant: String,
+  },
+  computed: {
+    classes() {
+      return `button button--${this.variant}`;
+    },
   },
 };
 </script>
