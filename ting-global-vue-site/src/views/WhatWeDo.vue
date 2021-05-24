@@ -123,7 +123,7 @@
             </li>
           </ul>
         </section>
-        <BaseButton link="/register" variant="gold">Join Us</BaseButton>
+        <BaseButton link="/membership" variant="gold">Join Us</BaseButton>
       </section>
     </WhiteSection>
   </Page>

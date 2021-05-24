@@ -11,14 +11,17 @@
     <div class="footer__column">
       <h3 class="footer__heading">Recent Posts</h3>
       <ul class="footer__text footer__list">
-        <li>18 days of Climate Action</li>
-        <li>Can A.I. Humanoid Teach Us How To Be More Human</li>
-        <li>Impact Economy & Challenge 18</li>
-        <li>Get challenged by little Sophia and Prof Einstein</li>
+        <li v-for="post in recentPosts" :key="post.id">
+          <RouterLink class="footer__link" :to="`/blog/${post.id}`">
+            {{ post.title }}
+          </RouterLink>
+        </li>
       </ul>
     </div>
     <div class="footer__column">
-      <h3 class="footer__heading">Contact Us</h3>
+      <h3 class="footer__heading">
+        <RouterLink class="footer__link" to="/contact">Contact Us</RouterLink>
+      </h3>
       <div class="footer__contact">
         <p class="footer__text"><strong>Tel:</strong> +972-559721123</p>
         <p class="footer__text">
@@ -37,8 +40,30 @@
   </footer>
 </template>
 
+<script>
+import posts from "../../data/blog";
+
+export default {
+  data() {
+    return {
+      posts,
+    };
+  },
+  computed: {
+    recentPosts() {
+      return [
+        { title: "18 Days of Climate Action" },
+        { title: "Can A.I. Humanoid Teach Us How To Be More Human" },
+        { title: "Impact Economy & Challenge 18" },
+        { title: "Get challenged by little Sophia and Prof. Einstein" },
+      ];
+    },
+  },
+};
+</script>
+
 <style lang="scss">
-@import "../../sass/base.scss";
+@import "@/sass/base.scss";
 
 .footer {
   background-color: $color-blue-2;
@@ -119,8 +144,9 @@
 
   &__link {
     transition: color 0.5s;
+
     &:hover {
-      color: $color-gold-3;
+      color: $color-azure;
     }
   }
 

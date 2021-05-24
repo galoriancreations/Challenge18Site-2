@@ -15,7 +15,7 @@
           participants to share their work and form thinking and action groups
           together.
         </p>
-        <BaseButton link="/register" variant="gold">Join Us</BaseButton>
+        <BaseButton link="/membership" variant="gold">Join Us</BaseButton>
       </ImageWithText>
       <Partners />
       <section class="team-section">
@@ -173,7 +173,7 @@ export default {
       transform: translateX(-50%);
 
       @include respond(mobile) {
-        left: initial !important;
+        left: initial;
         transform: none;
       }
     }

@@ -13,7 +13,14 @@
         tournament a trophy is awarded to the winning clubs.
       </p>
     </div>
-    <BaseButton link="/register" variant="gold">Register</BaseButton>
+    <div class="intro__links">
+      <BaseButton link="/register" variant="blue">
+        Join for free
+      </BaseButton>
+      <BaseButton link="/membership" variant="gold">
+        Become a member
+      </BaseButton>
+    </div>
     <WavePatternBottom />
   </section>
 </template>
@@ -27,7 +34,7 @@
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  padding: 20rem $padding-sides-desktop 19rem;
+  padding: 19rem $padding-sides-desktop;
   color: #fff;
   position: relative;
 
@@ -36,7 +43,7 @@
   }
 
   @include respond(mobile) {
-    padding: 14rem $padding-sides-mobile 13rem;
+    padding: 14rem $padding-sides-mobile 12rem;
     background-attachment: initial;
   }
 
@@ -45,11 +52,15 @@
     justify-content: space-between;
     align-items: center;
     max-width: 95rem;
-    margin: 0 auto 5rem;
+    margin: 0 auto 6rem;
 
     @include respond(tablet) {
       flex-direction: column;
       text-align: center;
+    }
+
+    @include respond(mobile) {
+      margin-bottom: 5rem;
     }
   }
 
@@ -81,16 +92,35 @@
     }
   }
 
-  .button {
-    margin: auto;
-    font-size: 1.8rem;
-    font-weight: 600;
-    width: 25rem;
-    padding: 1.2rem 0 1rem;
+  &__links {
+    display: flex;
+    justify-content: center;
 
     @include respond(mobile) {
-      font-size: 1.5rem;
-      padding: 1rem;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .button {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      width: 25rem;
+      padding: 1.2rem 0 1rem;
+
+      @include respond(mobile) {
+        font-size: 1.4rem;
+        padding: 1rem;
+      }
+
+      &:not(:last-child) {
+        margin-right: 2.5rem;
+
+        @include respond(mobile) {
+          margin-right: 0;
+          margin-bottom: 1.5rem;
+        }
+      }
     }
   }
 }

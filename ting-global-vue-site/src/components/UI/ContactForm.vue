@@ -1,18 +1,18 @@
 <template>
-  <form class="contact-form" @submit.prevent="submitHandler">
-    <div class="contact-form__field">
-      <label for="name" class="contact-form__label">Name</label>
+  <form class="form" @submit.prevent="submitHandler">
+    <div class="form__field">
+      <label for="name" class="form__label">Name</label>
       <input
         v-model="formData.name"
         id="name"
         name="name"
         placeholder="Your name..."
         required
-        class="contact-form__input"
+        class="form__input"
       />
     </div>
-    <div class="contact-form__field">
-      <label for="email" class="contact-form__label">
+    <div class="form__field">
+      <label for="email" class="form__label">
         Email
       </label>
       <input
@@ -22,60 +22,60 @@
         placeholder="Your email address..."
         type="email"
         required
-        class="contact-form__input"
+        class="form__input"
       />
     </div>
-    <div class="contact-form__field">
-      <label for="phone" class="contact-form__label">Phone</label>
+    <div class="form__field">
+      <label for="phone" class="form__label">Phone</label>
       <input
         v-model="formData.phone"
         id="phone"
         name="phone"
         type="tel"
         placeholder="Your phone number (optional)... "
-        class="contact-form__input"
+        class="form__input"
       />
     </div>
-    <div class="contact-form__field">
-      <label for="organization" class="contact-form__label">Organization</label>
+    <div class="form__field">
+      <label for="organization" class="form__label">Organization</label>
       <input
         v-model="formData.organization"
         id="organization"
         name="organization"
         placeholder="Your organization (optional)... "
-        class="contact-form__input"
+        class="form__input"
       />
     </div>
-    <div class="contact-form__field">
-      <label for="role" class="contact-form__label">Role</label>
+    <div class="form__field">
+      <label for="role" class="form__label">Role</label>
       <input
         v-model="formData.role"
         id="role"
         name="role"
         placeholder="Your role (optional)... "
-        class="contact-form__input"
+        class="form__input"
       />
     </div>
-    <div class="contact-form__field">
-      <label for="subject" class="contact-form__label">Subject</label>
+    <div class="form__field">
+      <label for="subject" class="form__label">Subject</label>
       <input
         v-model="formData.subject"
         id="subject"
         name="subject"
         required
         placeholder="Subject of your message..."
-        class="contact-form__input"
+        class="form__input"
       />
     </div>
-    <div class="contact-form__field">
-      <label for="message" class="contact-form__label">Message</label>
+    <div class="form__field">
+      <label for="message" class="form__label">Message</label>
       <textarea
         v-model="formData.message"
         id="message"
         name="message"
         required
         placeholder="Leave your message here..."
-        class="contact-form__input contact-form__textarea"
+        class="form__input form__textarea"
       />
     </div>
     <BaseButton variant="blue">Submit</BaseButton>
@@ -115,7 +115,7 @@ export default {
 <style lang="scss">
 @import "../../sass/base.scss";
 
-.contact-form {
+.form {
   display: flex;
   flex-direction: column;
   max-width: 70rem;

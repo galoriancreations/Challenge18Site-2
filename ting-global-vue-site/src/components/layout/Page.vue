@@ -24,8 +24,8 @@ export default {
   },
   created() {
     document.title = this.title
-      ? `${this.title} – The Innovation Nation Games`
-      : "The Innovation Nation Games";
+      ? `${this.title} – Challenge 18`
+      : "Challenge 18";
     window.scrollTo(0, 0);
   },
   provide() {

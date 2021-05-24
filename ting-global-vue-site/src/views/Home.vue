@@ -1,5 +1,5 @@
 <template>
-  <Page :showHeading="false">
+  <Page title="Home" :showHeading="false">
     <Intro />
     <RecentResults />
   </Page>
