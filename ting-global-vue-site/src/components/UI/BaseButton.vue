@@ -55,18 +55,21 @@ export default {
     color: #fff;
   }
 
-  &--darkblue {
-    background-color: $color-blue-2;
-    color: #fff;
-  }
-
   &:hover {
     background-color: #fff;
     color: $color-azure;
     box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
   }
-  &:active {
-    outline: none;
+
+  &--outline {
+    background-color: transparent;
+    color: $color-blue-3;
+    border: 1.5px solid $color-blue-3;
+
+    &:hover {
+      background-color: $color-blue-3;
+      color: #fff;
+    }
   }
 }
 </style>

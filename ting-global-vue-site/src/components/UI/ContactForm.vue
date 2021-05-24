@@ -62,6 +62,7 @@
         v-model="formData.subject"
         id="subject"
         name="subject"
+        required
         placeholder="Subject of your message..."
         class="contact-form__input"
       />
@@ -72,6 +73,7 @@
         v-model="formData.message"
         id="message"
         name="message"
+        required
         placeholder="Leave your message here..."
         class="contact-form__input contact-form__textarea"
       />

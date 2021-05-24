@@ -80,6 +80,8 @@ export default {
         rgba(#4189bd, 0.8)
       ),
       url(../../assets/contact-bg.jpg);
+
+    background-position-y: bottom;
   }
 
   &#login {
@@ -89,7 +91,6 @@ export default {
         rgba(#4189bd, 0.8)
       ),
       url(../../assets/contact-2-bg.jpg);
-    background-position-y: bottom;
   }
 
   &#register {

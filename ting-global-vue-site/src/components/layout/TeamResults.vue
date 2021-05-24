@@ -3,7 +3,7 @@
     <BaseSpinner v-if="loading" />
     <div v-else class="team-results__grid">
       <div v-for="team in teams" :key="team.team" class="team-results__item">
-        <SectionHeading extraClass="team-results__heading">
+        <SectionHeading>
           {{ team.team }}
         </SectionHeading>
         <vue-good-table
@@ -69,16 +69,18 @@ export default {
     }
   }
 
-  & &__heading {
-    font-size: 2.8rem;
-    color: $color-blue-2;
-    word-wrap: break-word;
-    text-align: center;
-    margin-bottom: 6rem;
+  &__item {
+    .section-heading {
+      font-size: 2.8rem;
+      color: $color-blue-2;
+      word-wrap: break-word;
+      text-align: center;
+      margin-bottom: 6rem;
 
-    @include respond(mobile) {
-      font-size: 2.4rem;
-      margin-bottom: 5rem;
+      @include respond(mobile) {
+        font-size: 2.4rem;
+        margin-bottom: 5rem;
+      }
     }
   }
 }

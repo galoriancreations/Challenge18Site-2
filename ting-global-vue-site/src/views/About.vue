@@ -103,7 +103,7 @@ export default {
 @import "../sass/base.scss";
 .about {
   .partners {
-    margin: 10rem 0 8rem;
+    margin: 10.5rem 0 8.5rem;
 
     @include respond(mobile) {
       margin: 7rem 0 5.5rem;
@@ -173,7 +173,7 @@ export default {
       transform: translateX(-50%);
 
       @include respond(mobile) {
-        left: initial;
+        left: initial !important;
         transform: none;
       }
     }

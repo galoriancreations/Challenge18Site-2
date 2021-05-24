@@ -86,6 +86,7 @@ export default {
 
 <style lang="scss">
 @import "../../sass/base.scss";
+
 .header {
   position: absolute;
   top: 0;
@@ -124,6 +125,7 @@ export default {
 
     &:first-child {
       display: none;
+
       @include respond(tablet) {
         display: block;
       }
@@ -131,13 +133,16 @@ export default {
 
     &:not(:last-child) {
       margin-right: 5rem;
+
       @include respond(tablet-land) {
         margin-right: 4rem;
       }
     }
+
     a {
       color: inherit;
       transition: all 0.5s;
+
       &:hover,
       &.active {
         color: $color-gold-3;
@@ -155,21 +160,18 @@ export default {
 
       &:hover {
         color: $color-azure !important;
+        box-shadow: $boxshadow2;
       }
     }
   }
+
   &.sticky &__nav-item {
     color: #000;
+
     @include respond(tablet) {
       color: #fff;
     }
   }
-  // &.sticky:not(.active) &__nav-item a {
-  //   &:hover,
-  //   &.active {
-  //     color: $color-blue-3;
-  //   }
-  // }
 
   @include respond(tablet) {
     &::after {
@@ -185,10 +187,12 @@ export default {
       transition: all 0.5s;
       z-index: -1;
     }
+
     &.active::after {
       opacity: 1;
       visibility: visible;
     }
+
     &__navigation {
       position: absolute;
       top: 50vh;
@@ -203,22 +207,27 @@ export default {
       visibility: hidden;
       transition: all 0.5s;
     }
+
     &.active &__navigation {
       opacity: 1;
       visibility: visible;
     }
+
     &__nav-item {
       opacity: 0;
       font-size: 1.6rem;
       transform: translateX(-70vw);
       transition: all 0.5s;
+
       &.reverse {
         transform: translateX(70vw);
       }
+
       &:not(:last-child) {
         margin-right: 0;
         margin-bottom: 3.5rem;
       }
+
       .button {
         background-color: $color-gold-4;
         color: #000;
@@ -226,6 +235,7 @@ export default {
         width: 20rem;
       }
     }
+
     &.active &__nav-item {
       opacity: 1;
       transform: translateX(0);

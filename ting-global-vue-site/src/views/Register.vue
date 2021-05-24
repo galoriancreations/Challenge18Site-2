@@ -1,7 +1,7 @@
 <template>
   <Page title="Register" name="register">
-    <WhiteSection tag="main">
-      <section class="register">
+    <WhiteSection tag="main" class="register">
+      <section class="register-box">
         <p>
           To register for <strong>Challenge 18</strong>, please follow these two
           steps:
@@ -27,14 +27,23 @@
         </ol>
         <p>For example: <strong>User=Alex1</strong></p>
       </section>
+      <AuthSwitch mode="register" />
     </WhiteSection>
   </Page>
 </template>
 
+<script>
+import AuthSwitch from "../components/UI/AuthSwitch";
+
+export default {
+  components: { AuthSwitch },
+};
+</script>
+
 <style lang="scss">
 @import "../sass/base.scss";
 
-.register {
+.register-box {
   box-shadow: $boxshadow2;
   border-radius: 1rem;
   margin: auto;
@@ -54,7 +63,7 @@
     font-size: 2rem;
 
     @include respond(mobile) {
-      font-size: 1.8rem;
+      font-size: 1.7rem;
     }
 
     &:not(:last-child) {
