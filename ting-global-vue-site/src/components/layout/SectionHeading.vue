@@ -41,7 +41,7 @@ export default {
   max-width: 50rem;
 
   @include respond(mobile) {
-    font-size: 3.4rem;
+    font-size: 3rem;
     margin-bottom: 6rem;
   }
 

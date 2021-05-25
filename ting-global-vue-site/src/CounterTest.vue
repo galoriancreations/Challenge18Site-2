@@ -13,7 +13,7 @@ export default {
     return {
       counter: 2000,
       // io: socket("https://0.0.0.0")
-      io: socket("https://193.46.199.76")
+      io: socket("https://193.46.199.76:8087"),
     };
   },
   methods: {

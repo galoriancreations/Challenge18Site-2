@@ -127,7 +127,6 @@ export default {
   &#login &__heading,
   &#register &__heading,
   &#membership &__heading,
-  &#blogpost &__heading,
   &#notfound &__heading {
     margin-top: 19.5rem;
   }

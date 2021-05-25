@@ -65,6 +65,7 @@ p {
   font-size: 1.75rem;
 
   @include respond(mobile) {
+    line-height: 1.7;
     font-size: 1.55rem;
   }
 }
