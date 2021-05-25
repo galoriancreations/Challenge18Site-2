@@ -35,7 +35,7 @@ export default {
   border-radius: 100px;
   border: none;
   outline: none !important;
-  transition: all 0.4s;
+  transition: all 0.5s;
   text-align: center;
   cursor: pointer;
   padding: 1rem 3rem;
@@ -52,6 +52,11 @@ export default {
 
   &--blue {
     background-color: $color-blue-3;
+    color: #fff;
+  }
+
+  &--darkblue {
+    background-color: $color-blue-2;
     color: #fff;
   }
 

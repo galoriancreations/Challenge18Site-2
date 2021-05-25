@@ -80,7 +80,6 @@ export default {
         rgba(#4189bd, 0.8)
       ),
       url(../../assets/contact-bg.jpg);
-
     background-position-y: bottom;
   }
 
@@ -90,7 +89,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/contact-2-bg.jpg);
+      url(../../assets/temp-bg.jpg);
   }
 
   &#register {
@@ -99,7 +98,16 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/contact-2-bg.jpg);
+      url(../../assets/temp-bg.jpg);
+  }
+
+  &#membership {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
+      ),
+      url(../../assets/temp-bg.jpg);
   }
 
   &__heading {
@@ -117,7 +125,8 @@ export default {
 
   &#contact &__heading,
   &#login &__heading,
-  &#register &__heading {
+  &#register &__heading,
+  &#membership &__heading {
     margin-top: 19.5rem;
   }
 }

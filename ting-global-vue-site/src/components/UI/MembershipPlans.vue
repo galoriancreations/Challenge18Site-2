@@ -85,9 +85,9 @@ export default {
         },
         {
           feature: "Yearly Membership Fee (USD)",
-          "3Years": 150,
-          "2Years": 250,
-          "1Year": 350,
+          "3Years": "$150",
+          "2Years": "$250",
+          "1Year": "$350",
         },
       ],
     };
@@ -96,6 +96,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/sass/base.scss";
+
 .member-plans {
   max-width: 85rem;
   margin: auto;
@@ -106,6 +108,9 @@ export default {
   }
 
   &__row {
+    background-color: $color-gold-4;
+    color: $color-blue-1;
+
     &:last-child {
       * {
         font-weight: 700;

@@ -107,10 +107,15 @@
       font-weight: 600;
       width: 25rem;
       padding: 1.2rem 0 1rem;
+      box-shadow: $boxshadow2;
 
       @include respond(mobile) {
         font-size: 1.4rem;
         padding: 1rem;
+      }
+
+      &:hover {
+        box-shadow: $boxshadow1;
       }
 
       &:not(:last-child) {
