@@ -22,7 +22,7 @@ export default {
       images: [image1, image2, image3, image4, image5],
       swiperOptions: {
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 2000,
         slidesToShow: 2,
         navButtons: false,
         dots: false,
@@ -50,13 +50,23 @@ export default {
 @import "../../sass/base.scss";
 
 .partners {
-  .section-heading {
-    margin-bottom: 5rem;
-  }
-
   &__img {
     width: 100%;
     display: block;
+  }
+}
+
+.about .partners {
+  .section-heading {
+    margin-bottom: 5rem;
+  }
+}
+
+.home .partners {
+  margin-top: 10rem;
+
+  @include respond(mobile) {
+    margin-top: 7rem;
   }
 }
 </style>
