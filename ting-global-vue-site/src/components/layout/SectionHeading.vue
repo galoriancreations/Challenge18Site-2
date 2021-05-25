@@ -37,7 +37,7 @@ export default {
   font-weight: 600;
   position: relative;
   color: $color-blue-2;
-  margin-bottom: 8rem;
+  margin-bottom: 7rem;
   max-width: 50rem;
 
   @include respond(mobile) {

@@ -1,15 +1,19 @@
 <template>
   <Page title="Home" :showHeading="false">
     <Intro />
-    <RecentResults />
+    <WhiteSection>
+      <RecentResults />
+      <LatestVideos />
+    </WhiteSection>
   </Page>
 </template>
 
 <script>
 import Intro from "../components/layout/Intro";
 import RecentResults from "../components/layout/RecentResults";
+import LatestVideos from "../components/layout/LatestVideos";
 
 export default {
-  components: { Intro, RecentResults },
+  components: { Intro, RecentResults, LatestVideos },
 };
 </script>

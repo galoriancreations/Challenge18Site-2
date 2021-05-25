@@ -1,5 +1,5 @@
 <template>
-  <WhiteSection class="recent-results">
+  <section class="recent-results">
     <SectionHeading>Recent Results</SectionHeading>
     <BaseSpinner v-if="loading" />
     <div v-else class="recent-results__content">
@@ -9,11 +9,11 @@
         :rows="rows"
         theme="polar-bear"
       />
-      <BaseButton link="/scores" variant="blue" class="recent-results__button">
+      <BaseButton link="/scores" variant="blue">
         View All
       </BaseButton>
     </div>
-  </WhiteSection>
+  </section>
 </template>
 
 <script>
@@ -70,7 +70,7 @@ export default {
 @import "../../sass/base.scss";
 
 .recent-results {
-  & &__button {
+  .button {
     margin-top: 5rem;
     font-size: 1.5rem;
     font-weight: 600;

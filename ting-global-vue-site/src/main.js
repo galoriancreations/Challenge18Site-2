@@ -6,6 +6,7 @@ import store from "./store";
 import VueGoodTable from "vue-good-table";
 import "vue-good-table/dist/vue-good-table.css";
 import VueAgile from "vue-agile";
+import VueYoutube from "vue-youtube";
 
 import Page from "./components/layout/Page";
 import BaseButton from "./components/UI/BaseButton";
@@ -19,6 +20,7 @@ Vue.config.productionTip = false;
 
 Vue.use(VueGoodTable);
 Vue.use(VueAgile);
+Vue.use(VueYoutube);
 
 Vue.component("Page", Page);
 Vue.component("BaseButton", BaseButton);
