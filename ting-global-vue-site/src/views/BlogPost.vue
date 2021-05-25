@@ -1,5 +1,5 @@
 <template>
-  <Page v-if="post" :title="post.title">
+  <Page v-if="post" :title="post.title" name="blogpost">
     <BlogPostHeading>{{ post.title }}</BlogPostHeading>
     <WhiteSection tag="main" class="post-content" v-html="post.content" />
   </Page>

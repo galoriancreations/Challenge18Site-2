@@ -17,7 +17,7 @@
         </p>
         <BaseButton link="/membership" variant="gold">Join Us</BaseButton>
       </ImageWithText>
-      <Partners />
+      <Partners small />
       <section class="team-section">
         <SectionHeading small>The Team</SectionHeading>
         <div class="team-section__grid">

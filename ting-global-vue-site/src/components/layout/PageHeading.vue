@@ -126,8 +126,26 @@ export default {
   &#contact &__heading,
   &#login &__heading,
   &#register &__heading,
-  &#membership &__heading {
+  &#membership &__heading,
+  &#blogpost &__heading,
+  &#notfound &__heading {
     margin-top: 19.5rem;
+  }
+
+  &#blogpost &__heading {
+    font-size: 5rem;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    padding: 0 $padding-sides-desktop;
+    transform: translateY(-50%);
+
+    @include respond(mobile) {
+      font-size: 3.5rem;
+      padding: 0 $padding-sides-mobile;
+    }
   }
 }
 </style>

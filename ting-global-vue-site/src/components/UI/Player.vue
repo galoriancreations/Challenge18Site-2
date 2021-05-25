@@ -4,7 +4,7 @@
       <div class="image__container">
         <div class="elementor-widget-container">
           <figure class="wp-caption">
-            <img :src="card.imgSrc" class="" alt="" loading="eager" />
+            <img :src="card.imgSrc" :alt="card.name" loading="eager" />
             <figcaption class="caption-tittle">
               {{ card.name }}
             </figcaption>
@@ -13,9 +13,9 @@
       </div>
       <div class="text__wrapper">
         <div class="text__container">
-          <p>State: {{ card.state }}</p>
-          <p>School: {{ card.school }}</p>
-          <p>Score: {{ card.score }}</p>
+          <p><strong>State:</strong> {{ card.state }}</p>
+          <p><strong>School:</strong> {{ card.school }}</p>
+          <p><strong>Score:</strong> {{ card.score }}</p>
         </div>
       </div>
     </div>
@@ -24,59 +24,68 @@
 
 <script>
 export default {
-  props: ["card"],
+  props: {
+    card: Object,
+  },
 };
 </script>
 
 <style lang="scss">
 @import "../../sass/base.scss";
+
 .card__container {
-  padding: 37.328px;
-  width: 350px;
-  height: auto;
-  flex-grow: 1;
-}
-// .card__container:last-child {
-//   flex-grow: 10;
-// }
-
-img {
-  width: 100%;
-  object-fit: cover;
-  vertical-align: bottom;
-}
-.wp-caption {
-  margin-bottom: 20px;
-  --font-headings-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  --font-base-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, Noto Sans, sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #333;
+  border-radius: 1rem;
+  box-shadow: $boxshadow2;
+  overflow: hidden;
   text-align: center;
-  box-sizing: border-box;
-  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s,
-    -webkit-border-radius 0.3s, -webkit-box-shadow 0.3s;
+  max-width: 40rem;
+  margin: 0 auto;
 
+  img {
+    width: 100%;
+    object-fit: cover;
+    vertical-align: bottom;
+  }
+}
+
+.wp-caption {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 10px;
 }
 .caption-tittle {
   width: 100%;
-  height: 42px;
-  text-align: center;
-  background-color: rgb(248, 200, 5);
-  font-size: 28px;
+  background-color: $color-blue-2;
+  color: #fff;
+  font-size: 2.3rem;
+  font-family: "Spartan", sans-serif;
+  font-weight: 600;
+  padding: 1.3rem 1rem 0.9rem;
+
+  @include respond(mobile) {
+    font-size: 1.9rem;
+    padding: 1.5rem 1rem 1.1rem;
+  }
 }
 
-p {
-  margin-bottom: 2px;
-  margin-left: 4px;
+.text__wrapper {
+  padding: 3rem 1.5rem;
+
+  @include respond(mobile) {
+    padding: 2.5rem 1.5rem;
+  }
+
+  p {
+    line-height: 1.5;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  strong {
+    font-weight: 600;
+  }
 }
 </style>

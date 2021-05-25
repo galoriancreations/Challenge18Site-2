@@ -1,7 +1,7 @@
 <template>
   <Page title="Players" name="players">
     <WhiteSection class="players">
-      <div class="players__wrap">
+      <div class="players__grid">
         <Player v-for="player in players" :key="player.name" :card="player" />
       </div>
     </WhiteSection>
@@ -25,14 +25,14 @@ export default {
         },
         {
           imgSrc: "https://i.imgur.com/y1AcFjw.jpg",
-          name: "Mariam Abu rhima",
+          name: "Mariam Abu Rhima",
           state: "Israel",
           school: "Eroni Yud-Bet",
           score: 5569,
         },
         {
           imgSrc: "https://i.imgur.com/tgGlgsM.jpg",
-          name: "Fernanda_Matsuoka",
+          name: "Fernanda Matsuoka",
           state: "Brazil",
           school: "Brazil - Young Climate Leaders",
           score: 4523,
@@ -67,14 +67,16 @@ export default {
 </script>
 
 <style lang="scss">
-.players__wrap {
-  max-width: 114rem;
-  margin: 0 auto;
-  padding: 10px;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  align-content: center;
-  align-items: center;
+@import "@/sass/base.scss";
+
+.players__grid {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  gap: 5rem;
+
+  @include respond(tablet) {
+    gap: 4rem;
+  }
 }
 </style>

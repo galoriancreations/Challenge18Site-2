@@ -1,6 +1,6 @@
 <template>
   <section class="partners">
-    <SectionHeading small>In Partnership With</SectionHeading>
+    <SectionHeading :small="small">In Partnership With</SectionHeading>
     <agile :options="swiperOptions">
       <div v-for="image in images" :key="image" class="partners__slide">
         <img class="partners__img" :src="image" />
@@ -17,6 +17,9 @@ import image4 from "../../assets/partners/h+.jpg";
 import image5 from "../../assets/partners/tlvseed.jpg";
 
 export default {
+  props: {
+    small: Boolean,
+  },
   data() {
     return {
       images: [image1, image2, image3, image4, image5],

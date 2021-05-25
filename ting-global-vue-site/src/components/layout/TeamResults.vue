@@ -43,7 +43,6 @@ export default {
       return this.$store.getters.results;
     },
     teams() {
-      console.log(JSON.stringify(this.results));
       return teamsArray(this.results).filter((team) => team.users.length > 2);
     },
   },
