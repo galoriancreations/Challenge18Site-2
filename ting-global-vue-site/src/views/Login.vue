@@ -1,25 +1,99 @@
 <template>
   <Page title="Login" name="login">
-    <WhiteSection></WhiteSection>
+    <WhiteSection tag="main">
+      <LoginForm />
+      <div class="seperator" />
+      <div class="auth-switch">
+        <p class="auth-switch__text">Don't have an account yet?</p>
+        <div class="auth-switch__links">
+          <BaseButton link="/register" variant="blue">
+            Register for free
+          </BaseButton>
+          <BaseButton link="/membership" variant="gold">
+            Become a member
+          </BaseButton>
+        </div>
+      </div>
+    </WhiteSection>
   </Page>
 </template>
 
 <script>
-export default {
-  computed: {
-    io() {
-      return this.$store.getters.io;
-    },
-  },
-  created() {
-    this.io.emit("loginRequest", {
-      username: "Yinon",
-      phone_number: "972587111965",
-    });
+import LoginForm from "../components/UI/LoginForm";
 
-    this.io.on("loginInfo", (data) => {
-      console.log(data);
-    });
+export default {
+  components: { LoginForm },
+  data() {
+    return {
+      loading: false,
+      error: null,
+    };
   },
 };
 </script>
+
+<style lang="scss">
+@import "@/sass/base.scss";
+
+.seperator {
+  width: 25%;
+  max-width: 15rem;
+  height: 0.1rem;
+  background-color: #ccc;
+  margin: 8rem auto;
+
+  @include respond(mobile) {
+    margin: 5rem auto;
+  }
+}
+
+.auth-switch {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.5rem;
+  box-shadow: $boxshadow2;
+  border-radius: 1rem;
+  max-width: 75rem;
+  margin: auto;
+
+  @include respond(mobile) {
+    padding: 2.5rem 1.5rem;
+  }
+
+  &__text {
+    font-size: 1.9rem;
+    margin-bottom: 2rem;
+
+    @include respond(mobile) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__links {
+    display: flex;
+    justify-content: center;
+
+    @include respond(mobile) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .button {
+    @include respond(mobile) {
+      font-size: 1.3rem;
+    }
+
+    &:not(:last-child) {
+      margin-right: 2rem;
+
+      @include respond(mobile) {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+</style>

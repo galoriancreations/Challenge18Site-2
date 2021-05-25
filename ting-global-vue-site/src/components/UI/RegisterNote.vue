@@ -1,0 +1,60 @@
+<template>
+  <section class="register-note">
+    <p>
+      <slot />
+    </p>
+    <p>
+      If you already have an account, you can
+      <RouterLink to="/login">log in here</RouterLink>.
+    </p>
+  </section>
+</template>
+
+<style lang="scss">
+@import "@/sass/base.scss";
+
+.register-note {
+  box-shadow: $boxshadow2;
+  border-radius: 1rem;
+  margin: auto;
+  max-width: 75rem;
+  text-align: center;
+  padding: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 9rem;
+
+  @include respond(mobile) {
+    padding: 2rem 1.5rem;
+    margin-bottom: 7rem;
+  }
+
+  & > * {
+    font-size: 1.8rem;
+    line-height: 1.7;
+
+    @include respond(mobile) {
+      font-size: 1.6rem;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 2.5rem;
+
+      @include respond(mobile) {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  a {
+    color: $color-blue-2;
+    transition: color 0.5s;
+    font-weight: 500;
+
+    &:hover {
+      color: $color-gold-3;
+    }
+  }
+}
+</style>

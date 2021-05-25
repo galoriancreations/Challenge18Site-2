@@ -98,7 +98,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/temp-bg.jpg);
+      url(../../assets/register-bg.jpg);
   }
 
   &#membership {

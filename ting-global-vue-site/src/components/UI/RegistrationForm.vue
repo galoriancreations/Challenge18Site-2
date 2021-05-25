@@ -1,123 +1,54 @@
 <template>
   <form class="form">
     <div class="form__field">
-      <label for="memberName" class="form__label">
-        Lead staff member's mame
+      <label for="username" class="form__label">
+        Username (used for login)
       </label>
       <input
-        v-model="formData.memberName"
-        id="memberName"
-        thing="Lead staff member's name"
+        v-model="username"
+        id="username"
+        placeholder="Your username"
         required
         class="form__input"
       />
     </div>
     <div class="form__field">
-      <label for="memberRole" class="form__label">
-        Lead staff member's role
-      </label>
+      <label for="phone" class="form__label">Phone (used for login)</label>
       <input
-        v-model="formData.memberRole"
-        id="memberRole"
-        thing="Lead staff member's role"
+        v-model="phone"
+        id="phone"
+        name="phone"
+        type="tel"
         required
+        placeholder="Phone number incl. country code"
         class="form__input"
       />
     </div>
     <div class="form__field">
-      <label for="organization" class="form__label">
-        Organization/school name
-      </label>
+      <label for="fullName" class="form__label">Full name</label>
       <input
-        v-model="formData.organization"
-        id="organization"
-        thing="Organization/school name"
+        v-model="fullName"
+        id="fullName"
+        name="fullName"
         required
-        class="form__input"
-      />
-    </div>
-    <div class="form__field">
-      <label for="city" class="form__label">
-        City/Town
-      </label>
-      <input
-        v-model="formData.city"
-        id="city"
-        thing="City/Town"
-        required
-        class="form__input"
-      />
-    </div>
-    <div class="form__field">
-      <label for="country" class="form__label">
-        Country
-      </label>
-      <input
-        v-model="formData.country"
-        id="country"
-        thing="Country"
-        required
+        placeholder="Your full name"
         class="form__input"
       />
     </div>
     <div class="form__field">
       <label for="email" class="form__label">
-        Lead contact email
+        Email (optional)
       </label>
       <input
-        v-model="formData.email"
+        v-model="email"
         id="email"
         name="email"
-        thing="Lead contact email"
+        placeholder="Your email address"
         type="email"
-        required
         class="form__input"
       />
     </div>
-    <div class="form__field">
-      <label for="phone" class="form__label">Lead contact phone number</label>
-      <input
-        v-model="formData.phone"
-        id="phone"
-        name="phone"
-        type="tel"
-        thing="Lead contact phone number"
-        class="form__input"
-      />
-    </div>
-    <div class="form__field">
-      <label for="estimate" class="form__label">
-        How many students are you planning to enter (estimate)?
-      </label>
-      <input
-        v-model="formData.estimate"
-        id="estimate"
-        type="number"
-        class="form__input"
-      />
-    </div>
-    <div class="form__field">
-      <label for="questions" class="form__label">
-        Do you have any questions about the Challenge at this stage?
-      </label>
-      <textarea
-        v-model="formData.questions"
-        id="questions"
-        name="questions"
-        class="form__input form__textarea"
-      />
-    </div>
-    <div class="form__field">
-      <label for="reached" class="form__label">
-        How did you hear about the Challenge 18 SDGs?
-      </label>
-      <textarea
-        v-model="formData.reached"
-        id="reached"
-        name="reached"
-        class="form__input form__textarea"
-      />
-    </div>
+    <BaseButton variant="blue">Register</BaseButton>
   </form>
 </template>
 
@@ -125,18 +56,11 @@
 export default {
   data() {
     return {
-      formData: {
-        memberName: "",
-        memberRole: "",
-        organization: "",
-        city: "",
-        country: "",
-        email: "",
-        phone: "",
-        estimate: null,
-        questions: "",
-        reached: "",
-      },
+      username: "",
+      phone: "",
+      fullName: "",
+      email: "",
+      availability: null,
     };
   },
 };

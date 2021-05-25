@@ -1,24 +1,30 @@
 <template>
-  <Page title="Join as Member" name="membership">
+  <Page title="Premium Membership" name="membership">
     <WhiteSection tag="main" class="membership">
+      <RegisterNote>
+        Premium membership is currently available for organizations only. To
+        join us as an individual user, you can
+        <RouterLink to="/register">register for free</RouterLink>.
+      </RegisterNote>
       <section class="inner-section">
         <SectionHeading small>Membership Plans</SectionHeading>
         <MembershipPlans />
       </section>
       <section class="inner-section">
         <SectionHeading small>Register Now</SectionHeading>
-        <RegistrationForm />
+        <MembershipForm />
       </section>
     </WhiteSection>
   </Page>
 </template>
 
 <script>
+import RegisterNote from "../components/UI/RegisterNote";
 import MembershipPlans from "../components/UI/MembershipPlans";
-import RegistrationForm from "../components/UI/RegistrationForm";
+import MembershipForm from "../components/UI/MembershipForm";
 
 export default {
-  components: { MembershipPlans, RegistrationForm },
+  components: { RegisterNote, MembershipPlans, MembershipForm },
 };
 </script>
 
