@@ -1,25 +1,21 @@
 <template>
   <Page title="Players" name="players">
-    <WhiteSection>
+    <WhiteSection class="players">
       <div class="players__wrap">
-        <Player
-          v-bind:key="card"
-          v-bind:card="card"
-          v-for="card of playersArr"
-        />
+        <Player v-for="player in players" :key="player.name" :card="player" />
       </div>
     </WhiteSection>
   </Page>
 </template>
 
 <script>
-import Player from "../components/layout/Player";
+import Player from "../components/UI/Player";
 
 export default {
   components: { Player },
   data() {
     return {
-      playersArr: [
+      players: [
         {
           imgSrc: "https://i.imgur.com/MIwbEJr.jpg",
           name: "Nadia Hassona",
@@ -72,7 +68,7 @@ export default {
 
 <style lang="scss">
 .players__wrap {
-  max-width: 1140px;
+  max-width: 114rem;
   margin: 0 auto;
   padding: 10px;
   display: flex;

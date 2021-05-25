@@ -3,7 +3,7 @@
     <SectionHeading>Latest Videos</SectionHeading>
     <div class="latest-videos__grid">
       <div v-for="videoId in videos" :key="videoId" class="latest-videos__item">
-        <youtube :video-id="videoId" />
+        <youtube :videoId="videoId" />
       </div>
     </div>
   </section>
@@ -57,7 +57,7 @@ export default {
   &__item {
     iframe {
       width: 100%;
-      height: 17vw;
+      height: 16vw;
       display: block;
       border-radius: 0.8rem;
 

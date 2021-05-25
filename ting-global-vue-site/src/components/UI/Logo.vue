@@ -14,6 +14,7 @@ export default {
 @import "../../sass/base.scss";
 .logo {
   height: 10rem;
+  width: auto;
   transition: height 0.5s;
 
   @include respond(mobile) {
