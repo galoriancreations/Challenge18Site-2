@@ -7,11 +7,13 @@
 <script>
 import socket from "socket.io-client";
 
+// io: socket("http://193.46.199.76:8087"),
 export default {
   data() {
     return {
       counter: 2000,
-      io: socket("http://193.46.199.76:8087"),
+      // io: socket("https://0.0.0.0")
+      io: socket("https://193.46.199.76")
     };
   },
   methods: {
