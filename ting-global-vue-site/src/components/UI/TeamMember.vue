@@ -69,6 +69,10 @@ export default {
     position: relative;
     overflow: hidden;
 
+    @include respond(mobile) {
+      padding-top: 10rem;
+    }
+
     &::before {
       content: "";
       position: absolute;

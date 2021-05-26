@@ -103,14 +103,14 @@
 
     .button {
       margin: 0;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 600;
       width: 25rem;
       padding: 1.2rem 0 1rem;
       box-shadow: $boxshadow2;
 
       @include respond(mobile) {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         padding: 1rem;
       }
 

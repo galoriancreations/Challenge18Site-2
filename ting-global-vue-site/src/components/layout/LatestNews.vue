@@ -25,8 +25,6 @@ export default {
         slidesToShow: 1,
         navButtons: false,
         dots: false,
-        autoplay: true,
-        autoplaySpped: 5000,
         responsive: [
           {
             breakpoint: 750,

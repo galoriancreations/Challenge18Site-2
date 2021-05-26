@@ -43,7 +43,7 @@ export default {
   margin: 7rem auto;
 
   @include respond(mobile) {
-    margin: 4rem auto;
+    margin: 5rem auto;
   }
 }
 

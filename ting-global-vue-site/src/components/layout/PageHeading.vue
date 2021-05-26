@@ -25,7 +25,7 @@ export default {
   padding: 0 $padding-sides-desktop;
 
   @include respond(mobile) {
-    height: 45rem;
+    height: 40rem;
   }
 
   &#scores {
@@ -128,21 +128,17 @@ export default {
 
     @include respond(mobile) {
       font-size: 4rem;
-      margin-top: 23rem;
+      margin-top: 20.5rem;
     }
   }
 
   &#blog &__heading,
+  &#blogpost &__heading,
   &#contact &__heading,
   &#login &__heading,
   &#register &__heading,
   &#membership &__heading,
   &#notfound &__heading {
-    margin-top: 19.5rem;
-  }
-
-  &#blogpost &__heading {
-    font-size: 4.8rem;
     margin: 0;
     position: absolute;
     top: 50%;
@@ -151,6 +147,10 @@ export default {
     max-width: 100rem;
     padding: 0 $padding-sides-desktop;
     transform: translate(-50%, -50%);
+  }
+
+  &#blogpost &__heading {
+    font-size: 4.8rem;
 
     @include respond(tablet) {
       font-size: 4rem;
