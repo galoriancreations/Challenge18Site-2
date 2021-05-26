@@ -15,9 +15,9 @@
       <p class="news-item__excerpt">
         {{ excerpt }}
       </p>
-      <BaseButton v-if="showButton" :link="article.link" variant="darkblue"
-        >Read More</BaseButton
-      >
+      <a class="button button--darkblue" :href="article.link" target="_blank">
+        Read More
+      </a>
     </div>
   </article>
 </template>
