@@ -105,16 +105,21 @@ export default {
   * {
     font-size: 1.6rem;
     text-align: center !important;
+
+    @include respond(mobile) {
+      font-size: 1.5rem;
+    }
   }
 
   &__row {
-    background-color: $color-gold-4;
-    color: $color-blue-1;
-
     &:last-child {
       * {
         font-weight: 700;
         font-size: 1.8rem;
+
+        @include respond(mobile) {
+          font-size: 1.5rem;
+        }
       }
     }
   }

@@ -20,7 +20,7 @@
 
 <script>
 import RegisterNote from "../components/UI/RegisterNote";
-import MembershipPlans from "../components/UI/MembershipPlans";
+import MembershipPlans from "../components/layout/MembershipPlans";
 import MembershipForm from "../components/UI/MembershipForm";
 
 export default {
@@ -29,13 +29,23 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/sass/base.scss";
+
 .inner-section {
   .section-heading {
     margin-bottom: 7rem;
+
+    @include respond(mobile) {
+      margin-bottom: 5rem;
+    }
   }
 
   &:not(:last-child) {
     margin-bottom: 9rem;
+
+    @include respond(mobile) {
+      margin-bottom: 7rem;
+    }
   }
 }
 </style>

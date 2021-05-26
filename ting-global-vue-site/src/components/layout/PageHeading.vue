@@ -141,16 +141,21 @@ export default {
   &#notfound &__heading {
     margin: 0;
     position: absolute;
-    top: 50%;
+    top: 46%;
     left: 50%;
     width: 100%;
-    max-width: 100rem;
+    max-width: 90rem;
     padding: 0 $padding-sides-desktop;
     transform: translate(-50%, -50%);
+
+    @include respond(mobile) {
+      top: 50%;
+    }
   }
 
   &#blogpost &__heading {
     font-size: 4.8rem;
+    max-width: 100rem;
 
     @include respond(tablet) {
       font-size: 4rem;
