@@ -20,7 +20,7 @@
 
     @include respond(mobile) {
       height: auto;
-      width: 22rem;
+      width: 20rem;
     }
   }
 }

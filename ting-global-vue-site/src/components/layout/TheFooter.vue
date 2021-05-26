@@ -2,19 +2,21 @@
   <footer class="footer">
     <WavePatternTop />
     <div class="footer__column">
-      <h3 class="footer__heading">About Us</h3>
+      <h3 class="footer__heading">
+        <RouterLink class="footer__link" to="/about">About Us</RouterLink>
+      </h3>
       <p class="footer__text">
         Ting Global is the international body that conducts the 18 official
         pre-tournament challenge competitions, and the tournament.
       </p>
     </div>
     <div class="footer__column">
-      <h3 class="footer__heading">Recent Posts</h3>
+      <h3 class="footer__heading">Recent Articles</h3>
       <ul class="footer__text footer__list">
-        <li v-for="post in recentPosts" :key="post.id">
-          <RouterLink class="footer__link" :to="`/blog/${post.id}`">
+        <li v-for="post in recentPosts" :key="post.link">
+          <a class="footer__link" :href="post.link" target="_blank">
             {{ post.title }}
-          </RouterLink>
+          </a>
         </li>
       </ul>
     </div>
@@ -26,9 +28,9 @@
         <p class="footer__text"><strong>Tel:</strong> +972-559721123</p>
         <p class="footer__text">
           <strong>Email: </strong>
-          <a class="footer__link" href="mailto:support@ting.global"
-            >support@ting.global</a
-          >
+          <a class="footer__link" href="mailto:support@ting.global">
+            support@ting.global
+          </a>
         </p>
       </div>
       <img
@@ -41,22 +43,14 @@
 </template>
 
 <script>
-import posts from "../../data/blog";
+import posts from "../../data/articles";
 
 export default {
-  data() {
-    return {
-      posts,
-    };
-  },
   computed: {
     recentPosts() {
-      return [
-        { title: "18 Days of Climate Action" },
-        { title: "Can A.I. Humanoid Teach Us How To Be More Human" },
-        { title: "Impact Economy & Challenge 18" },
-        { title: "Get challenged by little Sophia and Prof. Einstein" },
-      ];
+      return posts
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 4);
     },
   },
 };
@@ -67,6 +61,9 @@ export default {
 
 .footer {
   background-color: $color-blue-2;
+  background-image: url(../../assets/Kissing-Silhouette.svg);
+  background-size: cover;
+  background-position: center;
   color: #fff;
   display: flex;
   justify-content: space-between;

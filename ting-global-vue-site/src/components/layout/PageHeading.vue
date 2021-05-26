@@ -58,10 +58,19 @@ export default {
   &#blog {
     background-image: linear-gradient(
         to right,
-        rgba(#000, 0.2),
-        rgba(#000, 0.2)
+        rgba(#4189bd, 0.85),
+        rgba(#4189bd, 0.85)
       ),
-      url(../../assets/blog-bg.jpg);
+      url(../../assets/blog-2-bg.jpg);
+  }
+
+  &#blogpost {
+    background-image: linear-gradient(
+        130deg,
+        rgba(#0700dd, 0.8) 0%,
+        rgba(#00f2ff, 0.8) 89%
+      ),
+      url(../../assets/blogpost-bg.png);
   }
 
   &#players {
@@ -89,7 +98,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/temp-bg.jpg);
+      url(../../assets/login-bg.jpg);
   }
 
   &#register {
@@ -107,7 +116,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/temp-bg.jpg);
+      url(../../assets/membership-bg.jpg);
   }
 
   &__heading {
@@ -123,6 +132,7 @@ export default {
     }
   }
 
+  &#blog &__heading,
   &#contact &__heading,
   &#login &__heading,
   &#register &__heading,
@@ -132,14 +142,19 @@ export default {
   }
 
   &#blogpost &__heading {
-    font-size: 5rem;
+    font-size: 4.8rem;
     margin: 0;
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 50%;
     width: 100%;
+    max-width: 100rem;
     padding: 0 $padding-sides-desktop;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
+
+    @include respond(tablet) {
+      font-size: 4rem;
+    }
 
     @include respond(mobile) {
       font-size: 3.5rem;

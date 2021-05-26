@@ -40,7 +40,7 @@ export default {
         { link: "/", text: "Home" },
         { link: "/what-we-do", text: "What We Do" },
         { link: "/about", text: "About" },
-        { link: "/blog", text: "Blog" },
+        { link: "/articles", text: "Articles" },
         { link: "/scores", text: "Scores" },
         { link: "/players", text: "Players" },
         { link: "/contact", text: "Contact" },

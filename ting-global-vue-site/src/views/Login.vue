@@ -40,10 +40,10 @@ export default {
   max-width: 15rem;
   height: 0.1rem;
   background-color: #ccc;
-  margin: 8rem auto;
+  margin: 7rem auto;
 
   @include respond(mobile) {
-    margin: 5rem auto;
+    margin: 4rem auto;
   }
 }
 
@@ -83,7 +83,7 @@ export default {
 
   .button {
     @include respond(mobile) {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
 
     &:not(:last-child) {

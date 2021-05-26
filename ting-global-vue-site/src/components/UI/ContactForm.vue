@@ -124,10 +124,10 @@ export default {
   &__field {
     display: flex;
     flex-direction: column;
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.5rem;
 
     @include respond(mobile) {
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
   }
 
@@ -169,13 +169,13 @@ export default {
   }
 
   .button {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     font-weight: 600;
     width: 100%;
 
-    @include respond(mobile) {
-      margin-top: 1rem;
-    }
+    // @include respond(mobile) {
+    //   margin-top: 0.5rem;
+    // }
   }
 }
 </style>

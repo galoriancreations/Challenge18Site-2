@@ -4,8 +4,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home";
 import WhatWeDo from "../views/WhatWeDo";
 import About from "../views/About";
-import Blog from "../views/Blog";
-import BlogPost from "../views/BlogPost";
+import Articles from "../views/Articles";
 import Scores from "../views/Scores";
 import Players from "../views/Players";
 import Contact from "../views/Contact";
@@ -24,8 +23,7 @@ export default new VueRouter({
         { path: "/", component: Home },
         { path: "/what-we-do", component: WhatWeDo },
         { path: "/about", component: About },
-        { path: "/blog", component: Blog },
-        { path: "/blog/:postId", component: BlogPost, props: true },
+        { path: "/articles", component: Articles },
         { path: "/scores", component: Scores },
         { path: "/players", component: Players },
         { path: "/contact", component: Contact },
