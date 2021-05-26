@@ -40,24 +40,24 @@ export default {
         {
           imgSrc: "https://i.imgur.com/l0tyiBX.jpg",
           name: "Amal Tartir",
-          state: "Nepal",
-          school: "Nepal Premier School",
+          state: "Israel",
+          school: "Eroni Yud-Bet",
           score: 3561,
         },
         {
           imgSrc:
             "https://i1.wp.com/ting.global/wp-content/uploads/2021/04/1232.jpg?fit=500%2C585&ssl=1",
           name: "Ashni Rungta",
-          state: "New York",
-          school: "N.Y Professional School",
+          state: "Nepal",
+          school: "Nepal Premier School",
           score: 1234,
         },
         {
           imgSrc:
             "https://i2.wp.com/ting.global/wp-content/uploads/2021/04/Inessa-Kraft-fit.jpg?fit=500%2C585&ssl=1",
           name: "Inessa Kraft",
-          state: "Portugal",
-          school: "Portugal School",
+          state: "Cyprus",
+          occupation: "Producer & actress",
           score: 1200,
         },
       ],

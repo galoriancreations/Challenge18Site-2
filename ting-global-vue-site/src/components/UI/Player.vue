@@ -14,7 +14,10 @@
       <div class="text__wrapper">
         <div class="text__container">
           <p><strong>State:</strong> {{ card.state }}</p>
-          <p><strong>School:</strong> {{ card.school }}</p>
+          <p v-if="card.school"><strong>School:</strong> {{ card.school }}</p>
+          <p v-if="card.occupation">
+            <strong>Profession:</strong> {{ card.occupation }}
+          </p>
           <p><strong>Score:</strong> {{ card.score }}</p>
         </div>
       </div>
