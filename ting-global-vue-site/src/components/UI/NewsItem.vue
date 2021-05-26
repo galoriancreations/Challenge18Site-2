@@ -26,10 +26,6 @@
 export default {
   props: {
     article: Object,
-    showButton: {
-      type: Boolean,
-      default: true,
-    },
   },
   computed: {
     excerpt() {
