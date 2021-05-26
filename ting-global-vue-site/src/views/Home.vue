@@ -4,6 +4,7 @@
     <WhiteSection>
       <RecentResults />
       <LatestVideos />
+      <Testimonials />
     </WhiteSection>
   </Page>
 </template>
@@ -12,8 +13,9 @@
 import Intro from "../components/layout/Intro";
 import RecentResults from "../components/layout/RecentResults";
 import LatestVideos from "../components/layout/LatestVideos";
+import Testimonials from "../components/layout/Testimonials";
 
 export default {
-  components: { Intro, RecentResults, LatestVideos },
+  components: { Intro, RecentResults, LatestVideos, Testimonials },
 };
 </script>

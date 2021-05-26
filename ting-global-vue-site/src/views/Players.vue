@@ -36,7 +36,7 @@ export default {
         },
         {
           imgSrc: "https://i.imgur.com/tgGlgsM.jpg",
-          name: "Fernanda_Matsuoka",
+          name: "Fernanda Matsuoka",
           state: "Brazil",
           school: "Brazil - Young Climate Leaders",
           score: 4523,
