@@ -121,6 +121,64 @@ a {
   }
 }
 
+.agile {
+  &__actions {
+    margin-top: 2rem;
+
+    @include respond(mobile-land) {
+      padding: 0 $padding-sides-mobile;
+    }
+
+    @include respond(mobile) {
+      padding: 0 calc(#{$padding-sides-mobile} + 1rem);
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font: inherit;
+      font-size: 3rem;
+      font-weight: 800;
+      color: $color-blue-2;
+      transition: color 0.5s;
+
+      @include respond(mobile) {
+        font-size: 2.5rem;
+      }
+
+      &:hover {
+        color: $color-azure;
+      }
+    }
+  }
+
+  &__dot {
+    margin: 0 0.5rem;
+
+    button {
+      background-color: rgba($color-azure-light, 0.5);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: block;
+      height: 1rem;
+      width: 1rem;
+      font-size: 0;
+      line-height: 0;
+      transition: all 0.5s;
+    }
+
+    &--current,
+    &:hover {
+      button {
+        background-color: $color-blue-2;
+      }
+    }
+  }
+}
+
 ::selection {
   background-color: $color-gold-4;
   color: #000;
