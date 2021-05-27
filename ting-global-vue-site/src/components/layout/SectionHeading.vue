@@ -32,7 +32,7 @@ export default {
 
 .section-heading {
   display: inline-block;
-  font-size: 4rem;
+  font-size: 3.85rem;
   letter-spacing: -0.5px;
   font-weight: 600;
   position: relative;

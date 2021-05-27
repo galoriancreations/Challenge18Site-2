@@ -12,11 +12,9 @@
           {{ article.title }}
         </a>
       </h3>
-      <a :href="article.link" target="_blank">
-        <p class="news-item__excerpt">
-          {{ excerpt }}
-        </p>
-      </a>
+      <p class="news-item__excerpt">
+        {{ excerpt }}
+      </p>
       <a
         v-if="showButton"
         class="button button--darkblue"
@@ -121,6 +119,7 @@ export default {
   .button {
     width: 20rem;
     margin-top: 2rem;
+    font-size: 1.4rem;
 
     @include respond(mobile) {
       font-size: 1.2rem;

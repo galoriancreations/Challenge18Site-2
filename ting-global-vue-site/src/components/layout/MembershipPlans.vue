@@ -115,7 +115,7 @@ export default {
     &:last-child {
       * {
         font-weight: 700;
-        font-size: 1.8rem;
+        font-size: 1.7rem;
 
         @include respond(mobile) {
           font-size: 1.5rem;

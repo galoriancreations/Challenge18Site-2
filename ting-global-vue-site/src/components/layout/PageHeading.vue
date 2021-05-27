@@ -76,8 +76,8 @@ export default {
   &#players {
     background-image: linear-gradient(
         to right,
-        rgba(#000, 0.2),
-        rgba(#000, 0.2)
+        rgba(#4189bd, 0.85),
+        rgba(#4189bd, 0.85)
       ),
       url(../../assets/players-bg.jpg);
   }

@@ -75,13 +75,16 @@ export default {
     display: flex;
     justify-content: center;
 
-    @include respond(mobile) {
+    @include respond(mobile-land) {
       flex-direction: column;
       align-items: center;
     }
   }
 
   .button {
+    font-size: 1.4rem;
+    font-weight: 600;
+
     @include respond(mobile) {
       font-size: 1.2rem;
     }
@@ -89,7 +92,7 @@ export default {
     &:not(:last-child) {
       margin-right: 2rem;
 
-      @include respond(mobile) {
+      @include respond(mobile-land) {
         margin-right: 0;
         margin-bottom: 1rem;
       }

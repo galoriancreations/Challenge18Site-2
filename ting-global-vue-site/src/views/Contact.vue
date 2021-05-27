@@ -33,10 +33,10 @@ export default {
       this.sending = true;
       try {
         await emailjs.sendForm(
-          "gmail",
-          "template_tingglobal",
+          process.env.VUE_APP_EMAILJS_SERVICE,
+          process.env.VUE_APP_EMAILJS_TEMPLATE,
           form,
-          "user_bWwrQk9Sb6FW9cPYtGs0t"
+          process.env.VUE_APP_EMAILJS_KEY
         );
         this.sending = false;
         this.error = false;
