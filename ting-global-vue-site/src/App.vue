@@ -120,4 +120,9 @@ a {
     }
   }
 }
+
+::selection {
+  background-color: $color-gold-4;
+  color: #000;
+}
 </style>

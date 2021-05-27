@@ -9,7 +9,7 @@
         :rows="rows"
         theme="polar-bear"
       />
-      <BaseButton link="/scores" variant="blue">
+      <BaseButton link="/scores" variant="blue" class="view-all-button">
         View All
       </BaseButton>
     </div>
@@ -65,21 +65,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import "../../sass/base.scss";
-
-.recent-results {
-  .button {
-    margin-top: 5rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    width: 22rem;
-
-    @include respond(mobile) {
-      margin-top: 4rem;
-      font-size: 1.3rem;
-    }
-  }
-}
-</style>

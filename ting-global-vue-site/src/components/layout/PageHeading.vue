@@ -31,8 +31,8 @@ export default {
   &#scores {
     background-image: linear-gradient(
         to right,
-        rgba(#000, 0.2),
-        rgba(#000, 0.2)
+        rgba(#4189bd, 0.85),
+        rgba(#4189bd, 0.85)
       ),
       url(../../assets/scores-bg.jpg);
   }
@@ -40,8 +40,8 @@ export default {
   &#what-we-do {
     background-image: linear-gradient(
         to right,
-        rgba(#000, 0.2),
-        rgba(#000, 0.2)
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
       ),
       url(../../assets/what-we-do-bg.jpg);
   }
@@ -49,8 +49,8 @@ export default {
   &#about {
     background-image: linear-gradient(
         to right,
-        rgba(#000, 0.2),
-        rgba(#000, 0.2)
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
       ),
       url(../../assets/about-bg.jpg);
   }
@@ -123,23 +123,6 @@ export default {
     font-size: 6rem;
     color: #fff;
     font-weight: 800;
-    margin-top: 25rem;
-    text-align: center;
-
-    @include respond(mobile) {
-      font-size: 4rem;
-      margin-top: 20.5rem;
-    }
-  }
-
-  &#blog &__heading,
-  &#blogpost &__heading,
-  &#contact &__heading,
-  &#login &__heading,
-  &#register &__heading,
-  &#membership &__heading,
-  &#notfound &__heading {
-    margin: 0;
     position: absolute;
     top: 46%;
     left: 50%;
@@ -147,9 +130,12 @@ export default {
     max-width: 90rem;
     padding: 0 $padding-sides-desktop;
     transform: translate(-50%, -50%);
+    text-align: center;
 
     @include respond(mobile) {
+      font-size: 4rem;
       top: 50%;
+      padding: 0 $padding-sides-mobile;
     }
   }
 
@@ -163,7 +149,6 @@ export default {
 
     @include respond(mobile) {
       font-size: 3.5rem;
-      padding: 0 $padding-sides-mobile;
     }
   }
 }

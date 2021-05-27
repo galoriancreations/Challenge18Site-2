@@ -7,9 +7,12 @@
         :key="article.link"
         class="latest-news__slide"
       >
-        <NewsItem :article="article" />
+        <NewsItem :article="article" :showButton="false" />
       </div>
     </agile>
+    <BaseButton link="/articles" variant="blue" class="view-all-button"
+      >View All</BaseButton
+    >
   </section>
 </template>
 
@@ -92,6 +95,9 @@ export default {
   &__slide {
     padding: 0 3rem;
     height: 100%;
+  }
+
+  & > .button {
   }
 }
 </style>

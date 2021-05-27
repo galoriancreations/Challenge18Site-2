@@ -12,10 +12,17 @@
           {{ article.title }}
         </a>
       </h3>
-      <p class="news-item__excerpt">
-        {{ excerpt }}
-      </p>
-      <a class="button button--darkblue" :href="article.link" target="_blank">
+      <a :href="article.link" target="_blank">
+        <p class="news-item__excerpt">
+          {{ excerpt }}
+        </p>
+      </a>
+      <a
+        v-if="showButton"
+        class="button button--darkblue"
+        :href="article.link"
+        target="_blank"
+      >
         Read More
       </a>
     </div>
@@ -26,6 +33,10 @@
 export default {
   props: {
     article: Object,
+    showButton: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     excerpt() {
@@ -88,14 +99,6 @@ export default {
       font-size: 2rem;
       margin-bottom: 1.5rem;
     }
-
-    a {
-      transition: color 0.5s;
-
-      &:hover {
-        color: $color-azure;
-      }
-    }
   }
 
   &__excerpt {
@@ -104,6 +107,14 @@ export default {
 
     @include respond(mobile) {
       font-size: 1.5rem;
+    }
+  }
+
+  a:not(.button) {
+    transition: color 0.5s;
+
+    &:hover {
+      color: $color-azure;
     }
   }
 

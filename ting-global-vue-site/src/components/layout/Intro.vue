@@ -29,7 +29,7 @@
 @import "../../sass/base.scss";
 
 .intro {
-  background-image: linear-gradient(to right, rgba(#000, 0.2), rgba(#000, 0.2)),
+  background-image: linear-gradient(to right, rgba(#000, 0.1), rgba(#000, 0.1)),
     url(../../assets/intro-bg.jpg);
   background-position: center;
   background-size: cover;
