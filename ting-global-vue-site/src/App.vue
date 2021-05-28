@@ -53,6 +53,29 @@ html {
   }
 }
 
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.page-enter-active {
+  transition: opacity 0.5s;
+}
+
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+
+.page-enter-to,
+.page-leave-from {
+  opacity: 1;
+}
+
+::selection {
+  background-color: $color-gold-4;
+  color: #000;
+}
+
 h1,
 h2,
 h3,
@@ -73,24 +96,6 @@ p {
 a {
   text-decoration: none;
   color: inherit;
-}
-
-.page-enter,
-.page-leave-to {
-  opacity: 0;
-}
-
-.page-enter-active {
-  transition: opacity 0.5s;
-}
-
-.page-leave-active {
-  transition: opacity 0.5s;
-}
-
-.page-enter-to,
-.page-leave-from {
-  opacity: 1;
 }
 
 .results-table {
@@ -131,6 +136,7 @@ a {
 
     @include respond(mobile) {
       padding: 0 calc(#{$padding-sides-mobile} + 1rem);
+      margin-top: 1.5rem;
     }
 
     button {
@@ -158,7 +164,7 @@ a {
     margin: 0 0.5rem;
 
     button {
-      background-color: rgba($color-azure-light, 0.5);
+      background-color: rgba($color-azure-light, 0.8);
       border: none;
       border-radius: 50%;
       cursor: pointer;
@@ -177,10 +183,5 @@ a {
       }
     }
   }
-}
-
-::selection {
-  background-color: $color-gold-4;
-  color: #000;
 }
 </style>
