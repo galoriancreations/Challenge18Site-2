@@ -4,15 +4,17 @@
     <Logo />
     <NavToggle />
     <nav class="header__navigation">
-      <NavItem
-        v-for="(item, index) in navigationItems"
-        :key="item.link"
-        :link="item.link"
-        :reverse="index % 2 !== 0"
-        :button="item.button"
-      >
-        {{ item.text }}
-      </NavItem>
+      <ul class="header__nav-list">
+        <NavItem
+          v-for="(item, index) in navigationItems"
+          :key="item.link"
+          :link="item.link"
+          :reverse="index % 2 !== 0"
+          :button="item.button"
+        >
+          {{ item.text }}
+        </NavItem>
+      </ul>
     </nav>
   </header>
 </template>
@@ -111,7 +113,7 @@ export default {
     padding-bottom: 0.5rem;
   }
 
-  &__navigation {
+  &__nav-list {
     display: flex;
     align-items: center;
   }
@@ -174,8 +176,7 @@ export default {
   }
 
   @include respond(tablet) {
-    &::after {
-      content: "";
+    &__navigation {
       position: fixed;
       top: 0;
       left: 0;
@@ -186,31 +187,22 @@ export default {
       visibility: hidden;
       transition: all 0.5s;
       z-index: -1;
-    }
-
-    &.active::after {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    &__navigation {
-      position: absolute;
-      top: 50vh;
-      left: 50%;
-      transform: translate(-50%, -45%);
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 8rem;
       text-align: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.5s;
     }
 
     &.active &__navigation {
       opacity: 1;
       visibility: visible;
+    }
+
+    &__nav-list {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -45%);
     }
 
     &__nav-item {

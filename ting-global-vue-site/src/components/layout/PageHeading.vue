@@ -126,16 +126,15 @@ export default {
     position: absolute;
     top: 46%;
     left: 50%;
-    width: 100%;
-    max-width: 90rem;
-    padding: 0 $padding-sides-desktop;
+    width: calc(100% - 2 * #{$padding-sides-mobile});
+    max-width: 70rem;
     transform: translate(-50%, -50%);
     text-align: center;
 
     @include respond(mobile) {
       font-size: 4rem;
       top: 50%;
-      padding: 0 $padding-sides-mobile;
+      max-width: 40rem;
     }
   }
 
