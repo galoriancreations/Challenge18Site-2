@@ -198,11 +198,17 @@ export default {
     &__nav-list {
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -45%);
+      width: 100%;
+      left: 0;
+      top: 50vh;
+      transform: translateY(-45%);
+
+      // CODE TO USE AFTER DROPDOWN NAVIGATION IS ADDED
+      // margin-top: 15rem;
+      // padding-bottom: 5rem;
+      // height: calc(100vh - 15rem);
+      // overflow: auto;
     }
 
     &__nav-item {
