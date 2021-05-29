@@ -59,11 +59,7 @@ export default {
         { link: "/scores", text: "Scores" },
         { link: "/players", text: "Players" },
         { link: "/contact", text: "Contact" },
-        {
-          text: "Login",
-          button: true,
-          hide: this.isLoggedIn,
-        },
+        { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
       ];
 
       return items.filter((item) => !item.hide);
