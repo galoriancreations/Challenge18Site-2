@@ -1,5 +1,5 @@
 <template>
-  <header :class="{ header: true, active: navOpen, sticky }">
+  <header :class="classes">
     <LoginIcon />
     <Logo />
     <NavToggle />
@@ -8,12 +8,9 @@
         <NavItem
           v-for="(item, index) in navigationItems"
           :key="item.link"
-          :link="item.link"
+          v-bind="item"
           :reverse="index % 2 !== 0"
-          :button="item.button"
-        >
-          {{ item.text }}
-        </NavItem>
+        />
       </ul>
     </nav>
   </header>
@@ -34,20 +31,41 @@ export default {
     };
   },
   computed: {
+    classes() {
+      return {
+        header: true,
+        active: this.navOpen,
+        sticky: this.sticky,
+      };
+    },
     isLoggedIn() {
       return this.$store.getters.isAuth;
     },
     navigationItems() {
       const items = [
         { link: "/", text: "Home" },
+        // {
+        //   text: "About",
+        //   dropdown: [
+        //     { link: "/about", text: "Abous Us" },
+        //     { link: "/what-we-do", text: "What We Do" },
+        //     { link: "/articles", text: "Articles" },
+        //     { link: "/videos", text: "Videos" },
+        //   ],
+        // },
         { link: "/what-we-do", text: "What We Do" },
         { link: "/about", text: "About" },
         { link: "/articles", text: "Articles" },
         { link: "/scores", text: "Scores" },
         { link: "/players", text: "Players" },
         { link: "/contact", text: "Contact" },
-        { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
+        {
+          text: "Login",
+          button: true,
+          hide: this.isLoggedIn,
+        },
       ];
+
       return items.filter((item) => !item.hide);
     },
   },
@@ -122,8 +140,9 @@ export default {
     list-style: none;
     font-size: 1.55rem;
     font-weight: 500;
-    display: block;
     color: #fff;
+    cursor: pointer;
+    position: relative;
 
     &:first-child {
       display: none;
@@ -141,27 +160,48 @@ export default {
       }
     }
 
-    a {
-      color: inherit;
+    a,
+    span {
       transition: all 0.5s;
 
-      &:hover,
       &.active {
         color: $color-gold-3;
       }
     }
 
+    i {
+      font-size: 1.2rem;
+      margin-left: 0.6rem;
+      transition: transform 0.5s;
+    }
+
     .button {
-      width: auto;
+      width: 12.45rem;
       letter-spacing: initial;
       text-transform: none;
-      color: #000 !important;
+      color: #000;
       font-weight: 500;
       font-size: inherit;
-      padding: 1rem 4rem;
+      padding: 1rem;
+    }
 
-      &:hover {
-        color: $color-azure !important;
+    &:hover {
+      & > a,
+      & > span {
+        @include respond(desktop) {
+          color: $color-gold-3;
+        }
+      }
+
+      i {
+        @include respond(desktop) {
+          transform: rotate(180deg);
+        }
+      }
+
+      .button {
+        background-color: #fff;
+        color: $color-azure;
         box-shadow: $boxshadow2;
       }
     }
@@ -172,6 +212,63 @@ export default {
 
     @include respond(tablet) {
       color: #fff;
+    }
+  }
+
+  &__nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 1rem;
+    cursor: initial;
+    min-width: 30rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s 0.1s;
+    display: table;
+  }
+
+  &__nav-item:hover &__nav-dropdown {
+    @include respond(desktop) {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__nav-dropdown-list {
+    list-style: none;
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #f0f4fc;
+    border-radius: 1rem;
+    padding: 2rem 2.5rem;
+    width: fit-content;
+    min-width: 16rem;
+    margin: auto;
+    box-shadow: $boxshadow2;
+    transition: all 0.5s;
+  }
+
+  &.sticky:not(.active) &__nav-dropdown-list {
+    background-color: #fff;
+  }
+
+  &__nav-subitem {
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+
+    a {
+      transition: color 0.5s;
+      color: #000;
+    }
+
+    &:hover a {
+      color: $color-gold-3;
     }
   }
 
@@ -187,7 +284,6 @@ export default {
       visibility: hidden;
       transition: all 0.5s;
       z-index: -1;
-      text-align: center;
     }
 
     &.active &__navigation {
@@ -197,18 +293,18 @@ export default {
 
     &__nav-list {
       flex-direction: column;
-      align-items: center;
-      position: absolute;
-      width: 100%;
-      left: 0;
-      top: 50vh;
-      transform: translateY(-45%);
+      // position: absolute;
+      // width: 100%;
+      // left: 0;
+      // top: 50vh;
+      // transform: translateY(-45%);
 
       // CODE TO USE AFTER DROPDOWN NAVIGATION IS ADDED
-      // margin-top: 15rem;
-      // padding-bottom: 5rem;
-      // height: calc(100vh - 15rem);
-      // overflow: auto;
+      margin-top: 15rem;
+      padding-bottom: 5rem;
+      height: calc(100vh - 15rem);
+      overflow: auto;
+      text-align: center;
     }
 
     &__nav-item {
@@ -232,11 +328,59 @@ export default {
         font-weight: 600;
         width: 20rem;
       }
+
+      &.open {
+        & > a,
+        & > span {
+          color: $color-azure;
+        }
+
+        i {
+          transform: rotate(180deg);
+        }
+
+        .button {
+          color: $color-azure;
+          background-color: #fff;
+          box-shadow: $boxshadow2;
+        }
+      }
     }
 
     &.active &__nav-item {
       opacity: 1;
       transform: translateX(0);
+    }
+
+    &__nav-dropdown {
+      position: static;
+      top: initial;
+      left: initial;
+      transform: none;
+      padding: 0;
+      max-height: 0;
+      opacity: 1;
+      transition: all 0.5s;
+      visibility: visible;
+      overflow: hidden;
+      width: 25rem;
+    }
+
+    &__nav-dropdown-list {
+      margin-top: 1.5rem;
+      padding: 3rem 2rem;
+      background-color: rgba(#000, 0.3);
+      font-size: 1.45rem;
+
+      a {
+        color: #fff;
+      }
+    }
+
+    &__nav-subitem {
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
     }
   }
 }
