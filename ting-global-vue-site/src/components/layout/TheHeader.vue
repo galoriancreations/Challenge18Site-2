@@ -44,17 +44,17 @@ export default {
     navigationItems() {
       const items = [
         { link: "/", text: "Home" },
-        {
-          text: "About",
-          dropdown: [
-            { link: "/about", text: "Abous Us" },
-            { link: "/what-we-do", text: "What We Do" },
-            { link: "/articles", text: "Articles" },
-            { link: "/videos", text: "Videos" },
-          ],
-        },
-        // { link: "/what-we-do", text: "What We Do" },
-        // { link: "/about", text: "About" },
+        // {
+        //   text: "About",
+        //   dropdown: [
+        //     { link: "/about", text: "Abous Us" },
+        //     { link: "/what-we-do", text: "What We Do" },
+        //     { link: "/articles", text: "Articles" },
+        //     { link: "/videos", text: "Videos" },
+        //   ],
+        // },
+        { link: "/what-we-do", text: "What We Do" },
+        { link: "/about", text: "About" },
         { link: "/articles", text: "Articles" },
         { link: "/scores", text: "Scores" },
         { link: "/players", text: "Players" },
@@ -290,13 +290,13 @@ export default {
       flex-direction: column;
       margin-top: 18rem;
       padding-bottom: 5rem;
-      height: calc(100vh - 18rem);
+      height: calc(100% - 18rem);
       overflow: auto;
       text-align: center;
 
       @include respond(mobile) {
         margin-top: 15rem;
-        height: calc(100vh - 15rem);
+        height: calc(100% - 15rem);
       }
     }
 
@@ -323,19 +323,8 @@ export default {
       }
 
       &.open {
-        & > a,
-        & > span {
-          color: $color-azure;
-        }
-
         i {
           transform: rotate(180deg);
-        }
-
-        .button {
-          color: $color-azure;
-          background-color: #fff;
-          box-shadow: $boxshadow2;
         }
       }
     }
