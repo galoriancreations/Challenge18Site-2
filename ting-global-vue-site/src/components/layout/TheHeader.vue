@@ -44,26 +44,19 @@ export default {
     navigationItems() {
       const items = [
         { link: "/", text: "Home" },
-        {
-          text: "About",
-          dropdown: [
-            { link: "/about", text: "Abous Us" },
-            { link: "/what-we-do", text: "What We Do" },
-            { link: "/articles", text: "Articles" },
-            { link: "/videos", text: "Videos" },
-          ],
-        },
-        // { link: "/what-we-do", text: "What We Do" },
-        // { link: "/about", text: "About" },
-        // { link: "/articles", text: "Articles" },
-        {
-          text: "Scores",
-          dropdown: [
-            { link: "/about", text: "The Challenge" },
-            { link: "/what-we-do", text: "Premium Membership" },
-            { link: "/articles", text: "Register for Free" },
-          ],
-        },
+        // {
+        //   text: "About",
+        //   dropdown: [
+        //     { link: "/about", text: "Abous Us" },
+        //     { link: "/what-we-do", text: "What We Do" },
+        //     { link: "/articles", text: "Articles" },
+        //     { link: "/videos", text: "Videos" },
+        //   ],
+        // },
+        { link: "/what-we-do", text: "What We Do" },
+        { link: "/about", text: "About" },
+        { link: "/articles", text: "Articles" },
+        { link: "/scores", text: "Scores" },
         { link: "/players", text: "Players" },
         { link: "/contact", text: "Contact" },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
