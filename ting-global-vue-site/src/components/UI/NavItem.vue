@@ -86,6 +86,7 @@ export default {
     window.addEventListener("resize", () => {
       if (window.innerWidth > 1100) {
         this.dropdownMaxHeight = null;
+        this.dropdownOpenMobile = false;
       }
     });
   },

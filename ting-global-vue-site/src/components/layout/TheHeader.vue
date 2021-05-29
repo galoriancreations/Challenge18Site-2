@@ -44,19 +44,26 @@ export default {
     navigationItems() {
       const items = [
         { link: "/", text: "Home" },
-        // {
-        //   text: "About",
-        //   dropdown: [
-        //     { link: "/about", text: "Abous Us" },
-        //     { link: "/what-we-do", text: "What We Do" },
-        //     { link: "/articles", text: "Articles" },
-        //     { link: "/videos", text: "Videos" },
-        //   ],
-        // },
-        { link: "/what-we-do", text: "What We Do" },
-        { link: "/about", text: "About" },
-        { link: "/articles", text: "Articles" },
-        { link: "/scores", text: "Scores" },
+        {
+          text: "About",
+          dropdown: [
+            { link: "/about", text: "Abous Us" },
+            { link: "/what-we-do", text: "What We Do" },
+            { link: "/articles", text: "Articles" },
+            { link: "/videos", text: "Videos" },
+          ],
+        },
+        // { link: "/what-we-do", text: "What We Do" },
+        // { link: "/about", text: "About" },
+        // { link: "/articles", text: "Articles" },
+        {
+          text: "Scores",
+          dropdown: [
+            { link: "/about", text: "The Challenge" },
+            { link: "/what-we-do", text: "Premium Membership" },
+            { link: "/articles", text: "Register for Free" },
+          ],
+        },
         { link: "/players", text: "Players" },
         { link: "/contact", text: "Contact" },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
@@ -222,7 +229,6 @@ export default {
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s 0.1s;
-    display: table;
   }
 
   &__nav-item:hover &__nav-dropdown {
@@ -289,18 +295,16 @@ export default {
 
     &__nav-list {
       flex-direction: column;
-      // position: absolute;
-      // width: 100%;
-      // left: 0;
-      // top: 50vh;
-      // transform: translateY(-45%);
-
-      // CODE TO USE AFTER DROPDOWN NAVIGATION IS ADDED
-      margin-top: 15rem;
+      margin-top: 18rem;
       padding-bottom: 5rem;
-      height: calc(100vh - 15rem);
+      height: calc(100vh - 18rem);
       overflow: auto;
       text-align: center;
+
+      @include respond(mobile) {
+        margin-top: 15rem;
+        height: calc(100vh - 15rem);
+      }
     }
 
     &__nav-item {
@@ -359,7 +363,8 @@ export default {
       transition: all 0.5s;
       visibility: visible;
       overflow: hidden;
-      width: 25rem;
+      width: calc(100vw - 2 * #{$padding-sides-mobile});
+      min-width: initial;
     }
 
     &__nav-dropdown-list {
@@ -367,6 +372,9 @@ export default {
       padding: 3rem 2rem;
       background-color: rgba(#000, 0.3);
       font-size: 1.45rem;
+      width: 100%;
+      max-width: 25rem;
+      box-shadow: none;
 
       a {
         color: #fff;
