@@ -44,17 +44,17 @@ export default {
     navigationItems() {
       const items = [
         { link: "/", text: "Home" },
-        // {
-        //   text: "About",
-        //   dropdown: [
-        //     { link: "/about", text: "Abous Us" },
-        //     { link: "/what-we-do", text: "What We Do" },
-        //     { link: "/articles", text: "Articles" },
-        //     { link: "/videos", text: "Videos" },
-        //   ],
-        // },
-        { link: "/what-we-do", text: "What We Do" },
-        { link: "/about", text: "About" },
+        {
+          text: "About",
+          dropdown: [
+            { link: "/about", text: "Abous Us" },
+            { link: "/what-we-do", text: "What We Do" },
+            { link: "/articles", text: "Articles" },
+            { link: "/videos", text: "Videos" },
+          ],
+        },
+        // { link: "/what-we-do", text: "What We Do" },
+        // { link: "/about", text: "About" },
         { link: "/articles", text: "Articles" },
         { link: "/scores", text: "Scores" },
         { link: "/players", text: "Players" },
@@ -175,7 +175,7 @@ export default {
       width: 12.45rem;
       letter-spacing: initial;
       text-transform: none;
-      color: #000;
+      color: #000 !important;
       font-weight: 500;
       font-size: inherit;
       padding: 1rem;
@@ -197,7 +197,7 @@ export default {
 
       .button {
         background-color: #fff;
-        color: $color-azure;
+        color: $color-azure !important;
         box-shadow: $boxshadow2;
       }
     }
