@@ -43,7 +43,7 @@ export default {
   line-height: 1.7;
 
   @include respond(mobile) {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -56,7 +56,7 @@ export default {
   margin: 6rem auto 8rem;
 
   @include respond(mobile) {
-    margin: 5rem auto 7rem;
+    margin: 4rem auto 6rem;
   }
 }
 

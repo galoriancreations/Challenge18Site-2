@@ -26,7 +26,7 @@
   margin-bottom: 9rem;
 
   @include respond(mobile) {
-    padding: 2rem 1.5rem;
+    padding: 2.75rem 1.5rem;
     margin-bottom: 7rem;
   }
 

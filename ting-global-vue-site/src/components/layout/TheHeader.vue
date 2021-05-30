@@ -291,10 +291,9 @@ export default {
         left: 50%;
         top: 16rem;
         transform: translateX(-50%);
-        width: 100%;
-        max-width: 25rem;
+        width: 80%;
         height: 0.1rem;
-        background-color: rgba(#fff, 0.8);
+        background-color: rgba(#fff, 0.5);
 
         @include respond(mobile) {
           top: 13rem;
@@ -309,6 +308,7 @@ export default {
 
     &.sticky &__navigation::after {
       top: 13rem;
+
       @include respond(mobile) {
         top: 11rem;
       }
@@ -317,7 +317,7 @@ export default {
     &__nav-list {
       flex-direction: column;
       margin-top: 21rem;
-      padding-bottom: 5rem;
+      padding-bottom: 6rem;
       height: calc(100% - 21rem);
       overflow: auto;
       text-align: center;
