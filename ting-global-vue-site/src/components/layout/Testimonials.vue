@@ -27,6 +27,7 @@ export default {
       {
         breakpoint: 900,
         settings: {
+          autoplay: true,
           infinite: false,
         },
       },
@@ -39,6 +40,7 @@ export default {
           {
             breakpoint: 900,
             settings: {
+              autoplay: true,
               infinite: false,
             },
           },
@@ -94,66 +96,68 @@ export default {
 };
 </script>
 
+//
 <style lang="scss">
-@import "../../sass/base.scss";
+// @import "../../sass/base.scss";
 
-.agile __dot {
-  margin: 0 10px;
-}
+// .agile __dot {
+//   margin: 0 10px;
+// }
 
-.recent-results {
-  .button {
-    margin-top: 5rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    width: 22rem;
+// .recent-results {
+//   .button {
+//     margin-top: 5rem;
+//     font-size: 1.5rem;
+//     font-weight: 600;
+//     width: 22rem;
 
-    @include respond(mobile) {
-      margin-top: 4rem;
-      font-size: 1.3rem;
-    }
-  }
-}
-.testimonials {
-  margin-top: 10rem;
-  @include respond(mobile) {
-    margin-top: 7rem;
-  }
+//     @include respond(mobile) {
+//       margin-top: 4rem;
+//       font-size: 1.3rem;
+//     }
+//   }
+// }
+// .testimonials {
+//   margin-top: 10rem;
+//   @include respond(mobile) {
+//     margin-top: 7rem;
+//   }
 
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2.5rem;
+//   &__grid {
+//     display: grid;
+//     grid-template-columns: 1fr 1fr 1fr;
+//     gap: 2.5rem;
 
-    @include respond(tablet) {
-      grid-template-columns: 1fr 1fr;
-    }
+//     @include respond(tablet) {
+//       grid-template-columns: 1fr 1fr;
+//     }
 
-    @include respond(mobile-land) {
-      gap: 1.5rem;
-    }
+//     @include respond(mobile-land) {
+//       gap: 1.5rem;
+//     }
 
-    @include respond(mobile) {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-  }
+//     @include respond(mobile) {
+//       grid-template-columns: 1fr;
+//       gap: 2rem;
+//     }
+//   }
 
-  &__item {
-    iframe {
-      width: 100%;
-      height: 17vw;
-      display: block;
-      border-radius: 0.8rem;
+//   &__item {
+//     iframe {
+//       width: 100%;
+//       height: 17vw;
+//       display: block;
+//       border-radius: 0.8rem;
 
-      @include respond(tablet) {
-        height: 25vw;
-      }
+//       @include respond(tablet) {
+//         height: 25vw;
+//       }
 
-      @include respond(mobile) {
-        height: 60vw;
-      }
-    }
-  }
-}
+//       @include respond(mobile) {
+//         height: 60vw;
+//       }
+//     }
+//   }
+// }
+//
 </style>

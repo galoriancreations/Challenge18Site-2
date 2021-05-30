@@ -9,11 +9,7 @@
           <cite class="elementor-testimonial__cite">
             <span class="elementor-testimonial__name">{{ slide.name }}</span>
             <div class="elementor-star-rating">
-              <i class="elementor-star-full"></i>
-              <i class="elementor-star-full"></i>
-              <i class="elementor-star-full"></i>
-              <i class="elementor-star-full"></i>
-              <i class="elementor-star-full"></i>
+              <star-rating v-model="slide.rating"></star-rating>
             </div>
             <span class="testimonial__title">{{ slide.tittle }}</span>
           </cite>
@@ -29,34 +25,17 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 export default {
   props: ["slide"],
-  components: {},
+  components: { StarRating },
 };
 </script>
 
+//
 <style lang="scss">
-.swiper__wrapper {
-}
-.swiper__container {
-}
-.testimonial__body {
-  display: flex;
-  flex-direction: column;
-}
-.testimonial__header {
-  //   background-color: red;
-  display: flex;
-  padding-top: 10px;
-}
-.testimonial-image__container {
-  max-width: 70px;
-  margin: 0 20px 10px 10px;
-}
 .image {
   border-radius: 50%;
-}
-.testimonial__content {
-  //   background-color: royalblue;
+  max-width: 150px;
 }
 </style>
