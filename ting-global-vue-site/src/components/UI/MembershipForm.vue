@@ -58,7 +58,6 @@
       <input
         v-model="email"
         id="email"
-        name="email"
         type="email"
         required
         class="form__input"
@@ -66,13 +65,7 @@
     </div>
     <div class="form__field">
       <label for="phone" class="form__label">Lead contact phone number</label>
-      <input
-        v-model="phone"
-        id="phone"
-        name="phone"
-        type="tel"
-        class="form__input"
-      />
+      <input v-model="phone" id="phone" type="tel" class="form__input" />
     </div>
     <div class="form__field">
       <label for="group" class="form__label">
@@ -80,7 +73,7 @@
       </label>
       <select v-model="group" id="group" class="form__input">
         <option value="international">International</option>
-        <option value="hebrew">Hebrew</option>
+        <option value="national">National</option>
       </select>
     </div>
     <div class="form__field">
@@ -101,7 +94,6 @@
       <textarea
         v-model="questions"
         id="questions"
-        name="questions"
         class="form__input form__textarea"
       />
     </div>
@@ -112,7 +104,6 @@
       <textarea
         v-model="reached"
         id="reached"
-        name="reached"
         class="form__input form__textarea"
       />
     </div>

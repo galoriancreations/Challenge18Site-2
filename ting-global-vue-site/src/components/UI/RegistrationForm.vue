@@ -51,7 +51,7 @@
       </label>
       <select v-model="group" id="group" class="form__input">
         <option value="international">International</option>
-        <option value="hebrew">Hebrew</option>
+        <option value="national">National</option>
       </select>
     </div>
     <BaseButton variant="blue">Register</BaseButton>
@@ -69,11 +69,6 @@ export default {
       group: "international",
       availability: null,
     };
-  },
-  watch: {
-    group(value) {
-      console.log(value);
-    },
   },
 };
 </script>

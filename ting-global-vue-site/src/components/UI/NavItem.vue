@@ -63,11 +63,21 @@ export default {
     linkClasses() {
       return this.button ? "button button--gold" : null;
     },
+    hasActiveSubitem() {
+      for (let item of this.dropdown) {
+        if (item.link === this.$route.path) {
+          return true;
+        }
+      }
+      return false;
+    },
   },
   methods: {
-    clickHandler() {
+    clickHandler(event) {
       if (this.dropdown) {
-        this.dropdownOpenMobile = !this.dropdownOpenMobile;
+        if (event.target.getAttribute("href") !== this.$route.path) {
+          this.dropdownOpenMobile = !this.dropdownOpenMobile;
+        }
       } else {
         this.closeNav();
       }
@@ -82,7 +92,11 @@ export default {
       }
     },
   },
-  mounted() {
+  created() {
+    if (this.dropdown && this.hasActiveSubitem) {
+      this.dropdownOpenMobile = true;
+    }
+
     window.addEventListener("resize", () => {
       if (window.innerWidth > 1100) {
         this.dropdownMaxHeight = null;

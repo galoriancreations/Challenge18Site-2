@@ -5,6 +5,7 @@ import Home from "../views/Home";
 import WhatWeDo from "../views/WhatWeDo";
 import About from "../views/About";
 import Articles from "../views/Articles";
+import Videos from "../views/Videos";
 import Scores from "../views/Scores";
 import Players from "../views/Players";
 import Contact from "../views/Contact";
@@ -25,6 +26,7 @@ export default new VueRouter({
         { path: "/what-we-do", component: WhatWeDo },
         { path: "/about", component: About },
         { path: "/articles", component: Articles },
+        { path: "/videos", component: Videos },
         { path: "/scores", component: Scores },
         { path: "/players", component: Players },
         { path: "/contact", component: Contact },

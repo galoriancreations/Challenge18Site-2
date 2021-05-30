@@ -6,7 +6,7 @@
         v-model="formData.name"
         id="name"
         name="name"
-        placeholder="Your name..."
+        placeholder="Your name"
         required
         class="form__input"
       />
@@ -19,7 +19,7 @@
         v-model="formData.email"
         id="email"
         name="email"
-        placeholder="Your email address..."
+        placeholder="Your email address"
         type="email"
         required
         class="form__input"
@@ -32,27 +32,30 @@
         id="phone"
         name="phone"
         type="tel"
-        placeholder="Your phone number (optional)... "
+        required
+        placeholder="Your phone number "
         class="form__input"
       />
     </div>
     <div class="form__field">
-      <label for="organization" class="form__label">Organization</label>
+      <label for="organization" class="form__label"
+        >Organization (optional)</label
+      >
       <input
         v-model="formData.organization"
         id="organization"
         name="organization"
-        placeholder="Your organization (optional)... "
+        placeholder="Your organization"
         class="form__input"
       />
     </div>
     <div class="form__field">
-      <label for="role" class="form__label">Role</label>
+      <label for="role" class="form__label">Role (optional)</label>
       <input
         v-model="formData.role"
         id="role"
         name="role"
-        placeholder="Your role (optional)... "
+        placeholder="Your role in the organization"
         class="form__input"
       />
     </div>
@@ -63,7 +66,7 @@
         id="subject"
         name="subject"
         required
-        placeholder="Subject of your message..."
+        placeholder="Subject of your message"
         class="form__input"
       />
     </div>
@@ -74,7 +77,7 @@
         id="message"
         name="message"
         required
-        placeholder="Leave your message here..."
+        placeholder="Leave your message here"
         class="form__input form__textarea"
       />
     </div>
@@ -152,6 +155,7 @@ export default {
     border-radius: 0.8rem;
     transition: all 0.4s;
     width: 100%;
+    background-color: #fff !important;
     box-shadow: $boxshadow2;
 
     @include respond(mobile) {
@@ -172,10 +176,6 @@ export default {
     margin-top: 1rem;
     font-weight: 600;
     width: 100%;
-
-    // @include respond(mobile) {
-    //   margin-top: 0.5rem;
-    // }
   }
 }
 </style>

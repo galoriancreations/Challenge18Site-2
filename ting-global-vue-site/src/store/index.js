@@ -3,18 +3,18 @@ import Vuex from "vuex";
 import auth from "./auth";
 import results from "./results";
 
-import socket from "socket.io-client";
+// import socket from "socket.io-client";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: { auth, results },
-  state: {
-    io: socket("https://193.46.199.76")
-  },
-  getters: {
-    io(state) {
-      return state.io;
-    }
-  }
+  // state: {
+  //   io: socket("https://193.46.199.76")
+  // },
+  // getters: {
+  //   io(state) {
+  //     return state.io;
+  //   }
+  // }
 });

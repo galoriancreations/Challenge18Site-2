@@ -44,20 +44,25 @@ export default {
     navigationItems() {
       const items = [
         { link: "/", text: "Home" },
-        // {
-        //   text: "About",
-        //   dropdown: [
-        //     { link: "/about", text: "Abous Us" },
-        //     { link: "/what-we-do", text: "What We Do" },
-        //     { link: "/articles", text: "Articles" },
-        //     { link: "/videos", text: "Videos" },
-        //   ],
-        // },
-        { link: "/what-we-do", text: "What We Do" },
-        { link: "/about", text: "About" },
-        { link: "/articles", text: "Articles" },
+        {
+          text: "About",
+          dropdown: [
+            { link: "/about", text: "Abous Us" },
+            { link: "/what-we-do", text: "What We Do" },
+            { link: "/articles", text: "Articles" },
+            { link: "/videos", text: "Videos" },
+          ],
+        },
         { link: "/scores", text: "Scores" },
         { link: "/players", text: "Players" },
+        {
+          text: "Join",
+          dropdown: [
+            { link: "/register", text: "Free Registration" },
+            { link: "/membership", text: "Premium Membership" },
+          ],
+          hide: this.isLoggedIn,
+        },
         { link: "/contact", text: "Contact" },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
       ];
@@ -279,6 +284,22 @@ export default {
       visibility: hidden;
       transition: all 0.5s;
       z-index: -1;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 16rem;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 25rem;
+        height: 0.1rem;
+        background-color: rgba(#fff, 0.8);
+
+        @include respond(mobile) {
+          top: 13rem;
+        }
+      }
     }
 
     &.active &__navigation {
@@ -286,17 +307,34 @@ export default {
       visibility: visible;
     }
 
+    &.sticky &__navigation::after {
+      top: 13rem;
+      @include respond(mobile) {
+        top: 11rem;
+      }
+    }
+
     &__nav-list {
       flex-direction: column;
-      margin-top: 18rem;
+      margin-top: 21rem;
       padding-bottom: 5rem;
-      height: calc(100% - 18rem);
+      height: calc(100% - 21rem);
       overflow: auto;
       text-align: center;
 
       @include respond(mobile) {
-        margin-top: 15rem;
-        height: calc(100% - 15rem);
+        margin-top: 18rem;
+        height: calc(100% - 18rem);
+      }
+    }
+
+    &.sticky &__nav-list {
+      margin-top: 18rem;
+      height: calc(100% - 18rem);
+
+      @include respond(mobile) {
+        margin-top: 16rem;
+        height: calc(100% - 16rem);
       }
     }
 

@@ -73,6 +73,15 @@ export default {
       url(../../assets/blogpost-bg.png);
   }
 
+  &#videos {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
+      ),
+      url(../../assets/videos-bg.jpg);
+  }
+
   &#players {
     background-image: linear-gradient(
         to right,
