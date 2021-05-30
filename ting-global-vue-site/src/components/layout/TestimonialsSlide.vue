@@ -9,9 +9,19 @@
           <cite class="elementor-testimonial__cite">
             <span class="elementor-testimonial__name">{{ slide.name }}</span>
             <div class="elementor-star-rating">
-              <star-rating v-model="slide.rating"></star-rating>
+              <star-rating
+                v-bind:star-size="20"
+                v-bind:show-rating="false"
+                v-bind:read-only="true"
+                v-bind:animate="true"
+                v-model="slide.rating"
+              ></star-rating>
             </div>
-            <span class="testimonial__title">{{ slide.tittle }}</span>
+            <strong
+              ><span class="testimonial__title">{{
+                slide.tittle
+              }}</span></strong
+            >
           </cite>
         </div>
         <div class="testimonial__content">
