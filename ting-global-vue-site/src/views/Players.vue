@@ -2,7 +2,7 @@
   <Page title="Players" name="players">
     <WhiteSection class="players">
       <div class="players__grid">
-        <Player v-for="player in players" :key="player.name" :card="player" />
+        <Player v-for="player in players" :key="player.name" :player="player" />
       </div>
     </WhiteSection>
   </Page>
@@ -20,28 +20,28 @@ export default {
           imgSrc: "https://i.imgur.com/MIwbEJr.jpg",
           name: "Nadia Hassona",
           state: "Israel",
-          school: "Eroni Yud-Bet",
+          club: "Eroni Yud-Bet",
           score: 1239,
         },
         {
           imgSrc: "https://i.imgur.com/y1AcFjw.jpg",
           name: "Mariam Abu Rhima",
           state: "Israel",
-          school: "Eroni Yud-Bet",
+          club: "Eroni Yud-Bet",
           score: 5569,
         },
         {
           imgSrc: "https://i.imgur.com/tgGlgsM.jpg",
           name: "Fernanda Matsuoka",
           state: "Brazil",
-          school: "Brazil - Young Climate Leaders",
+          club: "Brazil - Young Climate Leaders",
           score: 4523,
         },
         {
           imgSrc: "https://i.imgur.com/l0tyiBX.jpg",
           name: "Amal Tartir",
           state: "Israel",
-          school: "Eroni Yud-Bet",
+          club: "Eroni Yud-Bet",
           score: 3561,
         },
         {
@@ -49,7 +49,7 @@ export default {
             "https://i1.wp.com/ting.global/wp-content/uploads/2021/04/1232.jpg?fit=500%2C585&ssl=1",
           name: "Ashni Rungta",
           state: "Nepal",
-          school: "Nepal Premier School",
+          club: "Nepal Premier School",
           score: 1234,
         },
         {

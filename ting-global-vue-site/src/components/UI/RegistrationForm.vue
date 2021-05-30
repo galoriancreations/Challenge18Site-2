@@ -17,7 +17,6 @@
       <input
         v-model="phone"
         id="phone"
-        name="phone"
         type="tel"
         required
         placeholder="Phone number incl. country code"
@@ -29,7 +28,6 @@
       <input
         v-model="fullName"
         id="fullName"
-        name="fullName"
         required
         placeholder="Your full name"
         class="form__input"
@@ -42,11 +40,19 @@
       <input
         v-model="email"
         id="email"
-        name="email"
         placeholder="Your email address"
         type="email"
         class="form__input"
       />
+    </div>
+    <div class="form__field">
+      <label for="group" class="form__label">
+        Challenge group
+      </label>
+      <select v-model="group" id="group" class="form__input">
+        <option value="international">International</option>
+        <option value="hebrew">Hebrew</option>
+      </select>
     </div>
     <BaseButton variant="blue">Register</BaseButton>
   </form>
@@ -60,8 +66,14 @@ export default {
       phone: "",
       fullName: "",
       email: "",
+      group: "international",
       availability: null,
     };
+  },
+  watch: {
+    group(value) {
+      console.log(value);
+    },
   },
 };
 </script>

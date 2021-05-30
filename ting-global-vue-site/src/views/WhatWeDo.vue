@@ -76,21 +76,21 @@
             <li>
               <strong
                 >A unique challenge activity through the WhatsApp app to build a
-                sense of belonging and sustainability among the students in
-                schools.</strong
+                sense of belonging and sustainability among the players in
+                clubs.</strong
               >
             </li>
             <li>
               <strong
-                >Each challenge 18 group includes one or two schools. The
-                activity is in the format of a cooperative competition (not a
+                >Each challenge 18 group includes one or two clubs. The activity
+                is in the format of a cooperative competition (not a
                 winner-loser).</strong
               >
             </li>
             <li>
               <strong
                 >The challenge is emphasizing and matching values and skills in
-                the spirit of the school.</strong
+                the spirit of the club.</strong
               >
             </li>
             <li>
@@ -103,17 +103,11 @@
             <li>
               <strong
                 >The products of the program include physical challenge game at
-                the school initiated by the students, interviews with change
-                agents in the community, formation of thinking and action
-                groups, certificates of appreciation, an invitation to join the
+                the club initiated by the players, interviews with change agents
+                in the community, formation of thinking and action groups,
+                certificates of appreciation, an invitation to join the
                 professional Mondial CHALLENGE 18 Games and more.
               </strong>
-            </li>
-            <li>
-              <strong
-                >The program includes close supervision of the leading school
-                staff.</strong
-              >
             </li>
             <li>
               <strong

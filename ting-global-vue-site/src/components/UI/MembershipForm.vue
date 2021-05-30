@@ -1,13 +1,18 @@
 <template>
   <form class="form">
     <div class="form__field">
+      <label for="username" class="form__label">
+        Username
+      </label>
+      <input v-model="username" id="username" required class="form__input" />
+    </div>
+    <div class="form__field">
       <label for="memberName" class="form__label">
         Lead staff member's mame
       </label>
       <input
-        v-model="formData.memberName"
+        v-model="memberName"
         id="memberName"
-        thing="Lead staff member's name"
         required
         class="form__input"
       />
@@ -17,9 +22,8 @@
         Lead staff member's role
       </label>
       <input
-        v-model="formData.memberRole"
+        v-model="memberRole"
         id="memberRole"
-        thing="Lead staff member's role"
         required
         class="form__input"
       />
@@ -29,9 +33,8 @@
         Organization/school name
       </label>
       <input
-        v-model="formData.organization"
+        v-model="organization"
         id="organization"
-        thing="Organization/school name"
         required
         class="form__input"
       />
@@ -40,35 +43,22 @@
       <label for="city" class="form__label">
         City/Town
       </label>
-      <input
-        v-model="formData.city"
-        id="city"
-        thing="City/Town"
-        required
-        class="form__input"
-      />
+      <input v-model="city" id="city" required class="form__input" />
     </div>
     <div class="form__field">
       <label for="country" class="form__label">
         Country
       </label>
-      <input
-        v-model="formData.country"
-        id="country"
-        thing="Country"
-        required
-        class="form__input"
-      />
+      <input v-model="country" id="country" required class="form__input" />
     </div>
     <div class="form__field">
       <label for="email" class="form__label">
         Lead contact email
       </label>
       <input
-        v-model="formData.email"
+        v-model="email"
         id="email"
         name="email"
-        thing="Lead contact email"
         type="email"
         required
         class="form__input"
@@ -77,20 +67,28 @@
     <div class="form__field">
       <label for="phone" class="form__label">Lead contact phone number</label>
       <input
-        v-model="formData.phone"
+        v-model="phone"
         id="phone"
         name="phone"
         type="tel"
-        thing="Lead contact phone number"
         class="form__input"
       />
+    </div>
+    <div class="form__field">
+      <label for="group" class="form__label">
+        Challenge group
+      </label>
+      <select v-model="group" id="group" class="form__input">
+        <option value="international">International</option>
+        <option value="hebrew">Hebrew</option>
+      </select>
     </div>
     <div class="form__field">
       <label for="estimate" class="form__label">
         How many students are you planning to enter (estimate)?
       </label>
       <input
-        v-model="formData.estimate"
+        v-model="estimate"
         id="estimate"
         type="number"
         class="form__input"
@@ -101,7 +99,7 @@
         Do you have any questions about the Challenge at this stage?
       </label>
       <textarea
-        v-model="formData.questions"
+        v-model="questions"
         id="questions"
         name="questions"
         class="form__input form__textarea"
@@ -112,7 +110,7 @@
         How did you hear about the Challenge 18 SDGs?
       </label>
       <textarea
-        v-model="formData.reached"
+        v-model="reached"
         id="reached"
         name="reached"
         class="form__input form__textarea"
@@ -125,18 +123,18 @@
 export default {
   data() {
     return {
-      formData: {
-        memberName: "",
-        memberRole: "",
-        organization: "",
-        city: "",
-        country: "",
-        email: "",
-        phone: "",
-        estimate: null,
-        questions: "",
-        reached: "",
-      },
+      username: "",
+      memberName: "",
+      memberRole: "",
+      organization: "",
+      city: "",
+      country: "",
+      email: "",
+      phone: "",
+      group: "international",
+      estimate: null,
+      questions: "",
+      reached: "",
     };
   },
 };

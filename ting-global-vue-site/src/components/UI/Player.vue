@@ -4,21 +4,18 @@
       <div class="image__container">
         <div class="elementor-widget-container">
           <figure class="wp-caption">
-            <img :src="card.imgSrc" :alt="card.name" loading="eager" />
+            <img :src="player.imgSrc" :alt="player.name" loading="eager" />
             <figcaption class="caption-tittle">
-              {{ card.name }}
+              {{ player.name }}
             </figcaption>
           </figure>
         </div>
       </div>
       <div class="text__wrapper">
         <div class="text__container">
-          <p><strong>State:</strong> {{ card.state }}</p>
-          <p v-if="card.school"><strong>School:</strong> {{ card.school }}</p>
-          <p v-if="card.occupation">
-            <strong>Profession:</strong> {{ card.occupation }}
+          <p v-for="field in infoFields" :key="field.key">
+            <strong>{{ field.key }}:</strong> {{ field.value }}
           </p>
-          <p><strong>Score:</strong> {{ card.score }}</p>
         </div>
       </div>
     </div>
@@ -26,9 +23,22 @@
 </template>
 
 <script>
+import _ from "lodash";
+
 export default {
   props: {
-    card: Object,
+    player: Object,
+  },
+  computed: {
+    infoFields() {
+      const fields = [];
+      for (let key in this.player) {
+        if (key !== "imgSrc" && key !== "name") {
+          fields.push({ key: _.capitalize(key), value: this.player[key] });
+        }
+      }
+      return fields;
+    },
   },
 };
 </script>
