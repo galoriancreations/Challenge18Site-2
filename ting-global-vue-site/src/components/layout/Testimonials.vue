@@ -10,6 +10,7 @@
         :dots="true"
       >
         <TestimonialsSlide
+          class="slide"
           v-bind:key="slide"
           v-bind:slide="slide"
           v-for="slide of testimonials"
@@ -48,6 +49,27 @@ export default {
   },
   data() {
     return {
+      myOptions: {
+        navButtons: false,
+
+        responsive: [
+          {
+            breakpoint: 600,
+            settings: {
+              dots: false,
+            },
+          },
+
+          {
+            breakpoint: 900,
+            settings: {
+              navButtons: true,
+              dots: true,
+              infinite: false,
+            },
+          },
+        ],
+      },
       testimonials: [
         {
           imgSrc:
@@ -100,6 +122,14 @@ export default {
 
 <style lang="scss">
 @import "../../sass/base.scss";
+
+.agile {
+  width: 100%;
+}
+
+.agile __dot {
+  margin: 0 10px;
+}
 
 .recent-results {
   .button {
