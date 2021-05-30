@@ -11,6 +11,7 @@ import Contact from "../views/Contact";
 import Login from "../views/Login";
 import Register from "../views/Register";
 import Membership from "../views/Membership";
+import Triplets from "../views/Triplets";
 import NotFound from "../views/404";
 import CounterTest from "../CounterTest";
 
@@ -30,6 +31,7 @@ export default new VueRouter({
         { path: "/login", component: Login },
         { path: "/register", component: Register },
         { path: "/membership", component: Membership },
+        { path: "/triplets", component: Triplets },
         { path: "/counter-test", component: CounterTest },
         { path: "/:notFound(.*)", component: NotFound },
     ]
