@@ -35,21 +35,10 @@ export default {
   data() {
     return {
       myOptions: {
-        navButtons: false,
-
         responsive: [
-          {
-            breakpoint: 600,
-            settings: {
-              dots: false,
-            },
-          },
-
           {
             breakpoint: 900,
             settings: {
-              navButtons: true,
-              dots: true,
               infinite: false,
             },
           },
