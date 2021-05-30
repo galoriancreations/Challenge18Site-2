@@ -108,10 +108,6 @@ export default {
 <style lang="scss">
 @import "../../sass/base.scss";
 
-.agile {
-  width: 100%;
-}
-
 .agile __dot {
   margin: 0 10px;
 }
