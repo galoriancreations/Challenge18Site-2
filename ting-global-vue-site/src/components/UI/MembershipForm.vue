@@ -91,7 +91,7 @@
         </option>
       </select>
     </div>
-    <div class="form__field">
+    <!-- <div class="form__field">
       <label for="estimate" class="form__label">
         How many students are you planning to enter (estimate)?
       </label>
@@ -101,8 +101,8 @@
         type="number"
         class="form__input"
       />
-    </div>
-    <div class="form__field">
+    </div> -->
+    <!-- <div class="form__field">
       <label for="questions" class="form__label">
         Do you have any questions about the Challenge at this stage?
       </label>
@@ -121,6 +121,29 @@
         id="reached"
         class="form__input form__textarea"
       />
+    </div> -->
+    <div class="form__field form__plans">
+      <label class="form__label">Membership plan</label>
+      <div class="form__plans-list">
+        <div
+          class="form__plan"
+          v-for="option in planOptions"
+          :key="option.type"
+        >
+          <input
+            type="radio"
+            class="form__plan-input"
+            :id="option.type"
+            v-model="plan"
+            :value="option.type"
+          />
+          <label :for="option.type" class="form__plan-box">
+            <p class="form__plan-label">{{ option.label }}</p>
+            <h3 class="form__plan-price">${{ option.price }}</h3>
+            <p>per year</p>
+          </label>
+        </div>
+      </div>
     </div>
   </form>
 </template>
@@ -148,6 +171,12 @@ export default {
         "Russian",
         "Hebrew",
       ],
+      plan: "3 Years",
+      planOptions: [
+        { type: "3 Years", price: 150, label: "Three Years" },
+        { type: "2 Years", price: 250, label: "Two Years" },
+        { type: "1 Year", price: 350, label: "One Year" },
+      ],
       estimate: null,
       questions: "",
       reached: "",
@@ -162,3 +191,63 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "@/sass/base.scss";
+
+.form {
+  &__plans-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+
+    @include respond(mobile-land) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__plan-input {
+    display: none;
+  }
+
+  &__plan-box {
+    border: 0.3rem solid transparent;
+    box-shadow: $boxshadow2;
+    border-radius: 0.8rem;
+    display: block;
+    text-align: center;
+    padding: 2rem;
+    height: 100%;
+    cursor: pointer;
+    transition: all 0.5s;
+
+    &:hover {
+      background-color: rgba($color-azure-light, 0.4);
+    }
+  }
+
+  &__plan-input:checked + &__plan-box {
+    border-color: $color-azure;
+    background-color: rgba($color-azure-light, 0.4);
+  }
+
+  &__plan-label {
+    font-size: 1.8rem;
+    font-weight: 500;
+
+    @include respond(mobile) {
+      font-size: 1.7rem;
+    }
+  }
+
+  &__plan-price {
+    font-size: 3rem;
+    color: $color-blue-2;
+    margin: 1.5rem 0 0;
+
+    @include respond(mobile) {
+      font-size: 2.9rem;
+    }
+  }
+}
+</style>

@@ -138,6 +138,7 @@ export default {
     font-weight: 500;
     font-size: 1.6rem;
     margin-bottom: 1rem;
+    display: block;
 
     @include respond(mobile) {
       font-size: 1.5rem;
