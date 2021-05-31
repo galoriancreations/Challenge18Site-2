@@ -145,6 +145,7 @@
         </div>
       </div>
     </div>
+    <BaseButton variant="blue">Proceed to checkout</BaseButton>
   </form>
 </template>
 
@@ -173,14 +174,22 @@ export default {
       ],
       plan: "3 Years",
       planOptions: [
-        { type: "3 Years", price: 150, label: "Three Years" },
-        { type: "2 Years", price: 250, label: "Two Years" },
-        { type: "1 Year", price: 350, label: "One Year" },
+        { type: "3 Years", price: 150, label: "Three Years", years: 3 },
+        { type: "2 Years", price: 250, label: "Two Years", years: 2 },
+        { type: "1 Year", price: 350, label: "One Year", years: 1 },
       ],
       estimate: null,
       questions: "",
       reached: "",
     };
+  },
+  computed: {
+    totalPrice() {
+      const pickedPlan = this.planOptions.find(
+        (plan) => plan.type === this.plan
+      );
+      return pickedPlan.price * pickedPlan.years;
+    },
   },
   watch: {
     group(value) {
@@ -196,6 +205,9 @@ export default {
 @import "@/sass/base.scss";
 
 .form {
+  &__plans {
+    margin-bottom: 3.5rem;
+  }
   &__plans-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
