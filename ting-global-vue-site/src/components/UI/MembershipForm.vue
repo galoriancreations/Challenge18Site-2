@@ -77,6 +77,21 @@
       </select>
     </div>
     <div class="form__field">
+      <label for="language" class="form__label">
+        Language to play
+      </label>
+      <select
+        v-model="language"
+        id="language"
+        class="form__input"
+        :disabled="group === 'international'"
+      >
+        <option v-for="option in languageOptions" :key="option" :value="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+    <div class="form__field">
       <label for="estimate" class="form__label">
         How many students are you planning to enter (estimate)?
       </label>
@@ -123,10 +138,27 @@ export default {
       email: "",
       phone: "",
       group: "international",
+      language: "English",
+      languageOptions: [
+        "English",
+        "Chinese",
+        "Spanish",
+        "Portuguese",
+        "French",
+        "Russian",
+        "Hebrew",
+      ],
       estimate: null,
       questions: "",
       reached: "",
     };
+  },
+  watch: {
+    group(value) {
+      if (value === "international") {
+        this.language = "English";
+      }
+    },
   },
 };
 </script>

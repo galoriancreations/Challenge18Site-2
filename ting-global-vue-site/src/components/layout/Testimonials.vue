@@ -98,7 +98,7 @@ export default {
 
 //
 <style lang="scss">
-// @import "../../sass/base.scss";
+@import "../../sass/base.scss";
 
 // .agile __dot {
 //   margin: 0 10px;
@@ -117,11 +117,12 @@ export default {
 //     }
 //   }
 // }
-// .testimonials {
-//   margin-top: 10rem;
-//   @include respond(mobile) {
-//     margin-top: 7rem;
-//   }
+.testimonials {
+  margin-top: 10rem;
+  @include respond(mobile) {
+    margin-top: 7rem;
+  }
+}
 
 //   &__grid {
 //     display: grid;

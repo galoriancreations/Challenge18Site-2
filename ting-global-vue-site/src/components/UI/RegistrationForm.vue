@@ -54,6 +54,21 @@
         <option value="national">National</option>
       </select>
     </div>
+    <div class="form__field">
+      <label for="language" class="form__label">
+        Language to play
+      </label>
+      <select
+        v-model="language"
+        id="language"
+        class="form__input"
+        :disabled="group === 'international'"
+      >
+        <option v-for="option in languageOptions" :key="option" :value="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
     <BaseButton variant="blue">Register</BaseButton>
   </form>
 </template>
@@ -67,8 +82,25 @@ export default {
       fullName: "",
       email: "",
       group: "international",
+      language: "English",
+      languageOptions: [
+        "English",
+        "Chinese",
+        "Spanish",
+        "Portuguese",
+        "French",
+        "Russian",
+        "Hebrew",
+      ],
       availability: null,
     };
+  },
+  watch: {
+    group(value) {
+      if (value === "international") {
+        this.language = "English";
+      }
+    },
   },
 };
 </script>
