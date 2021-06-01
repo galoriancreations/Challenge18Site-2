@@ -36,7 +36,7 @@ const router = new VueRouter({
         { path: "/login", component: Login, meta: { forLoggingIn: true } },
         { path: "/register", component: Register, meta: { forLoggingIn: true } },
         { path: "/membership", component: Membership, meta: { forLoggingIn: true } },
-        { path: "/challenge-options", component: ChallengeOptions, meta: { protected: true } },
+        { path: "/challenge-options", component: ChallengeOptions },
         { path: "/dashboard", component: Dashboard, meta: { protected: true } },
         { path: "/triplets", component: Triplets },
         { path: "/counter-test", component: CounterTest },

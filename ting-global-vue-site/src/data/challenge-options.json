@@ -1,0 +1,51 @@
+{
+    "day1": {
+        "task1": {
+            "name": "Task 1",
+            "options": [
+                "Watch the TED talk * Poverty isn't a lack of character; it's a lack of cash | Rutger Bregman & reflect on what you saw and share in the discussion group something new that you learned about poverty. https://youtu.be/ydKcaIE6O1k | Ages 8+",
+                "Watch the TED talk * Family traditions | Himakashi Shestri | TEDxYouth @ DubaiCollege https://www.youtube.com/watch?v=7FrpAM5l3ig&t=388s and share in the discussion group something new that you learned | Ages 8+"
+            ]
+        },
+        "task2": {
+            "name": "Task 2",
+            "options": [
+                "I have it * a list of 18 things you already have in life. | Ages 8+",
+                "Thank you * Think of a list of 18 people in your life that you want to say thank you to and WHY - write in the notebook you have chosen for the process 18 times thank you. | Ages 8+"
+            ]
+        },
+        "task3": {
+            "name": "Task 3",
+            "options": [
+                "48 people who have added value to your life * In the notebook you have chosen for the process, create a list of people who have added value to your life. Write down everyone who is positive and who in your perception made you grow in some way. The list must be complete according to the level of commitment you have chosen. It is important to remember that even people who seemingly did you \"bad\" made you grow. (While doing this, you will understand with yourself what the reason is for choosing them on the list). Proceed calmly, remembering the good things in each person, and what he / she has brought into your life. Enjoy this activity! | Ages 8+ ",
+                "48 Family members * In the notebook you have chosen for the process, create a list of your extended family. The list must be complete according to the degree of commitment you have chosen. If your family is small then also mention previous generations until the list is complete. Proceed calmly, remembering the good things in each person, and what he / she has brought into your life and your relation of each and every one in the list. Enjoy this activity! | Ages 8+"
+            ]
+        }
+    },
+    "day2": {
+        "task1": {
+            "name": "Task 1",
+            "options": [
+                "Thing 4",
+                "Thing 5",
+                "Thing 6"
+            ]
+        },
+        "task2": {
+            "name": "Task 2",
+            "options": [
+                "Thing 44",
+                "Thing 55",
+                "Thing 66"
+            ]
+        },
+        "task3": {
+            "name": "Task 3",
+            "options": [
+                "Thing 444",
+                "Thing 555",
+                "Thing 666"
+            ]
+        }
+    }
+}

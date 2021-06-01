@@ -7,6 +7,17 @@
       <input v-model="username" id="username" required class="form__input" />
     </div>
     <div class="form__field">
+      <label for="organization" class="form__label">
+        Organization/school name
+      </label>
+      <input
+        v-model="organization"
+        id="organization"
+        required
+        class="form__input"
+      />
+    </div>
+    <div class="form__field">
       <label for="memberName" class="form__label">
         Lead staff member's mame
       </label>
@@ -24,17 +35,6 @@
       <input
         v-model="memberRole"
         id="memberRole"
-        required
-        class="form__input"
-      />
-    </div>
-    <div class="form__field">
-      <label for="organization" class="form__label">
-        Organization/school name
-      </label>
-      <input
-        v-model="organization"
-        id="organization"
         required
         class="form__input"
       />
@@ -65,7 +65,13 @@
     </div>
     <div class="form__field">
       <label for="phone" class="form__label">Lead contact phone number</label>
-      <input v-model="phone" id="phone" type="tel" class="form__input" />
+      <input
+        v-model="phone"
+        id="phone"
+        type="tel"
+        required
+        class="form__input"
+      />
     </div>
     <div class="form__field">
       <label for="group" class="form__label">
@@ -91,37 +97,6 @@
         </option>
       </select>
     </div>
-    <!-- <div class="form__field">
-      <label for="estimate" class="form__label">
-        How many students are you planning to enter (estimate)?
-      </label>
-      <input
-        v-model="estimate"
-        id="estimate"
-        type="number"
-        class="form__input"
-      />
-    </div> -->
-    <!-- <div class="form__field">
-      <label for="questions" class="form__label">
-        Do you have any questions about the Challenge at this stage?
-      </label>
-      <textarea
-        v-model="questions"
-        id="questions"
-        class="form__input form__textarea"
-      />
-    </div>
-    <div class="form__field">
-      <label for="reached" class="form__label">
-        How did you hear about the Challenge 18 SDGs?
-      </label>
-      <textarea
-        v-model="reached"
-        id="reached"
-        class="form__input form__textarea"
-      />
-    </div> -->
     <div class="form__field form__plans">
       <label class="form__label">Membership plan</label>
       <div class="form__plans-list">
@@ -138,7 +113,7 @@
             :value="option.type"
           />
           <label :for="option.type" class="form__plan-box">
-            <p class="form__plan-label">{{ option.label }}</p>
+            <p class="form__plan-text">{{ option.label }}</p>
             <h3 class="form__plan-price">${{ option.price }}</h3>
             <p>per year</p>
           </label>
@@ -172,11 +147,11 @@ export default {
         "Russian",
         "Hebrew",
       ],
-      plan: "3 Years",
+      plan: "3-years",
       planOptions: [
-        { type: "3 Years", price: 150, label: "Three Years", years: 3 },
-        { type: "2 Years", price: 250, label: "Two Years", years: 2 },
-        { type: "1 Year", price: 350, label: "One Year", years: 1 },
+        { type: "3-years", price: 150, label: "Three Years", years: 3 },
+        { type: "2-years", price: 250, label: "Two Years", years: 2 },
+        { type: "1-year", price: 350, label: "One Year", years: 1 },
       ],
       estimate: null,
       questions: "",
@@ -205,9 +180,18 @@ export default {
 @import "@/sass/base.scss";
 
 .form {
+  select {
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
   &__plans {
     margin-bottom: 3.5rem;
   }
+
   &__plans-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -243,7 +227,7 @@ export default {
     background-color: rgba($color-azure-light, 0.4);
   }
 
-  &__plan-label {
+  &__plan-text {
     font-size: 1.8rem;
     font-weight: 500;
 

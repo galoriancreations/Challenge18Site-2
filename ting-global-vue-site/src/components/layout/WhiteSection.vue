@@ -22,7 +22,7 @@ export default {
   padding: 10rem $padding-sides-desktop;
 
   @include respond(mobile) {
-    padding: 6rem $padding-sides-mobile;
+    padding: 7rem $padding-sides-mobile;
   }
 }
 </style>
