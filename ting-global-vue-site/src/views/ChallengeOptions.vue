@@ -161,7 +161,7 @@ export default {
     }
 
     @include respond(mobile) {
-      margin-bottom: 7rem;
+      margin-bottom: 8rem;
     }
   }
 
@@ -299,6 +299,10 @@ export default {
     margin-top: 8rem;
     width: 100%;
     max-width: 35rem;
+
+    @include respond(mobile) {
+      margin-top: 5rem;
+    }
   }
 }
 
@@ -379,12 +383,11 @@ export default {
   }
 
   &__text {
-    margin-left: 2rem;
+    margin-left: 1.5rem;
     word-wrap: break-word;
 
     @include respond(mobile) {
       font-size: 1.45rem;
-      margin-left: 1.5rem;
     }
 
     a {
