@@ -35,3 +35,26 @@ export const challengesArray = challenges => {
   }
   return data;
 };
+
+export const initialOptions = options => {
+  const initialOptions = { ...options };
+  for (let day in options) {
+    initialOptions[day] = { ...options[day] };
+    for (let task in options[day].tasks) {
+      initialOptions[day].tasks[task] = { ...options[day].tasks[task] };
+      initialOptions[day].tasks[task].other = "";
+    }
+  }
+  return initialOptions;
+}
+
+export const initialSelections = options => {
+  const initialSelections = {};
+  for (let day in options) {
+    initialSelections[day] = {};
+    for (let task in options[day].tasks) {
+      initialSelections[day][task] = options[day].tasks[task].options[0];
+    }
+  }
+  return initialSelections;
+}

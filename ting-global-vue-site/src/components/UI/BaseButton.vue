@@ -2,7 +2,7 @@
   <RouterLink v-if="link" :to="link" :class="classes">
     <slot />
   </RouterLink>
-  <button v-else :class="classes">
+  <button v-else :class="classes" @click="$emit('click')">
     <slot />
   </button>
 </template>

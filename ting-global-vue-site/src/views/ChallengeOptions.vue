@@ -15,12 +15,12 @@
         </div>
         <section small class="challenge-options__main">
           <SectionHeading extraClass="challenge-options__title">
-            Day {{ currentDay }}
+            Day {{ currentDay }} – {{ options[dayKey].title }}
           </SectionHeading>
           <div class="challenge-options__content">
             <form
               class="task-form"
-              v-for="(task, taskKey) in options[dayKey]"
+              v-for="(task, taskKey) in options[dayKey].tasks"
               :key="taskKey"
               @submit.prevent
             >
@@ -47,8 +47,14 @@
                   :for="`${dayKey}-${taskKey}-option${index + 1}`"
                   class="task-form__text"
                 >
-                  <strong>{{ option.split(" * ")[0] }}</strong> –
-                  {{ option.split(" * ")[1] }}
+                  <strong v-if="option.includes(' * ')">
+                    {{ option.split(" * ")[0] }}
+                  </strong>
+                  <span v-if="option.includes(' * ')"> – </span>
+                  <span
+                    v-html="option.split(' * ')[option.includes(' * ') ? 1 : 0]"
+                    v-linkified
+                  />
                 </label>
               </div>
               <div class="task-form__option">
@@ -57,7 +63,7 @@
                   class="task-form__radio-input"
                   :id="`${dayKey}-${taskKey}-other`"
                   v-model="selections[dayKey][taskKey]"
-                  :value="options[dayKey][taskKey].other"
+                  :value="options[dayKey].tasks[taskKey].other"
                 />
                 <label
                   :for="`${dayKey}-${taskKey}-other`"
@@ -74,7 +80,7 @@
                   </label>
                   <textarea
                     class="task-form__text-input"
-                    :value="options[dayKey][taskKey].other"
+                    :value="options[dayKey].tasks[taskKey].other"
                     @input="typeHandler($event, taskKey)"
                   />
                 </div>
@@ -83,11 +89,7 @@
           </div>
         </section>
       </div>
-      <BaseButton
-        variant="blue"
-        class="challenge-options__submit-button"
-        @click="submitHandler"
-      >
+      <BaseButton variant="blue" @click="submitHandler">
         Save &amp; Continue
       </BaseButton>
     </WhiteSection>
@@ -96,30 +98,14 @@
 
 <script>
 import options from "../data/challenge-options";
-
-const initialOptions = { ...options };
-for (let day in options) {
-  initialOptions[day] = { ...options[day] };
-  for (let task in options[day]) {
-    initialOptions[day][task] = { ...options[day][task] };
-    initialOptions[day][task].other = "";
-  }
-}
-
-const initialSelectedOptions = {};
-for (let day in options) {
-  initialSelectedOptions[day] = {};
-  for (let task in options[day]) {
-    initialSelectedOptions[day][task] = options[day][task].options[0];
-  }
-}
+import { initialOptions, initialSelections } from "../util/functions";
 
 export default {
   data() {
     return {
       currentDay: 1,
-      options: initialOptions,
-      selections: initialSelectedOptions,
+      options: initialOptions(options),
+      selections: initialSelections(options),
     };
   },
   computed: {
@@ -132,9 +118,10 @@ export default {
   },
   methods: {
     typeHandler(event, taskKey) {
-      this.options[this.dayKey][taskKey].other = event.target.value;
+      this.options[this.dayKey].tasks[taskKey].other = event.target.value;
       this.selections[this.dayKey][taskKey] = event.target.value;
     },
+    submitHandler() {},
   },
 };
 </script>
@@ -155,23 +142,18 @@ export default {
   }
 
   &__tabs {
-    width: 26%;
-    min-width: 21rem;
+    width: 15%;
     box-shadow: $boxshadow2;
     border-radius: 0.8rem;
     display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(9, 1fr);
+    grid-template-columns: 1fr;
     overflow: hidden;
     position: relative;
 
     @include respond(tablet) {
       margin-bottom: 9rem;
       width: 100%;
-      grid-auto-flow: row;
       grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: initial;
     }
 
     @include respond(mobile-land) {
@@ -181,29 +163,40 @@ export default {
     @include respond(mobile) {
       margin-bottom: 7rem;
     }
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      width: 0.1rem;
-      height: 100%;
-      background-color: #ccc;
-
-      @include respond(tablet) {
-        content: initial;
-      }
-    }
   }
 
   &__tab {
-    &:not(:last-child):not(:nth-child(9)) {
-      border-bottom: 0.1rem solid #ccc;
+    &:not(:last-child) {
+      @include respond(desktop) {
+        border-bottom: 0.1rem solid #ccc;
+      }
+    }
 
+    &:not(:nth-child(6n)) {
       @include respond(tablet) {
-        border-bottom: none;
+        border-right: 0.1rem solid #ccc;
+      }
+
+      @include respond(mobile-land) {
+        border-right: none;
+      }
+    }
+
+    &:not(:nth-child(3n)) {
+      @include respond(mobile-land) {
+        border-right: 0.1rem solid #ccc;
+      }
+    }
+
+    &:not(:nth-child(n + 13)) {
+      @include respond(tablet) {
+        border-bottom: 0.1rem solid #ccc;
+      }
+    }
+
+    &:not(:nth-child(n + 16)) {
+      @include respond(mobile-land) {
+        border-bottom: 0.1rem solid #ccc;
       }
     }
 
@@ -229,13 +222,17 @@ export default {
       }
 
       &:hover {
-        background-color: $color-azure-light;
+        background-color: rgba($color-azure-light, 0.8);
         z-index: 1;
       }
     }
 
     &:nth-child(1) label {
-      border-radius: 0.8rem 0 0 0;
+      border-radius: 0.8rem 0.8rem 0 0;
+
+      @include respond(tablet) {
+        border-radius: 0.8rem 0 0 0;
+      }
     }
 
     &:nth-child(3) label {
@@ -250,22 +247,6 @@ export default {
       }
 
       @include respond(mobile-land) {
-        border-radius: 0;
-      }
-    }
-
-    &:nth-child(9) label {
-      border-radius: 0 0 0 0.8rem;
-
-      @include respond(tablet) {
-        border-radius: 0;
-      }
-    }
-
-    &:nth-child(10) label {
-      border-radius: 0 0.8rem 0 0;
-
-      @include respond(tablet) {
         border-radius: 0;
       }
     }
@@ -287,21 +268,29 @@ export default {
     }
 
     &:nth-child(18) label {
-      border-radius: 0 0 0.8rem 0;
+      border-radius: 0 0 0.8rem 0.8rem;
+
+      @include respond(tablet) {
+        border-radius: 0 0 0.8rem 0;
+      }
     }
 
     input:checked + label {
-      background-color: $color-azure-light;
+      background-color: rgba($color-azure-light, 0.8);
       border-color: $color-azure;
       z-index: 1;
     }
   }
 
   &__main {
-    width: 60%;
+    width: 70%;
 
     @include respond(tablet) {
       width: 100%;
+    }
+
+    .section-heading {
+      max-width: 100%;
     }
   }
 
@@ -391,12 +380,20 @@ export default {
 
   &__text {
     margin-left: 2rem;
-    cursor: pointer;
     word-wrap: break-word;
 
     @include respond(mobile) {
       font-size: 1.45rem;
       margin-left: 1.5rem;
+    }
+
+    a {
+      color: $color-blue-2;
+      transition: color 0.5s;
+
+      &:hover {
+        color: $color-gold-3;
+      }
     }
   }
 
@@ -416,7 +413,7 @@ export default {
     flex: 1;
     font: inherit;
     padding: 0.5rem 1rem;
-    height: 4rem;
+    height: 6rem;
     outline: none;
     border: 0.1rem solid #ccc;
     transition: all 0.5s;

@@ -1,5 +1,5 @@
 <template>
-  <form class="form">
+  <form class="form" @submit.prevent>
     <div class="form__field">
       <label for="username" class="form__label">
         Username
