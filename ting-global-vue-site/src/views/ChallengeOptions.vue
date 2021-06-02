@@ -89,6 +89,14 @@
           </div>
         </section>
       </div>
+      <!-- <div class="challenge-options__navigation">
+        <button v-if="prevDay" @click="currentDay--">
+          {{ prevDay }}
+        </button>
+        <button v-if="nextDay" @click="currentDay++">
+          {{ nextDay }}
+        </button>
+      </div> -->
       <BaseButton variant="blue" @click="submitHandler">
         Save &amp; Continue
       </BaseButton>
@@ -109,11 +117,17 @@ export default {
     };
   },
   computed: {
+    days() {
+      return Array.from({ length: 18 }, (_, i) => i + 1);
+    },
     dayKey() {
       return `day${this.currentDay}`;
     },
-    days() {
-      return Array.from({ length: 18 }, (_, i) => i + 1);
+    prevDay() {
+      return this.currentDay > 1 ? `Day ${this.currentDay - 1}` : null;
+    },
+    nextDay() {
+      return this.currentDay < 18 ? `Day ${this.currentDay + 1}` : null;
     },
   },
   methods: {

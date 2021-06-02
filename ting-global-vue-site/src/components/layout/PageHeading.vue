@@ -128,6 +128,15 @@ export default {
       url(../../assets/membership-bg.jpg);
   }
 
+  &#challenge-options {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
+      ),
+      url(../../assets/challenge-options-bg-2.jpeg);
+  }
+
   &__heading {
     font-size: 6rem;
     color: #fff;
