@@ -13,8 +13,8 @@
             <label :for="`day${day}`">Day {{ day }}</label>
           </div>
         </div>
-        <section small class="challenge-options__main">
-          <SectionHeading extraClass="challenge-options__title">
+        <section class="challenge-options__main">
+          <SectionHeading small>
             Day {{ currentDay }} – {{ options[dayKey].title }}
           </SectionHeading>
           <div class="challenge-options__content">

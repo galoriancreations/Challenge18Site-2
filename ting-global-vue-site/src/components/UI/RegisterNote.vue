@@ -14,19 +14,15 @@
 @import "@/sass/base.scss";
 
 .register-note {
-  box-shadow: $boxshadow2;
-  border-radius: 1rem;
   margin: auto;
   max-width: 75rem;
   text-align: center;
-  padding: 3.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 9rem;
 
   @include respond(mobile) {
-    padding: 2.75rem 1.5rem;
     margin-bottom: 7rem;
   }
 

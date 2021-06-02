@@ -64,14 +64,14 @@ export default {
       url(../../assets/blog-2-bg.jpg);
   }
 
-  &#blogpost {
-    background-image: linear-gradient(
-        130deg,
-        rgba(#0700dd, 0.8) 0%,
-        rgba(#00f2ff, 0.8) 89%
-      ),
-      url(../../assets/blogpost-bg.png);
-  }
+  // &#blogpost {
+  //   background-image: linear-gradient(
+  //       130deg,
+  //       rgba(#0700dd, 0.8) 0%,
+  //       rgba(#00f2ff, 0.8) 89%
+  //     ),
+  //     url(../../assets/blogpost-bg.png);
+  // }
 
   &#videos {
     background-image: linear-gradient(
@@ -125,7 +125,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/membership-bg.jpg);
+      url(../../assets/membership-bg.jpeg);
   }
 
   &#challenge-options {
@@ -134,7 +134,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/challenge-options-bg-2.jpeg);
+      url(../../assets/challenge-options-bg.jpeg);
   }
 
   &__heading {
