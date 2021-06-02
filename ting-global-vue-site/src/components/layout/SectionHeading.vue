@@ -61,7 +61,7 @@ export default {
     top: calc(100% + 1rem);
     width: 50%;
     max-width: 18rem;
-    border-top: 0.5rem dotted $color-blue-3;
+    border-top: 0.5rem solid $color-blue-3;
   }
 }
 </style>
