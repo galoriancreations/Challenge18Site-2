@@ -5,7 +5,7 @@
         Username
       </label>
       <input
-        v-model="username"
+        v-model="formData.username"
         id="username"
         required
         class="form__input"
@@ -17,7 +17,7 @@
         Organization/school name
       </label>
       <input
-        v-model="organization"
+        v-model="formData.organization"
         id="organization"
         required
         class="form__input"
@@ -29,7 +29,7 @@
         Lead staff member's mame
       </label>
       <input
-        v-model="memberName"
+        v-model="formData.memberName"
         id="memberName"
         required
         class="form__input"
@@ -41,7 +41,7 @@
         Lead staff member's role
       </label>
       <input
-        v-model="memberRole"
+        v-model="formData.memberRole"
         id="memberRole"
         required
         class="form__input"
@@ -53,7 +53,7 @@
         City/Town
       </label>
       <input
-        v-model="city"
+        v-model="formData.city"
         id="city"
         required
         class="form__input"
@@ -65,7 +65,7 @@
         Country
       </label>
       <input
-        v-model="country"
+        v-model="formData.country"
         id="country"
         required
         class="form__input"
@@ -77,7 +77,7 @@
         Lead contact email
       </label>
       <input
-        v-model="email"
+        v-model="formData.email"
         id="email"
         type="email"
         required
@@ -88,7 +88,7 @@
     <div class="form__field">
       <label for="phone" class="form__label">Lead contact phone number</label>
       <input
-        v-model="phone"
+        v-model="formData.phone"
         id="phone"
         type="tel"
         required
@@ -100,7 +100,7 @@
       <label for="group" class="form__label">
         Challenge group
       </label>
-      <select v-model="group" id="group" class="form__input">
+      <select v-model="formData.group" id="group" class="form__input">
         <option value="international">International</option>
         <option value="national">National</option>
       </select>
@@ -110,10 +110,10 @@
         Language to play
       </label>
       <select
-        v-model="language"
+        v-model="formData.language"
         id="language"
         class="form__input"
-        :disabled="group === 'international'"
+        :disabled="formData.group === 'international'"
       >
         <option v-for="option in languageOptions" :key="option" :value="option">
           {{ option }}
@@ -132,7 +132,7 @@
             type="radio"
             class="form__plan-input"
             :id="option.type"
-            v-model="plan"
+            v-model="formData.plan"
             :value="option.type"
           />
           <label :for="option.type" class="form__plan-box">
@@ -143,7 +143,7 @@
         </div>
       </div>
     </div>
-    <p class="total-price">Total to pay: ${{ totalPrice }}.00</p>
+    <p class="total-price">Total to pay: ${{ totalPrice }}</p>
     <PayPal
       :amount="totalPrice"
       currency="USD"
@@ -163,16 +163,19 @@ export default {
   components: { PayPal },
   data() {
     return {
-      username: "",
-      memberName: "",
-      memberRole: "",
-      organization: "",
-      city: "",
-      country: "",
-      email: "",
-      phone: "",
-      group: "international",
-      language: "English",
+      formData: {
+        username: "",
+        memberName: "",
+        memberRole: "",
+        organization: "",
+        city: "",
+        country: "",
+        email: "",
+        phone: "",
+        group: "international",
+        language: "English",
+        plan: "3-years",
+      },
       languageOptions: [
         "English",
         "Chinese",
@@ -182,7 +185,6 @@ export default {
         "Russian",
         "Hebrew",
       ],
-      plan: "3-years",
       planOptions: [
         { type: "3-years", price: 150, label: "Three Years", years: 3 },
         { type: "2-years", price: 250, label: "Two Years", years: 2 },
@@ -200,9 +202,9 @@ export default {
   computed: {
     totalPrice() {
       const pickedPlan = this.planOptions.find(
-        (plan) => plan.type === this.plan
+        (plan) => plan.type === this.formData.plan
       );
-      return (pickedPlan.price * pickedPlan.years).toString();
+      return (pickedPlan.price * pickedPlan.years).toFixed(2).toString();
     },
   },
   methods: {
@@ -213,17 +215,22 @@ export default {
     paymentCompleted(data) {
       console.log("Payment Completed");
       console.log(data);
+      this.$router.push("/challenge-options");
     },
     paymentCancelled(data) {
       console.log("Payment Cancelled");
       console.log(data);
+      this.error = "Payment failed";
     },
   },
   watch: {
-    group(value) {
-      if (value === "international") {
-        this.language = "English";
-      }
+    formData: {
+      handler(value) {
+        if (value.group === "international") {
+          this.formData.language = "English";
+        }
+      },
+      deep: true,
     },
   },
 };

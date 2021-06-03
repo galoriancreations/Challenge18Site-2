@@ -12,17 +12,17 @@ import SpinningLogoBg from "./components/extras/SpinningLogoBg";
 
 export default {
   components: { SpinningLogoBg },
-  // computed: {
-  //   io() {
-  //     return this.$store.getters.io;
-  //   },
-  // },
-  // created() {
-  //   console.log(this.io);
-  //   this.io.on("allBoards", ({ challenges }) =>
-  //     this.$store.dispatch("updateResults", challenges)
-  //   );
-  // },
+  computed: {
+    io() {
+      return this.$store.getters.io;
+    },
+  },
+  created() {
+    console.log(this.io);
+    this.io.on("allBoards", ({ challenges }) =>
+      this.$store.dispatch("updateResults", challenges)
+    );
+  },
 };
 </script>
 
