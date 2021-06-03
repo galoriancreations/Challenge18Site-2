@@ -120,12 +120,24 @@
         </div>
       </div>
     </div>
-    <BaseButton variant="blue">Proceed to checkout</BaseButton>
+    <p class="total-price">Total to pay: ${{ totalPrice }}.00</p>
+    <PayPal
+      :amount="totalPrice"
+      currency="USD"
+      :client="credentials"
+      env="sandbox"
+      @payment-authorized="paymentAuthorized"
+      @payment-completed="paymentCompleted"
+      @payment-cancelled="paymentCancelled"
+    />
   </form>
 </template>
 
 <script>
+import PayPal from "vue-paypal-checkout";
+
 export default {
+  components: { PayPal },
   data() {
     return {
       username: "",
@@ -153,9 +165,13 @@ export default {
         { type: "2-years", price: 250, label: "Two Years", years: 2 },
         { type: "1-year", price: 350, label: "One Year", years: 1 },
       ],
-      estimate: null,
-      questions: "",
-      reached: "",
+      credentials: {
+        sandbox:
+          "AUNDipj94sstK0Ya1ip5S88UJurnn-d7_FpDE6iu0gKeUIFi3BBHWQxycJVxBgvUKtX11YbRGqZtiZ1T",
+        production: "estrdydrydr",
+      },
+      loading: false,
+      error: false,
     };
   },
   computed: {
@@ -163,7 +179,21 @@ export default {
       const pickedPlan = this.planOptions.find(
         (plan) => plan.type === this.plan
       );
-      return pickedPlan.price * pickedPlan.years;
+      return (pickedPlan.price * pickedPlan.years).toString();
+    },
+  },
+  methods: {
+    paymentAuthorized(data) {
+      console.log("Payment Authorized");
+      console.log(data);
+    },
+    paymentCompleted(data) {
+      console.log("Payment Completed");
+      console.log(data);
+    },
+    paymentCancelled(data) {
+      console.log("Payment Cancelled");
+      console.log(data);
     },
   },
   watch: {
@@ -245,5 +275,30 @@ export default {
       font-size: 2.9rem;
     }
   }
+}
+
+.total-price {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.9rem;
+  margin-bottom: 2rem;
+
+  @include respond(mobile) {
+    font-size: 1.7rem;
+  }
+}
+
+.paypal-button {
+  text-align: center;
+
+  width: 100%;
+  iframe {
+    width: 100% !important;
+  }
+}
+
+.paypal-button-label-container {
+  max-height: 2.5rem !important;
+  height: 2.5rem !important;
 }
 </style>
