@@ -4,7 +4,13 @@
       <label for="username" class="form__label">
         Username
       </label>
-      <input v-model="username" id="username" required class="form__input" />
+      <input
+        v-model="username"
+        id="username"
+        required
+        class="form__input"
+        placeholder="Username"
+      />
     </div>
     <div class="form__field">
       <label for="organization" class="form__label">
@@ -15,6 +21,7 @@
         id="organization"
         required
         class="form__input"
+        placeholder="Organization/school name"
       />
     </div>
     <div class="form__field">
@@ -26,6 +33,7 @@
         id="memberName"
         required
         class="form__input"
+        placeholder="Lead staff member's mame"
       />
     </div>
     <div class="form__field">
@@ -37,19 +45,32 @@
         id="memberRole"
         required
         class="form__input"
+        placeholder="Lead staff member's role"
       />
     </div>
     <div class="form__field">
       <label for="city" class="form__label">
         City/Town
       </label>
-      <input v-model="city" id="city" required class="form__input" />
+      <input
+        v-model="city"
+        id="city"
+        required
+        class="form__input"
+        placeholder="City/Town"
+      />
     </div>
     <div class="form__field">
       <label for="country" class="form__label">
         Country
       </label>
-      <input v-model="country" id="country" required class="form__input" />
+      <input
+        v-model="country"
+        id="country"
+        required
+        class="form__input"
+        placeholder="Country"
+      />
     </div>
     <div class="form__field">
       <label for="email" class="form__label">
@@ -61,6 +82,7 @@
         type="email"
         required
         class="form__input"
+        placeholder="Lead contact email"
       />
     </div>
     <div class="form__field">
@@ -71,6 +93,7 @@
         type="tel"
         required
         class="form__input"
+        placeholder="Lead contact phone number"
       />
     </div>
     <div class="form__field">
@@ -168,7 +191,7 @@ export default {
       credentials: {
         sandbox:
           "AUNDipj94sstK0Ya1ip5S88UJurnn-d7_FpDE6iu0gKeUIFi3BBHWQxycJVxBgvUKtX11YbRGqZtiZ1T",
-        production: "estrdydrydr",
+        production: "",
       },
       loading: false,
       error: false,
@@ -281,24 +304,17 @@ export default {
   text-align: center;
   font-weight: 600;
   font-size: 1.9rem;
-  margin-bottom: 2rem;
+  margin: 1rem 0 3rem;
 
   @include respond(mobile) {
     font-size: 1.7rem;
+    margin: 0.5 0 2.5rem;
   }
 }
 
 .paypal-button {
-  text-align: center;
-
-  width: 100%;
-  iframe {
+  * {
     width: 100% !important;
   }
-}
-
-.paypal-button-label-container {
-  max-height: 2.5rem !important;
-  height: 2.5rem !important;
 }
 </style>
