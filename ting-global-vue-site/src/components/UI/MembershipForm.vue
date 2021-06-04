@@ -173,13 +173,6 @@ export default {
         { type: "2-years", price: 250, label: "Two Years", years: 2 },
         { type: "1-year", price: 350, label: "One Year", years: 1 },
       ],
-      credentials: {
-        sandbox:
-          "AUNDipj94sstK0Ya1ip5S88UJurnn-d7_FpDE6iu0gKeUIFi3BBHWQxycJVxBgvUKtX11YbRGqZtiZ1T",
-        production: "",
-      },
-      loading: false,
-      error: null,
       checkoutMode: false,
     };
   },
@@ -198,6 +191,9 @@ export default {
     submitHandler() {
       this.checkoutMode = true;
     },
+    backToForm() {
+      this.checkoutMode = false;
+    },
   },
   watch: {
     username(value) {
@@ -207,6 +203,9 @@ export default {
   provide() {
     return {
       details: this.formData,
+      planOptions: this.planOptions,
+      totalPrice: this.totalPrice,
+      backToForm: this.backToForm,
     };
   },
 };
@@ -292,12 +291,6 @@ export default {
   @include respond(mobile) {
     font-size: 1.7rem;
     margin: 0 0 2rem;
-  }
-}
-
-.paypal-button {
-  * {
-    width: 100% !important;
   }
 }
 </style>

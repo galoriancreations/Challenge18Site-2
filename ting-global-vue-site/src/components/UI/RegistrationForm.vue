@@ -1,5 +1,5 @@
 <template>
-  <form class="form">
+  <form class="form" @submit.prevent="submitHandler">
     <div class="form__field">
       <label for="username" class="form__label">
         Username (used for login)
@@ -56,10 +56,14 @@
       </select>
     </div>
     <BaseButton variant="blue">Register</BaseButton>
+    <p v-if="success">Success</p>
+    <p v-else-if="error">Error</p>
   </form>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -80,11 +84,28 @@ export default {
         "Hebrew",
       ],
       availability: null,
+      success: false,
+      error: null,
     };
   },
   computed: {
     username() {
       return this.formData.username;
+    },
+  },
+  methods: {
+    async submitHandler() {
+      try {
+        //const { data } = await axios.post("https://193.46.199.76/api", {
+        const { data } = await axios.post("http://193.46.199.76:8087/api", {
+          register: this.formData,
+        });
+        console.log(data);
+        this.success = true;
+      } catch (error) {
+        console.log(error);
+        this.error = true;
+      }
     },
   },
   watch: {

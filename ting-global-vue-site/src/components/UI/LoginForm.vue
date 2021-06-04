@@ -55,7 +55,6 @@ export default {
         console.log(data);
         this.success = true;
       } catch (error) {
-        console.log(error);
         this.error = true;
       }
     },
