@@ -25,10 +25,14 @@
       />
     </div>
     <BaseButton variant="blue">Login</BaseButton>
+    <p v-if="success">Logged in successfully</p>
+    <p v-else-if="error">Error occured</p>
   </form>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -38,7 +42,22 @@ export default {
       },
       loading: false,
       error: null,
+      success: false,
     };
+  },
+  methods: {
+    async submitHandler() {
+      try {
+        const { data } = await axios.post("https://193.46.199.76/api", {
+          signIn: this.postData,
+        });
+        console.log(data);
+        this.success = true;
+      } catch (error) {
+        console.log(error);
+        this.error = true;
+      }
+    },
   },
 };
 </script>
