@@ -309,7 +309,7 @@ export default {
 
   @include respond(mobile) {
     font-size: 1.7rem;
-    margin: 0 0 2.5rem;
+    margin: 0 0 2rem;
   }
 }
 
