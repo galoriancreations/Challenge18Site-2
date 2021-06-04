@@ -46,24 +46,10 @@
       />
     </div>
     <div class="form__field">
-      <label for="group" class="form__label">
-        Challenge group
-      </label>
-      <select v-model="formData.group" id="group" class="form__input">
-        <option value="international">International</option>
-        <option value="national">National</option>
-      </select>
-    </div>
-    <div class="form__field">
       <label for="language" class="form__label">
         Language to play
       </label>
-      <select
-        v-model="formData.language"
-        id="language"
-        class="form__input"
-        :disabled="formData.group === 'international'"
-      >
+      <select v-model="formData.language" id="language" class="form__input">
         <option v-for="option in languageOptions" :key="option" :value="option">
           {{ option }}
         </option>
@@ -82,7 +68,6 @@ export default {
         phone: "",
         fullName: "",
         email: "",
-        group: "international",
         language: "English",
       },
       languageOptions: [
@@ -101,16 +86,8 @@ export default {
     username() {
       return this.formData.username;
     },
-    group() {
-      return this.formData.group;
-    },
   },
   watch: {
-    group(value) {
-      if (value === "international") {
-        this.formData.language = "English";
-      }
-    },
     username(value) {
       console.log(value);
     },

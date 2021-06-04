@@ -97,15 +97,6 @@
       />
     </div>
     <div class="form__field">
-      <label for="group" class="form__label">
-        Challenge group
-      </label>
-      <select v-model="formData.group" id="group" class="form__input">
-        <option value="international">International</option>
-        <option value="national">National</option>
-      </select>
-    </div>
-    <div class="form__field">
       <label for="language" class="form__label">
         Language to play
       </label>
@@ -165,7 +156,6 @@ export default {
         country: "",
         email: "",
         phone: "",
-        group: "international",
         language: "English",
         plan: "3-years",
       },
@@ -197,9 +187,6 @@ export default {
     username() {
       return this.formData.username;
     },
-    group() {
-      return this.formData.group;
-    },
     totalPrice() {
       const pickedPlan = this.planOptions.find(
         (plan) => plan.type === this.formData.plan
@@ -213,11 +200,6 @@ export default {
     },
   },
   watch: {
-    group(value) {
-      if (value === "international") {
-        this.formData.language = "English";
-      }
-    },
     username(value) {
       console.log(value);
     },
