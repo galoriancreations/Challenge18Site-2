@@ -10,8 +10,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: { auth, results },
   state: {
-    //io: socket("https://193.46.199.76")
-    io: socket("http://193.46.199.76:8087")
+    io: socket("https://193.46.199.76")
+    // io: socket("http://193.46.199.76:8087")
   },
   getters: {
     io(state) {
