@@ -5,7 +5,7 @@
         Username (used for login)
       </label>
       <input
-        v-model="username"
+        v-model="formData.username"
         id="username"
         placeholder="Your username"
         required
@@ -15,7 +15,7 @@
     <div class="form__field">
       <label for="phone" class="form__label">Phone (used for login)</label>
       <input
-        v-model="phone"
+        v-model="formData.phone"
         id="phone"
         type="tel"
         required
@@ -26,7 +26,7 @@
     <div class="form__field">
       <label for="fullName" class="form__label">Full name</label>
       <input
-        v-model="fullName"
+        v-model="formData.fullName"
         id="fullName"
         required
         placeholder="Your full name"
@@ -38,7 +38,7 @@
         Email (optional)
       </label>
       <input
-        v-model="email"
+        v-model="formData.email"
         id="email"
         placeholder="Your email address"
         type="email"
@@ -49,7 +49,7 @@
       <label for="group" class="form__label">
         Challenge group
       </label>
-      <select v-model="group" id="group" class="form__input">
+      <select v-model="formData.group" id="group" class="form__input">
         <option value="international">International</option>
         <option value="national">National</option>
       </select>
@@ -59,10 +59,10 @@
         Language to play
       </label>
       <select
-        v-model="language"
+        v-model="formData.language"
         id="language"
         class="form__input"
-        :disabled="group === 'international'"
+        :disabled="formData.group === 'international'"
       >
         <option v-for="option in languageOptions" :key="option" :value="option">
           {{ option }}
@@ -77,12 +77,14 @@
 export default {
   data() {
     return {
-      username: "",
-      phone: "",
-      fullName: "",
-      email: "",
-      group: "international",
-      language: "English",
+      formData: {
+        username: "",
+        phone: "",
+        fullName: "",
+        email: "",
+        group: "international",
+        language: "English",
+      },
       languageOptions: [
         "English",
         "Chinese",
@@ -95,11 +97,22 @@ export default {
       availability: null,
     };
   },
+  computed: {
+    username() {
+      return this.formData.username;
+    },
+    group() {
+      return this.formData.group;
+    },
+  },
   watch: {
     group(value) {
       if (value === "international") {
-        this.language = "English";
+        this.formData.language = "English";
       }
+    },
+    username(value) {
+      console.log(value);
     },
   },
 };

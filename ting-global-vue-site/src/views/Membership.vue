@@ -12,9 +12,7 @@
       </section>
       <section class="inner-section">
         <SectionHeading small>Register Now</SectionHeading>
-        <KeepAlive>
-          <MembershipForm />
-        </KeepAlive>
+        <MembershipForm />
       </section>
     </WhiteSection>
   </Page>

@@ -52,8 +52,7 @@ export default {
   max-width: 12rem;
   height: 0.5rem;
   background-color: $color-blue-2;
-  border-radius: 100px;
-  margin: 6rem auto 8rem;
+  margin: 5.5rem auto 8rem;
 
   @include respond(mobile) {
     margin: 4rem auto 6rem;

@@ -48,4 +48,12 @@
     transform: rotate(360deg);
   }
 }
+
+.form .spinner,
+.form + .spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 </style>

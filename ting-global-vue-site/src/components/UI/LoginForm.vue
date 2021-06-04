@@ -1,11 +1,11 @@
 <template>
-  <form class="form">
+  <form class="form" @submit.prevent="submitHandler">
     <div class="form__field">
       <label for="username" class="form__label">
         Username
       </label>
       <input
-        v-model="username"
+        v-model="formData.username"
         id="username"
         placeholder="Your username"
         required
@@ -15,7 +15,7 @@
     <div class="form__field">
       <label for="phone" class="form__label">Phone</label>
       <input
-        v-model="phone"
+        v-model="formData.phone"
         id="phone"
         name="phone"
         type="tel"
@@ -32,8 +32,12 @@
 export default {
   data() {
     return {
-      username: "",
-      phone: "",
+      formData: {
+        username: "",
+        phone: "",
+      },
+      loading: false,
+      error: null,
     };
   },
 };

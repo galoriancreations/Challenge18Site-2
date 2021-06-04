@@ -1,7 +1,7 @@
 <template>
   <Page title="Challenge Task Options" name="challenge-options">
     <WhiteSection tag="main" class="challenge-options">
-      <div class="challenge-options__layout">
+      <div class="challenge-options__layout" :style="{ direction }">
         <div class="challenge-options__tabs">
           <div v-for="day in days" :key="day" class="challenge-options__tab">
             <input
@@ -89,14 +89,6 @@
           </div>
         </section>
       </div>
-      <!-- <div class="challenge-options__navigation">
-        <button v-if="prevDay" @click="currentDay--">
-          {{ prevDay }}
-        </button>
-        <button v-if="nextDay" @click="currentDay++">
-          {{ nextDay }}
-        </button>
-      </div> -->
       <BaseButton variant="blue" @click="submitHandler">
         Save &amp; Continue
       </BaseButton>
@@ -123,11 +115,11 @@ export default {
     dayKey() {
       return `day${this.currentDay}`;
     },
-    prevDay() {
-      return this.currentDay > 1 ? `Day ${this.currentDay - 1}` : null;
+    user() {
+      return this.$store.getters.user;
     },
-    nextDay() {
-      return this.currentDay < 18 ? `Day ${this.currentDay + 1}` : null;
+    direction() {
+      return this.user?.language === "Hebrew" ? "rtl" : null;
     },
   },
   methods: {

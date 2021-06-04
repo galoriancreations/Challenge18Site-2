@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit.prevent>
+  <form v-if="!checkoutMode" class="form" @submit.prevent="submitHandler">
     <div class="form__field">
       <label for="username" class="form__label">
         Username
@@ -144,23 +144,16 @@
       </div>
     </div>
     <p class="total-price">Total to pay: ${{ totalPrice }}</p>
-    <PayPal
-      :amount="totalPrice"
-      currency="USD"
-      :client="credentials"
-      env="sandbox"
-      @payment-authorized="paymentAuthorized"
-      @payment-completed="paymentCompleted"
-      @payment-cancelled="paymentCancelled"
-    />
+    <BaseButton variant="blue">Proceed to checkout</BaseButton>
   </form>
+  <Checkout v-else />
 </template>
 
 <script>
-import PayPal from "vue-paypal-checkout";
+import Checkout from "./Checkout";
 
 export default {
-  components: { PayPal },
+  components: { Checkout },
   data() {
     return {
       formData: {
@@ -196,10 +189,17 @@ export default {
         production: "",
       },
       loading: false,
-      error: false,
+      error: null,
+      checkoutMode: false,
     };
   },
   computed: {
+    username() {
+      return this.formData.username;
+    },
+    group() {
+      return this.formData.group;
+    },
     totalPrice() {
       const pickedPlan = this.planOptions.find(
         (plan) => plan.type === this.formData.plan
@@ -208,30 +208,24 @@ export default {
     },
   },
   methods: {
-    paymentAuthorized(data) {
-      console.log("Payment Authorized");
-      console.log(data);
-    },
-    paymentCompleted(data) {
-      console.log("Payment Completed");
-      console.log(data);
-      this.$router.push("/challenge-options");
-    },
-    paymentCancelled(data) {
-      console.log("Payment Cancelled");
-      console.log(data);
-      this.error = "Payment failed";
+    submitHandler() {
+      this.checkoutMode = true;
     },
   },
   watch: {
-    formData: {
-      handler(value) {
-        if (value.group === "international") {
-          this.formData.language = "English";
-        }
-      },
-      deep: true,
+    group(value) {
+      if (value === "international") {
+        this.formData.language = "English";
+      }
     },
+    username(value) {
+      console.log(value);
+    },
+  },
+  provide() {
+    return {
+      details: this.formData,
+    };
   },
 };
 </script>
@@ -311,11 +305,11 @@ export default {
   text-align: center;
   font-weight: 600;
   font-size: 1.9rem;
-  margin: 1rem 0 3rem;
+  margin: 1rem 0 2.5rem;
 
   @include respond(mobile) {
     font-size: 1.7rem;
-    margin: 0.5 0 2.5rem;
+    margin: 0 0 2.5rem;
   }
 }
 

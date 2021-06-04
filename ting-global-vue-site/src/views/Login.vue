@@ -23,12 +23,6 @@ import LoginForm from "../components/UI/LoginForm";
 
 export default {
   components: { LoginForm },
-  data() {
-    return {
-      loading: false,
-      error: null,
-    };
-  },
 };
 </script>
 
