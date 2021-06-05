@@ -37,16 +37,20 @@ const router = new VueRouter({
         { path: "/register", component: Register, meta: { forLoggingIn: true } },
         { path: "/membership", component: Membership, meta: { forLoggingIn: true } },
         { path: "/challenge-options", component: ChallengeOptions },
-        { path: "/dashboard", component: Dashboard, meta: { protected: true } },
+        { path: "/dashboard", component: Dashboard, meta: { protect: true } },
         { path: "/triplets", component: Triplets },
         { path: "/counter-test", component: CounterTest },
         { path: "/:notFound(.*)", component: NotFound },
     ]
 });
 
-router.beforeEach((to, from, next) => {
-    if (to.meta.protected && !store.getters.isAuth) next("/login");
-    else if (to.meta.forLoggingIn && store.getters.isAuth) next("/dashboard");
+router.beforeEach((to, _, next) => {
+    const { isAuth, user } = store.getters;
+    const { protect, forLoggingIn, forOrganizations } = to.meta;
+
+    if (protect && !isAuth) next("/login");
+    else if (forLoggingIn && isAuth) next("/dashboard");
+    else if (forOrganizations && user?.accountType === "individual") next("/");
     else next();
 });
 

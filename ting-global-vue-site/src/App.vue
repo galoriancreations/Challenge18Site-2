@@ -129,14 +129,9 @@ a {
 
 .agile {
   &__actions {
-    margin-top: 2rem;
-
-    @include respond(mobile-land) {
-      padding: 0 $padding-sides-mobile;
-    }
+    margin-top: 2.5rem;
 
     @include respond(mobile) {
-      padding: 0 calc(#{$padding-sides-mobile} + 1rem);
       margin-top: 1.5rem;
     }
 

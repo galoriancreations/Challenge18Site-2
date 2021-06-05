@@ -158,6 +158,7 @@ export default {
         phone: "",
         language: "English",
         plan: "3-years",
+        accountType: "organization",
       },
       languageOptions: [
         "English",
@@ -204,7 +205,7 @@ export default {
     return {
       details: this.formData,
       planOptions: this.planOptions,
-      totalPrice: this.totalPrice,
+      totalPrice: () => this.totalPrice,
       backToForm: this.backToForm,
     };
   },
@@ -279,6 +280,10 @@ export default {
     @include respond(mobile) {
       font-size: 2.9rem;
     }
+  }
+
+  .button {
+    padding: 1.25rem;
   }
 }
 

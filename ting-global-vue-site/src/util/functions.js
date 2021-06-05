@@ -58,3 +58,15 @@ export const initialSelections = options => {
   }
   return initialSelections;
 }
+
+export const convertAsteriks = text => {
+  const chars = text.split("");
+  let closingTag = false;
+  for (let i = 0; i < chars.length; i++) {
+    if (chars[i] === "*") {
+      chars[i] = !closingTag ? "<strong>" : "</strong>";
+      closingTag = !closingTag;
+    }
+  }
+  return chars.join("");
+}

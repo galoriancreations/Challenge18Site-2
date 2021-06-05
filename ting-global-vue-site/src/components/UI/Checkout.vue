@@ -1,7 +1,7 @@
 <template>
   <div class="checkout">
-    <div class="checkout__info">
-      <h3 class="checkout__heading">Account Details</h3>
+    <div class="checkout__info" ref="container">
+      <h3 class="checkout__heading">Your Details</h3>
       <div class="checkout__grid">
         <div class="checkout__field">
           <h4 class="checkout__title">Username</h4>
@@ -48,7 +48,7 @@
         <i class="fas fa-edit" /> Edit
       </BaseButton>
     </div>
-    <p class="total-price">Total to pay: ${{ totalPrice }}</p>
+    <p class="total-price">Total to pay: ${{ totalPrice() }}</p>
     <PayPal
       :amount="totalPrice"
       currency="USD"
@@ -101,6 +101,12 @@ export default {
       console.log(data);
       this.error = "Payment failed";
     },
+  },
+  mounted() {
+    window.scrollTo(
+      0,
+      window.scrollY + this.$refs.container.getBoundingClientRect().top - 100
+    );
   },
 };
 </script>

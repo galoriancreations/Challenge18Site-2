@@ -13,7 +13,7 @@
             <label :for="`day${day}`">Day {{ day }}</label>
           </div>
         </div>
-        <section class="challenge-options__main">
+        <section class="challenge-options__main" ref="container">
           <SectionHeading small>
             Day {{ currentDay }} – {{ options[dayKey].title }}
           </SectionHeading>
@@ -128,6 +128,14 @@ export default {
       this.selections[this.dayKey][taskKey] = event.target.value;
     },
     submitHandler() {},
+  },
+  watch: {
+    currentDay() {
+      window.scrollTo(
+        0,
+        window.scrollY + this.$refs.container.getBoundingClientRect().top - 150
+      );
+    },
   },
 };
 </script>

@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "../../util/axios";
 
 export default {
   data() {
@@ -73,6 +73,7 @@ export default {
         fullName: "",
         email: "",
         language: "English",
+        accountType: "individual",
       },
       languageOptions: [
         "English",
@@ -96,10 +97,7 @@ export default {
   methods: {
     async submitHandler() {
       try {
-        //const { data } = await axios.post("https://193.46.199.76/api", {
-        const { data } = await axios.post("http://193.46.199.76:8087/api", {
-          register: this.formData,
-        });
+        const { data } = await axios.post("/api", { register: this.formData });
         console.log(data);
         this.success = true;
       } catch (error) {
