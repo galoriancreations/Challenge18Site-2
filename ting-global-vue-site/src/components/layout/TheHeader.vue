@@ -65,6 +65,13 @@ export default {
         },
         { link: "/contact", text: "Contact" },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
+        { action: this.logout, text: "Logout", hide: !this.isLoggedIn },
+        {
+          link: "/dashboard",
+          text: "Dashboard",
+          button: true,
+          hide: !this.isLoggedIn,
+        },
       ];
 
       return items.filter((item) => !item.hide);
@@ -76,6 +83,10 @@ export default {
     },
     closeNav() {
       this.navOpen = false;
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
     },
   },
   watch: {
@@ -177,13 +188,13 @@ export default {
     }
 
     .button {
-      width: 12.45rem;
+      width: auto;
       letter-spacing: initial;
       text-transform: none;
       color: #000 !important;
       font-weight: 500;
       font-size: inherit;
-      padding: 1rem;
+      padding: 1rem 4rem;
     }
 
     &:hover {

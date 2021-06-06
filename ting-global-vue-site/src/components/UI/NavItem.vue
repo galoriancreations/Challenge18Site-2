@@ -44,6 +44,7 @@ export default {
     reverse: Boolean,
     button: Boolean,
     dropdown: Array,
+    action: Function,
   },
   inject: ["closeNav"],
   data() {
@@ -81,6 +82,7 @@ export default {
       } else {
         this.closeNav();
       }
+      if (this.action) this.action();
     },
   },
   watch: {

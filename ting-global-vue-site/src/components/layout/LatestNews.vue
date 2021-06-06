@@ -53,11 +53,11 @@ export default {
 @import "@/sass/base.scss";
 
 .latest-news {
-  margin-top: 10rem;
+  // margin-top: 10rem;
 
-  @include respond(mobile) {
-    margin-top: 7rem;
-  }
+  // @include respond(mobile) {
+  //   margin-top: 7rem;
+  // }
 
   &__slider {
     margin: 0 -3rem;

@@ -1,7 +1,9 @@
 <template>
   <article class="testimonial">
     <img class="testimonial__icon" src="../../assets/icon-quotes.svg" />
-    <p class="testimonial__text">{{ testimonial.text }}</p>
+    <div class="testimonial__scroll-area" ref="text">
+      <p class="testimonial__text">{{ testimonial.text }}</p>
+    </div>
     <StarRating
       v-model="testimonial.rating"
       :star-size="20"
@@ -18,43 +20,29 @@
     <p v-if="testimonial.role" class="testimonial__role">
       {{ testimonial.role }}
     </p>
-    <!-- <div class="testimonial__header">
-      <div class="testimonial-image__container">
-        <img class="image" :src="testimonial.imgSrc" :alt="testimonial.name" />
-      </div>
-      <cite class="elementor-testimonial__cite">
-        <span class="elementor-testimonial__name">{{ testimonial.name }}</span>
-        <div class="elementor-star-rating">
-          <StarRating
-            v-model="testimonial.rating"
-            :star-size="20"
-            :show-rating="false"
-            :read-only="true"
-            :animate="true"
-          ></StarRating>
-        </div>
-        <strong
-          ><span class="testimonial__title">{{
-            testimonial.title
-          }}</span></strong
-        >
-      </cite>
-    </div>
-    <div class="testimonial__content">
-      <div class="elementor-testimonial__text">
-        {{ testimonial.text }}
-      </div>
-    </div> -->
   </article>
 </template>
 
 <script>
 import StarRating from "vue-star-rating";
+import Scrollbar from "smooth-scrollbar";
 
 export default {
   components: { StarRating },
   props: {
     testimonial: Object,
+  },
+  data() {
+    return {
+      scrollbarSettings: {
+        suppressScrollY: false,
+        suppressScrollX: false,
+        wheelPropagation: false,
+      },
+    };
+  },
+  mounted() {
+    Scrollbar.init(this.$refs.text);
   },
 };
 </script>
@@ -69,10 +57,17 @@ export default {
   text-align: center;
   line-height: 1.6;
 
-  &__text {
-    position: relative;
-    z-index: 1;
+  &__scroll-area {
+    height: 13rem;
+    margin: 0 -1rem;
+    padding: 0 1rem;
     margin-top: -2rem;
+    position: relative;
+    z-index: 10;
+    overflow: auto;
+  }
+
+  &__text {
     font-weight: 500;
     font-size: 1.7rem;
 

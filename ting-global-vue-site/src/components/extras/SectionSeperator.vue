@@ -1,0 +1,18 @@
+<template>
+  <div class="section-seperator" />
+</template>
+
+<style lang="scss">
+@import "@/sass/base.scss";
+
+.section-seperator {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 8rem auto;
+
+  @include respond(mobile) {
+    margin: 5rem auto;
+  }
+}
+</style>

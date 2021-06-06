@@ -14,16 +14,29 @@
       </p>
     </div>
     <div class="intro__links">
-      <BaseButton link="/register" variant="blue">
+      <BaseButton v-if="!isLoggedIn" link="/register" variant="blue">
         Join for free
       </BaseButton>
-      <BaseButton link="/membership" variant="gold">
+      <BaseButton v-if="!isLoggedIn" link="/membership" variant="gold">
         Become a member
+      </BaseButton>
+      <BaseButton v-if="isLoggedIn" link="/dashboard" variant="blue">
+        Go do dashboard
       </BaseButton>
     </div>
     <WavePatternBottom />
   </section>
 </template>
+
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuth;
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 @import "../../sass/base.scss";

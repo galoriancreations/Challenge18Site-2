@@ -128,6 +128,16 @@ export default {
       url(../../assets/membership-bg.jpeg);
   }
 
+  &#dashboard {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
+      ),
+      url(../../assets/dashboard-bg.jpeg);
+    background-position-y: 30%;
+  }
+
   &#challenge-options {
     background-image: linear-gradient(
         to right,

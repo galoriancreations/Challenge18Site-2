@@ -65,11 +65,11 @@ export default {
   }
 }
 
-.home .partners {
-  margin-top: 10rem;
+// .home .partners {
+//   margin-top: 10rem;
 
-  @include respond(mobile) {
-    margin-top: 7rem;
-  }
-}
+//   @include respond(mobile) {
+//     margin-top: 7rem;
+//   }
+// }
 </style>

@@ -57,6 +57,7 @@ export default {
           imgSrc:
             "https://i1.wp.com/ting.global/wp-content/uploads/2021/04/Efrat-Shaked-.jpg?fit=200%2C200&ssl=1",
           name: "Efrat Shaked",
+          role: "The Doing Good Model",
           rating: 5,
           text:
             "Hello everyone! My name is Efrat Shaked and I am from The Doing Good Model social enterprise. Sharon, it was a pleasure, thanks a lot for your initiation, it was so accurate for my needs.",
@@ -79,16 +80,15 @@ export default {
 };
 </script>
 
-//
 <style lang="scss">
 @import "../../sass/base.scss";
 
 .testimonials {
-  margin-top: 10rem;
+  // margin-top: 10rem;
 
-  @include respond(mobile) {
-    margin-top: 7rem;
-  }
+  // @include respond(mobile) {
+  //   margin-top: 7rem;
+  // }
 
   &__slider {
     margin: 0 -5rem;

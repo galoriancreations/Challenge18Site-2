@@ -1,5 +1,5 @@
 <template>
-  <Page title="Challenge Task Options" name="challenge-options">
+  <Page title="Create Challenge" name="challenge-options">
     <WhiteSection tag="main" class="challenge-options">
       <div class="challenge-options__layout" :style="{ direction }">
         <div class="challenge-options__tabs">
@@ -90,7 +90,7 @@
         </section>
       </div>
       <BaseButton variant="blue" @click="submitHandler">
-        Save &amp; Continue
+        Publish challenge
       </BaseButton>
     </WhiteSection>
   </Page>

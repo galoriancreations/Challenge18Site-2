@@ -7,6 +7,10 @@ export default {
         setUser(state, payload) {
             state.user = payload.user;
             state.token = payload.token;
+        },
+        removeUser(state) {
+            state.user = null;
+            state.token = null;
         }
     },
     actions: {
@@ -15,6 +19,10 @@ export default {
             const { token } = localStorage;
             if (!user || !token) return;
             context.commit("setUser", { user, token });
+        },
+        logout(context) {
+            context.commit("removeUser");
+            localStorage.clear();
         }
     },
     getters: {
