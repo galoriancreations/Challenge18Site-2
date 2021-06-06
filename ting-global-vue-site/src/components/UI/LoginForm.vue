@@ -25,14 +25,12 @@
       />
     </div>
     <BaseButton variant="blue">Login</BaseButton>
-    <p v-if="success">Logged in successfully</p>
-    <p v-else-if="error">Error occured</p>
+    <BaseSpinner v-if="loading" />
+    <ErrorMessage v-else-if="error" :error="error" />
   </form>
 </template>
 
 <script>
-import axios from "../../util/axios";
-
 export default {
   data() {
     return {
@@ -42,18 +40,21 @@ export default {
       },
       loading: false,
       error: null,
-      success: false,
     };
   },
   methods: {
     async submitHandler() {
+      this.loading = true;
       try {
-        const { data } = await axios.post("/api", { signIn: this.formData });
-        console.log(data);
-        this.success = true;
+        await this.$store.dispatch("auth", {
+          mode: "signIn",
+          data: this.formData,
+        });
+        this.$router.replace("/dashboard");
       } catch (error) {
-        this.error = true;
+        this.error = error;
       }
+      this.loading = false;
     },
   },
 };

@@ -56,14 +56,12 @@
       </select>
     </div>
     <BaseButton variant="blue">Register</BaseButton>
-    <p v-if="success">Success</p>
-    <p v-else-if="error">Error</p>
+    <BaseSpinner v-if="loading" />
+    <ErrorMessage v-else-if="error" :error="error" />
   </form>
 </template>
 
 <script>
-import axios from "../../util/axios";
-
 export default {
   data() {
     return {
@@ -85,7 +83,7 @@ export default {
         "Hebrew",
       ],
       availability: null,
-      success: false,
+      loading: false,
       error: null,
     };
   },
@@ -96,14 +94,17 @@ export default {
   },
   methods: {
     async submitHandler() {
+      this.loading = true;
       try {
-        const { data } = await axios.post("/api", { register: this.formData });
-        console.log(data);
-        this.success = true;
+        await this.$store.dispatch("auth", {
+          mode: "register",
+          data: this.formData,
+        });
+        this.$router.replace("/dashboard");
       } catch (error) {
-        console.log(error);
-        this.error = true;
+        this.error = error;
       }
+      this.loading = false;
     },
   },
   watch: {

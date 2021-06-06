@@ -50,14 +50,15 @@
     </div>
     <p class="total-price">Total to pay: ${{ totalPrice() }}</p>
     <PayPal
-      :amount="totalPrice"
+      :amount="totalPrice()"
       currency="USD"
       :client="credentials"
       env="sandbox"
-      @payment-authorized="paymentAuthorized"
       @payment-completed="paymentCompleted"
       @payment-cancelled="paymentCancelled"
     />
+    <BaseSpinner v-if="loading" />
+    <ErrorMessage v-else-if="error" :error="error" />
   </div>
 </template>
 
@@ -87,25 +88,28 @@ export default {
     },
   },
   methods: {
-    paymentAuthorized(data) {
-      console.log("Payment Authorized");
-      console.log(data);
+    async paymentCompleted(paymentInfo) {
+      this.loading = true;
+      try {
+        await this.$store.dispatch("auth", {
+          mode: "register",
+          data: { ...this.details, paymentInfo },
+        });
+        this.$router.push("/dashboard");
+      } catch (error) {
+        this.error = error;
+      }
+      this.loading = false;
     },
-    paymentCompleted(data) {
-      console.log("Payment Completed");
-      console.log(data);
-      this.$router.push("/challenge-options");
-    },
-    paymentCancelled(data) {
-      console.log("Payment Cancelled");
-      console.log(data);
-      this.error = "Payment failed";
+    paymentCancelled() {
+      this.error =
+        "Payment failed. Please check with your credit card company and try again.";
     },
   },
   mounted() {
     window.scrollTo(
       0,
-      window.scrollY + this.$refs.container.getBoundingClientRect().top - 100
+      window.scrollY + this.$refs.container.getBoundingClientRect().top - 120
     );
   },
 };

@@ -18,11 +18,9 @@ export default {
     },
   },
   created() {
-    console.log(this.io);
     this.io.on("allBoards", ({ challenges }) =>
       this.$store.dispatch("updateResults", challenges)
     );
-    this.$store.dispatch("tryAutoLogin");
   },
 };
 </script>

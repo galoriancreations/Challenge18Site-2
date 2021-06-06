@@ -9,10 +9,10 @@
   width: 100%;
   height: 1px;
   background-color: #ccc;
-  margin: 8rem auto;
+  margin: 9rem auto;
 
   @include respond(mobile) {
-    margin: 5rem auto;
+    margin: 6rem auto;
   }
 }
 </style>

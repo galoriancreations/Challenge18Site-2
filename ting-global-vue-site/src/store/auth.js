@@ -1,3 +1,5 @@
+import axios from "../util/axios";
+
 export default {
     state: {
         user: null,
@@ -11,9 +13,20 @@ export default {
         removeUser(state) {
             state.user = null;
             state.token = null;
+        },
+        updateUser(state, payload) {
+            state.user = payload;
         }
     },
     actions: {
+        async auth(context, { data, mode }) {
+            const response = await axios.post("/api", { [mode]: data });
+            const { access_token: token, user } = response.data;
+            context.commit("setUser", { user, token });
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
+        },
         tryAutoLogin(context) {
             const user = JSON.parse(localStorage.getItem("user"));
             const { token } = localStorage;
@@ -23,6 +36,10 @@ export default {
         logout(context) {
             context.commit("removeUser");
             localStorage.clear();
+        },
+        updateUser(context, data) {
+            context.commit("updateUser", data);
+            localStorage.setItem("user", JSON.stringify(data));
         }
     },
     getters: {

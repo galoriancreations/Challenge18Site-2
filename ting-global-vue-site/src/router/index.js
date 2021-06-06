@@ -45,6 +45,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, _, next) => {
+    store.dispatch("tryAutoLogin");
+
     const { isAuth, user } = store.getters;
     const { protect, forLoggingIn, forOrganizations } = to.meta;
 

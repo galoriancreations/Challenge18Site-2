@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import DashboardSection from "../components/UI/DashboardSection";
+import DashboardSection from "../components/layout/DashboardSection";
 
 export default {
   components: { DashboardSection },
@@ -63,9 +63,9 @@ export default {
       };
 
       const labelsToDisplay = {};
-      for (let key in labels[this.user.account_type]) {
+      for (let key in labels[this.user.accountType]) {
         if (this.user[key]) {
-          labelsToDisplay[key] = labels[this.user.account_type][key];
+          labelsToDisplay[key] = labels[this.user.accountType][key];
         }
       }
 
@@ -106,6 +106,10 @@ export default {
     padding: 1.75rem 1rem 1.5rem;
     font-weight: 600;
     font-size: 2.5rem;
+
+    @include respond(mobile) {
+      font-size: 1.9rem;
+    }
   }
 
   &__content {
@@ -113,10 +117,18 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    @include respond(mobile) {
+      padding: 3rem 2rem;
+    }
   }
 
   &.my-challenges &__content {
     min-height: 40rem;
+
+    @include respond(mobile) {
+      min-height: 35rem;
+    }
   }
 }
 
@@ -129,10 +141,19 @@ export default {
     grid-template-columns: repeat(2, max-content);
     justify-content: space-between;
     gap: 2rem;
+
+    @include respond(mobile) {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
   }
 
   &__title {
     font-size: 1.75rem;
+
+    @include respond(mobile) {
+      font-size: 1.55rem;
+    }
   }
 }
 
@@ -141,6 +162,11 @@ export default {
     text-align: center;
     font-size: 1.85rem;
     margin-bottom: 4rem;
+
+    @include respond(mobile) {
+      font-size: 1.65rem;
+      margin-bottom: 3rem;
+    }
   }
 
   .button {

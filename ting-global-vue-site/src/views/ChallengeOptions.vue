@@ -158,7 +158,7 @@ export default {
   &__tabs {
     width: 15%;
     box-shadow: $boxshadow2;
-    border-radius: 0.8rem;
+    // border-radius: 0.8rem;
     display: grid;
     grid-template-columns: 1fr;
     overflow: hidden;
@@ -241,53 +241,53 @@ export default {
       }
     }
 
-    &:nth-child(1) label {
-      border-radius: 0.8rem 0.8rem 0 0;
+    // &:nth-child(1) label {
+    //   border-radius: 0.8rem 0.8rem 0 0;
 
-      @include respond(tablet) {
-        border-radius: 0.8rem 0 0 0;
-      }
-    }
+    //   @include respond(tablet) {
+    //     border-radius: 0.8rem 0 0 0;
+    //   }
+    // }
 
-    &:nth-child(3) label {
-      @include respond(mobile-land) {
-        border-radius: 0 0.8rem 0 0;
-      }
-    }
+    // &:nth-child(3) label {
+    //   @include respond(mobile-land) {
+    //     border-radius: 0 0.8rem 0 0;
+    //   }
+    // }
 
-    &:nth-child(6) label {
-      @include respond(tablet) {
-        border-radius: 0 0.8rem 0 0;
-      }
+    // &:nth-child(6) label {
+    //   @include respond(tablet) {
+    //     border-radius: 0 0.8rem 0 0;
+    //   }
 
-      @include respond(mobile-land) {
-        border-radius: 0;
-      }
-    }
+    //   @include respond(mobile-land) {
+    //     border-radius: 0;
+    //   }
+    // }
 
-    &:nth-child(13) label {
-      @include respond(tablet) {
-        border-radius: 0 0 0 0.8rem;
-      }
+    // &:nth-child(13) label {
+    //   @include respond(tablet) {
+    //     border-radius: 0 0 0 0.8rem;
+    //   }
 
-      @include respond(mobile-land) {
-        border-radius: 0;
-      }
-    }
+    //   @include respond(mobile-land) {
+    //     border-radius: 0;
+    //   }
+    // }
 
-    &:nth-child(16) label {
-      @include respond(mobile-land) {
-        border-radius: 0 0 0 0.8rem;
-      }
-    }
+    // &:nth-child(16) label {
+    //   @include respond(mobile-land) {
+    //     border-radius: 0 0 0 0.8rem;
+    //   }
+    // }
 
-    &:nth-child(18) label {
-      border-radius: 0 0 0.8rem 0.8rem;
+    // &:nth-child(18) label {
+    //   border-radius: 0 0 0.8rem 0.8rem;
 
-      @include respond(tablet) {
-        border-radius: 0 0 0.8rem 0;
-      }
-    }
+    //   @include respond(tablet) {
+    //     border-radius: 0 0 0.8rem 0;
+    //   }
+    // }
 
     input:checked + label {
       background-color: rgba($color-azure-light, 0.8);
@@ -345,7 +345,7 @@ export default {
   }
 
   &__option {
-    line-height: 1.6;
+    line-height: 1.7;
     display: flex;
     align-items: center;
 
