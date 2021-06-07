@@ -2,17 +2,19 @@
   <Page title="Create Challenge" name="challenge-options">
     <WhiteSection tag="main" class="challenge-options">
       <div class="challenge-options__layout" :style="{ direction }">
-        <div class="challenge-options__tabs">
-          <div v-for="day in days" :key="day" class="challenge-options__tab">
-            <input
-              type="radio"
-              v-model="currentDay"
-              :value="day"
-              :id="`day${day}`"
-            />
-            <label :for="`day${day}`">Day {{ day }}</label>
+        <section class="challenge-options__tabs">
+          <div class="challenge-options__tabs-list">
+            <div v-for="day in days" :key="day" class="challenge-options__tab">
+              <input
+                type="radio"
+                v-model="currentDay"
+                :value="day"
+                :id="`day${day}`"
+              />
+              <label :for="`day${day}`">Day {{ day }}</label>
+            </div>
           </div>
-        </div>
+        </section>
         <section class="challenge-options__main" ref="container">
           <SectionHeading small>
             Day {{ currentDay }} – {{ options[dayKey].title }}
@@ -146,7 +148,6 @@ export default {
 .challenge-options {
   &__layout {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
 
     @include respond(tablet) {
@@ -157,25 +158,36 @@ export default {
 
   &__tabs {
     width: 15%;
+    margin-right: 10vw;
+
+    @include respond(tablet) {
+      margin-right: 0;
+      margin-bottom: 9rem;
+      width: 100%;
+    }
+
+    @include respond(mobile) {
+      margin-bottom: 8rem;
+    }
+  }
+
+  &__tabs-list {
     box-shadow: $boxshadow2;
-    // border-radius: 0.8rem;
     display: grid;
     grid-template-columns: 1fr;
     overflow: hidden;
     position: relative;
 
+    @include respond(desktop) {
+      border-radius: 0.8rem;
+    }
+
     @include respond(tablet) {
-      margin-bottom: 9rem;
-      width: 100%;
       grid-template-columns: repeat(6, 1fr);
     }
 
     @include respond(mobile-land) {
       grid-template-columns: repeat(3, 1fr);
-    }
-
-    @include respond(mobile) {
-      margin-bottom: 8rem;
     }
   }
 
@@ -241,53 +253,17 @@ export default {
       }
     }
 
-    // &:nth-child(1) label {
-    //   border-radius: 0.8rem 0.8rem 0 0;
+    &:first-child label {
+      @include respond(desktop) {
+        border-radius: 0.8rem 0.8rem 0 0;
+      }
+    }
 
-    //   @include respond(tablet) {
-    //     border-radius: 0.8rem 0 0 0;
-    //   }
-    // }
-
-    // &:nth-child(3) label {
-    //   @include respond(mobile-land) {
-    //     border-radius: 0 0.8rem 0 0;
-    //   }
-    // }
-
-    // &:nth-child(6) label {
-    //   @include respond(tablet) {
-    //     border-radius: 0 0.8rem 0 0;
-    //   }
-
-    //   @include respond(mobile-land) {
-    //     border-radius: 0;
-    //   }
-    // }
-
-    // &:nth-child(13) label {
-    //   @include respond(tablet) {
-    //     border-radius: 0 0 0 0.8rem;
-    //   }
-
-    //   @include respond(mobile-land) {
-    //     border-radius: 0;
-    //   }
-    // }
-
-    // &:nth-child(16) label {
-    //   @include respond(mobile-land) {
-    //     border-radius: 0 0 0 0.8rem;
-    //   }
-    // }
-
-    // &:nth-child(18) label {
-    //   border-radius: 0 0 0.8rem 0.8rem;
-
-    //   @include respond(tablet) {
-    //     border-radius: 0 0 0.8rem 0;
-    //   }
-    // }
+    &:last-child label {
+      @include respond(desktop) {
+        border-radius: 0 0 0.8rem 0.8rem;
+      }
+    }
 
     input:checked + label {
       background-color: rgba($color-azure-light, 0.8);
@@ -297,11 +273,7 @@ export default {
   }
 
   &__main {
-    width: 70%;
-
-    @include respond(tablet) {
-      width: 100%;
-    }
+    flex: 1;
 
     .section-heading {
       max-width: 100%;
@@ -348,6 +320,10 @@ export default {
     line-height: 1.7;
     display: flex;
     align-items: center;
+
+    @include respond(mobile) {
+      line-height: 1.6;
+    }
 
     &:not(:last-child) {
       margin-bottom: 1.5rem;

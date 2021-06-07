@@ -19,8 +19,9 @@ export default {
         }
     },
     actions: {
-        async auth(context, { data, mode }) {
+        async auth(context, { mode, data }) {
             const response = await axios.post("/api", { [mode]: data });
+            console.log(response.data)
             const { access_token: token, user } = response.data;
             context.commit("setUser", { user, token });
 
