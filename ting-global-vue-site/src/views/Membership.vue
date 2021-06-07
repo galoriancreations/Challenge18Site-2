@@ -21,7 +21,7 @@
 <script>
 import RegisterNote from "../components/UI/RegisterNote";
 import MembershipPlans from "../components/layout/MembershipPlans";
-import MembershipForm from "../components/UI/MembershipForm";
+import MembershipForm from "../components/layout/MembershipForm";
 
 export default {
   components: { RegisterNote, MembershipPlans, MembershipForm },

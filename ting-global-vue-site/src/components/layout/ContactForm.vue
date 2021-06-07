@@ -104,7 +104,9 @@ export default {
   methods: {
     async submitHandler(event) {
       const success = await this.sendMessage(event.target);
-      if (success) this.resetForm();
+      if (success) {
+        this.resetForm();
+      }
     },
     resetForm() {
       for (let key in this.formData) {
@@ -177,6 +179,11 @@ export default {
     margin-top: 1rem;
     font-weight: 600;
     width: 100%;
+    padding: 1.25rem;
+
+    @include respond(mobile) {
+      padding: 1.1rem;
+    }
   }
 }
 </style>

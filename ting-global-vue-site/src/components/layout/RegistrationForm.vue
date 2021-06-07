@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import { languageOptions } from "../../util/options";
+
 export default {
   data() {
     return {
@@ -73,17 +75,7 @@ export default {
         language: "English",
         accountType: "individual",
       },
-      languageOptions: [
-        "English",
-        "Hebrew",
-        "Arabic",
-        "Mandarin",
-        "Spanish",
-        "Portuguese",
-        "French",
-        "Russian",
-        "Hindi",
-      ],
+      languageOptions,
       availability: null,
       loading: false,
       error: null,

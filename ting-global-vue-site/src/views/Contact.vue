@@ -9,18 +9,18 @@
       </p>
       <ContactForm />
       <BaseSpinner v-if="sending" />
-      <Modal :active="showModal" :error="error" />
+      <ContactModal :active="showModal" :error="error" />
     </WhiteSection>
   </Page>
 </template>
 
 <script>
 import emailjs from "emailjs-com";
-import ContactForm from "../components/UI/ContactForm";
-import Modal from "../components/UI/Modal";
+import ContactForm from "../components/layout/ContactForm";
+import ContactModal from "../components/UI/ContactModal";
 
 export default {
-  components: { ContactForm, Modal },
+  components: { ContactForm, ContactModal },
   data() {
     return {
       showModal: false,

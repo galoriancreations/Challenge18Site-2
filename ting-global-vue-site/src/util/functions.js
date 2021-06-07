@@ -1,3 +1,5 @@
+import store from "../store";
+
 export const usersArray = users => {
   const data = [];
   for (let key in users) {
@@ -70,3 +72,21 @@ export const convertAsteriks = text => {
   }
   return chars.join("");
 }
+
+export const textInputKeys = (labels) => {
+  const keys = [];
+  for (let key in labels) {
+    if (key !== "language") {
+      keys.push(key);
+    }
+  }
+  return keys;
+};
+
+export const initialData = (labels) => {
+  const formData = {};
+  for (let key in labels) {
+    formData[key] = store.getters.user[key];
+  }
+  return formData;
+};

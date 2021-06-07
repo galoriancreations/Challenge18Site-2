@@ -142,6 +142,7 @@
 
 <script>
 import Checkout from "./Checkout";
+import { languageOptions, planOptions } from "../../util/options";
 
 export default {
   components: { Checkout },
@@ -160,22 +161,8 @@ export default {
         plan: "3-years",
         accountType: "organization",
       },
-      languageOptions: [
-        "English",
-        "Hebrew",
-        "Arabic",
-        "Mandarin",
-        "Spanish",
-        "Portuguese",
-        "French",
-        "Russian",
-        "Hindi",
-      ],
-      planOptions: [
-        { type: "3-years", price: 150, label: "Three Years", years: 3 },
-        { type: "2-years", price: 250, label: "Two Years", years: 2 },
-        { type: "1-year", price: 350, label: "One Year", years: 1 },
-      ],
+      languageOptions,
+      planOptions,
       checkoutMode: false,
     };
   },
@@ -282,10 +269,6 @@ export default {
     @include respond(mobile) {
       font-size: 2.9rem;
     }
-  }
-
-  .button {
-    padding: 1.25rem;
   }
 }
 
