@@ -98,7 +98,7 @@
     </div>
     <div class="form__field">
       <label for="language" class="form__label">
-        Language to play
+        Challenge language
       </label>
       <select
         v-model="formData.language"
@@ -162,12 +162,14 @@ export default {
       },
       languageOptions: [
         "English",
-        "Chinese",
+        "Hebrew",
+        "Arabic",
+        "Mandarin",
         "Spanish",
         "Portuguese",
         "French",
         "Russian",
-        "Hebrew",
+        "Hindi",
       ],
       planOptions: [
         { type: "3-years", price: 150, label: "Three Years", years: 3 },

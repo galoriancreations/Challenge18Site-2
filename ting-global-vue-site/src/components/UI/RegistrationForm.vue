@@ -47,7 +47,7 @@
     </div>
     <div class="form__field">
       <label for="language" class="form__label">
-        Language to play
+        Challenge language
       </label>
       <select v-model="formData.language" id="language" class="form__input">
         <option v-for="option in languageOptions" :key="option" :value="option">
@@ -75,12 +75,14 @@ export default {
       },
       languageOptions: [
         "English",
-        "Chinese",
+        "Hebrew",
+        "Arabic",
+        "Mandarin",
         "Spanish",
         "Portuguese",
         "French",
         "Russian",
-        "Hebrew",
+        "Hindi",
       ],
       availability: null,
       loading: false,

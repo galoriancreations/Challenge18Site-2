@@ -30,16 +30,21 @@ export default {
 .error {
   color: $color-error;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.65rem;
   text-align: center;
   padding: 0 $padding-sides-mobile;
-}
-
-.form .error {
-  margin-top: 5rem;
 
   @include respond(mobile) {
-    margin-top: 4rem;
+    font-size: 1.5rem;
+  }
+}
+
+.form .error,
+.checkout .error {
+  margin-top: 4rem;
+
+  @include respond(mobile) {
+    margin-top: 3rem;
   }
 }
 </style>

@@ -22,11 +22,11 @@ export default {
         async auth(context, { mode, data }) {
             const response = await axios.post("/api", { [mode]: data });
             console.log(response.data)
-            const { access_token: token, user } = response.data;
-            context.commit("setUser", { user, token });
+            const { access_token: token } = response.data;
+            context.commit("setUser", { user: data, token });
 
             localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("user", JSON.stringify(data));
         },
         tryAutoLogin(context) {
             const user = JSON.parse(localStorage.getItem("user"));

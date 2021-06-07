@@ -121,7 +121,13 @@ export default {
       return this.$store.getters.user;
     },
     direction() {
-      return this.user?.language === "Hebrew" ? "rtl" : null;
+      switch (this.user?.language) {
+        case "Hebrew":
+        case "Arabic":
+          return "rtl";
+        default:
+          return null;
+      }
     },
   },
   methods: {

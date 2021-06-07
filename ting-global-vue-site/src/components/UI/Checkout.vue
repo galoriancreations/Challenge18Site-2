@@ -36,7 +36,7 @@
           <p class="checkout__value">{{ details.phone }}</p>
         </div>
         <div class="checkout__field">
-          <h4 class="checkout__title">Language</h4>
+          <h4 class="checkout__title">Challenge language</h4>
           <p class="checkout__value">{{ details.language }}</p>
         </div>
         <div class="checkout__field">
@@ -53,7 +53,6 @@
       :amount="totalPrice()"
       currency="USD"
       :client="credentials"
-      env="sandbox"
       @payment-completed="paymentCompleted"
       @payment-cancelled="paymentCancelled"
     />
@@ -71,9 +70,8 @@ export default {
   data() {
     return {
       credentials: {
-        sandbox:
-          "AUNDipj94sstK0Ya1ip5S88UJurnn-d7_FpDE6iu0gKeUIFi3BBHWQxycJVxBgvUKtX11YbRGqZtiZ1T",
-        production: "",
+        sandbox: process.env.VUE_APP_PAYPAL_SANDBOX,
+        production: process.env.VUE_APP_PAYPAL_LIVE,
       },
       loading: false,
       error: null,

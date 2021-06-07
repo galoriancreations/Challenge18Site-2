@@ -46,7 +46,7 @@ export default {
           phone: "Phone number",
           fullName: "Full name",
           email: "Email",
-          language: "Language to play",
+          language: "Challenge language",
         },
         organization: {
           username: "Username",
@@ -57,7 +57,7 @@ export default {
           country: "Country",
           email: "Lead contact email",
           phone: "Lead contact phone number",
-          language: "Language",
+          language: "Challenge language",
         },
         admin: {},
       };
