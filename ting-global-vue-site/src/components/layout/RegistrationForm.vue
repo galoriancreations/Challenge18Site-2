@@ -104,6 +104,8 @@ export default {
   watch: {
     username(value) {
       console.log(value);
+      // checkUsername
+      // checkPhone
     },
   },
 };

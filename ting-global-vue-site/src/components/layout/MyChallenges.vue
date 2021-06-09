@@ -3,29 +3,28 @@
     <p v-if="hasNoChallenges" class="my-challenges__empty">
       You don't have any challenges yet.
     </p>
-    <BaseButton link="/challenge-options" variant="blue" v-if="isOrganization">
+    <BaseButton variant="blue" v-if="!isIndividual" @click="openModal">
       Create new challenge
     </BaseButton>
-    <BaseButton v-else variant="blue" @click="joinChallengeMode = true">
+    <BaseButton v-else variant="blue" @click="openModal">
       Join a challenge
     </BaseButton>
     <template slot="modal">
-      <JoinChallenge
-        :active="joinChallengeMode"
-        @closed="joinChallengeMode = false"
-      />
+      <JoinChallenge v-if="isIndividual" :active="modalOpen" />
+      <CreateChallenge v-else :active="modalOpen" />
     </template>
   </DashboardSection>
 </template>
 
 <script>
 import JoinChallenge from "./JoinChallenge";
+import CreateChallenge from "./CreateChallenge";
 
 export default {
-  components: { JoinChallenge },
+  components: { JoinChallenge, CreateChallenge },
   data() {
     return {
-      joinChallengeMode: false,
+      modalOpen: false,
     };
   },
   computed: {
@@ -33,11 +32,24 @@ export default {
       return this.$store.getters.user;
     },
     hasNoChallenges() {
-      return !this.user.challenges || !this.user.challenges.length;
+      return !this.user.challenges?.length;
     },
-    isOrganization() {
-      return this.user.account_type === "organization";
+    isIndividual() {
+      return this.user.accountType === "individual";
     },
+  },
+  methods: {
+    openModal() {
+      this.modalOpen = true;
+    },
+    closeModal() {
+      this.modalOpen = false;
+    },
+  },
+  provide() {
+    return {
+      closeModal: this.closeModal,
+    };
   },
 };
 </script>

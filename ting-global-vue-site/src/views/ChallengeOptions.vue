@@ -1,5 +1,5 @@
 <template>
-  <Page title="Create Challenge" name="challenge-options">
+  <Page title="Challenge Options" name="challenge-options">
     <WhiteSection tag="main" class="challenge-options">
       <div class="challenge-options__layout" :style="{ direction }">
         <section class="challenge-options__tabs">

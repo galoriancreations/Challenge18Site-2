@@ -27,12 +27,6 @@ export default {
       padding: 0;
       height: 85vh;
       overflow: auto;
-
-      // .__view {
-      //   display: flex;
-      //   flex-direction: column;
-      //   justify-content: center;
-      // }
     }
 
     &__content {

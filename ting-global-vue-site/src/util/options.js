@@ -7,7 +7,9 @@ export const languageOptions = [
     "Portuguese",
     "French",
     "Russian",
-    "Hindi"
+    "Hindi",
+    "Japanese",
+    "Korean"
 ];
 
 export const planOptions = [
