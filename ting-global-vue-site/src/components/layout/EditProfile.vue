@@ -81,10 +81,4 @@ export default {
 
 <style lang="scss">
 @import "@/sass/base.scss";
-
-.edit-profile {
-  .form {
-    text-align: initial;
-  }
-}
 </style>

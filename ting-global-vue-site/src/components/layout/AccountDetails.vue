@@ -6,14 +6,18 @@
         :key="key"
         class="account-details__field"
       >
-        <h4 class="account-details__title">{{ label }}</h4>
-        <p class="account-details__text">{{ user[key] || "Not filled yet" }}</p>
+        <h4 class="account-details__title">
+          {{ label }}
+        </h4>
+        <p class="account-details__text">
+          {{ user[key] || "Not filled yet" }}
+        </p>
       </div>
     </div>
     <BaseButton variant="blue" @click="editProfileMode = true">
       <i class="fas fa-edit" /> Edit Profile
     </BaseButton>
-    <template slot="extra">
+    <template slot="modal">
       <EditProfile :active="editProfileMode" @closed="editProfileMode = false"
     /></template>
   </DashboardSection>
@@ -69,6 +73,7 @@ export default {
 
   &__title {
     font-size: 1.75rem;
+    font-weight: 600;
 
     @include respond(mobile) {
       font-size: 1.55rem;

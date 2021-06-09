@@ -6,12 +6,28 @@
     <BaseButton link="/challenge-options" variant="blue" v-if="isOrganization">
       Create new challenge
     </BaseButton>
-    <BaseButton v-else variant="blue">Join a challenge</BaseButton>
+    <BaseButton v-else variant="blue" @click="joinChallengeMode = true">
+      Join a challenge
+    </BaseButton>
+    <template slot="modal">
+      <JoinChallenge
+        :active="joinChallengeMode"
+        @closed="joinChallengeMode = false"
+      />
+    </template>
   </DashboardSection>
 </template>
 
 <script>
+import JoinChallenge from "./JoinChallenge";
+
 export default {
+  components: { JoinChallenge },
+  data() {
+    return {
+      joinChallengeMode: false,
+    };
+  },
   computed: {
     user() {
       return this.$store.getters.user;
@@ -44,10 +60,10 @@ export default {
 
 .dashboard-section {
   &.my-challenges &__content {
-    min-height: 40rem;
+    min-height: 35rem;
 
     @include respond(mobile) {
-      min-height: 35rem;
+      min-height: 30rem;
     }
   }
 }

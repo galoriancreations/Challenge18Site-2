@@ -6,7 +6,7 @@
     <div class="dashboard-section__content">
       <slot />
     </div>
-    <slot name="extra" />
+    <slot name="modal" />
   </section>
 </template>
 

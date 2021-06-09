@@ -6,7 +6,7 @@ export const usersArray = users => {
     data.push({ name: key, score: users[key] });
   }
   return data;
-}
+};
 
 export const teamsArray = challenges => {
   const data = [];

@@ -144,6 +144,12 @@ export default {
         window.scrollY + this.$refs.container.getBoundingClientRect().top - 150
       );
     },
+    selections: {
+      handler(value) {
+        console.log(value);
+      },
+      deep: true,
+    },
   },
 };
 </script>

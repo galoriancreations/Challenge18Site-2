@@ -125,6 +125,7 @@ export default {
   flex-direction: column;
   max-width: 70rem;
   margin: auto;
+  text-align: initial;
 
   &__field {
     display: flex;
