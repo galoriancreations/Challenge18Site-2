@@ -12,7 +12,7 @@
               <input
                 v-model="formData[key]"
                 :id="key"
-                required
+                :required="key === 'username'"
                 class="form__input"
                 :placeholder="labels[key]"
               />

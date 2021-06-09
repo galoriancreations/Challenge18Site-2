@@ -19,8 +19,7 @@
     </BaseButton>
     <template slot="modal">
       <EditProfile :active="editProfileMode" />
-      /></template
-    >
+    </template>
   </DashboardSection>
 </template>
 
