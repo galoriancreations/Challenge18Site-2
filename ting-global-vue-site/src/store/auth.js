@@ -39,11 +39,10 @@ export default {
             localStorage.clear();
         },
         async updateUser(context, data) {
-            const response = await axios.post("/xapi", {
-                userID: context.getters.user.id,
-                editProfile: data
-            },
-                { Authorization: `Bearer ${context.getters.token}` }
+            const { user: { id }, token } = context.getters;
+            const response = await axios.post("/xapi",
+                { userID: id, editProfile: data },
+                { Authorization: `Bearer ${token}` }
             );
             console.log(response.data)
             const { user } = response.data;
