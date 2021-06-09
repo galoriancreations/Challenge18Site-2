@@ -78,6 +78,7 @@ export default {
   methods: {
     async submitHandler() {
       this.loading = true;
+      this.error = null;
       try {
         await this.$store.dispatch("updateUser", this.formData);
         this.closeModal();

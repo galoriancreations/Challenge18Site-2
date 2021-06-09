@@ -42,7 +42,7 @@ export default {
             const { user: { id }, token } = context.getters;
             const response = await axios.post("/xapi",
                 { userID: id, editProfile: data },
-                { Authorization: `Bearer ${token}` }
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             console.log(response.data)
             const { user } = response.data;
