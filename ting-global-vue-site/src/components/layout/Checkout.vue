@@ -86,12 +86,12 @@ export default {
     },
   },
   methods: {
-    async paymentCompleted(paymentInfo) {
+    async paymentCompleted() {
       this.loading = true;
       try {
         await this.$store.dispatch("auth", {
           mode: "register",
-          data: { ...this.details, paymentInfo },
+          data: this.details,
         });
         this.$router.push("/dashboard");
       } catch (error) {

@@ -1,5 +1,7 @@
 import axios from "../util/axios";
 
+let logoutTimer;
+
 export default {
     state: {
         user: null,
@@ -21,22 +23,32 @@ export default {
     actions: {
         async auth(context, { mode, data }) {
             const response = await axios.post("/api", { [mode]: data });
-            console.log(response.data)
-            const { access_token: token, user } = response.data;
+            const { access_token: token, user, exp } = response.data;
             context.commit("setUser", { user, token });
 
-            localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("token", token);
+            localStorage.setItem("expirationDate", new Date(exp).toISOString());
+
+            const timeLeft = new Date(exp).getTime() - Date.now();
+            logoutTimer = setTimeout(() => context.commit("logout"), timeLeft);
         },
         tryAutoLogin(context) {
             const user = JSON.parse(localStorage.getItem("user"));
-            const { token } = localStorage;
-            if (!user || !token) return;
+            const { token, expirationDate } = localStorage;
+            if (!user || !token || !expirationDate) return;
+            const timeLeft = new Date(expirationDate).getTime() - Date.now();
+            if (timeLeft <= 0) {
+                localStorage.clear();
+                return;
+            }
             context.commit("setUser", { user, token });
+            logoutTimer = setTimeout(() => context.commit("logout"), timeLeft);
         },
         logout(context) {
             context.commit("removeUser");
             localStorage.clear();
+            clearTimeout(logoutTimer);
         },
         async updateUser(context, data) {
             const { user: { id }, token } = context.getters;
@@ -44,7 +56,6 @@ export default {
                 { userID: id, editProfile: data },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            console.log(response.data)
             const { user } = response.data;
             context.commit("updateUser", user);
             localStorage.setItem("user", JSON.stringify(user));
