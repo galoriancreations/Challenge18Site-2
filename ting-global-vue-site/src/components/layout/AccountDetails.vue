@@ -18,8 +18,9 @@
       <i class="fas fa-edit" /> Edit Profile
     </BaseButton>
     <template slot="modal">
-      <EditProfile :active="editProfileMode" @closed="editProfileMode = false"
-    /></template>
+      <EditProfile :active="editProfileMode" />
+      /></template
+    >
   </DashboardSection>
 </template>
 
@@ -42,9 +43,15 @@ export default {
       return labels[this.user.accountType];
     },
   },
+  methods: {
+    closeModal() {
+      this.editProfileMode = false;
+    },
+  },
   provide() {
     return {
       labels: this.labels,
+      closeModal: this.closeModal,
     };
   },
 };

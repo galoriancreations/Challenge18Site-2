@@ -38,9 +38,15 @@ export default {
             context.commit("removeUser");
             localStorage.clear();
         },
-        updateUser(context, data) {
-            context.commit("updateUser", data);
-            localStorage.setItem("user", JSON.stringify(data));
+        async updateUser(context, data) {
+            const response = await axios.post("/xapi", {
+                userID: context.getters.user.id,
+                editProfile: data
+            });
+            console.log(response.data)
+            const { user } = response.data;
+            context.commit("updateUser", user);
+            localStorage.setItem("user", JSON.stringify(user));
         }
     },
     getters: {

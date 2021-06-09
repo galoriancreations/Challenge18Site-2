@@ -37,11 +37,13 @@
               </select>
             </div>
             <BaseButton variant="blue">Save profile</BaseButton>
+            <BaseSpinner v-if="loading" />
+            <ErrorMessage v-else-if="error" :error="error" />
           </form>
         </div>
       </vue-scroll>
     </div>
-    <div class="modal__backdrop" @click="$emit('closed')" />
+    <div class="modal__backdrop" @click="closeModal" />
   </div>
 </template>
 
@@ -54,7 +56,7 @@ export default {
     active: Boolean,
   },
   emits: ["closed"],
-  inject: ["labels"],
+  inject: ["labels", "closeModal"],
   data() {
     return {
       formData: initialData(this.labels),
@@ -74,7 +76,16 @@ export default {
     },
   },
   methods: {
-    submitHandler() {},
+    async submitHandler() {
+      this.loading = true;
+      try {
+        await this.$store.dispatch("updateUser", this.formData);
+        this.closeModal();
+      } catch (error) {
+        this.error = error;
+      }
+      this.loading = false;
+    },
   },
 };
 </script>
