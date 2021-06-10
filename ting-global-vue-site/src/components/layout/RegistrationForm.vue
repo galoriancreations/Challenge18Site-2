@@ -3,6 +3,7 @@
     <div class="form__field">
       <label for="username" class="form__label">
         Username (used for login)
+        <CheckIcon :status="availability.username" />
       </label>
       <input
         v-model="formData.username"
@@ -13,7 +14,10 @@
       />
     </div>
     <div class="form__field">
-      <label for="phone" class="form__label">Phone (used for login)</label>
+      <label for="phone" class="form__label">
+        Phone (used for login)
+        <CheckIcon :status="availability.phone" />
+      </label>
       <input
         v-model="formData.phone"
         id="phone"
@@ -63,8 +67,12 @@
 
 <script>
 import { languageOptions } from "../../util/options";
+import axios from "../../util/axios";
+import _ from "lodash";
+import CheckIcon from "../UI/CheckIcon";
 
 export default {
+  components: { CheckIcon },
   data() {
     return {
       formData: {
@@ -76,18 +84,32 @@ export default {
         accountType: "individual",
       },
       languageOptions,
-      availability: null,
+      availability: {
+        username: null,
+        phone: null,
+      },
       loading: false,
       error: null,
+      timeout: null,
     };
   },
   computed: {
     username() {
       return this.formData.username;
     },
+    phone() {
+      return this.formData.phone;
+    },
   },
   methods: {
     async submitHandler() {
+      for (let key in this.availability) {
+        if (this.availability[key] === "taken") {
+          this.error = `${_.capitalize(key)}
+            is already taken. Please try a different ${key}.`;
+          return;
+        }
+      }
       this.loading = true;
       try {
         await this.$store.dispatch("auth", {
@@ -100,12 +122,25 @@ export default {
       }
       this.loading = false;
     },
+    checkAvailability(key, value, apiKey) {
+      clearTimeout(this.timeout);
+      if (!value.trim()) {
+        this.availability[key] = null;
+      } else {
+        this.timeout = setTimeout(async () => {
+          this.availability[key] = "loading";
+          const response = await axios.post("/api", { [apiKey]: value });
+          this.availability[key] = response.data.result ? "available" : "taken";
+        }, 1000);
+      }
+    },
   },
   watch: {
     username(value) {
-      console.log(value);
-      // checkUsername
-      // checkPhone
+      this.checkAvailability("username", value, "checkUsername");
+    },
+    phone(value) {
+      this.checkAvailability("phone", value, "checkPhone");
     },
   },
 };
