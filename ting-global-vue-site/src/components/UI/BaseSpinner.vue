@@ -51,7 +51,8 @@
 
 .form .spinner,
 .form + .spinner,
-.checkout .spinner {
+.checkout .spinner,
+.modal .spinner {
   position: fixed;
   top: 50%;
   left: 50%;

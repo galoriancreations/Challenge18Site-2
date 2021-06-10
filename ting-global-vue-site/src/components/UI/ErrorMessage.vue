@@ -40,7 +40,8 @@ export default {
 }
 
 .form .error-message,
-.checkout .error-message {
+.checkout .error-message,
+.modal .error-message {
   margin-top: 4rem;
 
   @include respond(mobile) {

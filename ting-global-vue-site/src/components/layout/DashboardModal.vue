@@ -34,3 +34,33 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "@/sass/base.scss";
+.dashboard {
+  .modal {
+    box-shadow: $boxshadow1;
+
+    &__container {
+      max-width: 75rem;
+      padding: 0;
+      height: 85vh;
+      overflow: auto;
+    }
+
+    &__content {
+      padding: 4rem;
+      position: relative;
+      min-height: 85vh;
+
+      @include respond(mobile) {
+        padding: 3rem 2rem;
+      }
+    }
+
+    &__backdrop {
+      background-color: rgba(#000, 0.6);
+    }
+  }
+}
+</style>
