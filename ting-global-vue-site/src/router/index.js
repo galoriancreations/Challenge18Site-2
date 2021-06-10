@@ -18,30 +18,36 @@ import Dashboard from "../views/Dashboard";
 import Triplets from "../views/Triplets";
 import NotFound from "../views/404";
 import CounterTest from "../CounterTest";
+import PlayerPage from "../views/PlayerPage";
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    mode: "history",
-    base: process.env.BASE_URL,
-    routes: [
-        { path: "/", component: Home },
-        { path: "/what-we-do", component: WhatWeDo },
-        { path: "/about", component: About },
-        { path: "/articles", component: Articles },
-        { path: "/videos", component: Videos },
-        { path: "/scores", component: Scores },
-        { path: "/players", component: Players },
-        { path: "/contact", component: Contact },
-        { path: "/login", component: Login, meta: { forLoggingIn: true } },
-        { path: "/register", component: Register, meta: { forLoggingIn: true } },
-        { path: "/membership", component: Membership, meta: { forLoggingIn: true } },
-        { path: "/challenge-options", component: ChallengeOptions },
-        { path: "/dashboard", component: Dashboard },
-        { path: "/triplets", component: Triplets },
-        { path: "/counter-test", component: CounterTest },
-        { path: "/:notFound(.*)", component: NotFound },
-    ]
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes: [
+    { path: "/", component: Home },
+    { path: "/what-we-do", component: WhatWeDo },
+    { path: "/about", component: About },
+    { path: "/articles", component: Articles },
+    { path: "/videos", component: Videos },
+    { path: "/scores", component: Scores },
+    { path: "/players", component: Players },
+    { path: "/PlayerPage", component: PlayerPage },
+    { path: "/contact", component: Contact },
+    { path: "/login", component: Login, meta: { forLoggingIn: true } },
+    { path: "/register", component: Register, meta: { forLoggingIn: true } },
+    {
+      path: "/membership",
+      component: Membership,
+      meta: { forLoggingIn: true },
+    },
+    { path: "/challenge-options", component: ChallengeOptions },
+    { path: "/dashboard", component: Dashboard },
+    { path: "/triplets", component: Triplets },
+    { path: "/counter-test", component: CounterTest },
+    { path: "/:notFound(.*)", component: NotFound },
+  ],
 });
 
 router.beforeEach((to, _, next) => {
