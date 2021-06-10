@@ -37,14 +37,10 @@
 .player-page__wrapper {
   display: flex;
 }
+.player-info__wrapper {
+  margin-right: 2rem;
+}
 
-// .skills__wrapper {
-//   background-color: red;
-// }
-// .info__wrapper {
-//   display: flex;
-//   flex-direction: column;
-// }
 .caption-tittle {
   width: 100%;
   background-color: rgb(0, 12, 102);
@@ -56,10 +52,14 @@
   text-align: center;
 }
 
-// info-text__container {
-//   display: flex;
-//   flex-direction: column;
-// }
+.info-text__container {
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  display: block;
+}
 
 // .skills__body__wrapper {
 //   display: flex;
