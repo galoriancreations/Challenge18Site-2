@@ -17,7 +17,7 @@
         </section>
         <section class="challenge-options__main" ref="container">
           <SectionHeading small>
-            Day {{ currentDay }} – {{ options[dayKey].title }}
+            {{ dayTitle }}
           </SectionHeading>
           <div class="challenge-options__content">
             <form
@@ -106,8 +106,10 @@ export default {
   data() {
     return {
       currentDay: 1,
-      options: initialOptions(options),
-      selections: initialSelections(options),
+      name: options.name,
+      language: options.language,
+      options: initialOptions(options.days),
+      selections: initialSelections(options.days),
     };
   },
   computed: {
@@ -117,17 +119,20 @@ export default {
     dayKey() {
       return `day${this.currentDay}`;
     },
-    user() {
-      return this.$store.getters.user;
+    dayTitle() {
+      return `Day ${this.currentDay} – ${this.options[this.dayKey].title}`;
     },
     direction() {
-      switch (this.user?.language) {
+      switch (this.language) {
         case "Hebrew":
         case "Arabic":
           return "rtl";
         default:
           return null;
       }
+    },
+    user() {
+      return this.$store.getters.user;
     },
   },
   methods: {
@@ -160,6 +165,7 @@ export default {
 .challenge-options {
   &__layout {
     display: flex;
+    justify-content: space-between;
     align-items: flex-start;
 
     @include respond(tablet) {
@@ -170,10 +176,8 @@ export default {
 
   &__tabs {
     width: 15%;
-    margin-right: 10vw;
 
     @include respond(tablet) {
-      margin-right: 0;
       margin-bottom: 9rem;
       width: 100%;
     }
@@ -285,7 +289,11 @@ export default {
   }
 
   &__main {
-    flex: 1;
+    width: 72.75%;
+
+    @include respond(tablet) {
+      width: 100%;
+    }
 
     .section-heading {
       max-width: 100%;

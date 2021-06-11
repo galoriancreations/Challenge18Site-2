@@ -42,7 +42,7 @@ export default {
     box-shadow: $boxshadow1;
 
     &__container {
-      max-width: 75rem;
+      max-width: 70rem;
       padding: 0;
       height: 85vh;
       overflow: auto;

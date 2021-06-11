@@ -57,6 +57,7 @@
 
 <script>
 import { languageOptions } from "../../util/options";
+import axios from "../../util/axios";
 
 export default {
   props: {
@@ -87,7 +88,7 @@ export default {
   methods: {
     async loadTemplates() {
       try {
-        console.log("loading");
+        console.log(axios);
         this.templateOptions = [
           "International SDG",
           "Family",
@@ -101,10 +102,6 @@ export default {
     },
     submitHandler() {},
   },
-  created() {
-    this.selectedLanguage = this.userLanguage;
-    this.loadTemplates();
-  },
   watch: {
     userLanguage(value) {
       this.selectedLanguage = value;
@@ -112,6 +109,10 @@ export default {
     selectedLanguage() {
       this.selectedTemplate = this.filteredTemplateOptions[0];
     },
+  },
+  created() {
+    this.selectedLanguage = this.userLanguage;
+    this.loadTemplates();
   },
 };
 </script>
@@ -165,7 +166,8 @@ export default {
     width: 15rem;
   }
 
-  &__link-section {
+  &__link-section,
+  .section-heading-wrapper + .error-message {
     position: absolute;
     width: 100%;
     padding: 0 4rem;
@@ -200,7 +202,6 @@ export default {
   }
 
   label {
-    display: block;
     width: 100%;
     height: 100%;
     cursor: pointer;
