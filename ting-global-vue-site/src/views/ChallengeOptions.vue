@@ -24,7 +24,7 @@
             v-model="language"
             :options="languageOptions"
             :reduce="(option) => option.name"
-            class="challenge-options__language language-selector"
+            class="language-selector"
           />
         </div>
       </section>
@@ -207,7 +207,6 @@ export default {
   &__top-field {
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     &:not(:last-child) {
       margin-bottom: 4rem;
@@ -554,10 +553,15 @@ export default {
 }
 
 .challenge-options .language-selector {
+  font-weight: 600;
   font-size: 2.2rem;
 
   @include respond(mobile) {
     font-size: 1.9rem;
+  }
+
+  .vs__clear {
+    display: none;
   }
 
   ul {
