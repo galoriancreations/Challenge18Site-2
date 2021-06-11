@@ -1,6 +1,27 @@
 <template>
   <Page title="Challenge Options" name="challenge-options">
     <WhiteSection tag="main" class="challenge-options">
+      <section class="challenge-options__top">
+        <div class="challenge-options__top-field">
+          <h3 class="challenge-options__top-label">Challenge name</h3>
+          <input
+            class="challenge-options__name"
+            v-model="name"
+            placeholder="Enter challenge name here"
+            :readonly="topInputsReadonly"
+          />
+        </div>
+        <div class="challenge-options__top-field">
+          <h3 class="challenge-options__top-label">Challenge language</h3>
+          <input
+            class="challenge-options__language"
+            v-model="language"
+            placeholder="Enter language here"
+            :readonly="topInputsReadonly"
+          />
+        </div>
+      </section>
+      <SectionSeperator />
       <div class="challenge-options__layout" :style="{ direction }">
         <section class="challenge-options__tabs">
           <div class="challenge-options__tabs-list">
@@ -101,6 +122,7 @@
 <script>
 import options from "../data/challenge-options";
 import { initialOptions, initialSelections } from "../util/functions";
+import { languageOptions } from "../util/options";
 
 export default {
   data() {
@@ -110,9 +132,13 @@ export default {
       language: options.language,
       options: initialOptions(options.days),
       selections: initialSelections(options.days),
+      languageOptions,
     };
   },
   computed: {
+    topInputsReadonly() {
+      return false;
+    },
     days() {
       return Array.from({ length: 18 }, (_, i) => i + 1);
     },
@@ -126,6 +152,7 @@ export default {
       switch (this.language) {
         case "Hebrew":
         case "Arabic":
+        case "Persian":
           return "rtl";
         default:
           return null;
@@ -163,6 +190,49 @@ export default {
 @import "@/sass/base.scss";
 
 .challenge-options {
+  &__top {
+    text-align: center;
+  }
+
+  &__top-field {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:last-child) {
+      margin-bottom: 4rem;
+    }
+
+    input {
+      text-align: center;
+      border: none;
+      outline: none;
+      font-weight: 600;
+    }
+  }
+
+  &__top-label {
+    font-weight: 500;
+    font-size: 1.85rem;
+    margin-bottom: 1.2rem;
+  }
+
+  &__name {
+    font: inherit;
+    font-size: 5rem;
+    font-family: "Spartan", sans-serif;
+    letter-spacing: -0.5px;
+    color: $color-blue-2;
+  }
+
+  &__language {
+    font: inherit;
+    font-size: 2.5rem;
+  }
+
+  .section-seperator {
+    margin: 8rem 0 10rem;
+  }
+
   &__layout {
     display: flex;
     justify-content: space-between;

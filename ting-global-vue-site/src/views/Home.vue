@@ -19,7 +19,6 @@ import RecentResults from "../components/layout/RecentResults";
 import Testimonials from "../components/layout/Testimonials";
 import LatestNews from "../components/layout/LatestNews";
 import Partners from "../components/layout/Partners";
-import SectionSeperator from "../components/extras/SectionSeperator";
 
 export default {
   components: {
@@ -28,7 +27,6 @@ export default {
     Testimonials,
     LatestNews,
     Partners,
-    SectionSeperator,
   },
 };
 </script>

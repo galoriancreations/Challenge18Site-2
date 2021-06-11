@@ -19,6 +19,7 @@ import DashboardSection from "./components/layout/DashboardSection";
 import DashboardModal from "./components/layout/DashboardModal";
 import WavePatternBottom from "./components/extras/WavePatternBottom";
 import WavePatternTop from "./components/extras/WavePatternTop";
+import SectionSeperator from "./components/extras/SectionSeperator";
 import ErrorMessage from "./components/UI/ErrorMessage";
 
 Vue.config.productionTip = false;
@@ -38,6 +39,7 @@ Vue.component("DashboardSection", DashboardSection);
 Vue.component("DashboardModal", DashboardModal);
 Vue.component("WavePatternBottom", WavePatternBottom);
 Vue.component("WavePatternTop", WavePatternTop);
+Vue.component("SectionSeperator", SectionSeperator);
 Vue.component("ErrorMessage", ErrorMessage);
 
 Vue.prototype.$vuescrollConfig = {
