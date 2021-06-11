@@ -104,16 +104,13 @@
       <label for="language" class="form__label">
         Challenge language
       </label>
-      <select
+      <v-select
         v-model="formData.language"
-        id="language"
-        class="form__input"
-        :disabled="formData.group === 'international'"
-      >
-        <option v-for="option in languageOptions" :key="option" :value="option">
-          {{ option }}
-        </option>
-      </select>
+        :options="languageOptions"
+        :reduce="(option) => option.name"
+        required
+        class="language-selector"
+      />
     </div>
     <div class="form__field form__plans">
       <label class="form__label">Membership plan</label>
@@ -233,11 +230,14 @@ export default {
 @import "@/sass/base.scss";
 
 .form {
-  select {
-    cursor: pointer;
+  .language-selector {
+    max-width: 100%;
+    border-radius: 0.8rem;
+    box-shadow: $boxshadow2;
+    padding: 1.2rem 1rem;
 
-    &:disabled {
-      cursor: not-allowed;
+    * {
+      border: none;
     }
   }
 

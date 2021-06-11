@@ -1,16 +1,17 @@
-export const languageOptions = [
-    "English",
-    "Hebrew",
-    "Arabic",
-    "Mandarin",
-    "Spanish",
-    "Portuguese",
-    "French",
-    "Russian",
-    "Hindi",
-    "Japanese",
-    "Korean"
-];
+import worldLanguages from "world-languages";
+
+export const languageOptions = [];
+for (let key in worldLanguages) {
+    const trimmedName = worldLanguages[key].split(" - ")[0].split(" (")[0];
+    const existingItem = languageOptions.find(language => language.name === trimmedName);
+    if (!existingItem) {
+        languageOptions.push({
+            code: key,
+            name: trimmedName,
+            label: worldLanguages[key]
+        });
+    }
+}
 
 export const planOptions = [
     { type: "3-years", price: 150, label: "Three Years", years: 3 },

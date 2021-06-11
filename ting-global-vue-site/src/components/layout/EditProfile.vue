@@ -17,20 +17,13 @@
         <label for="language" class="form__label">
           {{ labels.language }}
         </label>
-        <select
+        <v-select
           v-model="formData.language"
-          id="language"
+          :options="languageOptions"
+          :reduce="(option) => option.name"
           required
-          class="form__input"
-        >
-          <option
-            v-for="option in languageOptions"
-            :key="option"
-            :value="option"
-          >
-            {{ option }}
-          </option>
-        </select>
+          class="language-selector"
+        />
       </div>
       <BaseButton variant="blue">Save profile</BaseButton>
       <BaseSpinner v-if="loading" />

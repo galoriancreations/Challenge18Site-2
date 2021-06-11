@@ -9,18 +9,12 @@
     <div v-else-if="!link" class="join-challenge__initial">
       <div class="join-challenge__section">
         <h3 class="join-challenge__subheading">Choose a language</h3>
-        <select
-          class="form__input join-challenge__language-selector"
+        <v-select
           v-model="selectedLanguage"
-        >
-          <option
-            v-for="language in languageOptions"
-            :key="language"
-            :value="language"
-          >
-            {{ language }}
-          </option>
-        </select>
+          :options="languageOptions"
+          :reduce="(option) => option.name"
+          class="language-selector"
+        />
       </div>
       <div class="join-challenge__section">
         <h3 class="join-challenge__subheading">Choose challenge template</h3>
@@ -143,10 +137,6 @@ export default {
 
   &__language-selector {
     text-align: center;
-    display: block;
-    cursor: pointer;
-    max-width: 25rem;
-    margin: auto;
   }
 
   &__options {

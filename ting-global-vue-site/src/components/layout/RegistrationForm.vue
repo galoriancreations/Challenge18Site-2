@@ -53,11 +53,13 @@
       <label for="language" class="form__label">
         Challenge language
       </label>
-      <select v-model="formData.language" id="language" class="form__input">
-        <option v-for="option in languageOptions" :key="option" :value="option">
-          {{ option }}
-        </option>
-      </select>
+      <v-select
+        v-model="formData.language"
+        :options="languageOptions"
+        :reduce="(option) => option.name"
+        required
+        class="language-selector"
+      />
     </div>
     <BaseButton variant="blue">Register</BaseButton>
     <BaseSpinner v-if="loading" />

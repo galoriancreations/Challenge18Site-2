@@ -9,6 +9,8 @@ import VueAgile from "vue-agile";
 import VueYoutube from "vue-youtube";
 import Vuescroll from "vuescroll";
 import linkify from "vue-linkify";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 
 import Page from "./components/layout/Page";
 import BaseButton from "./components/UI/BaseButton";
@@ -29,6 +31,7 @@ Vue.use(VueAgile);
 Vue.use(VueYoutube);
 Vue.use(Vuescroll);
 Vue.directive("linkified", linkify);
+Vue.component("v-select", vSelect);
 
 Vue.component("Page", Page);
 Vue.component("BaseButton", BaseButton);

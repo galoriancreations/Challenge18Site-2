@@ -4,20 +4,27 @@
       <section class="challenge-options__top">
         <div class="challenge-options__top-field">
           <h3 class="challenge-options__top-label">Challenge name</h3>
+          <h2 v-if="topInputsReadonly" class="challenge-options__name">
+            {{ name }}
+          </h2>
           <input
+            v-else
             class="challenge-options__name"
             v-model="name"
             placeholder="Enter challenge name here"
-            :readonly="topInputsReadonly"
           />
         </div>
         <div class="challenge-options__top-field">
           <h3 class="challenge-options__top-label">Challenge language</h3>
-          <input
-            class="challenge-options__language"
+          <p v-if="topInputsReadonly" class="challenge-options__language">
+            {{ language }}
+          </p>
+          <v-select
+            v-else
             v-model="language"
-            placeholder="Enter language here"
-            :readonly="topInputsReadonly"
+            :options="languageOptions"
+            :reduce="(option) => option.name"
+            class="challenge-options__language language-selector"
           />
         </div>
       </section>
@@ -130,9 +137,9 @@ export default {
       currentDay: 1,
       name: options.name,
       language: options.language,
+      languageOptions,
       options: initialOptions(options.days),
       selections: initialSelections(options.days),
-      languageOptions,
     };
   },
   computed: {
@@ -171,10 +178,13 @@ export default {
   },
   watch: {
     currentDay() {
-      window.scrollTo(
-        0,
-        window.scrollY + this.$refs.container.getBoundingClientRect().top - 150
-      );
+      const optionsTop = this.$refs.container.getBoundingClientRect().top;
+      if (window.innerWidth > 1100) {
+        window.scrollTo(0, window.scrollY + optionsTop - 150);
+      }
+    },
+    language(val) {
+      console.log(val);
     },
     selections: {
       handler(value) {
@@ -197,16 +207,20 @@ export default {
   &__top-field {
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     &:not(:last-child) {
       margin-bottom: 4rem;
+
+      @include respond(mobile) {
+        margin-bottom: 3.5rem;
+      }
     }
 
     input {
       text-align: center;
       border: none;
       outline: none;
-      font-weight: 600;
     }
   }
 
@@ -214,6 +228,10 @@ export default {
     font-weight: 500;
     font-size: 1.85rem;
     margin-bottom: 1.2rem;
+
+    @include respond(mobile) {
+      font-size: 1.65rem;
+    }
   }
 
   &__name {
@@ -221,16 +239,30 @@ export default {
     font-size: 5rem;
     font-family: "Spartan", sans-serif;
     letter-spacing: -0.5px;
+    font-weight: 600;
     color: $color-blue-2;
+
+    @include respond(mobile) {
+      font-size: 3rem;
+    }
   }
 
   &__language {
     font: inherit;
     font-size: 2.5rem;
+    font-weight: 600;
+
+    @include respond(mobile) {
+      font-size: 2rem;
+    }
   }
 
   .section-seperator {
     margin: 8rem 0 10rem;
+
+    @include respond(mobile) {
+      margin: 6rem 0 7rem;
+    }
   }
 
   &__layout {
@@ -507,6 +539,34 @@ export default {
 
     &:focus {
       border-color: $color-azure;
+    }
+  }
+}
+
+.language-selector {
+  width: 100%;
+  max-width: 37rem;
+  margin: auto;
+
+  * {
+    font: inherit;
+  }
+}
+
+.challenge-options .language-selector {
+  font-size: 2.2rem;
+
+  @include respond(mobile) {
+    font-size: 1.9rem;
+  }
+
+  ul {
+    * {
+      font-size: 1.6rem;
+
+      @include respond(mobile) {
+        font-size: 1.45rem;
+      }
     }
   }
 }

@@ -21,10 +21,12 @@
     "vue-linkify": "^1.0.1",
     "vue-paypal-checkout": "^3.2.0",
     "vue-router": "^3.2.0",
+    "vue-select": "^3.11.2",
     "vue-star-rating": "^1.7.0",
     "vue-youtube": "^1.4.0",
     "vuescroll": "^4.17.3",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "world-languages": "^1.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
