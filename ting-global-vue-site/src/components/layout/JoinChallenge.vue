@@ -102,7 +102,6 @@ export default {
         );
         this.templateOptions = DUMMY_DATA;
         this.autoSetLanguage();
-        this.selectedTemplate = this.filteredTemplateOptions[0];
       } catch (error) {
         this.errorLoading = error;
       }
@@ -122,8 +121,8 @@ export default {
     userLanguage() {
       this.autoSetLanguage();
     },
-    selectedLanguage() {
-      this.selectedTemplate = this.filteredTemplateOptions[0];
+    filteredTemplateOptions(value) {
+      this.selectedTemplate = value[0];
     },
   },
   created() {
