@@ -1,5 +1,16 @@
 import axios from "../util/axios";
 
+// localStorage.setItem("user", JSON.stringify({
+//     id: "dkghdjghkdjhkdf",
+//     phone: "+972587111965",
+//     username: "new-org0001",
+//     organization: "New Organization",
+//     email: "org@gmail.com",
+//     accountType: "organization",
+//     language: "Korean",
+//     plan: "3-years"
+// }))
+
 let logoutTimer;
 
 export default {

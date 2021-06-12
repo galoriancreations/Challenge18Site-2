@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import LoginForm from "../components/layout/LoginForm";
+import LoginForm from "../components/content/LoginForm";
 
 export default {
   components: { LoginForm },

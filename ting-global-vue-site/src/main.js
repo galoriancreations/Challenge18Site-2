@@ -16,7 +16,7 @@ import Page from "./components/layout/Page";
 import BaseButton from "./components/UI/BaseButton";
 import BaseSpinner from "./components/UI/BaseSpinner";
 import WhiteSection from "./components/layout/WhiteSection";
-import SectionHeading from "./components/UI/SectionHeading";
+import SectionHeading from "./components/layout/SectionHeading";
 import DashboardSection from "./components/layout/DashboardSection";
 import DashboardModal from "./components/layout/DashboardModal";
 import WavePatternBottom from "./components/extras/WavePatternBottom";

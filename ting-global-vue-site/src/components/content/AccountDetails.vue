@@ -13,6 +13,12 @@
           {{ user[key] || "Not filled yet" }}
         </p>
       </div>
+      <div class="account-details__field">
+        <h4 class="account-details__title">Challenge language</h4>
+        <p class="account-details__text">
+          {{ languageText || "Not filled yet" }}
+        </p>
+      </div>
     </div>
     <BaseButton variant="blue" @click="editProfileMode = true">
       <i class="fas fa-edit" /> Edit Profile
@@ -25,7 +31,7 @@
 
 <script>
 import EditProfile from "./EditProfile";
-import { labels } from "../../util/options";
+import { labels, languageOptions } from "../../util/options";
 
 export default {
   components: { EditProfile },
@@ -40,6 +46,12 @@ export default {
     },
     labels() {
       return labels[this.user.accountType];
+    },
+    languageText() {
+      const matchingLanguage = languageOptions.find(
+        (language) => language.name === this.user.language
+      );
+      return matchingLanguage?.label;
     },
   },
   methods: {
@@ -62,19 +74,25 @@ export default {
 .account-details {
   &__grid {
     width: 100%;
-    max-width: 50rem;
-    margin: auto;
     display: grid;
-    grid-template-columns: repeat(2, max-content);
-    justify-content: space-between;
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2rem;
     margin-bottom: 3rem;
 
-    @include respond(mobile) {
+    @include respond(tablet-sm) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include respond(mobile-land) {
       grid-template-columns: 1fr;
-      text-align: center;
       margin-bottom: 2.5rem;
     }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   &__title {

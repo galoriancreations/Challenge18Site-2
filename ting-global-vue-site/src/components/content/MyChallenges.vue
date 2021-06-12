@@ -1,14 +1,11 @@
 <template>
   <DashboardSection title="My Challenges" class="my-challenges">
-    <p v-if="hasNoChallenges" class="my-challenges__empty">
-      You don't have any challenges yet.
-    </p>
-    <BaseButton variant="blue" v-if="!isIndividual" @click="openModal">
-      Create new challenge
-    </BaseButton>
-    <BaseButton v-else variant="blue" @click="openModal">
-      Join a challenge
-    </BaseButton>
+    <div v-if="!hasChallenges" class="my-challenges__empty">
+      <p>You don't have any challenges yet.</p>
+      <BaseButton variant="blue" @click="openModal">
+        {{ isIndividual ? "Join a challenge" : "Create new challenge" }}
+      </BaseButton>
+    </div>
     <template slot="modal">
       <JoinChallenge v-if="isIndividual" :active="modalOpen" />
       <CreateChallenge v-else :active="modalOpen" />
@@ -31,8 +28,8 @@ export default {
     user() {
       return this.$store.getters.user;
     },
-    hasNoChallenges() {
-      return !this.user.challenges?.length;
+    hasChallenges() {
+      return !!this.user.challenges?.length;
     },
     isIndividual() {
       return this.user.accountType === "individual";
@@ -59,13 +56,15 @@ export default {
 
 .my-challenges {
   &__empty {
-    text-align: center;
-    font-size: 1.85rem;
-    margin-bottom: 4rem;
+    p {
+      text-align: center;
+      font-size: 1.85rem;
+      margin-bottom: 4rem;
 
-    @include respond(mobile) {
-      font-size: 1.65rem;
-      margin-bottom: 3rem;
+      @include respond(mobile) {
+        font-size: 1.65rem;
+        margin-bottom: 3rem;
+      }
     }
   }
 }

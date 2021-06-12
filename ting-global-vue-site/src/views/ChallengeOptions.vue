@@ -197,6 +197,9 @@ export default {
       deep: true,
     },
   },
+  created() {
+    this.language = this.user?.language || "English";
+  },
 };
 </script>
 

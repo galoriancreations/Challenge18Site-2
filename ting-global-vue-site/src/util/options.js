@@ -8,7 +8,7 @@ for (let key in worldLanguages) {
         languageOptions.push({
             code: key,
             name: trimmedName,
-            label: worldLanguages[key]
+            label: worldLanguages[key].replace(" - ", " – ")
         });
     }
 }
@@ -25,18 +25,16 @@ export const labels = {
         phone: "Phone number",
         fullName: "Full name",
         email: "Email",
-        language: "Challenge language",
     },
     organization: {
         username: "Username",
         memberName: "Lead staff member's name",
         memberRole: "Lead staff member's role",
-        organization: "Organization/scholl name",
+        organization: "Organization/school name",
         city: "City/town",
         country: "Country",
         email: "Lead contact email",
         phone: "Lead contact phone number",
-        language: "Challenge language",
     },
     admin: {},
 };

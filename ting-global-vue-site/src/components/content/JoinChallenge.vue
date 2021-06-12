@@ -2,13 +2,13 @@
   <DashboardModal
     title="Join a Challenge"
     :active="active"
-    class="join-challenge"
+    class="new-challenge-modal"
   >
     <BaseSpinner v-if="loading" />
     <ErrorMessage v-else-if="errorLoading" :error="errorLoading" />
-    <div v-else-if="!link" class="join-challenge__initial">
-      <div class="join-challenge__section">
-        <h3 class="join-challenge__subheading">Choose a language</h3>
+    <div v-else-if="!link" class="new-challenge-modal__initial">
+      <div class="new-challenge-modal__section">
+        <h3 class="new-challenge-modal__subheading">Choose a language</h3>
         <v-select
           v-model="selectedLanguage"
           :options="languageOptions"
@@ -16,9 +16,11 @@
           class="language-selector"
         />
       </div>
-      <div class="join-challenge__section">
-        <h3 class="join-challenge__subheading">Choose challenge template</h3>
-        <div class="join-challenge__options">
+      <div class="new-challenge-modal__section">
+        <h3 class="new-challenge-modal__subheading">
+          Choose challenge template
+        </h3>
+        <div class="new-challenge-modal__options">
           <div
             class="template-button"
             v-for="template in filteredTemplateOptions"
@@ -38,11 +40,11 @@
       <BaseSpinner v-if="submitting" />
       <ErrorMessage v-else-if="errorSubmitting" :error="errorSubmitting" />
     </div>
-    <div v-else class="join-challenge__link-section">
-      <h3 class="join-challenge__subheading">
+    <div v-else class="new-challenge-modal__link-section">
+      <h3 class="new-challenge-modal__subheading">
         Click this link to join the challenge
       </h3>
-      <a class="join-challenge__link" :href="link" target="_blank">
+      <a class="new-challenge-modal__link" :href="link" target="_blank">
         {{ link }}
       </a>
     </div>
@@ -134,9 +136,9 @@ export default {
 <style lang="scss">
 @import "@/sass/base.scss";
 
-.join-challenge {
+.new-challenge-modal {
   &__section {
-    &:not(:last-of-type) {
+    &:not(:last-child) {
       margin-bottom: 5rem;
 
       @include respond(mobile) {
@@ -159,12 +161,10 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    margin-bottom: 5rem;
 
     @include respond(mobile) {
       grid-template-columns: 1fr;
       gap: 1.5rem;
-      margin-bottom: 4rem;
     }
   }
 

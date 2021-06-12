@@ -20,8 +20,8 @@
 
 <script>
 import RegisterNote from "../components/UI/RegisterNote";
-import MembershipPlans from "../components/layout/MembershipPlans";
-import MembershipForm from "../components/layout/MembershipForm";
+import MembershipPlans from "../components/content/MembershipPlans";
+import MembershipForm from "../components/content/MembershipForm";
 
 export default {
   components: { RegisterNote, MembershipPlans, MembershipForm },

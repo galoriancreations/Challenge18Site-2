@@ -15,7 +15,7 @@
       </div>
       <div class="form__field">
         <label for="language" class="form__label">
-          {{ labels.language }}
+          Challenge language
         </label>
         <v-select
           v-model="formData.language"
@@ -43,7 +43,7 @@ export default {
   inject: ["labels", "closeModal"],
   data() {
     return {
-      formData: initialData(this.labels),
+      formData: initialData({ ...this.labels, language: "Challenge language" }),
       textInputKeys: textInputKeys(this.labels),
       languageOptions,
       loading: false,

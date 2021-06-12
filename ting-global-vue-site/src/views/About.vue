@@ -16,8 +16,8 @@
 
 <script>
 import ImageWithText from "../components/layout/ImageWithText";
-import Partners from "../components/layout/Partners";
-import TeamSection from "../components/layout/TeamSection";
+import Partners from "../components/content/Partners";
+import TeamSection from "../components/content/TeamSection";
 import mainImg from "../assets/about-img.jpg";
 import sharon from "../assets/teams/sharon.png";
 import hanson from "../assets/teams/hanson.png";
