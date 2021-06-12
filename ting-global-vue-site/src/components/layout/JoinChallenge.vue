@@ -155,10 +155,6 @@ export default {
     }
   }
 
-  &__language-selector {
-    text-align: center;
-  }
-
   &__options {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -183,7 +179,7 @@ export default {
     padding: 0 4rem;
     left: 0;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-30%);
     text-align: center;
 
     @include respond(mobile) {
