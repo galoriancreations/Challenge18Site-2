@@ -78,11 +78,7 @@ export default {
 
 .dashboard-section {
   &.my-challenges &__content {
-    min-height: 35rem;
-
-    @include respond(mobile) {
-      min-height: 30rem;
-    }
+    min-height: 30rem;
   }
 }
 </style>
