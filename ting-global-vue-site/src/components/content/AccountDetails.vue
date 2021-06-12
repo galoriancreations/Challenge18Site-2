@@ -20,9 +20,11 @@
         </p>
       </div>
     </div>
-    <BaseButton variant="blue" @click="editProfileMode = true">
-      <i class="fas fa-edit" /> Edit Profile
-    </BaseButton>
+    <template slot="button">
+      <ActionButton color="blue" @click="editProfileMode = true">
+        <i class="fas fa-edit" />
+      </ActionButton>
+    </template>
     <template slot="modal">
       <EditProfile :active="editProfileMode" />
     </template>
@@ -77,7 +79,6 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr;
     row-gap: 2rem;
-    margin-bottom: 3rem;
 
     @include respond(tablet-sm) {
       grid-template-columns: 1fr 1fr;
@@ -85,7 +86,6 @@ export default {
 
     @include respond(mobile-land) {
       grid-template-columns: 1fr;
-      margin-bottom: 2.5rem;
     }
   }
 

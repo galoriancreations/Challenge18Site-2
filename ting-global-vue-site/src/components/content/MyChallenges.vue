@@ -1,11 +1,16 @@
 <template>
   <DashboardSection title="My Challenges" class="my-challenges">
     <div v-if="!hasChallenges" class="my-challenges__empty">
-      <p>You don't have any challenges yet.</p>
-      <BaseButton variant="blue" @click="openModal">
-        {{ isIndividual ? "Join a challenge" : "Create new challenge" }}
-      </BaseButton>
+      <p>
+        You don't have any challenges yet.
+        {{ isIndividual ? "Join" : "Create" }} your first!
+      </p>
     </div>
+    <template slot="button">
+      <ActionButton color="blue" @click="openModal">
+        <i class="fas fa-plus" />
+      </ActionButton>
+    </template>
     <template slot="modal">
       <JoinChallenge v-if="isIndividual" :active="modalOpen" />
       <CreateChallenge v-else :active="modalOpen" />
@@ -59,11 +64,13 @@ export default {
     p {
       text-align: center;
       font-size: 1.85rem;
-      margin-bottom: 4rem;
 
       @include respond(mobile) {
-        font-size: 1.65rem;
-        margin-bottom: 3rem;
+        font-size: 1.6rem;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
       }
     }
   }

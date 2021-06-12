@@ -14,6 +14,7 @@ import "vue-select/dist/vue-select.css";
 
 import Page from "./components/layout/Page";
 import BaseButton from "./components/UI/BaseButton";
+import ActionButton from "./components/UI/ActionButton";
 import BaseSpinner from "./components/UI/BaseSpinner";
 import WhiteSection from "./components/layout/WhiteSection";
 import SectionHeading from "./components/layout/SectionHeading";
@@ -35,6 +36,7 @@ Vue.component("v-select", vSelect);
 
 Vue.component("Page", Page);
 Vue.component("BaseButton", BaseButton);
+Vue.component("ActionButton", ActionButton);
 Vue.component("BaseSpinner", BaseSpinner);
 Vue.component("WhiteSection", WhiteSection);
 Vue.component("SectionHeading", SectionHeading);
