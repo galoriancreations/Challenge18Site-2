@@ -53,6 +53,11 @@
 import { languageOptions } from "../../util/options";
 import axios from "../../util/axios";
 
+const DUMMY_DATA = {
+  English: ["International SDG", "Family", "Songs & Values"],
+  Hebrew: ['אתגרי האו"ם', "משפחה", "שירים וערכים"],
+};
+
 export default {
   props: {
     active: Boolean,
@@ -60,10 +65,9 @@ export default {
   inject: ["closeModal"],
   data() {
     return {
-      selectedLanguage: null,
-      languageOptions,
+      selectedLanguage: "English",
       selectedTemplate: null,
-      templateOptions: [],
+      templateOptions: {},
       loading: true,
       errorLoading: null,
       submitting: false,
@@ -72,40 +76,57 @@ export default {
     };
   },
   computed: {
+    languageOptions() {
+      const availableLanguages = Object.keys(this.templateOptions);
+      return languageOptions.filter((language) =>
+        availableLanguages.includes(language.name)
+      );
+    },
+    user() {
+      return this.$store.getters.user;
+    },
     userLanguage() {
-      return this.$store.getters.user?.language;
+      return this.user.language;
     },
     filteredTemplateOptions() {
-      return this.templateOptions;
+      return this.templateOptions[this.selectedLanguage];
     },
   },
   methods: {
     async loadTemplates() {
       try {
-        console.log(axios);
-        this.templateOptions = [
-          "International SDG",
-          "Family",
-          "Songs & Values",
-        ];
+        axios.post(
+          "/xapi",
+          { userID: this.user.id, getTemplates: true },
+          { headers: { Authorization: `Bearer ${this.$store.getters.token}` } }
+        );
+        this.templateOptions = DUMMY_DATA;
+        this.autoSetLanguage();
         this.selectedTemplate = this.filteredTemplateOptions[0];
       } catch (error) {
         this.errorLoading = error;
       }
       this.loading = false;
     },
-    submitHandler() {},
+    autoSetLanguage() {
+      const isLanguageAvailable = !!this.languageOptions.find(
+        (language) => language.name === this.userLanguage
+      );
+      if (isLanguageAvailable) {
+        this.selectedLanguage = this.userLanguage;
+      }
+    },
+    async submitHandler() {},
   },
   watch: {
-    userLanguage(value) {
-      this.selectedLanguage = value;
+    userLanguage() {
+      this.autoSetLanguage();
     },
     selectedLanguage() {
       this.selectedTemplate = this.filteredTemplateOptions[0];
     },
   },
   created() {
-    this.selectedLanguage = this.userLanguage;
     this.loadTemplates();
   },
 };

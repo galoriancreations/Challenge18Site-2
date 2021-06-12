@@ -17,7 +17,7 @@
         <div class="challenge-options__top-field">
           <h3 class="challenge-options__top-label">Challenge language</h3>
           <p v-if="topInputsReadonly" class="challenge-options__language">
-            {{ language }}
+            {{ languageLabel }}
           </p>
           <v-select
             v-else
@@ -146,6 +146,10 @@ export default {
     topInputsReadonly() {
       return false;
     },
+    languageLabel() {
+      return languageOptions.find((language) => language.name === this.language)
+        .label;
+    },
     days() {
       return Array.from({ length: 18 }, (_, i) => i + 1);
     },
@@ -257,10 +261,10 @@ export default {
   }
 
   .section-seperator {
-    margin: 8rem 0 10rem;
+    margin: 8.5rem 0 9.5rem;
 
     @include respond(mobile) {
-      margin: 6rem 0 7rem;
+      margin: 6.5rem 0;
     }
   }
 
@@ -387,6 +391,9 @@ export default {
       border-color: $color-azure;
       z-index: 1;
     }
+  }
+
+  &__layout[style="direction: rtl;"] &__tab {
   }
 
   &__main {
