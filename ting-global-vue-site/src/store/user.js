@@ -47,6 +47,9 @@ export default {
 
             const timeLeft = new Date(exp).getTime() - Date.now();
             logoutTimer = setTimeout(() => context.commit("logout"), timeLeft);
+
+            const { io, user: loggedInUser } = context.getters;
+            io.emit("joinRoom", loggedInUser.id);
         },
         tryAutoLogin(context) {
             const user = JSON.parse(localStorage.getItem("user"));
@@ -59,6 +62,9 @@ export default {
             }
             context.commit("setUser", { user, token });
             logoutTimer = setTimeout(() => context.commit("logout"), timeLeft);
+
+            const { io, user: loggedInUser } = context.getters;
+            io.emit("joinRoom", loggedInUser.id);
         },
         logout(context) {
             context.commit("removeUser");

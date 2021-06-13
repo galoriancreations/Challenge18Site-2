@@ -55,10 +55,10 @@
 import { languageOptions } from "../../util/options";
 import axios from "../../util/axios";
 
-const DUMMY_DATA = {
-  English: ["International SDG", "Family", "Songs & Values"],
-  Hebrew: ['אתגרי האו"ם', "משפחה", "שירים וערכים"],
-};
+// const DUMMY_DATA = {
+//   English: ["International SDG", "Family", "Songs & Values"],
+//   Hebrew: ['אתגרי האו"ם', "משפחה", "שירים וערכים"],
+// };
 
 export default {
   props: {
@@ -87,22 +87,29 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    token() {
+      return this.$store.getters.token;
+    },
     userLanguage() {
       return this.user.language;
     },
     filteredTemplateOptions() {
       return this.templateOptions[this.selectedLanguage];
     },
+    io() {
+      return this.$store.getters.io;
+    },
   },
   methods: {
     async loadTemplates() {
       try {
-        axios.post(
+        const response = await axios.post(
           "/xapi",
-          { userID: this.user.id, getTemplates: true },
-          { headers: { Authorization: `Bearer ${this.$store.getters.token}` } }
+          { userID: this.user.id, getTemplateNames: true },
+          { headers: { Authorization: `Bearer ${this.token}` } }
         );
-        this.templateOptions = DUMMY_DATA;
+        console.log(response.data);
+        this.templateOptions = response.data.templates;
         this.autoSetLanguage();
       } catch (error) {
         this.errorLoading = error;
@@ -117,7 +124,24 @@ export default {
         this.selectedLanguage = this.userLanguage;
       }
     },
-    async submitHandler() {},
+    async submitHandler() {
+      this.submitting = true;
+      try {
+        const response = await axios.post(
+          "/xapi",
+          {
+            userID: this.user.id,
+            userRequestChallenge: this.selectedTemplate,
+          },
+          { headers: { Authorization: `Bearer ${this.token}` } }
+        );
+        console.log(response.data);
+        this.link = response.data.invite;
+      } catch (error) {
+        this.errorSubmitting = error;
+      }
+      this.submitting = false;
+    },
   },
   watch: {
     userLanguage() {
@@ -129,6 +153,10 @@ export default {
   },
   created() {
     this.loadTemplates();
+    this.io.on("myChallenges", (data) => {
+      console.log(data);
+      this.closeModal();
+    });
   },
 };
 </script>

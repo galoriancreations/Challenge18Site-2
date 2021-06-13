@@ -208,7 +208,6 @@ export default {
       this.selections[this.dayKey][taskKey] = event.target.value;
     },
     autoSaveTemplate() {
-      console.log("auto save");
       const savedTemplate = {
         name: this.name,
         language: this.language,
