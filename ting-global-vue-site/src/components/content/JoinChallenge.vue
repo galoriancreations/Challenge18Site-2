@@ -2,7 +2,7 @@
   <DashboardModal
     title="Join a Challenge"
     :active="active"
-    class="new-challenge-modal"
+    class="new-challenge-modal join-challenge"
   >
     <BaseSpinner v-if="loading" />
     <ErrorMessage v-else-if="errorLoading" :error="errorLoading" />
@@ -168,7 +168,7 @@ export default {
     }
   }
 
-  .button {
+  &.join-challenge .button {
     width: 15rem;
   }
 

@@ -29,7 +29,9 @@
         </div>
       </section>
       <SectionSeperator />
-      <div class="challenge-options__layout" :style="{ direction }">
+      <BaseSpinner v-if="loading" />
+      <ErrorMessage v-else-if="errorLoading" :error="errorLoading" />
+      <div v-else class="challenge-options__layout" :style="{ direction }">
         <section class="challenge-options__tabs">
           <div class="challenge-options__tabs-list">
             <div v-for="day in days" :key="day" class="challenge-options__tab">
@@ -119,9 +121,15 @@
           </div>
         </section>
       </div>
-      <BaseButton variant="blue" @click="submitHandler">
+      <BaseButton
+        v-if="!loading && !errorLoading"
+        variant="blue"
+        @click="submitHandler"
+      >
         Publish challenge
       </BaseButton>
+      <BaseSpinner v-if="submitting" />
+      <ErrorMessage v-else-if="errorSubmitting" :error="errorSubmitting" />
     </WhiteSection>
   </Page>
 </template>
@@ -130,6 +138,7 @@
 import options from "../data/challenge-options";
 import { initialOptions, initialSelections } from "../util/functions";
 import { languageOptions } from "../util/options";
+import axios from "../util/axios";
 
 export default {
   data() {
@@ -140,11 +149,19 @@ export default {
       languageOptions,
       options: initialOptions(options.days),
       selections: initialSelections(options.days),
+      loading: false,
+      errorLoading: null,
+      submitting: false,
+      errorSubmitting: null,
+      saveTimeout: null,
     };
   },
   computed: {
+    selectedTemplate() {
+      return this.$store.getters.selectedTemplate;
+    },
     topInputsReadonly() {
-      return false;
+      return !!this.selectedTemplate;
     },
     languageLabel() {
       return languageOptions.find((language) => language.name === this.language)
@@ -164,6 +181,7 @@ export default {
         case "Hebrew":
         case "Arabic":
         case "Persian":
+        case "Urdu":
           return "rtl";
         default:
           return null;
@@ -174,9 +192,29 @@ export default {
     },
   },
   methods: {
+    async loadTemplate() {
+      if (this.selectedTemplate) {
+        axios.get("/axpi", {
+          keyName: {
+            userID: this.user.id,
+            getTemplate: this.selectedTemplate,
+          },
+        });
+      }
+      this.language = this.user?.language || "English";
+    },
     typeHandler(event, taskKey) {
       this.options[this.dayKey].tasks[taskKey].other = event.target.value;
       this.selections[this.dayKey][taskKey] = event.target.value;
+    },
+    autoSaveTemplate() {
+      console.log("auto save");
+      const savedTemplate = {
+        name: this.name,
+        language: this.language,
+        selections: this.selections,
+      };
+      localStorage.setItem("savedTemplate", savedTemplate);
     },
     submitHandler() {},
   },
@@ -187,18 +225,21 @@ export default {
         window.scrollTo(0, window.scrollY + optionsTop - 150);
       }
     },
-    language(val) {
-      console.log(val);
+    name() {
+      this.autoSaveTemplate();
+    },
+    language() {
+      this.autoSaveTemplate();
     },
     selections: {
-      handler(value) {
-        console.log(value);
+      handler() {
+        this.autoSaveTemplate();
       },
       deep: true,
     },
   },
   created() {
-    this.language = this.user?.language || "English";
+    this.loadTemplate();
   },
 };
 </script>

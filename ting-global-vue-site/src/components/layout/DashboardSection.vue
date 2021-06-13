@@ -56,7 +56,7 @@ export default {
   }
 
   &__content {
-    padding: 4rem 3rem 5rem;
+    padding: 5rem 3rem 6rem;
     display: flex;
     flex-direction: column;
     justify-content: center;

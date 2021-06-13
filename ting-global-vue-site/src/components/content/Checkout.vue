@@ -91,11 +91,12 @@ export default {
       try {
         await this.$store.dispatch("auth", {
           mode: "register",
-          data: this.details,
+          data: { ...this.details, paid: true },
         });
         this.$router.push("/dashboard");
-      } catch (error) {
-        this.error = error;
+      } catch {
+        this.error =
+          "An error occured while creating your account. Please contact us.";
       }
       this.loading = false;
     },

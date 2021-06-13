@@ -16,7 +16,8 @@ let logoutTimer;
 export default {
     state: {
         user: null,
-        token: null
+        token: null,
+        selectedTemplate: null
     },
     mutations: {
         setUser(state, payload) {
@@ -29,6 +30,9 @@ export default {
         },
         updateUser(state, payload) {
             state.user = payload;
+        },
+        setTemplate(state, payload) {
+            state.selectedTemplate = payload;
         }
     },
     actions: {
@@ -70,6 +74,10 @@ export default {
             const { user } = response.data;
             context.commit("updateUser", user);
             localStorage.setItem("user", JSON.stringify(user));
+        },
+        selectTemplate(context, template) {
+            context.commit("setTemplate", template);
+            localStorage.setItem("selectedTemplate", template);
         }
     },
     getters: {
@@ -81,6 +89,9 @@ export default {
         },
         user(state) {
             return state.user;
+        },
+        selectedTemplate(state) {
+            return state.selectedTemplate;
         }
     }
 };

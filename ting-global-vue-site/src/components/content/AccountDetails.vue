@@ -19,6 +19,12 @@
           {{ languageText || "Not filled yet" }}
         </p>
       </div>
+      <div class="account-details__field" v-if="isOrganization">
+        <h4 class="account-details__title">Membership plan</h4>
+        <p class="account-details__text">
+          {{ planText }}
+        </p>
+      </div>
     </div>
     <template slot="button">
       <ActionButton color="blue" @click="editProfileMode = true">
@@ -33,7 +39,7 @@
 
 <script>
 import EditProfile from "./EditProfile";
-import { labels, languageOptions } from "../../util/options";
+import { labels, languageOptions, planOptions } from "../../util/options";
 
 export default {
   components: { EditProfile },
@@ -49,11 +55,20 @@ export default {
     labels() {
       return labels[this.user.accountType];
     },
+    isOrganization() {
+      return this.user.accountType === "organization";
+    },
     languageText() {
       const matchingLanguage = languageOptions.find(
         (language) => language.name === this.user.language
       );
       return matchingLanguage?.label;
+    },
+    planText() {
+      const { label, price } = planOptions.find(
+        (plan) => plan.type === this.user.plan
+      );
+      return `${label} / $${price} per year`;
     },
   },
   methods: {
@@ -78,7 +93,7 @@ export default {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 2rem;
+    row-gap: 2.5rem;
 
     @include respond(tablet-sm) {
       grid-template-columns: 1fr 1fr;
@@ -86,6 +101,7 @@ export default {
 
     @include respond(mobile-land) {
       grid-template-columns: 1fr;
+      row-gap: 2rem;
     }
   }
 

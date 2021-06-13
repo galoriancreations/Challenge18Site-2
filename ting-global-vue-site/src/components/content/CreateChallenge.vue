@@ -2,7 +2,7 @@
   <DashboardModal
     title="Create a Challenge"
     :active="active"
-    class="new-challenge-modal"
+    class="new-challenge-modal create-challenge"
   >
     <BaseSpinner v-if="loading" />
     <ErrorMessage v-else-if="error" :error="error" />
@@ -25,18 +25,115 @@
           v-for="template in filteredTemplateOptions"
           :key="template"
         >
-          <label>{{ template }}</label>
+          <label @click="selectTemplate(template)">
+            {{ template }}
+          </label>
         </div>
       </div>
+    </div>
+    <div class="new-challenge-modal__section">
+      <h3
+        class="new-challenge-modal__subheading new-challenge-modal__subheading--big"
+      >
+        OR
+      </h3>
+      <BaseButton variant="blue" @click="selectTemplate(null)">
+        Create new template
+      </BaseButton>
     </div>
   </DashboardModal>
 </template>
 
 <script>
+import { languageOptions } from "../../util/options";
+import axios from "../../util/axios";
+
+const DATA = {
+  English: ["International SDG", "Family", "Songs & Values"],
+  Hebrew: ['אתגרי האו"ם', "משפחה", "שירים וערכים"],
+};
+
 export default {
   props: {
     active: Boolean,
   },
   inject: ["closeModal"],
+  data() {
+    return {
+      selectedLanguage: "English",
+      templateOptions: {},
+      loading: true,
+      error: null,
+    };
+  },
+  computed: {
+    languageOptions() {
+      const availableLanguages = Object.keys(this.templateOptions);
+      return languageOptions.filter((language) =>
+        availableLanguages.includes(language.name)
+      );
+    },
+    user() {
+      return this.$store.getters.user;
+    },
+    userLanguage() {
+      return this.user.language;
+    },
+    filteredTemplateOptions() {
+      return this.templateOptions[this.selectedLanguage];
+    },
+  },
+  methods: {
+    async loadTemplates() {
+      try {
+        axios.post(
+          "/xapi",
+          { userID: this.user.id, getTemplates: true },
+          { headers: { Authorization: `Bearer ${this.$store.getters.token}` } }
+        );
+        this.templateOptions = DATA;
+        this.autoSetLanguage();
+      } catch (error) {
+        this.error = error;
+      }
+      this.loading = false;
+    },
+    autoSetLanguage() {
+      const isLanguageAvailable = !!this.languageOptions.find(
+        (language) => language.name === this.userLanguage
+      );
+      if (isLanguageAvailable) {
+        this.selectedLanguage = this.userLanguage;
+      }
+    },
+    selectTemplate(template) {
+      this.$store.dispatch("selectTemplate", template);
+      this.$router.push("/challenge-options");
+    },
+  },
+  watch: {
+    userLanguage() {
+      this.autoSetLanguage();
+    },
+  },
+  created() {
+    this.loadTemplates();
+  },
 };
 </script>
+
+<style lang="scss">
+@import "@/sass/base.scss";
+
+.new-challenge-modal {
+  &__subheading {
+    &--big {
+      font-size: 2.2rem;
+    }
+  }
+
+  &.create-challenge .button {
+    width: auto;
+  }
+}
+</style>
