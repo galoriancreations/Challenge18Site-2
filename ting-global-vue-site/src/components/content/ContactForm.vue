@@ -125,6 +125,7 @@ export default {
   flex-direction: column;
   max-width: 70rem;
   margin: auto;
+  text-align: initial;
 
   &__field {
     display: flex;
@@ -140,11 +141,23 @@ export default {
     font-weight: 500;
     font-size: 1.6rem;
     margin-bottom: 1rem;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
 
     @include respond(mobile) {
       font-size: 1.5rem;
       margin-bottom: 0.8rem;
+    }
+
+    i {
+      display: block;
+      font-size: 1.8rem;
+
+      @include respond(mobile) {
+        font-size: 1.7rem;
+      }
     }
   }
 

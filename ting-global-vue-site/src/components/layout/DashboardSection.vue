@@ -1,12 +1,15 @@
 <template>
   <section class="dashboard-section">
-    <h2 class="dashboard-section__heading">
-      {{ title }}
-    </h2>
-    <div class="dashboard-section__content">
-      <slot />
+    <div class="dashboard-section__container">
+      <h2 class="dashboard-section__heading">
+        {{ title }}
+      </h2>
+      <div class="dashboard-section__content">
+        <slot />
+      </div>
     </div>
-    <slot name="extra" />
+    <slot name="button" />
+    <slot name="modal" />
   </section>
 </template>
 
@@ -22,18 +25,21 @@ export default {
 @import "@/sass/base.scss";
 
 .dashboard-section {
-  border-radius: 1rem;
-  box-shadow: $boxshadow2;
-  overflow: hidden;
   max-width: 80rem;
   margin: auto;
 
   &:not(:last-child) {
-    margin-bottom: 9rem;
+    margin-bottom: 8rem;
 
     @include respond(mobile) {
-      margin-bottom: 6rem;
+      margin-bottom: 5.5rem;
     }
+  }
+
+  &__container {
+    border-radius: 1rem;
+    box-shadow: $boxshadow2;
+    overflow: hidden;
   }
 
   &__heading {
@@ -50,13 +56,13 @@ export default {
   }
 
   &__content {
-    padding: 4rem 3rem;
+    padding: 4rem 3rem 5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
 
     @include respond(mobile) {
-      padding: 3rem 2rem;
+      padding: 3rem 2rem 5rem;
     }
 
     .button {

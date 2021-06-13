@@ -37,13 +37,9 @@ const router = new VueRouter({
     { path: "/contact", component: Contact },
     { path: "/login", component: Login, meta: { forLoggingIn: true } },
     { path: "/register", component: Register, meta: { forLoggingIn: true } },
-    {
-      path: "/membership",
-      component: Membership,
-      meta: { forLoggingIn: true },
-    },
+    { path: "/membership", component: Membership, meta: { forLoggingIn: true } },
     { path: "/challenge-options", component: ChallengeOptions },
-    { path: "/dashboard", component: Dashboard },
+    { path: "/dashboard", component: Dashboard, meta: { protect: true } },
     { path: "/triplets", component: Triplets },
     { path: "/counter-test", component: CounterTest },
     { path: "/:notFound(.*)", component: NotFound },
@@ -51,15 +47,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, _, next) => {
-    store.dispatch("tryAutoLogin");
+  store.dispatch("tryAutoLogin");
 
-    const { isAuth, user } = store.getters;
-    const { protect, forLoggingIn, forOrganizations } = to.meta;
+  const { isAuth, user } = store.getters;
+  const { protect, forLoggingIn, forOrganizations } = to.meta;
 
-    if (protect && !isAuth) next("/login");
-    else if (forLoggingIn && isAuth) next("/dashboard");
-    else if (forOrganizations && user?.accountType === "individual") next("/");
-    else next();
+  if (protect && !isAuth) next("/login");
+  else if (forLoggingIn && isAuth) next("/dashboard");
+  else if (forOrganizations && user?.accountType === "individual") next("/");
+  else next();
 });
 
 export default router;

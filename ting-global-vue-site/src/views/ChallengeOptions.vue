@@ -1,6 +1,34 @@
 <template>
-  <Page title="Create Challenge" name="challenge-options">
+  <Page title="Challenge Options" name="challenge-options">
     <WhiteSection tag="main" class="challenge-options">
+      <section class="challenge-options__top">
+        <div class="challenge-options__top-field">
+          <h3 class="challenge-options__top-label">Challenge name</h3>
+          <h2 v-if="topInputsReadonly" class="challenge-options__name">
+            {{ name }}
+          </h2>
+          <input
+            v-else
+            class="challenge-options__name"
+            v-model="name"
+            placeholder="Enter challenge name here"
+          />
+        </div>
+        <div class="challenge-options__top-field">
+          <h3 class="challenge-options__top-label">Challenge language</h3>
+          <p v-if="topInputsReadonly" class="challenge-options__language">
+            {{ languageLabel }}
+          </p>
+          <v-select
+            v-else
+            v-model="language"
+            :options="languageOptions"
+            :reduce="(option) => option.name"
+            class="language-selector"
+          />
+        </div>
+      </section>
+      <SectionSeperator />
       <div class="challenge-options__layout" :style="{ direction }">
         <section class="challenge-options__tabs">
           <div class="challenge-options__tabs-list">
@@ -17,7 +45,7 @@
         </section>
         <section class="challenge-options__main" ref="container">
           <SectionHeading small>
-            Day {{ currentDay }} – {{ options[dayKey].title }}
+            {{ dayTitle }}
           </SectionHeading>
           <div class="challenge-options__content">
             <form
@@ -101,33 +129,48 @@
 <script>
 import options from "../data/challenge-options";
 import { initialOptions, initialSelections } from "../util/functions";
+import { languageOptions } from "../util/options";
 
 export default {
   data() {
     return {
       currentDay: 1,
-      options: initialOptions(options),
-      selections: initialSelections(options),
+      name: options.name,
+      language: options.language,
+      languageOptions,
+      options: initialOptions(options.days),
+      selections: initialSelections(options.days),
     };
   },
   computed: {
+    topInputsReadonly() {
+      return false;
+    },
+    languageLabel() {
+      return languageOptions.find((language) => language.name === this.language)
+        .label;
+    },
     days() {
       return Array.from({ length: 18 }, (_, i) => i + 1);
     },
     dayKey() {
       return `day${this.currentDay}`;
     },
-    user() {
-      return this.$store.getters.user;
+    dayTitle() {
+      return `Day ${this.currentDay} – ${this.options[this.dayKey].title}`;
     },
     direction() {
-      switch (this.user?.language) {
+      switch (this.language) {
         case "Hebrew":
         case "Arabic":
+        case "Persian":
           return "rtl";
         default:
           return null;
       }
+    },
+    user() {
+      return this.$store.getters.user;
     },
   },
   methods: {
@@ -139,11 +182,23 @@ export default {
   },
   watch: {
     currentDay() {
-      window.scrollTo(
-        0,
-        window.scrollY + this.$refs.container.getBoundingClientRect().top - 150
-      );
+      const optionsTop = this.$refs.container.getBoundingClientRect().top;
+      if (window.innerWidth > 1100) {
+        window.scrollTo(0, window.scrollY + optionsTop - 150);
+      }
     },
+    language(val) {
+      console.log(val);
+    },
+    selections: {
+      handler(value) {
+        console.log(value);
+      },
+      deep: true,
+    },
+  },
+  created() {
+    this.language = this.user?.language || "English";
   },
 };
 </script>
@@ -152,8 +207,73 @@ export default {
 @import "@/sass/base.scss";
 
 .challenge-options {
+  &__top {
+    text-align: center;
+  }
+
+  &__top-field {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:last-child) {
+      margin-bottom: 4rem;
+
+      @include respond(mobile) {
+        margin-bottom: 3.5rem;
+      }
+    }
+
+    input {
+      text-align: center;
+      border: none;
+      outline: none;
+    }
+  }
+
+  &__top-label {
+    font-weight: 500;
+    font-size: 1.85rem;
+    margin-bottom: 1.2rem;
+
+    @include respond(mobile) {
+      font-size: 1.65rem;
+    }
+  }
+
+  &__name {
+    font: inherit;
+    font-size: 5rem;
+    font-family: "Spartan", sans-serif;
+    letter-spacing: -0.5px;
+    font-weight: 600;
+    color: $color-blue-2;
+
+    @include respond(mobile) {
+      font-size: 3rem;
+    }
+  }
+
+  &__language {
+    font: inherit;
+    font-size: 2.5rem;
+    font-weight: 600;
+
+    @include respond(mobile) {
+      font-size: 2rem;
+    }
+  }
+
+  .section-seperator {
+    margin: 8.5rem 0 9.5rem;
+
+    @include respond(mobile) {
+      margin: 6.5rem 0;
+    }
+  }
+
   &__layout {
     display: flex;
+    justify-content: space-between;
     align-items: flex-start;
 
     @include respond(tablet) {
@@ -164,10 +284,8 @@ export default {
 
   &__tabs {
     width: 15%;
-    margin-right: 10vw;
 
     @include respond(tablet) {
-      margin-right: 0;
       margin-bottom: 9rem;
       width: 100%;
     }
@@ -278,8 +396,15 @@ export default {
     }
   }
 
+  &__layout[style="direction: rtl;"] &__tab {
+  }
+
   &__main {
-    flex: 1;
+    width: 72.75%;
+
+    @include respond(tablet) {
+      width: 100%;
+    }
 
     .section-heading {
       max-width: 100%;
@@ -423,6 +548,39 @@ export default {
 
     &:focus {
       border-color: $color-azure;
+    }
+  }
+}
+
+.language-selector {
+  width: 100%;
+  max-width: 37rem;
+  margin: auto;
+
+  * {
+    font: inherit;
+  }
+}
+
+.challenge-options .language-selector {
+  font-weight: 600;
+  font-size: 2.2rem;
+
+  @include respond(mobile) {
+    font-size: 1.9rem;
+  }
+
+  .vs__clear {
+    display: none;
+  }
+
+  ul {
+    * {
+      font-size: 1.6rem;
+
+      @include respond(mobile) {
+        font-size: 1.45rem;
+      }
     }
   }
 }

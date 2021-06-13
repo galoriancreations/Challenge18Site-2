@@ -6,7 +6,7 @@ export const usersArray = users => {
     data.push({ name: key, score: users[key] });
   }
   return data;
-}
+};
 
 export const teamsArray = challenges => {
   const data = [];
@@ -76,7 +76,7 @@ export const convertAsteriks = text => {
 export const textInputKeys = (labels) => {
   const keys = [];
   for (let key in labels) {
-    if (key !== "language") {
+    if (key !== "language" && key !== "phone") {
       keys.push(key);
     }
   }

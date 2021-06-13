@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import LoginForm from "../components/layout/LoginForm";
+import LoginForm from "../components/content/LoginForm";
 
 export default {
   components: { LoginForm },
@@ -72,12 +72,17 @@ export default {
     @include respond(mobile-land) {
       flex-direction: column;
       align-items: center;
+      width: 100%;
     }
   }
 
   .button {
     font-size: 1.4rem;
     font-weight: 600;
+
+    @include respond(mobile-land) {
+      width: 100%;
+    }
 
     @include respond(mobile) {
       font-size: 1.2rem;

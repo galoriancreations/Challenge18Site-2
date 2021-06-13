@@ -3,10 +3,9 @@
     <SectionHeading>Testimonials</SectionHeading>
     <agile :options="sliderOptions" class="testimonials__slider">
       <div
-        v-for="(testimonial, index) in testimonials"
+        v-for="testimonial in testimonials"
         :key="testimonial.name"
         class="testimonials__slide"
-        :ref="`slide${index}`"
       >
         <Testimonial :testimonial="testimonial" />
       </div>
@@ -73,9 +72,6 @@ export default {
         },
       ],
     };
-  },
-  mounted() {
-    console.log(this.$refs);
   },
 };
 </script>

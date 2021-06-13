@@ -3,6 +3,7 @@
     <div class="form__field">
       <label for="username" class="form__label">
         Username
+        <CheckIcon :status="availability.username" />
       </label>
       <input
         v-model="formData.username"
@@ -86,7 +87,10 @@
       />
     </div>
     <div class="form__field">
-      <label for="phone" class="form__label">Lead contact phone number</label>
+      <label for="phone" class="form__label">
+        Lead contact phone number
+        <CheckIcon :status="availability.phone" />
+      </label>
       <input
         v-model="formData.phone"
         id="phone"
@@ -100,16 +104,13 @@
       <label for="language" class="form__label">
         Challenge language
       </label>
-      <select
+      <v-select
         v-model="formData.language"
-        id="language"
-        class="form__input"
-        :disabled="formData.group === 'international'"
-      >
-        <option v-for="option in languageOptions" :key="option" :value="option">
-          {{ option }}
-        </option>
-      </select>
+        :options="languageOptions"
+        :reduce="(option) => option.name"
+        required
+        class="language-selector"
+      />
     </div>
     <div class="form__field form__plans">
       <label class="form__label">Membership plan</label>
@@ -142,10 +143,12 @@
 
 <script>
 import Checkout from "./Checkout";
+import CheckIcon from "../UI/CheckIcon";
 import { languageOptions, planOptions } from "../../util/options";
+import axios from "../../util/axios";
 
 export default {
-  components: { Checkout },
+  components: { Checkout, CheckIcon },
   data() {
     return {
       formData: {
@@ -161,6 +164,10 @@ export default {
         plan: "3-years",
         accountType: "organization",
       },
+      availability: {
+        username: null,
+        phone: null,
+      },
       languageOptions,
       planOptions,
       checkoutMode: false,
@@ -169,6 +176,9 @@ export default {
   computed: {
     username() {
       return this.formData.username;
+    },
+    phone() {
+      return this.formData.phone;
     },
     totalPrice() {
       const pickedPlan = this.planOptions.find(
@@ -184,10 +194,25 @@ export default {
     backToForm() {
       this.checkoutMode = false;
     },
+    checkAvailability(key, value, apiKey) {
+      clearTimeout(this.timeout);
+      if (!value.trim()) {
+        this.availability[key] = null;
+      } else {
+        this.timeout = setTimeout(async () => {
+          this.availability[key] = "loading";
+          const response = await axios.post("/api", { [apiKey]: value });
+          this.availability[key] = response.data.result ? "available" : "taken";
+        }, 1000);
+      }
+    },
   },
   watch: {
     username(value) {
-      console.log(value);
+      this.checkAvailability("username", value, "checkUsername");
+    },
+    phone(value) {
+      this.checkAvailability("phone", value, "checkPhone");
     },
   },
   provide() {
@@ -205,11 +230,14 @@ export default {
 @import "@/sass/base.scss";
 
 .form {
-  select {
-    cursor: pointer;
+  .language-selector {
+    max-width: 100%;
+    border-radius: 0.8rem;
+    box-shadow: $boxshadow2;
+    padding: 1.2rem 1rem;
 
-    &:disabled {
-      cursor: not-allowed;
+    * {
+      border: none;
     }
   }
 

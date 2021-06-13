@@ -1,5 +1,5 @@
 <template>
-  <p class="error zoom-in">
+  <p class="error-message">
     {{ message }}
   </p>
 </template>
@@ -27,7 +27,7 @@ export default {
 <style lang="scss">
 @import "@/sass/base.scss";
 
-.error {
+.error-message {
   color: $color-error;
   font-weight: 500;
   font-size: 1.65rem;
@@ -39,8 +39,9 @@ export default {
   }
 }
 
-.form .error,
-.checkout .error {
+.form .error-message,
+.checkout .error-message,
+.modal .error-message {
   margin-top: 4rem;
 
   @include respond(mobile) {
