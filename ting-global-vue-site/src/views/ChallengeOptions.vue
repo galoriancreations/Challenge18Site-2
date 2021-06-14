@@ -4,23 +4,17 @@
       <section class="challenge-options__top">
         <div class="challenge-options__top-field">
           <h3 class="challenge-options__top-label">Challenge name</h3>
-          <h2 v-if="topInputsReadonly" class="challenge-options__name">
-            {{ name }}
-          </h2>
-          <input
-            v-else
-            class="challenge-options__name"
+          <textarea-autosize
             v-model="name"
+            class="challenge-options__name"
             placeholder="Enter challenge name here"
+            :rows="1"
+            ref="textarea"
           />
         </div>
         <div class="challenge-options__top-field">
           <h3 class="challenge-options__top-label">Challenge language</h3>
-          <p v-if="topInputsReadonly" class="challenge-options__language">
-            {{ languageLabel }}
-          </p>
           <v-select
-            v-else
             v-model="language"
             :options="languageOptions"
             :reduce="(option) => option.name"
@@ -160,13 +154,6 @@ export default {
     selectedTemplate() {
       return this.$store.getters.selectedTemplate;
     },
-    topInputsReadonly() {
-      return !!this.selectedTemplate;
-    },
-    languageLabel() {
-      return languageOptions.find((language) => language.name === this.language)
-        .label;
-    },
     days() {
       return Array.from({ length: 18 }, (_, i) => i + 1);
     },
@@ -203,6 +190,11 @@ export default {
       }
       this.language = this.user?.language || "English";
     },
+    enterKeyHandler(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+      }
+    },
     typeHandler(event, taskKey) {
       this.options[this.dayKey].tasks[taskKey].other = event.target.value;
       this.selections[this.dayKey][taskKey] = event.target.value;
@@ -230,6 +222,12 @@ export default {
     language() {
       this.autoSaveTemplate();
     },
+    options: {
+      handler() {
+        this.autoSaveTemplate();
+      },
+      deep: true,
+    },
     selections: {
       handler() {
         this.autoSaveTemplate();
@@ -239,6 +237,10 @@ export default {
   },
   created() {
     this.loadTemplate();
+    document.addEventListener("keydown", this.enterKeyHandler);
+  },
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.enterKeyHandler);
   },
 };
 </script>
@@ -287,6 +289,9 @@ export default {
     letter-spacing: -0.5px;
     font-weight: 600;
     color: $color-blue-2;
+    border: none;
+    outline: none;
+    text-align: center;
 
     @include respond(mobile) {
       font-size: 3rem;

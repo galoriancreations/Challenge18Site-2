@@ -11,6 +11,7 @@ import Vuescroll from "vuescroll";
 import linkify from "vue-linkify";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import TextareaAutosize from "vue-textarea-autosize";
 
 import Page from "./components/layout/Page";
 import BaseButton from "./components/UI/BaseButton";
@@ -33,6 +34,7 @@ Vue.use(VueYoutube);
 Vue.use(Vuescroll);
 Vue.directive("linkified", linkify);
 Vue.component("v-select", vSelect);
+Vue.use(TextareaAutosize);
 
 Vue.component("Page", Page);
 Vue.component("BaseButton", BaseButton);

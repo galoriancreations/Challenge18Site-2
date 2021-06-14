@@ -99,6 +99,10 @@ export default {
       ),
       url(../../assets/contact-bg.jpg);
     background-position-y: bottom;
+
+    @include respond(tablet-sm) {
+      background-position-x: 30%;
+    }
   }
 
   &#login {

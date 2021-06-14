@@ -69,9 +69,6 @@ export default {
     return {
       selectedLanguage: "English",
       selectedTemplate: null,
-      templateOptions: {},
-      loading: true,
-      errorLoading: null,
       submitting: false,
       errorSubmitting: null,
       link: null,
@@ -93,6 +90,9 @@ export default {
     userLanguage() {
       return this.user.language;
     },
+    templateOptions() {
+      return this.$store.getters.templates;
+    },
     filteredTemplateOptions() {
       return this.templateOptions[this.selectedLanguage];
     },
@@ -101,21 +101,6 @@ export default {
     },
   },
   methods: {
-    async loadTemplates() {
-      try {
-        const response = await axios.post(
-          "/xapi",
-          { userID: this.user.id, getTemplateNames: true },
-          { headers: { Authorization: `Bearer ${this.token}` } }
-        );
-        console.log(response.data);
-        this.templateOptions = response.data.templates;
-        this.autoSetLanguage();
-      } catch (error) {
-        this.errorLoading = error;
-      }
-      this.loading = false;
-    },
     autoSetLanguage() {
       const isLanguageAvailable = !!this.languageOptions.find(
         (language) => language.name === this.userLanguage
@@ -152,7 +137,8 @@ export default {
     },
   },
   created() {
-    this.loadTemplates();
+    this.autoSetLanguage();
+    this.selectedTemplate = this.filteredTemplateOptions[0];
     this.io.on("myChallenges", (data) => {
       console.log(data);
       this.closeModal();
