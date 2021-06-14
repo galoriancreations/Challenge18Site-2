@@ -70,7 +70,6 @@ export default {
 
     &__wrapper {
       position: relative;
-      min-height: 75vh;
       max-height: 85vh;
       width: 100%;
       max-width: 70rem;
