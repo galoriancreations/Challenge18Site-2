@@ -112,14 +112,14 @@
 }
 
 .skill__container strong {
-  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .skill {
   background-color: rgb(255, 204, 4);
   display: block;
   margin-left: auto;
-  height: 2rem;
+  height: 1rem;
   width: 40rem;
 }
 .skill-bg {
