@@ -9,7 +9,7 @@
               src="https://i.imgur.com/MIwbEJr.jpg"
               alt="Nadia Hassona"
             />
-            <figcaption class="player__title">Nadia Hassona</figcaption>
+            <figcaption class="player__title title">Nadia Hassona</figcaption>
           </figure>
           <div class="player__caption">
             <p><strong>State:</strong> Israel</p>
@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="player__skills">
-          <div class="skills__title">Tittle</div>
+          <div class="skills__title title">Tittle</div>
           <div class="skills__text">
             <div class="skill__container">
               <strong>Technologist: </strong><span class="skill"></span>
@@ -50,83 +50,91 @@
   flex-wrap: wrap;
   justify-content: center;
   padding: 1rem;
-}
-.player__info {
-  margin-right: 2rem;
-}
 
-.player__skills {
-  display: flex;
-  flex-direction: column;
-}
+  .player__info {
+    margin: 1rem;
+  }
 
-.player__title {
-  width: 100%;
-  background-color: rgb(0, 12, 102);
-  color: #fff;
-  font-size: 2.3rem;
-  font-family: "Spartan", sans-serif;
-  font-weight: 600;
-  padding: 1.3rem 1rem 0.9rem;
-  text-align: center;
-}
+  .player__skills {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
 
-.skills__title {
-  width: 100%;
-  background-color: rgb(0, 12, 102);
-  color: #fff;
-  font-size: 2.3rem;
-  font-family: "Spartan", sans-serif;
-  font-weight: 600;
-  padding: 1.3rem 1rem 0.9rem;
-  text-align: center;
-}
+  .title {
+    // width: 100%;
+    background-color: rgb(0, 12, 102);
+    color: #fff;
+    font-size: 2.3rem;
+    font-family: "Spartan", sans-serif;
+    font-weight: 600;
+    padding: 1.3rem 1rem 0.9rem;
+    text-align: center;
+  }
 
-.player__caption {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding-top: 2rem;
-  padding-left: 1rem;
-}
+  //  .skills__title {
+  //    width: 100%;
+  //    background-color: rgb(0, 12, 102);
+  //    color: #fff;
+  //    font-size: 2.3rem;
+  //    font-family: "Spartan", sans-serif;
+  //    font-weight: 600;
+  //    padding: 1.3rem 1rem 0.9rem;
+  //    text-align: center;
+  // }
 
-.player__caption p {
-  margin-bottom: 1rem;
-}
+  .player__caption {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 2rem;
+    padding-left: 1rem;
+  }
 
-.skills__text {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  flex-grow: 1;
-  padding-top: 1rem;
-}
+  .player__caption p {
+    margin-bottom: 1rem;
+  }
 
-.player__image img {
-  display: block;
-}
-.skill__container {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-}
+  .skills__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    padding-top: 1rem;
+  }
 
-.skill__container strong {
-  padding-right: 1rem;
-}
+  .player__image img {
+    display: block;
+    max-height: 100%;
+    min-width: 100%;
+    object-fit: cover;
+    vertical-align: bottom;
+  }
+  .skill__container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
 
-.skill {
-  background-color: rgb(255, 204, 4);
-  display: block;
-  margin-left: auto;
-  height: 1rem;
-  width: 40rem;
-}
-.skill-bg {
-  display: block;
-  height: 1.5rem;
-  width: 20rem;
-  background-color: rgb(255, 204, 4);
-  padding-left: auto;
+  .skill__container strong {
+    padding-right: 1rem;
+    color: rgb(0, 12, 102);
+  }
+
+  .skill {
+    background-color: rgb(255, 204, 4);
+    display: block;
+    margin-left: auto;
+    height: 1rem;
+    width: 40rem;
+    border-radius: 1rem;
+  }
+  .skill-bg {
+    display: block;
+    height: 1.5rem;
+    width: 20rem;
+    background-color: rgb(255, 204, 4);
+    padding-left: auto;
+  }
 }
 </style>
