@@ -302,12 +302,13 @@ export default {
         left: 50%;
         top: 16rem;
         transform: translateX(-50%);
-        width: 80%;
+        width: calc(100% - 2 * #{$padding-sides-desktop});
         height: 0.1rem;
         background-color: rgba(#fff, 0.5);
 
         @include respond(mobile) {
           top: 13rem;
+          width: calc(100% - 2 * #{$padding-sides-mobile});
         }
       }
     }

@@ -2,7 +2,7 @@
   <DashboardModal
     title="Join a Challenge"
     :active="active"
-    class="new-challenge-modal"
+    class="new-challenge-modal join-challenge"
   >
     <BaseSpinner v-if="loading" />
     <ErrorMessage v-else-if="errorLoading" :error="errorLoading" />
@@ -55,10 +55,10 @@
 import { languageOptions } from "../../util/options";
 import axios from "../../util/axios";
 
-const DUMMY_DATA = {
-  English: ["International SDG", "Family", "Songs & Values"],
-  Hebrew: ['אתגרי האו"ם', "משפחה", "שירים וערכים"],
-};
+// const DUMMY_DATA = {
+//   English: ["International SDG", "Family", "Songs & Values"],
+//   Hebrew: ['אתגרי האו"ם', "משפחה", "שירים וערכים"],
+// };
 
 export default {
   props: {
@@ -69,9 +69,6 @@ export default {
     return {
       selectedLanguage: "English",
       selectedTemplate: null,
-      templateOptions: {},
-      loading: true,
-      errorLoading: null,
       submitting: false,
       errorSubmitting: null,
       link: null,
@@ -87,28 +84,23 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    token() {
+      return this.$store.getters.token;
+    },
     userLanguage() {
       return this.user.language;
+    },
+    templateOptions() {
+      return this.$store.getters.templates;
     },
     filteredTemplateOptions() {
       return this.templateOptions[this.selectedLanguage];
     },
+    io() {
+      return this.$store.getters.io;
+    },
   },
   methods: {
-    async loadTemplates() {
-      try {
-        axios.post(
-          "/xapi",
-          { userID: this.user.id, getTemplates: true },
-          { headers: { Authorization: `Bearer ${this.$store.getters.token}` } }
-        );
-        this.templateOptions = DUMMY_DATA;
-        this.autoSetLanguage();
-      } catch (error) {
-        this.errorLoading = error;
-      }
-      this.loading = false;
-    },
     autoSetLanguage() {
       const isLanguageAvailable = !!this.languageOptions.find(
         (language) => language.name === this.userLanguage
@@ -117,7 +109,24 @@ export default {
         this.selectedLanguage = this.userLanguage;
       }
     },
-    async submitHandler() {},
+    async submitHandler() {
+      this.submitting = true;
+      try {
+        const response = await axios.post(
+          "/xapi",
+          {
+            userID: this.user.id,
+            userRequestChallenge: this.selectedTemplate,
+          },
+          { headers: { Authorization: `Bearer ${this.token}` } }
+        );
+        console.log(response.data);
+        this.link = response.data.invite;
+      } catch (error) {
+        this.errorSubmitting = error;
+      }
+      this.submitting = false;
+    },
   },
   watch: {
     userLanguage() {
@@ -128,7 +137,12 @@ export default {
     },
   },
   created() {
-    this.loadTemplates();
+    this.autoSetLanguage();
+    this.selectedTemplate = this.filteredTemplateOptions[0];
+    this.io.on("myChallenges", (data) => {
+      console.log(data);
+      this.closeModal();
+    });
   },
 };
 </script>
@@ -168,7 +182,7 @@ export default {
     }
   }
 
-  .button {
+  &.join-challenge .button {
     width: 15rem;
   }
 

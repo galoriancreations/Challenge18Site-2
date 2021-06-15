@@ -1,16 +1,21 @@
 <template>
-  <div :class="classes">
-    <div class="modal__wrapper" ref="wrapper">
-      <div class="modal__container" :style="{ height: containerHeight }">
-        <vue-scroll>
-          <div class="modal__content" :style="{ minHeight: contentMinHeight }">
-            <SectionHeading small> {{ title }} </SectionHeading>
-            <slot />
-          </div>
-        </vue-scroll>
+  <div class="dashboard-modal">
+    <div :class="classes">
+      <div class="modal__wrapper" ref="wrapper">
+        <div class="modal__container" :style="{ height: containerHeight }">
+          <vue-scroll>
+            <div
+              class="modal__content"
+              :style="{ minHeight: contentMinHeight }"
+            >
+              <SectionHeading small> {{ title }} </SectionHeading>
+              <slot />
+            </div>
+          </vue-scroll>
+        </div>
       </div>
+      <div class="modal__backdrop" @click="closeModal" />
     </div>
-    <div class="modal__backdrop" @click="closeModal" />
   </div>
 </template>
 
@@ -23,7 +28,7 @@ export default {
   data() {
     return {
       containerHeight: null,
-      contnetMinHeight: null,
+      contentMinHeight: null,
     };
   },
   inject: ["closeModal"],
@@ -38,7 +43,7 @@ export default {
   methods: {
     adjustContainerHeight() {
       this.containerHeight = `${this.$refs.wrapper.offsetHeight}px`;
-      this.contnetMinHeight = this.containerHeight;
+      this.contentMinHeight = this.containerHeight;
     },
   },
   watch: {
@@ -56,7 +61,7 @@ export default {
 <style lang="scss">
 @import "@/sass/base.scss";
 
-.dashboard {
+.dashboard-modal {
   .modal {
     display: flex;
     justify-content: center;
@@ -65,7 +70,6 @@ export default {
 
     &__wrapper {
       position: relative;
-      min-height: 70vh;
       max-height: 85vh;
       width: 100%;
       max-width: 70rem;
@@ -91,7 +95,6 @@ export default {
     &__content {
       padding: 4rem;
       position: relative;
-      min-height: 70vh;
 
       @include respond(mobile) {
         padding: 3rem 2rem;

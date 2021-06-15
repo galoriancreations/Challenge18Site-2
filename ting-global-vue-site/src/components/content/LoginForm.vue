@@ -10,6 +10,7 @@
         placeholder="Your username"
         required
         class="form__input"
+        ref="username"
       />
     </div>
     <div class="form__field">
@@ -56,6 +57,10 @@ export default {
       }
       this.loading = false;
     },
+  },
+  mounted() {
+    this.$refs.username.focus();
+    window.scrollTo(0, 0);
   },
 };
 </script>
