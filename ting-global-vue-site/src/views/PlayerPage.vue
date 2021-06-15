@@ -1,30 +1,40 @@
 <template>
   <Page title="Player" name="Player Page">
     <WhiteSection>
-      <div class="player-page__wrapper">
-        <div class="player-info__wrapper">
-          <figure class="figure">
+      <div class="player">
+        <div class="player__info">
+          <figure class="player__image">
             <img
               data-v-518008fc=""
               src="https://i.imgur.com/MIwbEJr.jpg"
               alt="Nadia Hassona"
             />
-            <figcaption class="caption-tittle">Nadia Hassona</figcaption>
+            <figcaption class="player__title">Nadia Hassona</figcaption>
           </figure>
-          <div class="info-text__container">
+          <div class="player__caption">
             <p><strong>State:</strong> Israel</p>
             <p><strong>Club:</strong> Eroni Yud-Bet</p>
             <p><strong>Score:</strong> 1239</p>
           </div>
         </div>
-        <div class="player-skills__wrapper">
-          <div class="skills__tittle">Tittle</div>
-          <div class="text__container">
-            <div><strong>Technologist: </strong><span>skill</span></div>
-            <div><strong>Influencer: </strong><span>skill</span></div>
-            <div><strong>Mentor: </strong><span>skill</span></div>
-            <div><strong>Referee: </strong><span>skill</span></div>
-            <div><strong>Ideator: </strong><span>skill</span></div>
+        <div class="player__skills">
+          <div class="skills__title">Tittle</div>
+          <div class="skills__text">
+            <div class="skill__container">
+              <strong>Technologist: </strong><span class="skill"></span>
+            </div>
+            <div class="skill__container">
+              <strong>Influencer: </strong><span class="skill"></span>
+            </div>
+            <div class="skill__container">
+              <strong>Mentor: </strong><span class="skill"></span>
+            </div>
+            <div class="skill__container">
+              <strong>Referee: </strong><span class="skill"></span>
+            </div>
+            <div class="skill__container">
+              <strong>Ideator: </strong><span class="skill"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -34,14 +44,23 @@
 <style lang="scss">
 @import "@/sass/base.scss";
 
-.player-page__wrapper {
+.player {
   display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
 }
-.player-info__wrapper {
+.player__info {
   margin-right: 2rem;
 }
 
-.caption-tittle {
+.player__skills {
+  display: flex;
+  flex-direction: column;
+}
+
+.player__title {
   width: 100%;
   background-color: rgb(0, 12, 102);
   color: #fff;
@@ -52,32 +71,62 @@
   text-align: center;
 }
 
-.info-text__container {
+.skills__title {
+  width: 100%;
+  background-color: rgb(0, 12, 102);
+  color: #fff;
+  font-size: 2.3rem;
+  font-family: "Spartan", sans-serif;
+  font-weight: 600;
+  padding: 1.3rem 1rem 0.9rem;
+  text-align: center;
+}
+
+.player__caption {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  padding-top: 2rem;
+  padding-left: 1rem;
 }
 
-img {
+.player__caption p {
+  margin-bottom: 1rem;
+}
+
+.skills__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-grow: 1;
+  padding-top: 1rem;
+}
+
+.player__image img {
   display: block;
 }
+.skill__container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
 
-// .skills__body__wrapper {
-//   display: flex;
-//   flex-direction: column;
-// }
-// .text__container {
-//   display: flex;
-//   flex-direction: column;
-// }
+.skill__container strong {
+  padding-left: 1rem;
+}
 
-// .skills__tittle {
-//   width: 100%;
-//   background-color: rgb(0, 12, 102);
-//   color: #fff;
-//   font-size: 2.3rem;
-//   font-family: "Spartan", sans-serif;
-//   font-weight: 600;
-//   /*   padding: 1.3rem 1rem 0.9rem; */
-//   text-align: center;
-// }
+.skill {
+  background-color: rgb(255, 204, 4);
+  display: block;
+  margin-left: auto;
+  height: 2rem;
+  width: 40rem;
+}
+.skill-bg {
+  display: block;
+  height: 1.5rem;
+  width: 20rem;
+  background-color: rgb(255, 204, 4);
+  padding-left: auto;
+}
 </style>
