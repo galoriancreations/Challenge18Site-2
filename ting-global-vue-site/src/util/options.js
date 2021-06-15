@@ -38,3 +38,24 @@ export const labels = {
     },
     admin: {},
 };
+
+export const rtlLanguages = [
+    "Hebrew",
+    "Arabic",
+    "Persian",
+    "Urdu"
+];
+
+export const dayTranslations = {
+    "English": "Day",
+    "Hebrew": "יום",
+    "Russian": "День",
+    "Arabic": "يوم"
+};
+
+export const taskTranslations = {
+    "English": "Task",
+    "Hebrew": "משימה",
+    "Russian": "Задание",
+    "Arabic": "مهمة"
+};

@@ -82,7 +82,9 @@ export default {
       } else {
         this.closeNav();
       }
-      if (this.action) this.action();
+      if (this.action) {
+        this.action();
+      }
     },
   },
   watch: {

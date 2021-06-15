@@ -1,15 +1,5 @@
 import axios from "../util/axios";
-
-// localStorage.setItem("user", JSON.stringify({
-//     id: "dkghdjghkdjhkdf",
-//     phone: "+972587111965",
-//     username: "new-org0001",
-//     organization: "New Organization",
-//     email: "org@gmail.com",
-//     accountType: "organization",
-//     language: "Korean",
-//     plan: "3-years"
-// }))
+import template from "../data/challenge-options.json";
 
 let logoutTimer;
 
@@ -18,7 +8,7 @@ export default {
         user: null,
         token: null,
         templates: {},
-        selectedTemplate: null
+        selectedTemplate: template
     },
     mutations: {
         setUser(state, payload) {
@@ -51,7 +41,7 @@ export default {
             localStorage.setItem("expirationDate", new Date(exp).toISOString());
 
             const timeLeft = new Date(exp).getTime() - Date.now();
-            logoutTimer = setTimeout(() => context.commit("logout"), timeLeft);
+            logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
 
             const { io } = context.getters;
             io.emit("joinRoom", user.id);
@@ -69,7 +59,7 @@ export default {
             }
             context.commit("setUser", { user, token });
             context.commit("setTemplates", templates);
-            logoutTimer = setTimeout(() => context.commit("logout"), timeLeft);
+            logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
 
             const { io } = context.getters;
             io.emit("joinRoom", user.id);
@@ -97,8 +87,19 @@ export default {
             context.commit("setTemplates", templates);
             localStorage.setItem("templates", JSON.stringify(templates));
         },
-        selectTemplate(context, template) {
+        async selectTemplate(context, template) {
             context.commit("setSelectedTemplate", template);
+            localStorage.removeItem("savedDraft");
+        },
+        updateTemplates(context, templates) {
+            context.commit("setTemplates", templates);
+            localStorage.setItem("templates", JSON.stringify(templates));
+        },
+        updateChallenges(context, challenges) {
+            const { user } = context.getters;
+            user.myChallenges = challenges;
+            context.commit("updateUser", user);
+            localStorage.setItem("user", JSON.stringify(user));
         }
     },
     getters: {

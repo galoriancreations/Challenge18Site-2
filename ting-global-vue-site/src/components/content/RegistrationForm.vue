@@ -133,7 +133,7 @@ export default {
           this.availability[key] = "loading";
           const response = await axios.post("/api", { [apiKey]: value });
           this.availability[key] = response.data.result ? "available" : "taken";
-        }, 1000);
+        }, 750);
       }
     },
   },

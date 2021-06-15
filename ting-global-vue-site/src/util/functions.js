@@ -1,3 +1,4 @@
+import uniqid from "uniqid";
 import store from "../store";
 
 export const usersArray = users => {
@@ -39,25 +40,40 @@ export const challengesArray = challenges => {
 };
 
 export const initialOptions = options => {
-  const initialOptions = { ...options };
-  for (let day in options) {
-    initialOptions[day] = { ...options[day] };
-    for (let task in options[day].tasks) {
-      initialOptions[day].tasks[task] = { ...options[day].tasks[task] };
-      initialOptions[day].tasks[task].other = "";
-    }
-  }
+  const initialOptions = [];
+  options.forEach((day, dayIndex) => {
+    initialOptions[dayIndex] = { ...day, id: day.id || uniqid() };
+    day.tasks.forEach((task, taskIndex) => {
+      initialOptions[dayIndex].tasks[taskIndex] = { ...task, id: task.id || uniqid() };
+      task.options.forEach((option, optionIndex) => {
+        initialOptions[dayIndex].tasks[taskIndex].options[optionIndex] = { ...option, id: option.id || uniqid() };
+      });
+    });
+  });
   return initialOptions;
 }
 
+export const initialExtraInputs = options => {
+  const inputs = [];
+  options.forEach((day, dayIndex) => {
+    inputs.push([]);
+    day.tasks.forEach(() => {
+      inputs[dayIndex].push("");
+    });
+  });
+  return inputs;
+}
+
 export const initialSelections = options => {
-  const initialSelections = {};
-  for (let day in options) {
-    initialSelections[day] = {};
-    for (let task in options[day].tasks) {
-      initialSelections[day][task] = options[day].tasks[task].options[0];
-    }
-  }
+  const initialSelections = [];
+  options.forEach((day, dayIndex) => {
+    initialSelections[dayIndex] = [];
+    day.tasks.forEach((task, taskIndex) => {
+      if (task.options?.length) {
+        initialSelections[dayIndex][taskIndex] = task.options[0].text;
+      }
+    });
+  });
   return initialSelections;
 }
 
@@ -90,3 +106,5 @@ export const initialData = (labels) => {
   }
   return formData;
 };
+
+export const numbersArray = n => Array.from({ length: n }, (_, i) => i + 1);

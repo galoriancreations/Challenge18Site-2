@@ -166,7 +166,7 @@ export default {
     font-size: 1.65rem;
     line-height: 1.6;
     padding: 1.2rem 1rem;
-    border: 2px solid transparent;
+    border: 0.2rem solid transparent;
     outline: none;
     border-radius: 0.8rem;
     transition: all 0.4s;

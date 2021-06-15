@@ -23,9 +23,11 @@
         </div>
       </section>
       <SectionSeperator />
-      <BaseSpinner v-if="loading" />
-      <ErrorMessage v-else-if="errorLoading" :error="errorLoading" />
-      <div v-else class="challenge-options__layout" :style="{ direction }">
+      <div
+        v-if="options.length"
+        class="challenge-options__layout"
+        :style="{ direction }"
+      >
         <section class="challenge-options__tabs">
           <div class="challenge-options__tabs-list">
             <div v-for="day in days" :key="day" class="challenge-options__tab">
@@ -35,7 +37,7 @@
                 :value="day"
                 :id="`day${day}`"
               />
-              <label :for="`day${day}`">Day {{ day }}</label>
+              <label :for="`day${day}`">{{ dayLabel }} {{ day }}</label>
             </div>
           </div>
         </section>
@@ -46,80 +48,48 @@
           <div class="challenge-options__content">
             <form
               class="task-form"
-              v-for="(task, taskKey) in options[dayKey].tasks"
-              :key="taskKey"
+              v-for="(task, taskIndex) in options[dayIndex].tasks"
+              :key="task.id"
               @submit.prevent
             >
-              <h3 class="task-form__title">{{ task.name }}</h3>
+              <h3 class="task-form__title">
+                {{ `${taskLabel} ${taskIndex + 1}` }}
+              </h3>
               <div
-                v-for="(option, index) in task.options"
-                :key="option"
+                v-for="(option, optionIndex) in task.options"
+                :key="option.id"
                 class="task-form__option"
               >
                 <input
                   type="radio"
-                  v-model="selections[dayKey][taskKey]"
-                  :value="option"
-                  :id="`${dayKey}-${taskKey}-option${index + 1}`"
+                  v-model="selections[dayIndex][taskIndex]"
+                  :value="option.text"
+                  :id="option.id"
                   class="task-form__radio-input"
                 />
-                <label
-                  :for="`${dayKey}-${taskKey}-option${index + 1}`"
-                  class="task-form__radio-label"
-                >
+                <label :for="option.id" class="task-form__radio-label">
                   <span class="task-form__radio-button" />
                 </label>
                 <label
-                  :for="`${dayKey}-${taskKey}-option${index + 1}`"
+                  :for="option.id"
                   class="task-form__text"
-                >
-                  <strong v-if="option.includes(' * ')">
-                    {{ option.split(" * ")[0] }}
-                  </strong>
-                  <span v-if="option.includes(' * ')"> – </span>
-                  <span
-                    v-html="option.split(' * ')[option.includes(' * ') ? 1 : 0]"
-                    v-linkified
-                  />
-                </label>
-              </div>
-              <div class="task-form__option">
-                <input
-                  type="radio"
-                  class="task-form__radio-input"
-                  :id="`${dayKey}-${taskKey}-other`"
-                  v-model="selections[dayKey][taskKey]"
-                  :value="options[dayKey].tasks[taskKey].other"
+                  v-html="convertedOptions[dayIndex][taskIndex][optionIndex]"
+                  v-linkified
                 />
-                <label
-                  :for="`${dayKey}-${taskKey}-other`"
-                  class="task-form__radio-label"
-                >
-                  <span class="task-form__radio-button" />
-                </label>
-                <div class="task-form__field">
-                  <label
-                    :for="`${dayKey}-${taskKey}-other`"
-                    class="task-form__text"
-                  >
-                    Other:
-                  </label>
-                  <textarea
-                    class="task-form__text-input"
-                    :value="options[dayKey].tasks[taskKey].other"
-                    @input="typeHandler($event, taskKey)"
-                  />
-                </div>
               </div>
+              <form @keydown="addOptionOnEnter($event, taskIndex)">
+                <textarea-autosize
+                  v-model="extraInputs[dayIndex][taskIndex]"
+                  class="task-form__extra"
+                  placeholder="Type and press Enter to add a new option..."
+                  :rows="1"
+                />
+              </form>
             </form>
           </div>
         </section>
       </div>
-      <BaseButton
-        v-if="!loading && !errorLoading"
-        variant="blue"
-        @click="submitHandler"
-      >
+      <BaseButton variant="blue" @click="submitHandler">
         Publish challenge
       </BaseButton>
       <BaseSpinner v-if="submitting" />
@@ -129,22 +99,35 @@
 </template>
 
 <script>
-import options from "../data/challenge-options";
-import { initialOptions, initialSelections } from "../util/functions";
-import { languageOptions } from "../util/options";
-import axios from "../util/axios";
+import emptyTemplate from "../data/empty-template";
+import {
+  initialOptions,
+  initialSelections,
+  initialExtraInputs,
+  numbersArray,
+  convertAsteriks,
+} from "../util/functions";
+import {
+  languageOptions,
+  rtlLanguages,
+  dayTranslations,
+  taskTranslations,
+} from "../util/options";
+import uniqid from "uniqid";
+// import axios from "../util/axios";
 
 export default {
   data() {
     return {
-      currentDay: 1,
-      name: options.name,
-      language: options.language,
+      name: "",
+      language: "",
       languageOptions,
-      options: initialOptions(options.days),
-      selections: initialSelections(options.days),
-      loading: false,
-      errorLoading: null,
+      currentDay: 1,
+      options: initialOptions(emptyTemplate.days),
+      selections: initialSelections(emptyTemplate.days),
+      extraInputs: initialExtraInputs(emptyTemplate.days),
+      dayTitleEdited: false,
+      optionEdited: null,
       submitting: false,
       errorSubmitting: null,
       saveTimeout: null,
@@ -155,88 +138,132 @@ export default {
       return this.$store.getters.selectedTemplate;
     },
     days() {
-      return Array.from({ length: 18 }, (_, i) => i + 1);
+      return numbersArray(this.options.length);
     },
-    dayKey() {
-      return `day${this.currentDay}`;
+    dayIndex() {
+      return this.currentDay - 1;
+    },
+    dayLabel() {
+      return dayTranslations[this.language] || "Day";
     },
     dayTitle() {
-      return `Day ${this.currentDay} – ${this.options[this.dayKey].title}`;
+      return `${this.dayLabel} ${this.currentDay} – ${this.options[
+        this.dayIndex
+      ].title || "(Edit day title)"}`;
+    },
+    taskLabel() {
+      return taskTranslations[this.language] || "Task";
+    },
+    convertedOptions() {
+      const texts = [];
+      this.options.forEach((day, dayIndex) => {
+        texts.push([]);
+        day.tasks.forEach((task, taskIndex) => {
+          texts[dayIndex].push([]);
+          task.options.forEach((option) => {
+            texts[dayIndex][taskIndex].push(
+              convertAsteriks(option.text.replace(" - ", " – "))
+            );
+          });
+        });
+      });
+      return texts;
     },
     direction() {
-      switch (this.language) {
-        case "Hebrew":
-        case "Arabic":
-        case "Persian":
-        case "Urdu":
-          return "rtl";
-        default:
-          return null;
-      }
+      if (rtlLanguages.includes(this.language)) return "rtl";
+      else return null;
     },
     user() {
       return this.$store.getters.user;
     },
+    finalChallengeData() {
+      const challenge = { name: this.name, language: this.language, days: [] };
+      this.options.forEach((day, dayIndex) => {
+        challenge.days.push({
+          day: dayIndex + 1,
+          title: day.title,
+          tasks: this.selections[dayIndex],
+        });
+      });
+      return challenge;
+    },
   },
   methods: {
-    async loadTemplate() {
-      if (this.selectedTemplate) {
-        axios.get("/axpi", {
-          keyName: {
-            userID: this.user.id,
-            getTemplate: this.selectedTemplate,
-          },
-        });
+    loadTemplate() {
+      const savedDraft = JSON.parse(localStorage.getItem("savedDraft"));
+      if (savedDraft) {
+        for (let key in savedDraft) {
+          this[key] = savedDraft[key];
+        }
+      } else if (this.selectedTemplate) {
+        const { name, language, days } = this.selectedTemplate;
+        this.name = name;
+        this.language = language;
+        this.options = initialOptions(days);
+        this.selections = initialSelections(days);
+        this.extraInputs = initialExtraInputs(days);
+      } else {
+        this.language = this.user?.language || "English";
       }
-      this.language = this.user?.language || "English";
     },
     enterKeyHandler(event) {
       if (event.key === "Enter") {
         event.preventDefault();
       }
     },
-    typeHandler(event, taskKey) {
-      this.options[this.dayKey].tasks[taskKey].other = event.target.value;
-      this.selections[this.dayKey][taskKey] = event.target.value;
+    addOptionOnEnter(event, taskIndex) {
+      if (event.key === "Enter") {
+        this.options[this.dayIndex].tasks[taskIndex].options.push({
+          id: uniqid(),
+          text: event.target.value,
+        });
+        this.selections[this.dayIndex][taskIndex] = event.target.value;
+        this.extraInputs[this.dayIndex][taskIndex] = "";
+      }
     },
-    autoSaveTemplate() {
-      const savedTemplate = {
+    editOption(event, taskIndex, optionIndex) {
+      this.options[this.dayIndex].tasks[taskIndex].options[optionIndex].text =
+        event.target.value;
+      this.selections[this.dayIndex][taskIndex] = event.target.value;
+    },
+    autoSaveDraft() {
+      const savedDraft = {
         name: this.name,
         language: this.language,
+        options: this.options,
         selections: this.selections,
       };
-      localStorage.setItem("savedTemplate", savedTemplate);
+      localStorage.setItem("savedDraft", JSON.stringify(savedDraft));
     },
     submitHandler() {},
   },
   watch: {
     currentDay() {
       const optionsTop = this.$refs.container.getBoundingClientRect().top;
-      if (window.innerWidth > 1100) {
-        window.scrollTo(0, window.scrollY + optionsTop - 150);
-      }
+      window.scrollTo(0, window.scrollY + optionsTop - 150);
     },
     name() {
-      this.autoSaveTemplate();
+      this.autoSaveDraft();
     },
     language() {
-      this.autoSaveTemplate();
+      this.autoSaveDraft();
     },
     options: {
       handler() {
-        this.autoSaveTemplate();
+        this.autoSaveDraft();
       },
       deep: true,
     },
     selections: {
       handler() {
-        this.autoSaveTemplate();
+        this.autoSaveDraft();
       },
       deep: true,
     },
   },
   created() {
     this.loadTemplate();
+    this.autoSaveDraft();
     document.addEventListener("keydown", this.enterKeyHandler);
   },
   beforeDestroy() {
@@ -566,25 +593,14 @@ export default {
     }
   }
 
-  &__field {
-    display: flex;
-    align-items: center;
-    flex: 1;
-
-    @include respond(tablet-sm) {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  }
-
-  &__text-input {
-    margin-left: 1.5rem;
-    flex: 1;
+  &__extra {
     font: inherit;
-    padding: 0.5rem 1rem;
-    height: 6rem;
     outline: none;
-    border: 0.1rem solid #ccc;
+    width: 100%;
+    padding: 1rem 2rem;
+    border: 0.2rem solid #ccc;
+    border-radius: 100px;
+    margin-top: 1rem;
     transition: all 0.5s;
 
     @include respond(tablet-sm) {

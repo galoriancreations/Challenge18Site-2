@@ -5,7 +5,6 @@
     class="new-challenge-modal create-challenge"
   >
     <BaseSpinner v-if="loading" />
-    <ErrorMessage v-else-if="error" :error="error" />
     <div class="new-challenge-modal__section">
       <h3 class="new-challenge-modal__subheading">Choose a language</h3>
       <v-select
@@ -41,17 +40,12 @@
         Create new template
       </BaseButton>
     </div>
+    <ErrorMessage v-if="error" :error="error" />
   </DashboardModal>
 </template>
 
 <script>
 import { languageOptions } from "../../util/options";
-import axios from "../../util/axios";
-
-const DATA = {
-  English: ["International SDG", "Family", "Songs & Values"],
-  Hebrew: ['אתגרי האו"ם', "משפחה", "שירים וערכים"],
-};
 
 export default {
   props: {
@@ -84,20 +78,6 @@ export default {
     },
   },
   methods: {
-    async loadTemplates() {
-      try {
-        axios.post(
-          "/xapi",
-          { userID: this.user.id, getTemplates: true },
-          { headers: { Authorization: `Bearer ${this.$store.getters.token}` } }
-        );
-        this.templateOptions = DATA;
-        this.autoSetLanguage();
-      } catch (error) {
-        this.error = error;
-      }
-      this.loading = false;
-    },
     autoSetLanguage() {
       const isLanguageAvailable = !!this.languageOptions.find(
         (language) => language.name === this.userLanguage
@@ -106,9 +86,16 @@ export default {
         this.selectedLanguage = this.userLanguage;
       }
     },
-    selectTemplate(template) {
-      this.$store.dispatch("selectTemplate", template);
-      this.$router.push("/challenge-options");
+    async selectTemplate(template) {
+      this.loading = true;
+      this.error = null;
+      try {
+        await this.$store.dispatch("selectTemplate", template);
+        this.$router.push("/challenge-options");
+      } catch (error) {
+        this.error = error;
+        this.loading = false;
+      }
     },
   },
   watch: {

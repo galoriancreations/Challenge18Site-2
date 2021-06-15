@@ -4,9 +4,7 @@
     :active="active"
     class="new-challenge-modal join-challenge"
   >
-    <BaseSpinner v-if="loading" />
-    <ErrorMessage v-else-if="errorLoading" :error="errorLoading" />
-    <div v-else-if="!link" class="new-challenge-modal__initial">
+    <div v-if="!link" class="new-challenge-modal__initial">
       <div class="new-challenge-modal__section">
         <h3 class="new-challenge-modal__subheading">Choose a language</h3>
         <v-select
@@ -55,11 +53,6 @@
 import { languageOptions } from "../../util/options";
 import axios from "../../util/axios";
 
-// const DUMMY_DATA = {
-//   English: ["International SDG", "Family", "Songs & Values"],
-//   Hebrew: ['אתגרי האו"ם', "משפחה", "שירים וערכים"],
-// };
-
 export default {
   props: {
     active: Boolean,
@@ -94,7 +87,7 @@ export default {
       return this.$store.getters.templates;
     },
     filteredTemplateOptions() {
-      return this.templateOptions[this.selectedLanguage];
+      return this.templateOptions[this.selectedLanguage || "English"];
     },
     io() {
       return this.$store.getters.io;
@@ -120,15 +113,25 @@ export default {
           },
           { headers: { Authorization: `Bearer ${this.token}` } }
         );
-        console.log(response.data);
         this.link = response.data.invite;
       } catch (error) {
         this.errorSubmitting = error;
       }
       this.submitting = false;
     },
+    updateAndClose(challenges) {
+      console.log("updating");
+      this.$store.dispatch("updateChallenges", challenges);
+      this.closeModal();
+    },
   },
   watch: {
+    active(value) {
+      if (value) {
+        this.selectedTemplate = this.filteredTemplateOptions[0];
+        this.link = null;
+      }
+    },
     userLanguage() {
       this.autoSetLanguage();
     },
@@ -138,11 +141,7 @@ export default {
   },
   created() {
     this.autoSetLanguage();
-    this.selectedTemplate = this.filteredTemplateOptions[0];
-    this.io.on("myChallenges", (data) => {
-      console.log(data);
-      this.closeModal();
-    });
+    this.io.on("myChallenges", this.updateAndClose);
   },
 };
 </script>
