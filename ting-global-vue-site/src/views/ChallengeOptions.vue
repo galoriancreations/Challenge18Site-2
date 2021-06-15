@@ -219,13 +219,16 @@ export default {
       }
     },
     addOptionOnEnter(event, taskIndex) {
-      if (event.key === "Enter" && !!event.target.value.trim()) {
-        this.options[this.dayIndex].tasks[taskIndex].options.push({
-          id: uniqid(),
-          text: event.target.value,
-        });
-        this.selections[this.dayIndex][taskIndex] = event.target.value;
-        this.extraInputs[this.dayIndex][taskIndex] = "";
+      if (event.key === "Enter") {
+        event.preventDefault();
+        if (event.target.value.trim()) {
+          this.options[this.dayIndex].tasks[taskIndex].options.push({
+            id: uniqid(),
+            text: event.target.value.trim(),
+          });
+          this.selections[this.dayIndex][taskIndex] = event.target.value.trim();
+          this.extraInputs[this.dayIndex][taskIndex] = "";
+        }
       }
     },
     editOption(event, taskIndex, optionIndex) {
@@ -274,10 +277,9 @@ export default {
   created() {
     this.loadTemplate();
     this.autoSaveDraft();
-    document.addEventListener("keydown", this.enterKeyHandler);
   },
-  beforeDestroy() {
-    document.removeEventListener("keydown", this.enterKeyHandler);
+  mounted() {
+    this.$refs.textarea.$el.addEventListener("keydown", this.enterKeyHandler);
   },
 };
 </script>
