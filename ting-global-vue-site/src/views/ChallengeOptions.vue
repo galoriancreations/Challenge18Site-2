@@ -176,6 +176,13 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    finalTemplateData() {
+      return {
+        name: this.name,
+        language: this.language,
+        days: this.options,
+      };
+    },
     finalChallengeData() {
       const challenge = { name: this.name, language: this.language, days: [] };
       this.options.forEach((day, dayIndex) => {
@@ -212,7 +219,7 @@ export default {
       }
     },
     addOptionOnEnter(event, taskIndex) {
-      if (event.key === "Enter") {
+      if (event.key === "Enter" && !!event.target.value.trim()) {
         this.options[this.dayIndex].tasks[taskIndex].options.push({
           id: uniqid(),
           text: event.target.value,
@@ -227,13 +234,16 @@ export default {
       this.selections[this.dayIndex][taskIndex] = event.target.value;
     },
     autoSaveDraft() {
-      const savedDraft = {
-        name: this.name,
-        language: this.language,
-        options: this.options,
-        selections: this.selections,
-      };
-      localStorage.setItem("savedDraft", JSON.stringify(savedDraft));
+      clearTimeout(this.saveTimeout);
+      this.saveTimeout = setTimeout(() => {
+        const savedDraft = {
+          name: this.name,
+          language: this.language,
+          options: this.options,
+          selections: this.selections,
+        };
+        localStorage.setItem("savedDraft", JSON.stringify(savedDraft));
+      }, 1000);
     },
     submitHandler() {},
   },
