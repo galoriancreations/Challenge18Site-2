@@ -59,6 +59,7 @@
     margin: 1rem;
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .title {
@@ -106,9 +107,8 @@
   .player__image img {
     display: block;
     max-height: 100%;
-    min-width: 100%;
+    width: 100%;
     object-fit: cover;
-    vertical-align: bottom;
   }
   .skill__container {
     display: flex;
