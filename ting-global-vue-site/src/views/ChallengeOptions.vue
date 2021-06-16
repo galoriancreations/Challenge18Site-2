@@ -44,6 +44,9 @@
               <label :for="`day${day}`">{{ dayLabel }} {{ day }}</label>
             </div>
           </div>
+          <ActionButton color="white" @click="addDay">
+            <i class="fas fa-plus" />
+          </ActionButton>
         </section>
         <section class="challenge-options__main" ref="container">
           <SectionHeading small>
@@ -111,7 +114,6 @@
                     class="task-form__option-edit"
                     placeholder="Start typing here..."
                     :rows="1"
-                    ref="optionEdit"
                   />
                 </form>
               </div>
@@ -124,6 +126,9 @@
                 />
               </form>
             </form>
+            <ActionButton color="white" @click="addTask">
+              <i class="fas fa-plus" />
+            </ActionButton>
           </div>
         </section>
       </div>
@@ -476,6 +481,7 @@ export default {
     grid-template-columns: 1fr;
     overflow: hidden;
     position: relative;
+    margin-bottom: 3.5rem;
 
     @include respond(desktop) {
       border-radius: 0.8rem;
@@ -593,15 +599,19 @@ export default {
     }
   }
 
-  .button {
+  & > .button {
     font-weight: 600;
-    margin-top: 8rem;
+    margin-top: 9rem;
     width: 100%;
     max-width: 35rem;
 
     @include respond(mobile) {
-      margin-top: 5rem;
+      margin-top: 6rem;
     }
+  }
+
+  .action-button {
+    box-shadow: $boxshadow2;
   }
 }
 
@@ -625,8 +635,10 @@ export default {
     align-items: center;
 
     .options-action-button {
-      opacity: 0;
-      visibility: hidden;
+      @media (hover: hover) {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
   }
 
@@ -737,6 +749,10 @@ export default {
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s;
+
+    @include respond(mobile) {
+      width: 7rem;
+    }
   }
 
   &__text:hover &__option-actions {
@@ -749,6 +765,10 @@ export default {
     grid-template-columns: repeat(2, min-content);
     justify-content: center;
     gap: 2rem;
+
+    @include respond(mobile) {
+      gap: 1.5rem;
+    }
   }
 
   &__option-edit {
@@ -824,6 +844,10 @@ export default {
   cursor: pointer;
   transition: all 0.5s;
   font-size: 1.7rem;
+
+  @include respond(mobile) {
+    font-size: 1.55rem;
+  }
 
   &.fa-pen {
     color: $color-blue-2;

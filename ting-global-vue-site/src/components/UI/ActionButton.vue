@@ -7,14 +7,19 @@
 <script>
 export default {
   props: {
-    color: String,
+    color: {
+      type: String,
+      required: true,
+    },
+    size: String,
   },
   computed: {
     classes() {
       return {
         button: true,
-        "action-button": true,
         [`button--${this.color}`]: true,
+        "action-button": true,
+        [`action-button--${this.size}`]: !!this.size,
       };
     },
   },

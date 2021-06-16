@@ -60,10 +60,20 @@ export default {
     color: #fff;
   }
 
+  &--white {
+    background-color: #fff;
+    color: #000;
+  }
+
   &:hover {
     background-color: #fff;
     color: $color-azure;
     box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
+  }
+
+  &--white:hover {
+    background-color: $color-azure;
+    color: #fff;
   }
 
   &--outline {
