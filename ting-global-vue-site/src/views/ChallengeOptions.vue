@@ -52,6 +52,13 @@
           <SectionHeading small>
             {{ dayTitle }}
           </SectionHeading>
+          <div class="challenge-options__day-actions">
+            <i class="fas fa-pen options-action-button" />
+            <i
+              class="fas fa-trash-alt options-action-button"
+              @click="deleteDay"
+            />
+          </div>
           <div class="challenge-options__content">
             <form
               class="task-form"
@@ -258,7 +265,7 @@ export default {
           this[key] = savedDraft[key];
         }
         this.extraInputs = initialExtraInputs(savedDraft.options);
-      } else if (!this.selectedTemplate) {
+      } else if (!this.language) {
         this.language = this.user?.language || "English";
       }
     },
@@ -295,6 +302,14 @@ export default {
         this.editedOption = null;
       }
     },
+    finishEditOnClick(event) {
+      if (
+        !event.target.classList.contains("options-action-button") &&
+        !event.target.classList.contains("task-form__option-edit")
+      ) {
+        this.editedOption = null;
+      }
+    },
     deleteOption(taskIndex, optionIndex) {
       this.options[this.dayIndex].tasks[taskIndex].options.splice(
         optionIndex,
@@ -328,9 +343,19 @@ export default {
       this.currentDay = this.options.length;
     },
     deleteDay() {
-      this.options.splice(this.dayIndex, 1);
-      this.selections.splice(this.dayIndex, 1);
-      this.extraInputs.splice(this.dayIndex, 1);
+      const confirmed =
+        !this.options[this.dayIndex].tasks.length ||
+        window.confirm(
+          "Are you sure you want to delete this day and all its tasks? This action is irreversible."
+        );
+      if (confirmed) {
+        this.options.splice(this.dayIndex, 1);
+        this.selections.splice(this.dayIndex, 1);
+        this.extraInputs.splice(this.dayIndex, 1);
+        if (this.currentDay > this.options.length) {
+          this.currentDay -= 1;
+        }
+      }
     },
     autoSaveDraft() {
       clearTimeout(this.saveTimeout);
@@ -376,6 +401,10 @@ export default {
   },
   mounted() {
     this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
+    document.addEventListener("click", this.finishEditOnClick);
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.finishEditOnClick);
   },
 };
 </script>
@@ -599,6 +628,22 @@ export default {
     }
   }
 
+  &__day-actions {
+    display: grid;
+    grid-template-columns: repeat(2, min-content);
+    justify-content: center;
+    gap: 2rem;
+    margin: -1rem 0 6rem;
+
+    .options-action-button {
+      font-size: 2rem;
+    }
+  }
+
+  .action-button {
+    box-shadow: $boxshadow2;
+  }
+
   & > .button {
     font-weight: 600;
     margin-top: 9rem;
@@ -608,10 +653,6 @@ export default {
     @include respond(mobile) {
       margin-top: 6rem;
     }
-  }
-
-  .action-button {
-    box-shadow: $boxshadow2;
   }
 }
 
