@@ -40,13 +40,13 @@ export const challengesArray = challenges => {
 };
 
 export const initialOptions = options => {
-  const initialOptions = [];
+  const initialOptions = [...options];
   options.forEach((day, dayIndex) => {
-    initialOptions[dayIndex] = { ...day, id: day.id || uniqid() };
+    initialOptions[dayIndex].id = day.id || uniqid();
     day.tasks.forEach((task, taskIndex) => {
-      initialOptions[dayIndex].tasks[taskIndex] = { ...task, id: task.id || uniqid() };
+      initialOptions[dayIndex].tasks[taskIndex].id = task.id || uniqid();
       task.options.forEach((option, optionIndex) => {
-        initialOptions[dayIndex].tasks[taskIndex].options[optionIndex] = { ...option, id: option.id || uniqid() };
+        initialOptions[dayIndex].tasks[taskIndex].options[optionIndex].id = option.id || uniqid();
       });
     });
   });

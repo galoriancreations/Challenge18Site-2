@@ -114,18 +114,20 @@ import {
   taskTranslations,
 } from "../util/options";
 import uniqid from "uniqid";
-// import axios from "../util/axios";
+import store from "../store";
+
+const template = () => store.getters.selectedTemplate || emptyTemplate;
 
 export default {
   data() {
     return {
-      name: "",
-      language: "",
+      name: template().name,
+      language: template().language,
       languageOptions,
       currentDay: 1,
-      options: initialOptions(emptyTemplate.days),
-      selections: initialSelections(emptyTemplate.days),
-      extraInputs: initialExtraInputs(emptyTemplate.days),
+      options: initialOptions(template().days),
+      selections: initialSelections(template().days),
+      extraInputs: initialExtraInputs(template().days),
       dayTitleEdited: false,
       optionEdited: null,
       submitting: false,
@@ -202,14 +204,8 @@ export default {
         for (let key in savedDraft) {
           this[key] = savedDraft[key];
         }
-      } else if (this.selectedTemplate) {
-        const { name, language, days } = this.selectedTemplate;
-        this.name = name;
-        this.language = language;
-        this.options = initialOptions(days);
-        this.selections = initialSelections(days);
-        this.extraInputs = initialExtraInputs(days);
-      } else {
+        this.extraInputs = initialExtraInputs(savedDraft.options);
+      } else if (!this.selectedTemplate) {
         this.language = this.user?.language || "English";
       }
     },
@@ -220,14 +216,18 @@ export default {
     },
     addOptionOnEnter(event, taskIndex) {
       if (event.key === "Enter") {
+        console.log(this.extraInputs[this.dayIndex][taskIndex].trim());
         event.preventDefault();
         if (event.target.value.trim()) {
+          console.log("should add");
           this.options[this.dayIndex].tasks[taskIndex].options.push({
             id: uniqid(),
             text: event.target.value.trim(),
           });
           this.selections[this.dayIndex][taskIndex] = event.target.value.trim();
           this.extraInputs[this.dayIndex][taskIndex] = "";
+          console.log(this.options[this.dayIndex].tasks[taskIndex].options);
+          console.log(this.selections[this.dayIndex][taskIndex]);
         }
       }
     },
