@@ -100,6 +100,9 @@ export default {
             user.myChallenges = challenges;
             context.commit("updateUser", user);
             localStorage.setItem("user", JSON.stringify(user));
+        },
+        updateDrafts(context, draft) {
+            console.log(draft)
         }
     },
     getters: {

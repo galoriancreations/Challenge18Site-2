@@ -7,9 +7,9 @@
           <textarea-autosize
             v-model="name"
             class="challenge-options__name"
-            placeholder="Enter challenge name here"
+            :placeholder="challengeNamePlaceholder"
             :rows="1"
-            ref="textarea"
+            ref="name"
           />
         </div>
         <div class="challenge-options__top-field">
@@ -30,7 +30,11 @@
       >
         <section class="challenge-options__tabs">
           <div class="challenge-options__tabs-list">
-            <div v-for="day in days" :key="day" class="challenge-options__tab">
+            <div
+              v-for="day in days"
+              :key="options[day - 1].id"
+              class="challenge-options__tab"
+            >
               <input
                 type="radio"
                 v-model="currentDay"
@@ -50,11 +54,16 @@
               class="task-form"
               v-for="(task, taskIndex) in options[dayIndex].tasks"
               :key="task.id"
-              @submit.prevent
             >
-              <h3 class="task-form__title">
-                {{ `${taskLabel} ${taskIndex + 1}` }}
-              </h3>
+              <div class="task-form__top">
+                <h3 class="task-form__title">
+                  {{ `${taskLabel} ${taskIndex + 1}` }}
+                </h3>
+                <i
+                  class="fas fa-trash-alt options-action-button"
+                  @click="deleteTask(taskIndex)"
+                />
+              </div>
               <div
                 v-for="(option, optionIndex) in task.options"
                 :key="option.id"
@@ -71,17 +80,46 @@
                   <span class="task-form__radio-button" />
                 </label>
                 <label
+                  v-if="editedOption !== `${task.id}-${option.id}`"
                   :for="option.id"
                   class="task-form__text"
-                  v-html="convertedOptions[dayIndex][taskIndex][optionIndex]"
-                  v-linkified
-                />
+                >
+                  <span
+                    v-html="convertedOptions[dayIndex][taskIndex][optionIndex]"
+                    v-linkified
+                  />
+                  <div class="task-form__option-actions">
+                    <div class="task-form__option-actions-wrapper">
+                      <i
+                        class="fas fa-pen options-action-button"
+                        @click="setEditedOption(task.id, option.id)"
+                      />
+                      <i
+                        class="fas fa-trash-alt options-action-button"
+                        @click="deleteOption(taskIndex, optionIndex)"
+                      />
+                    </div>
+                  </div>
+                </label>
+                <form v-else @keydown="finishEditOnEnter">
+                  <textarea-autosize
+                    :value="
+                      options[dayIndex].tasks[taskIndex].options[optionIndex]
+                        .text
+                    "
+                    @input="editOption($event, taskIndex, optionIndex)"
+                    class="task-form__option-edit"
+                    placeholder="Start typing here..."
+                    :rows="1"
+                    ref="optionEdit"
+                  />
+                </form>
               </div>
               <form @keydown="addOptionOnEnter($event, taskIndex)">
                 <textarea-autosize
                   v-model="extraInputs[dayIndex][taskIndex]"
                   class="task-form__extra"
-                  placeholder="Type and press Enter to add a new option..."
+                  :placeholder="newOptionPlaceholder"
                   :rows="1"
                 />
               </form>
@@ -129,7 +167,7 @@ export default {
       selections: initialSelections(template().days),
       extraInputs: initialExtraInputs(template().days),
       dayTitleEdited: false,
-      optionEdited: null,
+      editedOption: null,
       submitting: false,
       errorSubmitting: null,
       saveTimeout: null,
@@ -155,6 +193,16 @@ export default {
     },
     taskLabel() {
       return taskTranslations[this.language] || "Task";
+    },
+    challengeNamePlaceholder() {
+      return window.innerWidth > 600
+        ? "Enter challenge name here"
+        : "Type name here";
+    },
+    newOptionPlaceholder() {
+      return window.innerWidth > 600
+        ? "Type and press Enter to add a new option..."
+        : "Enter new option here...";
     },
     convertedOptions() {
       const texts = [];
@@ -198,7 +246,7 @@ export default {
     },
   },
   methods: {
-    loadTemplate() {
+    checkForCurrentDraft() {
       const savedDraft = JSON.parse(localStorage.getItem("savedDraft"));
       if (savedDraft) {
         for (let key in savedDraft) {
@@ -216,25 +264,68 @@ export default {
     },
     addOptionOnEnter(event, taskIndex) {
       if (event.key === "Enter") {
-        console.log(this.extraInputs[this.dayIndex][taskIndex].trim());
         event.preventDefault();
         if (event.target.value.trim()) {
-          console.log("should add");
           this.options[this.dayIndex].tasks[taskIndex].options.push({
             id: uniqid(),
             text: event.target.value.trim(),
           });
           this.selections[this.dayIndex][taskIndex] = event.target.value.trim();
           this.extraInputs[this.dayIndex][taskIndex] = "";
-          console.log(this.options[this.dayIndex].tasks[taskIndex].options);
-          console.log(this.selections[this.dayIndex][taskIndex]);
         }
       }
     },
-    editOption(event, taskIndex, optionIndex) {
-      this.options[this.dayIndex].tasks[taskIndex].options[optionIndex].text =
-        event.target.value;
-      this.selections[this.dayIndex][taskIndex] = event.target.value;
+    setEditedOption(taskId, optionId) {
+      this.editedOption = `${taskId}-${optionId}`;
+    },
+    editOption(value, taskIndex, optionIndex) {
+      this.options[this.dayIndex].tasks[taskIndex].options[
+        optionIndex
+      ].text = value;
+      this.selections[this.dayIndex][taskIndex] = value;
+    },
+    finishEditOnEnter(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        this.editedOption = null;
+      }
+    },
+    deleteOption(taskIndex, optionIndex) {
+      this.options[this.dayIndex].tasks[taskIndex].options.splice(
+        optionIndex,
+        1
+      );
+    },
+    addTask() {
+      this.options[this.dayIndex].tasks.push({
+        id: uniqid(),
+        options: [],
+      });
+      this.selections[this.dayIndex].push("");
+      this.extraInputs[this.dayIndex].push("");
+    },
+    deleteTask(taskIndex) {
+      this.options[this.dayIndex].tasks.splice(taskIndex, 1);
+      this.selections[this.dayIndex].splice(taskIndex, 1);
+      this.extraInputs[this.dayIndex].splice(taskIndex, 1);
+    },
+    addDay() {
+      this.options.push({
+        id: uniqid(),
+        title: "(Edit day title)",
+        tasks: [
+          { id: uniqid(), options: [] },
+          { id: uniqid(), options: [] },
+        ],
+      });
+      this.selections.push(["", ""]);
+      this.extraInputs.push(["", ""]);
+      this.currentDay = this.options.length;
+    },
+    deleteDay() {
+      this.options.splice(this.dayIndex, 1);
+      this.selections.splice(this.dayIndex, 1);
+      this.extraInputs.splice(this.dayIndex, 1);
     },
     autoSaveDraft() {
       clearTimeout(this.saveTimeout);
@@ -275,11 +366,11 @@ export default {
     },
   },
   created() {
-    this.loadTemplate();
+    this.checkForCurrentDraft();
     this.autoSaveDraft();
   },
   mounted() {
-    this.$refs.textarea.$el.addEventListener("keydown", this.enterKeyHandler);
+    this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
   },
 };
 </script>
@@ -480,7 +571,14 @@ export default {
     }
   }
 
-  &__layout[style="direction: rtl;"] &__tab {
+  &__layout[style="direction: rtl;"] {
+    .challenge-options__tab {
+    }
+
+    .task-form__option-actions {
+      right: initial;
+      left: 0;
+    }
   }
 
   &__main {
@@ -520,24 +618,43 @@ export default {
     margin-bottom: 4rem;
   }
 
+  &__top {
+    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .options-action-button {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  &:hover &__top .options-action-button {
+    opacity: 1;
+    visibility: visible;
+  }
+
   &__title {
     color: $color-blue-2;
     font-size: 2.8rem;
-    margin-bottom: 2.5rem;
 
     @include respond(mobile) {
       font-size: 2.2rem;
-      text-align: center;
     }
   }
 
   &__option {
     line-height: 1.7;
-    display: flex;
+    display: grid;
+    grid-template-columns: 2.8rem 1fr;
+    gap: 1.5rem;
     align-items: center;
 
     @include respond(mobile) {
       line-height: 1.6;
+      grid-template-columns: 2.6rem 1fr;
+      gap: 1.2rem;
     }
 
     &:not(:last-child) {
@@ -588,8 +705,9 @@ export default {
   }
 
   &__text {
-    margin-left: 1.5rem;
     word-wrap: break-word;
+    flex: 1;
+    position: relative;
 
     @include respond(mobile) {
       font-size: 1.45rem;
@@ -602,6 +720,48 @@ export default {
       &:hover {
         color: $color-gold-3;
       }
+    }
+  }
+
+  &__option-actions {
+    position: absolute;
+    width: 10rem;
+    min-height: 100%;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba($color-azure-light, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+  }
+
+  &__text:hover &__option-actions {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__option-actions-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, min-content);
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  &__option-edit {
+    display: block;
+    width: 100%;
+    font: inherit;
+    outline: none;
+    padding: 0.8rem;
+    border: 0.1rem solid #ccc;
+    transition: all 0.5s;
+
+    &:focus {
+      border-color: $color-azure;
     }
   }
 
@@ -638,9 +798,11 @@ export default {
 .challenge-options .language-selector {
   font-weight: 600;
   font-size: 2.2rem;
+  height: 4.2rem;
 
   @include respond(mobile) {
     font-size: 1.9rem;
+    height: 3.8rem;
   }
 
   .vs__clear {
@@ -655,6 +817,24 @@ export default {
         font-size: 1.45rem;
       }
     }
+  }
+}
+
+.options-action-button {
+  cursor: pointer;
+  transition: all 0.5s;
+  font-size: 1.7rem;
+
+  &.fa-pen {
+    color: $color-blue-2;
+  }
+
+  &.fa-trash-alt {
+    color: $color-danger;
+  }
+
+  &:hover {
+    color: $color-azure;
   }
 }
 </style>
