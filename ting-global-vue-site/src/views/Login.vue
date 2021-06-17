@@ -2,7 +2,7 @@
   <Page title="Login" name="login">
     <WhiteSection tag="main">
       <LoginForm />
-      <div class="seperator" />
+      <SectionSeperator />
       <div class="auth-switch">
         <p class="auth-switch__text">Don't have an account yet?</p>
         <div class="auth-switch__links">

@@ -52,8 +52,25 @@
           <SectionHeading small>
             {{ dayTitle }}
           </SectionHeading>
+          <DashboardModal
+            class="edit-day-title"
+            :active="dayTitleEdited"
+            :scrollbar="false"
+          >
+            <h3 class="challenge-options__top-label">Day title</h3>
+            <textarea-autosize
+              v-model="options[dayIndex].title"
+              class="edit-day-title__input section-heading"
+              placeholder="Enter title here"
+              :rows="1"
+              ref="dayTitle"
+            />
+          </DashboardModal>
           <div class="challenge-options__day-actions">
-            <i class="fas fa-pen options-action-button" />
+            <i
+              class="fas fa-pen options-action-button"
+              @click="dayTitleEdited = true"
+            />
             <i
               class="fas fa-trash-alt options-action-button"
               @click="deleteDay"
@@ -199,9 +216,9 @@ export default {
       return dayTranslations[this.language] || "Day";
     },
     dayTitle() {
-      return `${this.dayLabel} ${this.currentDay} – ${this.options[
-        this.dayIndex
-      ].title || "(Edit day title)"}`;
+      const { dayLabel, currentDay, options, dayIndex } = this;
+      const { title } = options[dayIndex];
+      return `${dayLabel} ${currentDay} – ${title || "(Edit day title)"}`;
     },
     taskLabel() {
       return taskTranslations[this.language] || "Task";
@@ -224,7 +241,12 @@ export default {
           texts[dayIndex].push([]);
           task.options.forEach((option) => {
             texts[dayIndex][taskIndex].push(
-              convertAsteriks(option.text.replace(" - ", " – "))
+              convertAsteriks(
+                option.text
+                  .replace(" - ", " – ")
+                  .replace("<", "")
+                  .replace(">", "")
+              )
             );
           });
         });
@@ -272,6 +294,7 @@ export default {
     enterKeyHandler(event) {
       if (event.key === "Enter") {
         event.preventDefault();
+        if (this.dayTitleEdited) this.closeModal();
       }
     },
     addOptionOnEnter(event, taskIndex) {
@@ -299,6 +322,7 @@ export default {
     finishEditOnEnter(event) {
       if (event.key === "Enter") {
         event.preventDefault();
+        this.checkForEmptyOption();
         this.editedOption = null;
       }
     },
@@ -307,7 +331,20 @@ export default {
         !event.target.classList.contains("options-action-button") &&
         !event.target.classList.contains("task-form__option-edit")
       ) {
+        this.checkForEmptyOption();
         this.editedOption = null;
+      }
+    },
+    checkForEmptyOption() {
+      if (this.editedOption) {
+        const [taskId] = this.editedOption.split("-");
+        const taskIndex = this.options[this.dayIndex].tasks.findIndex(
+          (task) => task.id == taskId
+        );
+        const { options } = this.options[this.dayIndex].tasks[taskIndex];
+        this.options[this.dayIndex].tasks[taskIndex].options = options.filter(
+          (option) => !!option.text.trim()
+        );
       }
     },
     deleteOption(taskIndex, optionIndex) {
@@ -325,14 +362,21 @@ export default {
       this.extraInputs[this.dayIndex].push("");
     },
     deleteTask(taskIndex) {
-      this.options[this.dayIndex].tasks.splice(taskIndex, 1);
-      this.selections[this.dayIndex].splice(taskIndex, 1);
-      this.extraInputs[this.dayIndex].splice(taskIndex, 1);
+      const confirmed =
+        !this.options[this.dayIndex].tasks[taskIndex].options.length ||
+        window.confirm(
+          "Are you sure you want to delete this task and all its options? This action is irreversible."
+        );
+      if (confirmed) {
+        this.options[this.dayIndex].tasks.splice(taskIndex, 1);
+        this.selections[this.dayIndex].splice(taskIndex, 1);
+        this.extraInputs[this.dayIndex].splice(taskIndex, 1);
+      }
     },
     addDay() {
       this.options.push({
         id: uniqid(),
-        title: "(Edit day title)",
+        title: "",
         tasks: [
           { id: uniqid(), options: [] },
           { id: uniqid(), options: [] },
@@ -356,6 +400,9 @@ export default {
           this.currentDay -= 1;
         }
       }
+    },
+    closeModal() {
+      this.dayTitleEdited = false;
     },
     autoSaveDraft() {
       clearTimeout(this.saveTimeout);
@@ -401,10 +448,16 @@ export default {
   },
   mounted() {
     this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
+    this.$refs.dayTitle.$el.addEventListener("keydown", this.enterKeyHandler);
     document.addEventListener("click", this.finishEditOnClick);
   },
   beforeDestroy() {
     document.removeEventListener("click", this.finishEditOnClick);
+  },
+  provide() {
+    return {
+      closeModal: this.closeModal,
+    };
   },
 };
 </script>
@@ -500,7 +553,7 @@ export default {
     }
 
     @include respond(mobile) {
-      margin-bottom: 8rem;
+      margin-bottom: 7rem;
     }
   }
 
@@ -522,6 +575,10 @@ export default {
 
     @include respond(mobile-land) {
       grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond(mobile) {
+      margin-bottom: 3rem;
     }
   }
 
@@ -635,13 +692,30 @@ export default {
     gap: 2rem;
     margin: -1rem 0 6rem;
 
+    @include respond(mobile) {
+      margin: -0.5rem 0 4.5rem;
+    }
+
     .options-action-button {
       font-size: 2rem;
+
+      @include respond(mobile) {
+        font-size: 1.9rem;
+      }
     }
   }
 
   .action-button {
     box-shadow: $boxshadow2;
+    width: 6.5rem;
+    height: 6.5rem;
+    font-size: 1.9rem;
+
+    @include respond(mobile) {
+      width: 6rem;
+      height: 6rem;
+      font-size: 1.6rem;
+    }
   }
 
   & > .button {
@@ -667,6 +741,10 @@ export default {
 
   &:not(:last-child) {
     margin-bottom: 4rem;
+
+    @include respond(mobile) {
+      margin-bottom: 3rem;
+    }
   }
 
   &__top {
@@ -711,7 +789,11 @@ export default {
     }
 
     &:not(:last-child) {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+
+      @media (hover: hover) {
+        margin-bottom: 1.5rem;
+      }
     }
   }
 
@@ -766,6 +848,10 @@ export default {
       font-size: 1.45rem;
     }
 
+    span {
+      display: block;
+    }
+
     a {
       color: $color-blue-2;
       transition: color 0.5s;
@@ -777,22 +863,25 @@ export default {
   }
 
   &__option-actions {
-    position: absolute;
-    width: 10rem;
-    min-height: 100%;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba($color-azure-light, 0.6);
-    opacity: 0;
-    visibility: hidden;
+    padding: 0.5rem;
+    margin-top: 0.75rem;
     transition: all 0.5s;
 
-    @include respond(mobile) {
-      width: 7rem;
+    @media (hover: hover) {
+      position: absolute;
+      width: 10rem;
+      min-height: 100%;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0;
+      opacity: 0;
+      margin-top: 0;
+      visibility: hidden;
     }
   }
 
@@ -806,10 +895,6 @@ export default {
     grid-template-columns: repeat(2, min-content);
     justify-content: center;
     gap: 2rem;
-
-    @include respond(mobile) {
-      gap: 1.5rem;
-    }
   }
 
   &__option-edit {
@@ -891,15 +976,32 @@ export default {
   }
 
   &.fa-pen {
-    color: $color-blue-2;
+    color: $color-blue-3;
   }
 
   &.fa-trash-alt {
-    color: $color-danger;
+    color: $color-blue-2;
   }
 
   &:hover {
-    color: $color-azure;
+    @media (hover: hover) {
+      color: $color-azure;
+    }
+  }
+}
+
+.edit-day-title {
+  &__input {
+    border: none;
+    outline: none;
+    font-family: "Spartan", sans-serif;
+    display: block;
+    width: 100%;
+    text-align: center;
+    border-bottom: 0.2rem solid #ccc;
+    padding: 1rem 0;
+    margin-bottom: 0 !important;
+    margin-top: 0.5rem;
   }
 }
 </style>

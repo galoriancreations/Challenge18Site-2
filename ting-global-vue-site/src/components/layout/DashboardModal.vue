@@ -2,16 +2,23 @@
   <div class="dashboard-modal">
     <div :class="classes">
       <div class="modal__wrapper" ref="wrapper">
-        <div class="modal__container" :style="{ height: containerHeight }">
-          <vue-scroll>
+        <div
+          class="modal__container"
+          :style="{ height: scrollbar ? containerHeight : null }"
+        >
+          <vue-scroll v-if="scrollbar">
             <div
               class="modal__content"
               :style="{ minHeight: contentMinHeight }"
             >
-              <SectionHeading small> {{ title }} </SectionHeading>
+              <SectionHeading v-if="title" small> {{ title }} </SectionHeading>
               <slot />
             </div>
           </vue-scroll>
+          <div v-else class="modal__content">
+            <SectionHeading v-if="title" small> {{ title }} </SectionHeading>
+            <slot />
+          </div>
         </div>
       </div>
       <div class="modal__backdrop" @click="closeModal" />
@@ -24,6 +31,14 @@ export default {
   props: {
     active: Boolean,
     title: String,
+    scrollbar: {
+      type: Boolean,
+      default: true,
+    },
+    disableWindowScroll: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -48,12 +63,16 @@ export default {
   },
   watch: {
     active(value) {
-      document.querySelector("body").style.overflow = value ? "hidden" : null;
+      if (this.disableWindowScroll) {
+        document.querySelector("body").style.overflow = value ? "hidden" : null;
+      }
     },
   },
   mounted() {
-    this.adjustContainerHeight();
-    window.addEventListener("resize", this.adjustContainerHeight);
+    if (this.scrollbar) {
+      this.adjustContainerHeight();
+      window.addEventListener("resize", this.adjustContainerHeight);
+    }
   },
 };
 </script>
