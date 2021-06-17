@@ -76,7 +76,11 @@
               @click="deleteDay"
             />
           </div>
-          <div class="challenge-options__content">
+          <TransitionGroup
+            tag="div"
+            class="challenge-options__content"
+            :name="transitionName"
+          >
             <form
               class="task-form"
               v-for="(task, taskIndex) in options[dayIndex].tasks"
@@ -150,10 +154,10 @@
                 />
               </form>
             </form>
-            <ActionButton color="white" @click="addTask">
+            <ActionButton key="button" color="white" @click="addTask">
               <i class="fas fa-plus" />
             </ActionButton>
-          </div>
+          </TransitionGroup>
         </section>
       </div>
       <BaseButton variant="blue" @click="submitHandler">
@@ -200,6 +204,7 @@ export default {
       submitting: false,
       errorSubmitting: null,
       saveTimeout: null,
+      transitionName: "task",
     };
   },
   computed: {
@@ -420,6 +425,7 @@ export default {
   },
   watch: {
     currentDay() {
+      this.transitionName = null;
       const optionsTop = this.$refs.container.getBoundingClientRect().top;
       window.scrollTo(0, window.scrollY + optionsTop - 150);
     },
@@ -431,6 +437,7 @@ export default {
     },
     options: {
       handler() {
+        this.transitionName = "task";
         this.autoSaveDraft();
       },
       deep: true,
@@ -763,6 +770,8 @@ export default {
   border-radius: 1rem;
   box-shadow: $boxshadow2;
   padding: 3.5rem 3rem;
+  width: 100%;
+  overflow: hidden;
 
   @include respond(mobile) {
     padding: 3rem 2rem;
@@ -1036,5 +1045,22 @@ export default {
       margin-top: 0;
     }
   }
+}
+
+.task-leave-from {
+  transform: translateX(0);
+}
+
+.task-leave-to {
+  transform: translateX(100vw);
+}
+
+.task-leave-active {
+  transition: all 0.5s;
+  position: absolute;
+}
+
+.task-move {
+  transition: transform 0.4s 0.4s !important;
 }
 </style>
