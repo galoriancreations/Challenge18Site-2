@@ -583,6 +583,10 @@ export default {
   }
 
   &__tab {
+    @include respond(tablet) {
+      border-bottom: 0.1rem solid #ccc;
+    }
+
     &:not(:last-child) {
       @include respond(desktop) {
         border-bottom: 0.1rem solid #ccc;
@@ -605,15 +609,21 @@ export default {
       }
     }
 
-    &:not(:nth-child(n + 13)) {
+    &:nth-child(6n + 1):nth-last-child(-n + 6),
+    &:nth-child(6n + 1):nth-last-child(-n + 6) ~ & {
       @include respond(tablet) {
+        border-bottom: none;
+      }
+
+      @include respond(mobile-land) {
         border-bottom: 0.1rem solid #ccc;
       }
     }
 
-    &:not(:nth-child(n + 16)) {
+    &:nth-child(3n + 1):nth-last-child(-n + 3),
+    &:nth-child(3n + 1):nth-last-child(-n + 3) ~ & {
       @include respond(mobile-land) {
-        border-bottom: 0.1rem solid #ccc;
+        border-bottom: none;
       }
     }
 
@@ -665,6 +675,25 @@ export default {
 
   &__layout[style="direction: rtl;"] {
     .challenge-options__tab {
+      &:not(:nth-child(6n)) {
+        border-right: none;
+
+        @include respond(tablet) {
+          border-left: 0.1rem solid #ccc;
+        }
+
+        @include respond(mobile-land) {
+          border-left: none;
+        }
+      }
+
+      &:not(:nth-child(3n)) {
+        border-right: none;
+
+        @include respond(mobile-land) {
+          border-left: 0.1rem solid #ccc;
+        }
+      }
     }
 
     .task-form__option-actions {
