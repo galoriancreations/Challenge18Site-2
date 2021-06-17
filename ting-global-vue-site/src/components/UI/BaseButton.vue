@@ -71,9 +71,24 @@ export default {
     box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
   }
 
+  &:hover {
+    @media (hover: hover) {
+      background-color: #fff;
+      color: $color-azure;
+      box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
+    }
+  }
+
   &--white:not(.action-button):hover {
     background-color: $color-azure;
     color: #fff;
+  }
+
+  &--white:hover {
+    @media (hover: hover) {
+      background-color: $color-azure;
+      color: #fff;
+    }
   }
 
   &--outline {

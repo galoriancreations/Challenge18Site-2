@@ -1002,6 +1002,10 @@ export default {
     padding: 1rem 0;
     margin-bottom: 0 !important;
     margin-top: 0.5rem;
+
+    @include respond(mobile) {
+      margin-top: 0;
+    }
   }
 }
 </style>

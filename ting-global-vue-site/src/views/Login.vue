@@ -29,18 +29,6 @@ export default {
 <style lang="scss">
 @import "@/sass/base.scss";
 
-.seperator {
-  width: 25%;
-  max-width: 15rem;
-  height: 0.1rem;
-  background-color: #ccc;
-  margin: 7rem auto;
-
-  @include respond(mobile) {
-    margin: 5rem auto;
-  }
-}
-
 .auth-switch {
   text-align: center;
   display: flex;
