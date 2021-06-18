@@ -5,7 +5,7 @@
         <div class="challenge-options__top-field">
           <h3 class="challenge-options__top-label">Challenge name</h3>
           <textarea-autosize
-            v-model="name"
+            v-model.trim="name"
             class="challenge-options__name"
             :placeholder="challengeNamePlaceholder"
             :rows="1"
@@ -72,6 +72,7 @@
               @click="dayTitleEdited = true"
             />
             <i
+              v-if="days.length > 1"
               class="fas fa-trash-alt options-action-button"
               @click="deleteDay"
             />
@@ -204,7 +205,7 @@ export default {
       submitting: false,
       errorSubmitting: null,
       saveTimeout: null,
-      transitionName: "task",
+      transitionName: null,
     };
   },
   computed: {
@@ -223,7 +224,8 @@ export default {
     dayTitle() {
       const { dayLabel, currentDay, options, dayIndex } = this;
       const { title } = options[dayIndex];
-      return `${dayLabel} ${currentDay} – ${title || "(Edit day title)"}`;
+      return `${dayLabel} ${currentDay} – ${title?.trim() ||
+        "(Edit day title)"}`;
     },
     taskLabel() {
       return taskTranslations[this.language] || "Task";
@@ -299,7 +301,9 @@ export default {
     enterKeyHandler(event) {
       if (event.key === "Enter") {
         event.preventDefault();
-        if (this.dayTitleEdited) this.closeModal();
+        if (this.dayTitleEdited) {
+          this.closeModal();
+        }
       }
     },
     addOptionOnEnter(event, taskIndex) {
@@ -317,6 +321,7 @@ export default {
     },
     setEditedOption(taskId, optionId) {
       this.editedOption = `${taskId}-${optionId}`;
+      this.transitionName = null;
     },
     editOption(value, taskIndex, optionIndex) {
       this.options[this.dayIndex].tasks[taskIndex].options[
@@ -373,6 +378,7 @@ export default {
           "Are you sure you want to delete this task and all its options? This action is irreversible."
         );
       if (confirmed) {
+        this.transitionName = "task";
         this.options[this.dayIndex].tasks.splice(taskIndex, 1);
         this.selections[this.dayIndex].splice(taskIndex, 1);
         this.extraInputs[this.dayIndex].splice(taskIndex, 1);
@@ -401,6 +407,7 @@ export default {
         this.options.splice(this.dayIndex, 1);
         this.selections.splice(this.dayIndex, 1);
         this.extraInputs.splice(this.dayIndex, 1);
+        this.transitionName = "task";
         if (this.currentDay > this.options.length) {
           this.currentDay -= 1;
         }
@@ -437,7 +444,6 @@ export default {
     },
     options: {
       handler() {
-        this.transitionName = "task";
         this.autoSaveDraft();
       },
       deep: true,
@@ -447,6 +453,11 @@ export default {
         this.autoSaveDraft();
       },
       deep: true,
+    },
+    dayTitleEdited(value) {
+      if (value) {
+        setTimeout(() => this.$refs.dayTitle.$el.focus(), 100);
+      }
     },
   },
   created() {
@@ -570,6 +581,7 @@ export default {
     grid-template-columns: 1fr;
     overflow: hidden;
     position: relative;
+    background-color: rgba(#eee, 0.5);
     margin-bottom: 3.5rem;
 
     @include respond(desktop) {
@@ -630,7 +642,7 @@ export default {
     &:nth-child(3n + 1):nth-last-child(-n + 3),
     &:nth-child(3n + 1):nth-last-child(-n + 3) ~ & {
       @include respond(mobile-land) {
-        border-bottom: none;
+        border-bottom: none !important;
       }
     }
 
@@ -648,6 +660,7 @@ export default {
       text-align: center;
       font-weight: 600;
       font-size: 1.8rem;
+      background-color: #fff;
       transition: all 0.5s;
       position: relative;
 

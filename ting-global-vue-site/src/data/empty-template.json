@@ -3,6 +3,7 @@
     "language": null,
     "days": [
         {
+            "title": "",
             "tasks": [
                 {
                     "options": []
@@ -13,6 +14,7 @@
             ]
         },
         {
+            "title": "",
             "tasks": [
                 {
                     "options": []
@@ -23,6 +25,7 @@
             ]
         },
         {
+            "title": "",
             "tasks": [
                 {
                     "options": []
@@ -33,6 +36,7 @@
             ]
         },
         {
+            "title": "",
             "tasks": [
                 {
                     "options": []
@@ -43,6 +47,18 @@
             ]
         },
         {
+            "title": "",
+            "tasks": [
+                {
+                    "options": []
+                },
+                {
+                    "options": []
+                }
+            ]
+        },
+        {
+            "title": "",
             "tasks": [
                 {
                     "options": []

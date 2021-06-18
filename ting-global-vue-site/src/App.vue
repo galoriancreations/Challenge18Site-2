@@ -18,6 +18,7 @@ export default {
     },
   },
   created() {
+    console.log(this.$store.getters.user.myChallenges);
     this.io.on("allBoards", ({ challenges }) =>
       this.$store.dispatch("updateResults", challenges)
     );
