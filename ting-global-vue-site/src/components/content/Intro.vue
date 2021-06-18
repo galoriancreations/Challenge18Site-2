@@ -46,10 +46,13 @@ export default {
     url(../../assets/intro-bg.jpg);
   background-position: center;
   background-size: cover;
-  background-attachment: fixed;
   padding: 19rem $padding-sides-desktop;
   color: #fff;
   position: relative;
+
+  @media (hover: hover) {
+    background-attachment: fixed;
+  }
 
   @include respond(tablet) {
     padding: 18rem $padding-sides-desktop 17rem;
@@ -57,7 +60,6 @@ export default {
 
   @include respond(mobile) {
     padding: 14rem $padding-sides-mobile 12rem;
-    background-attachment: initial;
   }
 
   &__content {

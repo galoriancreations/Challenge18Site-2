@@ -161,7 +161,14 @@
           </TransitionGroup>
         </section>
       </div>
-      <BaseButton variant="blue" @click="submitHandler">
+      <ActionButton
+        class="shuffle-button"
+        color="white"
+        @click="selectRandomOptions"
+      >
+        <i class="fas fa-random" />
+      </ActionButton>
+      <BaseButton class="publish-button" variant="blue" @click="submitHandler">
         Publish challenge
       </BaseButton>
       <BaseSpinner v-if="submitting" />
@@ -362,6 +369,7 @@ export default {
         optionIndex,
         1
       );
+      this.transitionName = "task";
     },
     addTask() {
       this.options[this.dayIndex].tasks.push({
@@ -415,6 +423,22 @@ export default {
     },
     closeModal() {
       this.dayTitleEdited = false;
+    },
+    selectRandomOptions() {
+      const confirmed = window.confirm(
+        "Do you want to select a random option for each task?"
+      );
+      if (confirmed) {
+        const newSelections = [];
+        this.options.forEach((day, dayIndex) => {
+          newSelections.push([]);
+          day.tasks.forEach((task) => {
+            const optionIndex = Math.floor(Math.random() * task.options.length);
+            newSelections[dayIndex].push(task.options[optionIndex].text);
+          });
+        });
+        this.selections = newSelections;
+      }
     },
     autoSaveDraft() {
       clearTimeout(this.saveTimeout);
@@ -767,7 +791,19 @@ export default {
     }
   }
 
-  & > .button {
+  .shuffle-button {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    z-index: 5;
+
+    @include respond(mobile) {
+      bottom: 1.5rem;
+      right: 1.5rem;
+    }
+  }
+
+  & > .publish-button {
     font-weight: 600;
     margin-top: 9rem;
     width: 100%;
