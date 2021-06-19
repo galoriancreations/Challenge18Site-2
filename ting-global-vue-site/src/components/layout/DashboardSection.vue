@@ -25,7 +25,7 @@ export default {
 @import "@/sass/base.scss";
 
 .dashboard-section {
-  max-width: 80rem;
+  max-width: 85rem;
   margin: auto;
 
   &:not(:last-child) {

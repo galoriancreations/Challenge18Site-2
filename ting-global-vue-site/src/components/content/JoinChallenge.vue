@@ -120,7 +120,6 @@ export default {
       this.submitting = false;
     },
     updateAndClose(challenges) {
-      console.log("updating");
       this.$store.dispatch("updateChallenges", challenges);
       this.closeModal();
     },
