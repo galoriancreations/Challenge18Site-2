@@ -429,15 +429,12 @@ export default {
         "Do you want to select a random option for each task?"
       );
       if (confirmed) {
-        const newSelections = [];
-        this.options.forEach((day, dayIndex) => {
-          newSelections.push([]);
-          day.tasks.forEach((task) => {
+        this.selections = this.options.map((day) =>
+          day.tasks.map((task) => {
             const optionIndex = Math.floor(Math.random() * task.options.length);
-            newSelections[dayIndex].push(task.options[optionIndex].text);
-          });
-        });
-        this.selections = newSelections;
+            return task.options[optionIndex].text;
+          })
+        );
       }
     },
     autoSaveDraft() {
