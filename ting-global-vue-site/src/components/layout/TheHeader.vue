@@ -7,7 +7,7 @@
       <ul class="header__nav-list">
         <NavItem
           v-for="(item, index) in navigationItems"
-          :key="item.link"
+          :key="item.text"
           v-bind="item"
           :reverse="index % 2 !== 0"
         />

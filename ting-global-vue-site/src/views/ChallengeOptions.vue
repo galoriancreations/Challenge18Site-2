@@ -582,7 +582,7 @@ export default {
     margin: 8.5rem 0 9.5rem;
 
     @include respond(mobile) {
-      margin: 6.5rem 0;
+      margin: 6rem 0;
     }
   }
 
@@ -794,6 +794,8 @@ export default {
     width: 6.5rem;
     height: 6.5rem;
     font-size: 1.9rem;
+    position: relative;
+    z-index: 5;
 
     @include respond(mobile) {
       width: 6rem;

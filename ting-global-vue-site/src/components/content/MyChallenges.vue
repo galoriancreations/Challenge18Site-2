@@ -109,7 +109,9 @@ export default {
 }
 
 .dashboard-section {
-  &.my-challenges &__content {
+  &.my-challenges &__content,
+  &.club-players &__content,
+  &.my-drafts &__content {
     min-height: 30rem;
   }
 }

@@ -71,7 +71,6 @@ export default {
   mounted() {
     if (this.scrollbar) {
       this.adjustContainerHeight();
-      window.addEventListener("resize", this.adjustContainerHeight);
     }
   },
 };
