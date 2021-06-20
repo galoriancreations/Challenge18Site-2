@@ -353,12 +353,12 @@ export default {
     &__nav-item {
       opacity: 0;
       font-size: 1.6rem;
-      transform: translateX(-70vw);
+      transform: translateX(-100vw);
       visibility: hidden;
-      transition: all 0.5s;
+      transition: all 0.55s;
 
       &.reverse {
-        transform: translateX(70vw);
+        transform: translateX(100vw);
       }
 
       &:not(:last-child) {
