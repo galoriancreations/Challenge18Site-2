@@ -60,12 +60,11 @@ export default {
     }
   }
 
-  // TEMPORARY CODE UNTIL A BETTER SOLUTION IS FOUND
   &:not(:last-child) &__grid {
     .team-member {
       position: relative;
-      left: 41vw;
-      transform: translateX(-50%);
+      left: calc(41vw - 2.5rem);
+      transform: translateX(-100%);
 
       @include respond(mobile) {
         left: initial;

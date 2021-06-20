@@ -1,5 +1,6 @@
 <template>
   <Page title="Challenge Options" name="challenge-options">
+    <ChallengeOptionsInfo :active="showInfoModal" />
     <WhiteSection tag="main" class="challenge-options">
       <section class="challenge-options__top">
         <div class="challenge-options__top-field">
@@ -155,19 +156,22 @@
                 />
               </form>
             </form>
-            <ActionButton key="button" color="white" @click="addTask">
-              <i class="fas fa-plus" />
-            </ActionButton>
+            <div key="button">
+              <ActionButton color="white" @click="addTask">
+                <i class="fas fa-plus" />
+              </ActionButton>
+            </div>
           </TransitionGroup>
         </section>
       </div>
-      <ActionButton
-        class="shuffle-button"
-        color="white"
-        @click="selectRandomOptions"
-      >
-        <i class="fas fa-random" />
-      </ActionButton>
+      <div class="challenge-options__floating-buttons">
+        <ActionButton color="white" @click="showInfoModal = true">
+          <i class="fas fa-info" />
+        </ActionButton>
+        <ActionButton color="white" @click="selectRandomOptions">
+          <i class="fas fa-random" />
+        </ActionButton>
+      </div>
       <BaseButton class="publish-button" variant="blue" @click="submitHandler">
         Publish challenge
       </BaseButton>
@@ -194,10 +198,12 @@ import {
 } from "../util/options";
 import uniqid from "uniqid";
 import store from "../store";
+import ChallengeOptionsInfo from "../components/content/ChallengeOptionsInfo";
 
 const template = () => store.getters.selectedTemplate || emptyTemplate;
 
 export default {
+  components: { ChallengeOptionsInfo },
   data() {
     return {
       name: template().name,
@@ -213,6 +219,7 @@ export default {
       errorSubmitting: null,
       saveTimeout: null,
       transitionName: null,
+      showInfoModal: false,
     };
   },
   computed: {
@@ -423,6 +430,7 @@ export default {
     },
     closeModal() {
       this.dayTitleEdited = false;
+      this.showInfoModal = false;
     },
     selectRandomOptions() {
       const confirmed = window.confirm(
@@ -484,6 +492,11 @@ export default {
   created() {
     this.checkForCurrentDraft();
     this.autoSaveDraft();
+    if (!this.user?.drafts) {
+      setTimeout(() => {
+        this.showInfoModal = true;
+      }, 1000);
+    }
   },
   mounted() {
     this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
@@ -788,15 +801,19 @@ export default {
     }
   }
 
-  .shuffle-button {
+  &__floating-buttons {
     position: fixed;
     bottom: 3rem;
     right: 3rem;
     z-index: 5;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
 
     @include respond(mobile) {
       bottom: 1.5rem;
       right: 1.5rem;
+      gap: 1rem;
     }
   }
 
@@ -1107,6 +1124,6 @@ export default {
 }
 
 .task-move {
-  transition: transform 0.4s 0.4s !important;
+  transition: transform 0.4s 0.4s;
 }
 </style>

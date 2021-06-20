@@ -20,6 +20,7 @@ import Partners from "../components/content/Partners";
 import TeamSection from "../components/content/TeamSection";
 import mainImg from "../assets/about-img.jpg";
 import sharon from "../assets/teams/sharon.png";
+import yinon from "../assets/teams/yinon.jpg";
 import hanson from "../assets/teams/hanson.png";
 import yee from "../assets/teams/yee.png";
 import lee from "../assets/teams/lee.png";
@@ -40,6 +41,14 @@ export default {
           description:
             "Israeli ambassador for USTP, a writer, author, futurist, an innovation management & gamification specialist, advisor in the fields of education, community management, entrepreneurship & sustainability.",
           link: "http://hk.linkedin.com/in/sharongalor",
+        },
+        {
+          name: "Yinon Hever",
+          image: yinon,
+          role: "Developer",
+          description:
+            "Full-stack web developer, specializing in planning and building modern websites and web applications, with advanced designs and optimized user experience.",
+          link: "https://github.com/yinonhever/",
         },
       ],
       advisors: [
