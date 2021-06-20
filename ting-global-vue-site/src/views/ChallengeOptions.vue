@@ -492,16 +492,17 @@ export default {
   created() {
     this.checkForCurrentDraft();
     this.autoSaveDraft();
-    if (!this.user?.drafts) {
-      setTimeout(() => {
-        this.showInfoModal = true;
-      }, 1000);
-    }
   },
   mounted() {
     this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
     this.$refs.dayTitle.$el.addEventListener("keydown", this.enterKeyHandler);
     document.addEventListener("click", this.finishEditOnClick);
+
+    if (!this.user?.drafts) {
+      setTimeout(() => {
+        this.showInfoModal = true;
+      }, 1500);
+    }
   },
   beforeDestroy() {
     document.removeEventListener("click", this.finishEditOnClick);

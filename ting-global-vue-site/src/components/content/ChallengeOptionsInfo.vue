@@ -23,12 +23,11 @@
         </li>
       </ul>
       <p>
-        For each task in the your template, you have to choose one option that
-        would be included in the challenge itself (though you can add as many
-        tasks as you want). You can click the Shuffle button at the bottom to
-        pick a random option for every task. All other options will remain a
-        part of your template, and could be chosen when creating other
-        challenges.
+        For each task in your template, you have to choose one option that would
+        be included in the challenge itself (though you can add as many tasks as
+        you want). You can click the Shuffle button at the bottom to pick a
+        random option for every task. All other options will remain a part of
+        your template, and could be chosen when creating other challenges.
       </p>
       <p>
         All changes you make on this page will be auto-saved as a draft into
