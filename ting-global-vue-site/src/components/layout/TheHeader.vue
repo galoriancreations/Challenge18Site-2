@@ -354,6 +354,7 @@ export default {
       opacity: 0;
       font-size: 1.6rem;
       transform: translateX(-70vw);
+      visibility: hidden;
       transition: all 0.5s;
 
       &.reverse {
@@ -381,6 +382,7 @@ export default {
 
     &.active &__nav-item {
       opacity: 1;
+      visibility: visible;
       transform: translateX(0);
     }
 
