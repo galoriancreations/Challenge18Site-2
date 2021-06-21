@@ -1,182 +1,192 @@
 <template>
   <Page title="Challenge Options" name="challenge-options">
-    <ChallengeOptionsInfo :active="showInfoModal" />
     <WhiteSection tag="main" class="challenge-options">
-      <section class="challenge-options__top">
-        <div class="challenge-options__top-field">
-          <h3 class="challenge-options__top-label">Challenge name</h3>
-          <textarea-autosize
-            v-model.trim="name"
-            class="challenge-options__name"
-            :placeholder="challengeNamePlaceholder"
-            :rows="1"
-            ref="name"
-          />
-        </div>
-        <div class="challenge-options__top-field">
-          <h3 class="challenge-options__top-label">Challenge language</h3>
-          <v-select
-            v-model="language"
-            :options="languageOptions"
-            :reduce="(option) => option.name"
-            class="language-selector"
-          />
-        </div>
-      </section>
-      <SectionSeperator />
-      <div
-        v-if="options.length"
-        class="challenge-options__layout"
-        :style="{ direction }"
-      >
-        <section class="challenge-options__tabs">
-          <div class="challenge-options__tabs-list">
-            <div
-              v-for="day in days"
-              :key="options[day - 1].id"
-              class="challenge-options__tab"
-            >
-              <input
-                type="radio"
-                v-model="currentDay"
-                :value="day"
-                :id="`day${day}`"
-              />
-              <label :for="`day${day}`">{{ dayLabel }} {{ day }}</label>
-            </div>
-          </div>
-          <ActionButton color="white" @click="addDay">
-            <i class="fas fa-plus" />
-          </ActionButton>
-        </section>
-        <section class="challenge-options__main" ref="container">
-          <SectionHeading small>
-            {{ dayTitle }}
-          </SectionHeading>
-          <DashboardModal
-            class="edit-day-title"
-            :active="dayTitleEdited"
-            :scrollbar="false"
-          >
-            <h3 class="challenge-options__top-label">Day title</h3>
+      <BaseSpinner v-if="loading" />
+      <ErrorMessage v-else-if="errorLoading" :error="errorLoading" />
+      <div v-else class="challenge-options__container">
+        <ChallengeOptionsInfo :active="showInfoModal" />
+        <section class="challenge-options__top">
+          <div class="challenge-options__top-field">
+            <h3 class="challenge-options__top-label">Challenge name</h3>
             <textarea-autosize
-              v-model="options[dayIndex].title"
-              class="edit-day-title__input section-heading"
-              placeholder="Enter title here"
+              v-model.trim="name"
+              class="challenge-options__name"
+              :placeholder="challengeNamePlaceholder"
               :rows="1"
-              ref="dayTitle"
-            />
-          </DashboardModal>
-          <div class="challenge-options__day-actions">
-            <i
-              class="fas fa-pen options-action-button"
-              @click="dayTitleEdited = true"
-            />
-            <i
-              v-if="days.length > 1"
-              class="fas fa-trash-alt options-action-button"
-              @click="deleteDay"
+              ref="name"
             />
           </div>
-          <TransitionGroup
-            tag="div"
-            class="challenge-options__content"
-            :name="transitionName"
-          >
-            <form
-              class="task-form"
-              v-for="(task, taskIndex) in options[dayIndex].tasks"
-              :key="task.id"
-            >
-              <div class="task-form__top">
-                <h3 class="task-form__title">
-                  {{ `${taskLabel} ${taskIndex + 1}` }}
-                </h3>
-                <i
-                  class="fas fa-trash-alt options-action-button"
-                  @click="deleteTask(taskIndex)"
-                />
-              </div>
+          <div class="challenge-options__top-field">
+            <h3 class="challenge-options__top-label">Challenge language</h3>
+            <v-select
+              v-model="language"
+              :options="languageOptions"
+              :reduce="(option) => option.name"
+              class="language-selector"
+            />
+          </div>
+        </section>
+        <SectionSeperator />
+        <div
+          v-if="options.length"
+          class="challenge-options__layout"
+          :style="{ direction }"
+        >
+          <section class="challenge-options__tabs">
+            <div class="challenge-options__tabs-list">
               <div
-                v-for="(option, optionIndex) in task.options"
-                :key="option.id"
-                class="task-form__option"
+                v-for="day in days"
+                :key="options[day - 1].id"
+                class="challenge-options__tab"
               >
                 <input
                   type="radio"
-                  v-model="selections[dayIndex][taskIndex]"
-                  :value="option.text"
-                  :id="option.id"
-                  class="task-form__radio-input"
+                  v-model="currentDay"
+                  :value="day"
+                  :id="`day${day}`"
                 />
-                <label :for="option.id" class="task-form__radio-label">
-                  <span class="task-form__radio-button" />
-                </label>
-                <label
-                  v-if="editedOption !== `${task.id}-${option.id}`"
-                  :for="option.id"
-                  class="task-form__text"
-                >
-                  <span
-                    v-html="convertedOptions[dayIndex][taskIndex][optionIndex]"
-                    v-linkified
+                <label :for="`day${day}`">{{ dayLabel }} {{ day }}</label>
+              </div>
+            </div>
+            <ActionButton color="white" @click="addDay">
+              <i class="fas fa-plus" />
+            </ActionButton>
+          </section>
+          <section class="challenge-options__main" ref="container">
+            <SectionHeading small>
+              {{ dayTitle }}
+            </SectionHeading>
+            <DashboardModal
+              class="edit-day-title"
+              :active="dayTitleEdited"
+              :scrollbar="false"
+            >
+              <h3 class="challenge-options__top-label">Day title</h3>
+              <textarea-autosize
+                v-model="options[dayIndex].title"
+                class="edit-day-title__input section-heading"
+                placeholder="Enter title here"
+                :rows="1"
+                ref="dayTitle"
+              />
+            </DashboardModal>
+            <div class="challenge-options__day-actions">
+              <i
+                class="fas fa-pen options-action-button"
+                @click="dayTitleEdited = true"
+              />
+              <i
+                v-if="days.length > 1"
+                class="fas fa-trash-alt options-action-button"
+                @click="deleteDay"
+              />
+            </div>
+            <TransitionGroup
+              tag="div"
+              class="challenge-options__content"
+              :name="transitionName"
+            >
+              <form
+                class="task-form"
+                v-for="(task, taskIndex) in options[dayIndex].tasks"
+                :key="task.id"
+              >
+                <div class="task-form__top">
+                  <h3 class="task-form__title">
+                    {{ `${taskLabel} ${taskIndex + 1}` }}
+                  </h3>
+                  <i
+                    class="fas fa-trash-alt options-action-button"
+                    @click="deleteTask(taskIndex)"
                   />
-                  <div class="task-form__option-actions">
-                    <div class="task-form__option-actions-wrapper">
-                      <i
-                        class="fas fa-pen options-action-button"
-                        @click="setEditedOption(task.id, option.id)"
-                      />
-                      <i
-                        class="fas fa-trash-alt options-action-button"
-                        @click="deleteOption(taskIndex, optionIndex)"
-                      />
+                </div>
+                <div
+                  v-for="(option, optionIndex) in task.options"
+                  :key="option.id"
+                  class="task-form__option"
+                >
+                  <input
+                    type="radio"
+                    v-model="selections[dayIndex][taskIndex]"
+                    :value="option.text"
+                    :id="option.id"
+                    class="task-form__radio-input"
+                  />
+                  <label :for="option.id" class="task-form__radio-label">
+                    <span class="task-form__radio-button" />
+                  </label>
+                  <label
+                    v-if="editedOption !== `${task.id}-${option.id}`"
+                    :for="option.id"
+                    class="task-form__text"
+                  >
+                    <span
+                      v-html="
+                        convertedOptions[dayIndex][taskIndex][optionIndex]
+                      "
+                      v-linkified
+                    />
+                    <div class="task-form__option-actions">
+                      <div class="task-form__option-actions-wrapper">
+                        <i
+                          class="fas fa-pen options-action-button"
+                          @click="setEditedOption(task.id, option.id)"
+                        />
+                        <i
+                          class="fas fa-trash-alt options-action-button"
+                          @click="deleteOption(taskIndex, optionIndex)"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </label>
-                <form v-else @keydown="finishEditOnEnter">
+                  </label>
+                  <form v-else @keydown="finishEditOnEnter">
+                    <textarea-autosize
+                      :value="
+                        options[dayIndex].tasks[taskIndex].options[optionIndex]
+                          .text
+                      "
+                      @input="editOption($event, taskIndex, optionIndex)"
+                      class="task-form__option-edit"
+                      placeholder="Start typing here..."
+                      :rows="1"
+                    />
+                  </form>
+                </div>
+                <form @keydown="addOptionOnEnter($event, taskIndex)">
                   <textarea-autosize
-                    :value="
-                      options[dayIndex].tasks[taskIndex].options[optionIndex]
-                        .text
-                    "
-                    @input="editOption($event, taskIndex, optionIndex)"
-                    class="task-form__option-edit"
-                    placeholder="Start typing here..."
+                    v-model="extraInputs[dayIndex][taskIndex]"
+                    class="task-form__extra"
+                    :placeholder="newOptionPlaceholder"
                     :rows="1"
                   />
                 </form>
-              </div>
-              <form @keydown="addOptionOnEnter($event, taskIndex)">
-                <textarea-autosize
-                  v-model="extraInputs[dayIndex][taskIndex]"
-                  class="task-form__extra"
-                  :placeholder="newOptionPlaceholder"
-                  :rows="1"
-                />
               </form>
-            </form>
-            <div key="button">
-              <ActionButton color="white" @click="addTask">
-                <i class="fas fa-plus" />
-              </ActionButton>
-            </div>
-          </TransitionGroup>
-        </section>
+              <div key="button">
+                <ActionButton color="white" @click="addTask">
+                  <i class="fas fa-plus" />
+                </ActionButton>
+              </div>
+            </TransitionGroup>
+          </section>
+        </div>
+        <div class="challenge-options__floating-buttons">
+          <ActionButton color="white" @click="showInfoModal = true">
+            <i class="fas fa-info" />
+          </ActionButton>
+          <ActionButton color="white" @click="selectRandomOptions">
+            <i class="fas fa-random" />
+          </ActionButton>
+        </div>
+        <BaseButton
+          class="publish-button"
+          variant="blue"
+          @click="submitHandler"
+        >
+          Publish challenge
+        </BaseButton>
+        <BaseSpinner v-if="submitting" />
+        <ErrorMessage v-else-if="errorSubmitting" :error="errorSubmitting" />
       </div>
-      <div class="challenge-options__floating-buttons">
-        <ActionButton color="white" @click="showInfoModal = true">
-          <i class="fas fa-info" />
-        </ActionButton>
-        <ActionButton color="white" @click="selectRandomOptions">
-          <i class="fas fa-random" />
-        </ActionButton>
-      </div>
-      <BaseButton class="publish-button" variant="blue" @click="submitHandler">
-        Publish challenge
-      </BaseButton>
-      <BaseSpinner v-if="submitting" />
-      <ErrorMessage v-else-if="errorSubmitting" :error="errorSubmitting" />
     </WhiteSection>
   </Page>
 </template>
@@ -215,6 +225,8 @@ export default {
       extraInputs: initialExtraInputs(template().days),
       dayTitleEdited: false,
       editedOption: null,
+      loading: false,
+      errorLoading: null,
       submitting: false,
       errorSubmitting: null,
       saveTimeout: null,
@@ -301,7 +313,8 @@ export default {
     },
   },
   methods: {
-    checkForCurrentDraft() {
+    loadTemplate() {
+      // REAL CODE OF LOADING TEMPLATE OR DRAFT WILL BE ADDED LATER
       const savedDraft = JSON.parse(localStorage.getItem("savedDraft"));
       if (savedDraft) {
         for (let key in savedDraft) {
@@ -311,6 +324,21 @@ export default {
       } else if (!this.language) {
         this.language = this.user?.language || "English";
       }
+
+      this.autoSaveDraft();
+
+      setTimeout(() => this.pageEventListeners(), 1000);
+
+      if (!this.user?.drafts) {
+        setTimeout(() => {
+          this.showInfoModal = true;
+        }, 1500);
+      }
+    },
+    pageEventListeners() {
+      this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
+      this.$refs.dayTitle.$el.addEventListener("keydown", this.enterKeyHandler);
+      document.addEventListener("click", this.finishEditOnClick);
     },
     enterKeyHandler(event) {
       if (event.key === "Enter") {
@@ -490,19 +518,7 @@ export default {
     },
   },
   created() {
-    this.checkForCurrentDraft();
-    this.autoSaveDraft();
-  },
-  mounted() {
-    this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
-    this.$refs.dayTitle.$el.addEventListener("keydown", this.enterKeyHandler);
-    document.addEventListener("click", this.finishEditOnClick);
-
-    if (!this.user?.drafts) {
-      setTimeout(() => {
-        this.showInfoModal = true;
-      }, 1500);
-    }
+    this.loadTemplate();
   },
   beforeDestroy() {
     document.removeEventListener("click", this.finishEditOnClick);

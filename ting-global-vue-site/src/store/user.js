@@ -88,6 +88,7 @@ export default {
             localStorage.setItem("templates", JSON.stringify(templates));
         },
         async selectTemplate(context, template) {
+            // send request to get the template's data
             context.commit("setSelectedTemplate", template);
             localStorage.removeItem("savedDraft");
         },
