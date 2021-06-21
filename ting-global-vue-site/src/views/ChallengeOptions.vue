@@ -141,10 +141,7 @@
                   </label>
                   <form v-else @keydown="finishEditOnEnter">
                     <textarea-autosize
-                      :value="
-                        options[dayIndex].tasks[taskIndex].options[optionIndex]
-                          .text
-                      "
+                      :value="option.text"
                       @input="editOption($event, taskIndex, optionIndex)"
                       class="task-form__option-edit"
                       placeholder="Start typing here..."
@@ -836,7 +833,7 @@ export default {
     }
   }
 
-  & > .publish-button {
+  .publish-button {
     font-weight: 600;
     margin-top: 9rem;
     width: 100%;
