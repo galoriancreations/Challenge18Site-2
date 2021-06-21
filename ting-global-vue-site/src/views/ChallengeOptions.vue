@@ -310,7 +310,7 @@ export default {
     },
   },
   methods: {
-    loadTemplate() {
+    async loadTemplate() {
       // REAL CODE OF LOADING TEMPLATE OR DRAFT WILL BE ADDED LATER
       const savedDraft = JSON.parse(localStorage.getItem("savedDraft"));
       if (savedDraft) {
@@ -331,6 +331,18 @@ export default {
           this.showInfoModal = true;
         }, 1500);
       }
+    },
+    async autoSaveDraft() {
+      clearTimeout(this.saveTimeout);
+      this.saveTimeout = setTimeout(() => {
+        const savedDraft = {
+          name: this.name,
+          language: this.language,
+          options: this.options,
+          selections: this.selections,
+        };
+        localStorage.setItem("savedDraft", JSON.stringify(savedDraft));
+      }, 1000);
     },
     pageEventListeners() {
       this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
@@ -469,18 +481,6 @@ export default {
           })
         );
       }
-    },
-    autoSaveDraft() {
-      clearTimeout(this.saveTimeout);
-      this.saveTimeout = setTimeout(() => {
-        const savedDraft = {
-          name: this.name,
-          language: this.language,
-          options: this.options,
-          selections: this.selections,
-        };
-        localStorage.setItem("savedDraft", JSON.stringify(savedDraft));
-      }, 1000);
     },
     submitHandler() {},
   },

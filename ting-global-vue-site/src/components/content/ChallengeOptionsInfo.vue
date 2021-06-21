@@ -31,15 +31,18 @@
       </p>
       <p>
         All changes you make on this page will be auto-saved as a draft into
-        your account, so you can always continue editing right from where you
-        paused, even after logging out. In addition, a custom template you build
-        here will be auto-saved and added into your stock of available
-        templates, so you can later use it to open more challenges.
+        your account (you'll find it under <strong>My Drafts</strong> in
+        <RouterLink to="/dashboard">your dashboard</RouterLink>), so you can
+        always continue editing right from where you paused, even after logging
+        out. In addition, a custom template you build here will be auto-saved
+        and added into your stock of available templates, so you can later use
+        it to open more challenges.
       </p>
       <p>
-        Once you click the Publish Challenge button, your draft will be
-        published as a live, active challenge, and users will be able to join
-        it. You'll receive a link you can use to invite users to the challenge.
+        Once you click the <strong>Publish Challenge</strong> button, your draft
+        will be published as a live, active challenge, and users will be able to
+        join it. You'll receive a link you can use to invite users to the
+        challenge.
       </p>
     </div>
     <BaseButton variant="blue" @click="closeModal">Got it</BaseButton>
@@ -105,6 +108,19 @@ export default {
           margin-bottom: 0.5rem;
         }
       }
+    }
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  a {
+    color: $color-blue-2;
+    transition: color 0.5s;
+
+    &:hover {
+      color: $color-gold-3;
     }
   }
 
