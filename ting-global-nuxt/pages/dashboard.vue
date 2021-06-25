@@ -20,9 +20,7 @@ export default {
   head: {
     title: "Dashboard – Challenge 18"
   },
-  meta: {
-    protect: true
-  },
+  requiresAuth: true,
   computed: {
     isOrganization() {
       return this.$store.getters.user?.accountType === "organization";

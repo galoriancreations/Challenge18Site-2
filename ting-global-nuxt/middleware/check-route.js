@@ -1,15 +1,11 @@
-export const forLoggingIn = ["login", "register", "membership"];
-export const protect = ["dashboard"];
-export const forOrganizations = [];
-
-export default context => {
-    const { store, route: { name } } = context;
+export default ({ store, route }) => {
+    const { requiresAuth, forLoggingIn, forOrganizations } = route.meta;
     const { isAuth, user } = store.getters;
-    if (protect.includes(name) && !isAuth) {
+    if (requiresAuth && !isAuth) {
         context.redirect("/login");
-    } else if (forLoggingIn.includes(name) && isAuth) {
+    } else if (forLoggingIn && isAuth) {
         context.redirect("/dashboard");
-    } else if (forOrganizations.includes(name) && user?.accountType === "individual") {
+    } else if (forOrganizations && user?.accountType === "individual") {
         context.redirect("/");
     }
-}
+};

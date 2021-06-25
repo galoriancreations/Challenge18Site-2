@@ -1,10 +1,12 @@
-export default {
-    state: {
-        players: []
-    },
-    getters: {
-        players(state) {
-            return state.players;
-        }
+
+export const namespaced = false;
+
+export const state = () => ({
+    players: []
+});
+
+export const getters = {
+    players(state) {
+        return state.players;
     }
 };

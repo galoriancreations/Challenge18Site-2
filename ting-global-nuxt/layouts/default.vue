@@ -7,7 +7,6 @@
 
 <script>
 import SpinningLogoBg from "../components/extras/SpinningLogoBg";
-import { protect } from "../middleware/check-route";
 
 export default {
   components: { SpinningLogoBg },
@@ -43,8 +42,8 @@ export default {
   },
   watch: {
     isLoggedIn(value) {
-      if (!value && protect.includes(this.$route.name)) {
-        this.$router.replace("/");
+      if (!value && this.$route.meta.requiresAuth) {
+        this.$router.push("/");
       }
     }
   },

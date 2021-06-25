@@ -79,6 +79,9 @@ export default {
     return {
       closeModal: this.closeModal
     };
+  },
+  mounted() {
+    console.log(this.user.myChallenges);
   }
 };
 </script>
