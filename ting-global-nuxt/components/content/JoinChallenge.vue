@@ -81,7 +81,7 @@ export default {
       return this.$store.getters.token;
     },
     userLanguage() {
-      return this.user.language;
+      return this.user?.language;
     },
     templateOptions() {
       return this.$store.getters.templates;

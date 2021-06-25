@@ -25,12 +25,12 @@ import AddPlayer from "./AddPlayer";
 export default {
   components: { AddPlayer },
   props: {
-    active: Boolean,
+    active: Boolean
   },
   data() {
     return {
       selectedPlayer: null,
-      showAddModal: false,
+      showAddModal: false
     };
   },
   computed: {
@@ -41,21 +41,21 @@ export default {
       return this.$store.getters.players;
     },
     clubPlayers() {
-      return this.allPlayers.filter((player) => player.club === this.user.id);
+      return this.allPlayers.filter(player => player.club === this.user?.id);
     },
     hasPlayers() {
       return this.clubPlayers.length > 0;
-    },
+    }
   },
   methods: {
     closeModal() {
       this.showAddModal = false;
-    },
+    }
   },
   provide() {
     return {
-      closeModal: this.closeModal,
+      closeModal: this.closeModal
     };
-  },
+  }
 };
 </script>

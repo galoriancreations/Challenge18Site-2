@@ -58,13 +58,13 @@ export default {
       return this.$store.getters.user;
     },
     hasChallenges() {
-      return this.user.myChallenges && this.rows.length > 0;
+      return this.user?.myChallenges && this.rows.length > 0;
     },
     isIndividual() {
-      return this.user.accountType === "individual";
+      return this.user?.accountType === "individual";
     },
     rows() {
-      return myChallengesArray(this.user.myChallenges);
+      return myChallengesArray(this.user?.myChallenges);
     }
   },
   methods: {

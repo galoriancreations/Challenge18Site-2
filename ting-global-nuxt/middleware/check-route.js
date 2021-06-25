@@ -1,6 +1,6 @@
-const forLoggingIn = ["login", "register", "membership"];
-const protect = ["dashboard"];
-const forOrganizations = [];
+export const forLoggingIn = ["login", "register", "membership"];
+export const protect = ["dashboard"];
+export const forOrganizations = [];
 
 export default context => {
     const { store, route: { name } } = context;

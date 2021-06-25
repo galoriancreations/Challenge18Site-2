@@ -57,20 +57,20 @@ export default {
       return this.$store.getters.user;
     },
     labels() {
-      return labels[this.user.accountType];
+      return labels[this.user?.accountType];
     },
     isOrganization() {
-      return this.user.accountType === "organization";
+      return this.user?.accountType === "organization";
     },
     languageText() {
       const matchingLanguage = languageOptions.find(
-        language => language.name === this.user.language
+        language => language.name === this.user?.language
       );
       return matchingLanguage?.label;
     },
     planText() {
       const { label, price } = planOptions.find(
-        plan => plan.type === this.user.plan
+        plan => plan.type === this.user?.plan
       );
       return `${label} / $${price} per year`;
     }

@@ -15,8 +15,8 @@ export default {
       return this.$store.getters.user;
     },
     hasDrafts() {
-      return this.user.drafts?.length > 0;
-    },
-  },
+      return this.user?.drafts?.length > 0;
+    }
+  }
 };
 </script>

@@ -71,7 +71,7 @@ export default {
       return this.$store.getters.user;
     },
     userLanguage() {
-      return this.user.language;
+      return this.user?.language;
     },
     filteredTemplateOptions() {
       return this.templateOptions[this.selectedLanguage];
@@ -102,9 +102,6 @@ export default {
     userLanguage() {
       this.autoSetLanguage();
     }
-  },
-  created() {
-    this.loadTemplates();
   }
 };
 </script>

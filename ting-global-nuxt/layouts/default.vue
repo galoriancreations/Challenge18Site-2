@@ -7,12 +7,16 @@
 
 <script>
 import SpinningLogoBg from "../components/extras/SpinningLogoBg";
+import { protect } from "../middleware/check-route";
 
 export default {
   components: { SpinningLogoBg },
   computed: {
     io() {
       return this.$store.getters.io;
+    },
+    isLoggedIn() {
+      return this.$store.getters.isAuth;
     },
     user() {
       return this.$store.getters.user;
@@ -35,7 +39,13 @@ export default {
       if (this.user && challenges) {
         this.$store.dispatch("updateChallenges", challenges);
       }
-      console.log(this.user);
+    }
+  },
+  watch: {
+    isLoggedIn(value) {
+      if (!value && protect.includes(this.$route.name)) {
+        this.$router.replace("/");
+      }
     }
   },
   mounted() {
