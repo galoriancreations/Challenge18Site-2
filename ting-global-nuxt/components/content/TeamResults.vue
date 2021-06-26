@@ -37,10 +37,10 @@ export default {
   },
   computed: {
     loading() {
-      return this.$store.getters.loadingResults;
+      return this.$store.getters["results/loading"];
     },
     results() {
-      return this.$store.getters.results;
+      return this.$store.getters["results/results"];
     },
     teams() {
       return teamsArray(this.results).filter(team => team.users.length > 2);

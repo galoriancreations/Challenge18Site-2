@@ -7,30 +7,28 @@
 
 <script>
 import SpinningLogoBg from "../components/extras/SpinningLogoBg";
+import socket from "socket.io-client";
+import { baseURL } from "../assets/util/axios";
 
 export default {
   components: { SpinningLogoBg },
+  data() {
+    return {
+      io: socket(baseURL)
+    };
+  },
   computed: {
-    io() {
-      return this.$store.getters.io;
-    },
-    isLoggedIn() {
-      return this.$store.getters.isAuth;
-    },
     user() {
       return this.$store.getters.user;
     }
   },
   methods: {
     initSocket() {
-      if (!this.io) {
-        this.$store.dispatch("initSocket");
-        this.io.on("allBoards", ({ challenges }) =>
-          this.$store.dispatch("updateResults", challenges)
-        );
-        if (this.user) {
-          this.io.emit("joinRoom", this.user.id);
-        }
+      this.io.on("allBoards", ({ challenges }) =>
+        this.$store.dispatch("results/updateResults", challenges)
+      );
+      if (this.user) {
+        this.io.emit("joinRoom", this.user.id);
       }
     },
     setChallenges() {
@@ -50,6 +48,11 @@ export default {
   mounted() {
     this.initSocket();
     this.setChallenges();
+  },
+  provide() {
+    return {
+      io: this.io
+    };
   }
 };
 </script>

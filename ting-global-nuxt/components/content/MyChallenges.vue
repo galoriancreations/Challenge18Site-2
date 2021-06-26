@@ -79,9 +79,6 @@ export default {
     return {
       closeModal: this.closeModal
     };
-  },
-  mounted() {
-    console.log(this.user.myChallenges);
   }
 };
 </script>
@@ -108,14 +105,6 @@ export default {
   &__table {
     margin-bottom: 1.5rem;
     line-height: 1.6;
-  }
-}
-
-.dashboard-section {
-  &.my-challenges &__content,
-  &.club-players &__content,
-  &.my-drafts &__content {
-    min-height: 30rem;
   }
 }
 </style>

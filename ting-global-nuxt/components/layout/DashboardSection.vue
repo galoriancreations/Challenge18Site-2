@@ -71,5 +71,11 @@ export default {
       font-weight: 600;
     }
   }
+
+  &.my-challenges &__content,
+  &.club-players &__content,
+  &.my-drafts &__content {
+    min-height: 30rem;
+  }
 }
 </style>

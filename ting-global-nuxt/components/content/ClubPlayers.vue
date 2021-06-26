@@ -38,7 +38,7 @@ export default {
       return this.$store.getters.user;
     },
     allPlayers() {
-      return this.$store.getters.players;
+      return this.$store.getters["players/players"];
     },
     clubPlayers() {
       return this.allPlayers.filter(player => player.club === this.user?.id);

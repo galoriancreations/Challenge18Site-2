@@ -54,10 +54,10 @@ export default {
   },
   computed: {
     results() {
-      return this.$store.getters.results;
+      return this.$store.getters["results/results"];
     },
     loading() {
-      return this.$store.getters.loadingResults;
+      return this.$store.getters["results/loading"];
     },
     rows() {
       return challengesArray(this.results);

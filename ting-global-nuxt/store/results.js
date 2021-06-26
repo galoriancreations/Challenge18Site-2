@@ -1,14 +1,17 @@
-export const namespaced = false;
-
 export const state = () => ({
     results: {},
-    loadingResults: true
+    loading: true,
+    error: null
 });
 
 export const mutations = {
-    setResults(state, results) {
-        state.results = results;
-        state.loadingResults = false;
+    setResults(state, payload) {
+        state.results = payload;
+        state.loading = false;
+    },
+    setError(state, payload) {
+        state.error = payload;
+        state.loading = false;
     }
 };
 
@@ -22,7 +25,7 @@ export const getters = {
     results(state) {
         return state.results;
     },
-    loadingResults(state) {
-        return state.loadingResults;
+    loading(state) {
+        return state.loading;
     }
 };

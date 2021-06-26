@@ -142,6 +142,15 @@ export default {
       url(../../assets/images/challenge-options-bg.jpeg);
   }
 
+  &#notfound {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.6),
+        rgba(#4189bd, 0.6)
+      ),
+      url(../../assets/images/404-bg.jpg);
+  }
+
   &__heading {
     font-size: 6rem;
     color: #fff;

@@ -57,7 +57,7 @@ export default {
   props: {
     active: Boolean
   },
-  inject: ["closeModal"],
+  inject: ["closeModal", "io"],
   data() {
     return {
       selectedLanguage: "English",
@@ -88,9 +88,6 @@ export default {
     },
     filteredTemplateOptions() {
       return this.templateOptions[this.selectedLanguage || "English"];
-    },
-    io() {
-      return this.$store.getters.io;
     }
   },
   methods: {
