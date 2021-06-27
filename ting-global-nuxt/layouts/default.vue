@@ -18,6 +18,9 @@ export default {
     };
   },
   computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuth;
+    },
     user() {
       return this.$store.getters.user;
     }
@@ -40,7 +43,9 @@ export default {
   },
   watch: {
     isLoggedIn(value) {
-      if (!value && this.$route.meta.requiresAuth) {
+      if (value) {
+        this.io.emit("joinRoom", this.user.id);
+      } else if (this.$route.meta.requiresAuth) {
         this.$router.push("/");
       }
     }

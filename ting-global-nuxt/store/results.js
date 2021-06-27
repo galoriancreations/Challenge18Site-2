@@ -16,6 +16,9 @@ export const mutations = {
 };
 
 export const actions = {
+    async loadResults(context) {
+
+    },
     updateResults(context, results) {
         context.commit("setResults", results);
     }

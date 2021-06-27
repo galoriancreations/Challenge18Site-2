@@ -15,6 +15,12 @@ export const mutations = {
     }
 };
 
+export const actions = {
+    async loadPlayers(context) {
+
+    }
+};
+
 export const getters = {
     players(state) {
         return state.players;

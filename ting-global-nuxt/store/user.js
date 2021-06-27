@@ -46,15 +46,9 @@ export const actions = {
 
         const timeLeft = new Date(exp).getTime() - Date.now();
         logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
-
-        const { io } = context.getters;
-        io.emit("joinRoom", user.id);
     },
     tryAutoLogin(context) {
-        const user = this.$cookies.get("user");
-        const token = this.$cookies.get("token");
-        const expirationDate = this.$cookies.get("expirationDate");
-        const templates = this.$cookies.get("templates");
+        const { user, token, expirationDate, templates } = this.$cookies.getAll();
 
         if (!user || !token || !expirationDate || !templates) return;
         const timeLeft = new Date(expirationDate).getTime() - Date.now();
