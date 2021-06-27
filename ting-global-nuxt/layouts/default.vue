@@ -44,9 +44,10 @@ export default {
   watch: {
     isLoggedIn(value) {
       if (value) {
+        this.$router.replace("/dashboard");
         this.io.emit("joinRoom", this.user.id);
       } else if (this.$route.meta.requiresAuth) {
-        this.$router.push("/");
+        this.$router.replace("/");
       }
     }
   },

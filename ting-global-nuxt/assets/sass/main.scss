@@ -142,9 +142,12 @@ a {
       transition: all 0.5s;
     }
 
-    &--current,
-    &:hover {
-      button {
+    &--current button {
+      background-color: $color-blue-2;
+    }
+
+    &:hover button {
+      @media (hover: hover) {
         background-color: $color-blue-2;
       }
     }

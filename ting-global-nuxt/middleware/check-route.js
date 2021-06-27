@@ -1,11 +1,11 @@
-export default ({ store, route }) => {
-    const { requiresAuth, forLoggingIn, forOrganizations } = route.meta;
+export default ({ store, route, redirect }) => {
+    const { requiresAuth, forLoggingIn, forOrganizations } = route.meta[0] || {};
     const { isAuth, user } = store.getters;
     if (requiresAuth && !isAuth) {
-        context.redirect("/login");
+        redirect("/login");
     } else if (forLoggingIn && isAuth) {
-        context.redirect("/dashboard");
+        redirect("/dashboard");
     } else if (forOrganizations && user?.accountType === "individual") {
-        context.redirect("/");
+        redirect("/");
     }
 };

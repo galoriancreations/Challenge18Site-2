@@ -118,7 +118,6 @@ export default {
           mode: "register",
           data: this.formData
         });
-        this.$router.replace("/dashboard");
       } catch (error) {
         this.error = error;
       }

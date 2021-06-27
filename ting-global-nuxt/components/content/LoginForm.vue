@@ -37,10 +37,10 @@ export default {
     return {
       formData: {
         username: "",
-        phone: "",
+        phone: ""
       },
       loading: false,
-      error: null,
+      error: null
     };
   },
   methods: {
@@ -49,18 +49,17 @@ export default {
       try {
         await this.$store.dispatch("auth", {
           mode: "signIn",
-          data: this.formData,
+          data: this.formData
         });
-        this.$router.replace("/dashboard");
       } catch (error) {
         this.error = error;
       }
       this.loading = false;
-    },
+    }
   },
   mounted() {
     this.$refs.username.focus();
     window.scrollTo(0, 0);
-  },
+  }
 };
 </script>

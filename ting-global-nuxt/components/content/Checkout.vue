@@ -95,7 +95,6 @@ export default {
           mode: "register",
           data: { ...this.details, paid: true }
         });
-        this.$router.push("/dashboard");
       } catch {
         this.error =
           "An error occured while creating your account. Please contact us.";
