@@ -1,5 +1,4 @@
 import axios from "../assets/util/axios";
-import template from "../assets/data/challenge-options.json";
 
 let logoutTimer;
 
@@ -9,7 +8,7 @@ export const state = () => ({
     user: null,
     token: null,
     templates: {},
-    selectedTemplate: template
+    selectedTemplate: require("../assets/data/challenge-options.json")
 });
 
 export const mutations = {
