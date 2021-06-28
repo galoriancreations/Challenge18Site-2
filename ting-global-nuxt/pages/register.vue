@@ -20,7 +20,9 @@ export default {
   head: {
     title: "Register – Challenge 18"
   },
-  forLoggingIn: true
+  meta: {
+    forLoggingIn: true
+  }
 };
 </script>
 

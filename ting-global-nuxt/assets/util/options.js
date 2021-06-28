@@ -13,10 +13,30 @@ for (let key in worldLanguages) {
     }
 }
 
+export const membershipFeatures = [
+    "18 free certificates per game",
+    "Free courses lesson plans",
+    "Join a think tank",
+    'Free e-book: "The New Global Citizens"',
+    "Free participation in the Challenge 18 global events",
+    "Mentorship",
+    "Customised challenge templates",
+    "Unlimited games alone & with other clubs"
+]
+
 export const planOptions = [
-    { type: "3-years", price: 150, label: "Three Years", years: 3 },
-    { type: "2-years", price: 250, label: "Two Years", years: 2 },
-    { type: "1-year", price: 350, label: "One Year", years: 1 }
+    {
+        type: "1-month",
+        price: 249,
+        label: "1 Month",
+        features: membershipFeatures.slice(0, 5)
+    },
+    {
+        type: "2-months",
+        price: 438,
+        label: "2 Months",
+        features: membershipFeatures.slice(0, 5)
+    }
 ];
 
 export const labels = {

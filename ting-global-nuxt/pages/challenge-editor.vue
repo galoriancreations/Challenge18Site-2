@@ -1,5 +1,5 @@
 <template>
-  <Page title="Challenge Options" name="challenge-options">
+  <Page title="Challenge Editor" name="challenge-options">
     <WhiteSection tag="main" class="challenge-options">
       <ErrorMessage v-if="errorLoading" :error="errorLoading" />
       <div v-else class="challenge-options__container">
@@ -65,7 +65,7 @@
                 >
                   <h3 class="challenge-options__top-label">Day title</h3>
                   <textarea-autosize
-                    v-model="options[dayIndex].title"
+                    v-model.trim="options[dayIndex].title"
                     class="edit-day-title__input section-heading"
                     placeholder="Enter title here"
                     :rows="1"
@@ -153,7 +153,7 @@
                     </div>
                     <form @keydown="addOptionOnEnter($event, taskIndex)">
                       <textarea-autosize
-                        v-model="extraInputs[dayIndex][taskIndex]"
+                        v-model.trim="extraInputs[dayIndex][taskIndex]"
                         class="task-form__extra"
                         :placeholder="newOptionPlaceholder"
                         :rows="1"
@@ -218,8 +218,12 @@ import axios from "../assets/util/axios";
 export default {
   components: { ChallengeOptionsInfo },
   head: {
-    title: "Challenge Options – Challenge 18"
+    title: "Challenge Editor – Challenge 18"
   },
+  // meta: {
+  //   requiresAuth: true,
+  //   forOrganizations: true
+  // },
   async asyncData({ app, store }) {
     const draftId = app.$cookies.get("draftId");
     const { selectedTemplate, user } = store.getters;
@@ -237,12 +241,13 @@ export default {
       try {
         // temporary code - real code will send request to collect the template's data
         // based on the template ID that's in the state
+        const template = require("../assets/data/challenge-options");
         return {
-          name: selectedTemplate.name,
-          language: selectedTemplate.language,
-          options: initialOptions(selectedTemplate.days),
-          selections: initialSelections(selectedTemplate.days),
-          extraInputs: initialExtraInputs(selectedTemplate.days),
+          name: template.name,
+          language: template.language,
+          options: initialOptions(template.days),
+          selections: initialSelections(template.days),
+          extraInputs: initialExtraInputs(template.days),
           errorLoading: null
         };
       } catch (error) {
@@ -285,8 +290,7 @@ export default {
     dayTitle() {
       const { dayLabel, currentDay, options, dayIndex } = this;
       const { title } = options[dayIndex];
-      return `${dayLabel} ${currentDay} – ${title?.trim() ||
-        "(Edit day title)"}`;
+      return `${dayLabel} ${currentDay} – ${title || "(Edit day title)"}`;
     },
     taskLabel() {
       return taskTranslations[this.language] || "Task";
@@ -378,12 +382,13 @@ export default {
     addOptionOnEnter(event, taskIndex) {
       if (event.key === "Enter") {
         event.preventDefault();
-        if (event.target.value.trim()) {
+        const newOptionText = this.extraInputs[this.dayIndex][taskIndex];
+        if (newOptionText) {
           this.options[this.dayIndex].tasks[taskIndex].options.push({
             id: uniqid(),
-            text: event.target.value.trim()
+            text: newOptionText
           });
-          this.selections[this.dayIndex][taskIndex] = event.target.value.trim();
+          this.selections[this.dayIndex][taskIndex] = newOptionText;
           this.extraInputs[this.dayIndex][taskIndex] = "";
         }
       }

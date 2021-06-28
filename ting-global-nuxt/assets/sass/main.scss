@@ -200,13 +200,12 @@ a {
     font-size: 1.65rem;
     line-height: 1.6;
     padding: 1.2rem 1rem;
-    border: 0.2rem solid transparent;
+    border: 0.2rem solid #ccc;
     outline: none;
     border-radius: 0.8rem;
     transition: all 0.4s;
     width: 100%;
     background-color: #fff !important;
-    box-shadow: $boxshadow2;
 
     @include respond(mobile) {
       font-size: 1.5rem;
@@ -236,8 +235,21 @@ a {
   .language-selector {
     max-width: 100%;
     border-radius: 0.8rem;
-    box-shadow: $boxshadow2;
-    padding: 1.2rem 1rem;
+    border: 0.2rem solid #ccc;
+    padding: 0 1rem;
+    height: 5.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: border 0.5s;
+
+    @include respond(mobile) {
+      height: 5.2rem;
+    }
+
+    &:hover {
+      border-color: $color-azure;
+    }
 
     * {
       border: none;

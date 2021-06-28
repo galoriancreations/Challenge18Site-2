@@ -1,15 +1,31 @@
 <template>
-  <Page title="Page Not Found" name="notfound">
+  <Page :title="title" name="notfound">
     <WhiteSection tag="main" class="notfound">
-      <p>The page you're looking for does not exist.</p>
+      <p>{{ text }}</p>
+      <BaseButton variant="blue" link="/">Go to homepage</BaseButton>
     </WhiteSection>
   </Page>
 </template>
 
 <script>
 export default {
-  mounted() {
-    document.title = "Page Not Found – Challenge 18";
+  props: {
+    error: [Error, String, Object]
+  },
+  head() {
+    return {
+      title: `${this.title} – Challenge 18`
+    };
+  },
+  data() {
+    return {
+      title:
+        this.error.statusCode === 404 ? "Page Not Found" : "An Error Occured",
+      text:
+        this.error.statusCode === 404
+          ? "The page you're looking for does not exist."
+          : this.error.message || "Something went wrong."
+    };
   }
 };
 </script>
@@ -21,14 +37,17 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   p {
     font-size: 2rem;
     font-weight: 500;
     text-align: center;
+    margin-bottom: 5rem;
 
     @include respond(mobile) {
       font-size: 1.8rem;
+      margin-bottom: 4rem;
     }
   }
 }

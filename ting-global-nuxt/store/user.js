@@ -8,7 +8,7 @@ export const state = () => ({
     user: null,
     token: null,
     templates: {},
-    selectedTemplate: require("../assets/data/challenge-options.json")
+    selectedTemplate: require("uniqid")()
 });
 
 export const mutations = {
@@ -40,7 +40,7 @@ export const actions = {
 
         this.$cookies.set("user", { ...user, myChallenges: {} });
         this.$cookies.set("token", token);
-        this.$cookies.set("expirationDate", new Date(exp).toISOString());
+        this.$cookies.set("expirationDate", new Date(exp));
         localStorage.setItem("challenges", JSON.stringify(user.myChallenges || {}));
 
         const timeLeft = new Date(exp).getTime() - Date.now();

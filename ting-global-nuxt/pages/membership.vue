@@ -28,7 +28,9 @@ export default {
   head: {
     title: "Premium Membership – Challenge 18"
   },
-  forLoggingIn: true
+  meta: {
+    forLoggingIn: true
+  }
 };
 </script>
 

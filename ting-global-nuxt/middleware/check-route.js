@@ -1,5 +1,16 @@
+const redirects = [
+    { from: "/challenge-options", to: "/challenge-editor" },
+    { from: "/about-us", to: "/about" }
+];
+
 export default ({ store, route, redirect }) => {
-    const { requiresAuth, forLoggingIn, forOrganizations } = route.meta[0] || {};
+    for (let item of redirects) {
+        if (route.path === item.from) {
+            return redirect(item.to);
+        }
+    }
+    if (!route.meta?.length) return;
+    const [{ requiresAuth, forLoggingIn, forOrganizations }] = route.meta;
     const { isAuth, user } = store.getters;
     if (requiresAuth && !isAuth) {
         redirect("/login");

@@ -17,7 +17,11 @@ export const mutations = {
 
 export const actions = {
     async loadResults(context) {
+        try {
 
+        } catch (error) {
+
+        }
     },
     updateResults(context, results) {
         context.commit("setResults", results);

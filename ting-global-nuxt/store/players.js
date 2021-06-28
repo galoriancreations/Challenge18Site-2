@@ -17,7 +17,11 @@ export const mutations = {
 
 export const actions = {
     async loadPlayers(context) {
+        try {
 
+        } catch (error) {
+
+        }
     }
 };
 
