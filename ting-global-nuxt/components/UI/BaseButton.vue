@@ -31,6 +31,7 @@ export default {
   font: inherit;
   font-size: 1.5rem;
   font-weight: 500;
+  color: #fff;
   letter-spacing: 1.3px;
   border-radius: 100px;
   border: none;

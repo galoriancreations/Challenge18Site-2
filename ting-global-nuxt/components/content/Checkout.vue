@@ -1,5 +1,10 @@
 <template>
   <div class="checkout">
+    <div class="selected-plan">
+      <div class="selected-plan__seperator" />
+      <p class="selected-plan__plan">{{ plan.label }} / ${{ plan.price }}</p>
+      <div class="selected-plan__seperator" />
+    </div>
     <div class="checkout__info" ref="container">
       <h3 class="checkout__heading">Your Details</h3>
       <div class="checkout__grid">
@@ -37,7 +42,7 @@
         </div>
         <div class="checkout__field">
           <h4 class="checkout__title">Challenge language</h4>
-          <p class="checkout__value">{{ details.language }}</p>
+          <p class="checkout__value">{{ languageText }}</p>
         </div>
         <div class="checkout__field">
           <h4 class="checkout__title">Membership plan</h4>
@@ -48,10 +53,9 @@
         <i class="fas fa-edit" /> Edit
       </BaseButton>
     </div>
-    <p class="total-price">Total to pay: ${{ totalPrice() }}</p>
     <client-only>
       <PayPal
-        :amount="totalPrice()"
+        :amount="price"
         currency="USD"
         :client="credentials"
         @payment-completed="paymentCompleted"
@@ -64,11 +68,13 @@
 </template>
 
 <script>
+import { languageOptions, planOptions } from "../../assets/util/options";
+
 export default {
   components: {
     PayPal: () => (process.client ? import("vue-paypal-checkout") : null)
   },
-  inject: ["details", "planOptions", "totalPrice", "backToForm"],
+  inject: ["details", "selectedPlan", "backToForm"],
   data() {
     return {
       credentials: {
@@ -80,16 +86,29 @@ export default {
     };
   },
   computed: {
-    planText() {
-      const { label, price } = this.planOptions.find(
-        plan => plan.type === this.details.plan
+    plan() {
+      return this.selectedPlan();
+    },
+    languageText() {
+      const matchingLanguage = languageOptions.find(
+        language => language.name === this.details.language
       );
-      return `${label} / $${price} per year`;
+      return matchingLanguage?.label;
+    },
+    planText() {
+      const { label, price } = planOptions.find(
+        plan => plan.type === this.plan.type
+      );
+      return `${label} / $${price}`;
+    },
+    price() {
+      return `${this.plan.price}.00`;
     }
   },
   methods: {
     async paymentCompleted() {
       this.loading = true;
+      this.error = null;
       try {
         await this.$store.dispatch("auth", {
           mode: "register",
@@ -124,14 +143,14 @@ export default {
   line-height: 1.6;
 
   &__info {
-    margin-bottom: 3.5rem;
+    margin-bottom: 4.5rem;
     box-shadow: $boxshadow2;
     padding: 3.5rem 3rem;
     border-radius: 1rem;
 
     @include respond(mobile) {
       text-align: center;
-      margin: 0 0 2.5rem;
+      margin: 0 0 3.5rem;
       padding: 2.5rem 2rem;
     }
 

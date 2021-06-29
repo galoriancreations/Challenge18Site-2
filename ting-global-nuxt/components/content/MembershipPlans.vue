@@ -1,95 +1,18 @@
 <template>
-  <vue-good-table
-    class="member-plans"
-    :columns="columns"
-    :rows="rows"
-    theme="polar-bear"
-    row-style-class="member-plans__row"
-  />
+  <div class="plans-grid">
+    <PricingColumn v-for="plan in planOptions" :key="plan.type" :plan="plan" />
+  </div>
 </template>
 
 <script>
+import { planOptions } from "../../assets/util/options";
+import PricingColumn from "../UI/PricingColumn";
+
 export default {
+  components: { PricingColumn },
   data() {
     return {
-      columns: [
-        {
-          label: "Challenge 18 Membership",
-          field: "feature",
-          sortable: false
-        },
-        {
-          label: "3 Years",
-          field: "3Years",
-          sortable: false
-        },
-        {
-          label: "2 Years",
-          field: "2Years",
-          sortable: false
-        },
-        {
-          label: "1 Year",
-          field: "1Year",
-          sortable: false
-        }
-      ],
-      rows: [
-        {
-          feature: "Unlimited games – alone & with other clubs",
-          "3Years": "✔",
-          "2Years": "✔",
-          "1Year": "✔"
-        },
-        {
-          feature: "18 free certificates per game",
-          "3Years": "✔",
-          "2Years": "✔",
-          "1Year": "✔"
-        },
-        {
-          feature: "Customized challenge templates",
-          "3Years": "✔",
-          "2Years": "✔",
-          "1Year": "✔"
-        },
-        {
-          feature: "Free courses lesson plans",
-          "3Years": "✔",
-          "2Years": "✔",
-          "1Year": "✔"
-        },
-        {
-          feature: "Mentorship",
-          "3Years": "✔",
-          "2Years": "✔",
-          "1Year": "✔"
-        },
-        {
-          feature: "Join a Think Tank",
-          "3Years": "✔",
-          "2Years": "✔",
-          "1Year": "✔"
-        },
-        {
-          feature: 'Free e-book: "The New Global Citizens"',
-          "3Years": "✔",
-          "2Years": "✔",
-          "1Year": "✔"
-        },
-        {
-          feature: "Free participation in the Challenge 18 Global Championship",
-          "3Years": "✔",
-          "2Years": "✔",
-          "1Year": "✔"
-        },
-        {
-          feature: "Yearly Membership Fee (USD)",
-          "3Years": "$150",
-          "2Years": "$250",
-          "1Year": "$350"
-        }
-      ]
+      planOptions
     };
   }
 };
@@ -98,30 +21,21 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/base.scss";
 
-.member-plans {
-  max-width: 85rem;
+.plans-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  max-width: 80rem;
   margin: auto;
 
-  * {
-    font-size: 1.6rem;
-    text-align: center !important;
-
-    @include respond(mobile) {
-      font-size: 1.5rem;
-    }
+  @include respond(tablet-sm) {
+    gap: 2.5rem;
   }
 
-  &__row {
-    &:last-child {
-      * {
-        font-weight: 700;
-        font-size: 1.7rem;
-
-        @include respond(mobile) {
-          font-size: 1.5rem;
-        }
-      }
-    }
+  @include respond(mobile-land) {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    max-width: 40rem;
   }
 }
 </style>

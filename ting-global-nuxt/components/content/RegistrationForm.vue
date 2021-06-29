@@ -113,6 +113,7 @@ export default {
         }
       }
       this.loading = true;
+      this.error = null;
       try {
         await this.$store.dispatch("auth", {
           mode: "register",

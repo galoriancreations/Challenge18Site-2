@@ -1,5 +1,15 @@
 <template>
   <form v-if="!checkoutMode" class="form" @submit.prevent="submitHandler">
+    <div class="selected-plan">
+      <div class="selected-plan__seperator" />
+      <p v-if="plan" class="selected-plan__plan">
+        {{ plan.label }} / ${{ plan.price }}
+      </p>
+      <p v-else class="selected-plan__text">
+        Please pick one of the plans above
+      </p>
+      <div class="selected-plan__seperator" />
+    </div>
     <div class="form__field">
       <label for="username" class="form__label">
         Username
@@ -112,31 +122,8 @@
         class="language-selector"
       />
     </div>
-    <div class="form__field form__plans">
-      <label class="form__label">Membership plan</label>
-      <div class="form__plans-list">
-        <div
-          class="form__plan"
-          v-for="option in planOptions"
-          :key="option.type"
-        >
-          <input
-            type="radio"
-            class="form__plan-input"
-            :id="option.type"
-            v-model="formData.plan"
-            :value="option.type"
-          />
-          <label :for="option.type" class="form__plan-box">
-            <p class="form__plan-text">{{ option.label }}</p>
-            <h3 class="form__plan-price">${{ option.price }}</h3>
-            <p>per year</p>
-          </label>
-        </div>
-      </div>
-    </div>
-    <p class="total-price">Total to pay: ${{ totalPrice }}</p>
     <BaseButton variant="blue">Proceed to checkout</BaseButton>
+    <ErrorMessage v-if="error" :error="error" />
   </form>
   <Checkout v-else />
 </template>
@@ -144,11 +131,12 @@
 <script>
 import Checkout from "./Checkout";
 import CheckIcon from "../UI/CheckIcon";
-import { languageOptions, planOptions } from "../../assets/util/options";
+import { languageOptions } from "../../assets/util/options";
 import axios from "../../assets/util/axios";
 
 export default {
   components: { Checkout, CheckIcon },
+  inject: ["selectedPlan"],
   data() {
     return {
       formData: {
@@ -161,7 +149,6 @@ export default {
         email: "",
         phone: "",
         language: "English",
-        plan: "3-years",
         accountType: "organization"
       },
       availability: {
@@ -169,7 +156,7 @@ export default {
         phone: null
       },
       languageOptions,
-      planOptions,
+      error: null,
       checkoutMode: false
     };
   },
@@ -180,15 +167,25 @@ export default {
     phone() {
       return this.formData.phone;
     },
-    totalPrice() {
-      const pickedPlan = this.planOptions.find(
-        plan => plan.type === this.formData.plan
-      );
-      return (pickedPlan.price * pickedPlan.years).toFixed(2).toString();
+    plan() {
+      return this.selectedPlan();
     }
   },
   methods: {
     submitHandler() {
+      for (let key in this.availability) {
+        if (this.availability[key] === "taken") {
+          this.error = `${_.capitalize(key)}
+            is already taken. Please try a different ${key}.`;
+          return;
+        }
+      }
+      if (!this.plan) {
+        this.error =
+          "No plan has been selected. Please select on of the plans above.";
+        return;
+      }
+      this.error = null;
       this.checkoutMode = true;
     },
     backToForm() {
@@ -218,8 +215,6 @@ export default {
   provide() {
     return {
       details: this.formData,
-      planOptions: this.planOptions,
-      totalPrice: () => this.totalPrice,
       backToForm: this.backToForm
     };
   }
@@ -229,15 +224,51 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/base.scss";
 
-.total-price {
+.selected-plan {
   text-align: center;
-  font-weight: 600;
-  font-size: 1.9rem;
-  margin: 1rem 0 2.5rem;
+  margin-top: -1rem;
+  margin-bottom: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   @include respond(mobile) {
-    font-size: 1.7rem;
-    margin: 0 0 2rem;
+    margin-top: 0;
+    margin-bottom: 3rem;
+  }
+
+  &__seperator {
+    height: 0.2rem;
+    flex: 1;
+    background-color: #ccc;
+  }
+
+  &__text,
+  &__plan {
+    margin: 0 4rem;
+
+    @include respond(mobile) {
+      margin: 0 1.5rem;
+    }
+  }
+
+  &__text {
+    font-weight: 500;
+    font-size: 1.8rem;
+
+    @include respond(mobile) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__plan {
+    font-weight: 600;
+    color: $color-blue-2;
+    font-size: 2.5rem;
+
+    @include respond(mobile) {
+      font-size: 2rem;
+    }
   }
 }
 </style>

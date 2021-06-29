@@ -36,6 +36,18 @@ export const planOptions = [
         price: 438,
         label: "2 Months",
         features: membershipFeatures.slice(0, 5)
+    },
+    {
+        type: "4-months",
+        price: 588,
+        label: "4 Months",
+        features: membershipFeatures.slice(0, 7)
+    },
+    {
+        type: "1-year",
+        price: 684,
+        label: "1 Year",
+        features: membershipFeatures
     }
 ];
 

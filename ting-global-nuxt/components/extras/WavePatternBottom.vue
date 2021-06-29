@@ -42,4 +42,9 @@
     height: 58px;
   }
 }
+
+.pricing-column__header .custom-shape-divider-bottom-1613003167 svg {
+  width: calc(134% + 1.3px);
+  height: 58px;
+}
 </style>

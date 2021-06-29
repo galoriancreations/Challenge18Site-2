@@ -10,7 +10,7 @@
         <SectionHeading small>Membership Plans</SectionHeading>
         <MembershipPlans />
       </section>
-      <section class="inner-section">
+      <section class="inner-section" ref="formSection">
         <SectionHeading small>Register Now</SectionHeading>
         <MembershipForm />
       </section>
@@ -30,6 +30,28 @@ export default {
   },
   meta: {
     forLoggingIn: true
+  },
+  data() {
+    return {
+      selectedPlan: null
+    };
+  },
+  methods: {
+    setSelectedPlan(plan) {
+      this.selectedPlan = plan;
+      window.scrollTo(
+        0,
+        window.scrollY +
+          this.$refs.formSection.getBoundingClientRect().top -
+          150
+      );
+    }
+  },
+  provide() {
+    return {
+      selectedPlan: () => this.selectedPlan,
+      setSelectedPlan: this.setSelectedPlan
+    };
   }
 };
 </script>

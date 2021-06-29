@@ -199,7 +199,7 @@ a {
     font: inherit;
     font-size: 1.65rem;
     line-height: 1.6;
-    padding: 1.2rem 1rem;
+    padding: 1.2rem 1.2rem;
     border: 0.2rem solid #ccc;
     outline: none;
     border-radius: 0.8rem;
@@ -247,12 +247,20 @@ a {
       height: 5.2rem;
     }
 
-    &:hover {
+    &.vs--open {
       border-color: $color-azure;
     }
 
     * {
       border: none;
+    }
+
+    .vs__dropdown-toggle {
+      margin-left: -6px;
+
+      @include respond(mobile) {
+        margin-left: -5.75px;
+      }
     }
   }
 
