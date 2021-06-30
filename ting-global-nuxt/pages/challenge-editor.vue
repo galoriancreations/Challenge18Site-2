@@ -26,7 +26,11 @@
           </div>
         </section>
         <SectionSeperator />
-        <TransitionGroup tag="div" :name="transitionName">
+        <TransitionGroup
+          tag="div"
+          class="challenge-options__wrapper"
+          :name="transitionName"
+        >
           <div
             v-if="options.length"
             class="challenge-options__layout"
@@ -505,7 +509,51 @@ export default {
         );
       }
     },
-    submitHandler() {}
+    isSelectionMatching(dayIndex, taskIndex) {
+      const { options } = this.options[dayIndex].tasks[taskIndex];
+      for (let option of options) {
+        if (option.text === this.selections[dayIndex][taskIndex]) {
+          return true;
+        }
+      }
+      return false;
+    },
+    validateData() {
+      for (let day of this.options) {
+        if (!day.title) {
+          this.errorSubmitting = "One or more days was left without a title";
+          return false;
+        }
+        if (!day.tasks.length) {
+          this.errorSubmitting = "One or more days was left empty";
+          return false;
+        }
+        const dayIndex = this.options.indexOf(day);
+        for (let task of day.tasks) {
+          if (!task.options.length) {
+            this.errorSubmitting = "One or more tasks was left empty";
+            return false;
+          }
+          const taskIndex = day.tasks.indexOf(task);
+          if (!this.isSelectionMatching(dayIndex, taskIndex)) {
+            this.errorSubmitting = "One or more tasks was left empty";
+            return false;
+          }
+        }
+      }
+      return true;
+    },
+    async submitHandler() {
+      if (!this.validateData()) return;
+      this.errorSubmitting = null;
+      this.submitting = true;
+      try {
+        // send request to create the challenge
+      } catch (error) {
+        this.errorSubmitting = error;
+      }
+      this.submitting = false;
+    }
   },
   watch: {
     currentDay() {

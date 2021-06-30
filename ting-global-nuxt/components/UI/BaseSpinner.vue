@@ -13,6 +13,20 @@
 .spinner {
   text-align: center;
 }
+
+.form .spinner,
+.form + .spinner,
+.checkout .spinner,
+.modal .spinner,
+.button + .spinner,
+.challenge-options__wrapper + .spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
 .lds-ring {
   display: inline-block;
   position: relative;
@@ -47,17 +61,5 @@
   100% {
     transform: rotate(360deg);
   }
-}
-
-.form .spinner,
-.form + .spinner,
-.checkout .spinner,
-.modal .spinner,
-.button + .spinner {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
 }
 </style>

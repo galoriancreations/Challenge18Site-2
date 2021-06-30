@@ -25,7 +25,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
-  max-width: 80rem;
+  max-width: 75rem;
   margin: auto;
 
   @include respond(tablet-sm) {

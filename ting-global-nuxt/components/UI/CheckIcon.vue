@@ -5,7 +5,7 @@
 <script>
 export default {
   props: {
-    status: String,
+    status: String
   },
   computed: {
     classes() {
@@ -25,13 +25,13 @@ export default {
         case "loading":
           return "#000";
         case "available":
-          return "#228B22";
+          return "#007bff";
         case "taken":
           return "#FF0000";
         default:
           return null;
       }
-    },
-  },
+    }
+  }
 };
 </script>

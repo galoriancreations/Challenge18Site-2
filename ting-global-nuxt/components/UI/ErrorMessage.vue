@@ -42,7 +42,8 @@ export default {
 .form .error-message,
 .checkout .error-message,
 .modal .error-message,
-.button + .error-message {
+.button + .error-message,
+.challenge-options__wrapper + .error-message {
   margin-top: 4rem;
 
   @include respond(mobile) {
