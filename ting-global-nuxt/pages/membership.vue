@@ -43,7 +43,7 @@ export default {
         0,
         window.scrollY +
           this.$refs.formSection.getBoundingClientRect().top -
-          150
+          125
       );
     }
   },

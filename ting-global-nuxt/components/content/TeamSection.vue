@@ -40,35 +40,41 @@ export default {
   }
 
   &__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.5rem;
-    align-items: start;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: -2rem -1.25rem;
+
+    & > * {
+      margin: 2rem 1.25rem;
+      width: calc((100% - 2.5rem * 4) / 4);
+    }
 
     @include respond(tablet-land) {
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem 4rem;
+      margin: -2rem;
+
+      & > * {
+        margin: 2rem;
+        width: calc((100% - 4rem * 2) / 2);
+      }
     }
 
     @include respond(tablet-sm) {
-      column-gap: 2.5rem;
+      margin: -2.5rem -1.25rem;
+
+      & > * {
+        margin: 2.5rem 1.25rem;
+        width: calc((100% - 2.5rem * 2) / 2);
+      }
     }
 
     @include respond(mobile) {
-      grid-template-columns: 1fr;
-      gap: 4rem;
-    }
-  }
+      margin: -2rem 0;
 
-  &:not(:last-child) &__grid {
-    .team-member {
-      position: relative;
-      left: calc(41vw - 2.5rem);
-      transform: translateX(-100%);
-
-      @include respond(mobile) {
-        left: initial;
-        transform: none;
+      & > * {
+        margin: 2rem 0;
+        width: 100%;
       }
     }
   }

@@ -1,3 +1,5 @@
 export default ({ store }) => {
-    store.dispatch("tryAutoLogin");
+    if (process.client) {
+        store.dispatch("tryAutoLogin");
+    }
 };

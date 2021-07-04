@@ -61,6 +61,7 @@ export const actions = {
         }
         context.commit("setUser", { user, token });
         context.commit("setTemplates", templates);
+        clearTimeout(logoutTimer);
         logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
     },
     logout(context) {
@@ -72,7 +73,7 @@ export const actions = {
     async updateUser(context, data) {
         const { user: { id }, token } = context.getters;
         const { data: { user } } = await axios.post("/xapi",
-            { userID: id, editProfile: data },
+            { userID: id, editProfile: data || {} },
             { headers: { Authorization: `Bearer ${token}` } }
         );
         context.commit("updateUser", user);
@@ -102,6 +103,7 @@ export const actions = {
     },
     async updateDrafts(context, draft) {
         console.log(draft)
+        // this.$cookies.set("draftId", draft.id);
     }
 };
 

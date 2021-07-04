@@ -1,8 +1,10 @@
 export const actions = {
-    async nuxtServerInit(context) {
+    async nuxtServerInit({ dispatch, getters }) {
+        dispatch("tryAutoLogin");
         await Promise.all([
-            context.dispatch("results/loadResults"),
-            context.dispatch("players/loadPlayers")
+            getters.isAuth && dispatch("updateUser"),
+            dispatch("results/loadResults"),
+            dispatch("players/loadPlayers")
         ]);
     }
 };
