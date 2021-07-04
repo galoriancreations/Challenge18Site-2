@@ -8,7 +8,7 @@ export const state = () => ({
     user: null,
     token: null,
     templates: {},
-    selectedTemplate: require("uniqid")()
+    selectedTemplate: "szjfhszjhf"
 });
 
 export const mutations = {
@@ -38,36 +38,32 @@ export const actions = {
         await context.dispatch("loadTemplates", { user, token });
         context.commit("setUser", { user, token });
 
-        this.$cookies.set("user", { ...user, myChallenges: {} });
+        this.$cookies.set("userId", user.id);
         this.$cookies.set("token", token);
         this.$cookies.set("expirationDate", new Date(exp));
-        localStorage.setItem("challenges", JSON.stringify(user.myChallenges || {}));
 
         const timeLeft = new Date(exp).getTime() - Date.now();
         logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
     },
     tryAutoLogin(context) {
-        const { user, token, expirationDate, templates } = this.$cookies.getAll();
+        const { userId, token, expirationDate } = this.$cookies.getAll();
 
-        if (!user || !token || !expirationDate || !templates) return;
+        if (!userId || !token || !expirationDate) return;
         const timeLeft = new Date(expirationDate).getTime() - Date.now();
         if (timeLeft <= 0) {
             context.dispatch("logout");
             return;
         }
 
-        if (process.client) {
-            user.myChallenges = JSON.parse(localStorage.getItem("challenges")) || {};
+        if (process.server) {
+            context.commit("setUser", { user: { id: userId }, token });
         }
-        context.commit("setUser", { user, token });
-        context.commit("setTemplates", templates);
         clearTimeout(logoutTimer);
         logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
     },
     logout(context) {
         context.commit("removeUser");
         this.$cookies.removeAll();
-        localStorage.clear();
         clearTimeout(logoutTimer);
     },
     async updateUser(context, data) {
@@ -77,16 +73,15 @@ export const actions = {
             { headers: { Authorization: `Bearer ${token}` } }
         );
         context.commit("updateUser", user);
-        this.$cookies.set("user", { ...user, myChallenges: {} });
     },
-    async loadTemplates(context, { user, token }) {
+    async loadTemplates(context, data) {
+        const { user, token } = data || context.getters;
         const { data: { templates } } = await axios.post(
             "/xapi",
             { userID: user.id, getTemplateNames: true },
             { headers: { Authorization: `Bearer ${token}` } }
         );
         context.commit("setTemplates", templates);
-        this.$cookies.set("templates", templates);
     },
     selectTemplate(context, template) {
         context.commit("setSelectedTemplate", template);
@@ -99,7 +94,6 @@ export const actions = {
     updateChallenges(context, challenges) {
         const { user } = context.getters;
         context.commit("updateUser", { ...user, myChallenges: challenges });
-        localStorage.setItem("challenges", JSON.stringify(challenges));
     },
     async updateDrafts(context, draft) {
         console.log(draft)

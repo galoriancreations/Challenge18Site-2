@@ -33,12 +33,6 @@ export default {
       if (this.user) {
         this.io.emit("joinRoom", this.user.id);
       }
-    },
-    setChallenges() {
-      const challenges = JSON.parse(localStorage.getItem("challenges"));
-      if (this.user && challenges) {
-        this.$store.dispatch("updateChallenges", challenges);
-      }
     }
   },
   watch: {
@@ -53,7 +47,6 @@ export default {
   },
   mounted() {
     this.initSocket();
-    this.setChallenges();
   },
   provide() {
     return {
