@@ -1,6 +1,6 @@
 export const actions = {
     async nuxtServerInit({ dispatch, getters }, { error }) {
-        dispatch("tryAutoLogin");
+        dispatch("checkAuth");
         try {
             await Promise.all([
                 getters.isAuth && dispatch("updateUser"),

@@ -8,7 +8,7 @@ export const state = () => ({
     user: null,
     token: null,
     templates: {},
-    selectedTemplate: "szjfhszjhf"
+    selectedTemplate: "1"
 });
 
 export const mutations = {
@@ -45,7 +45,7 @@ export const actions = {
         const timeLeft = new Date(exp).getTime() - Date.now();
         logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
     },
-    tryAutoLogin(context) {
+    checkAuth(context) {
         const { userId, token, expirationDate } = this.$cookies.getAll();
 
         if (!userId || !token || !expirationDate) return;
@@ -57,9 +57,10 @@ export const actions = {
 
         if (process.server) {
             context.commit("setUser", { user: { id: userId }, token });
+        } else {
+            clearTimeout(logoutTimer);
+            logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
         }
-        clearTimeout(logoutTimer);
-        logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
     },
     logout(context) {
         context.commit("removeUser");

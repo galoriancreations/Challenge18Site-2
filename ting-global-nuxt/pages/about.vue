@@ -8,8 +8,8 @@
         <BaseButton link="/membership" variant="gold">Join Us</BaseButton>
       </ImageWithText>
       <Partners small />
-      <TeamSection :team="theTeam" title="The Team" />
-      <TeamSection :team="advisors" title="Advisors" />
+      <TeamSection title="The Team" :members="theTeam" />
+      <TeamSection title="Advisors" :members="advisors" />
     </WhiteSection>
   </Page>
 </template>

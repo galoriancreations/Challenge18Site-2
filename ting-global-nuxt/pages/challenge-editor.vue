@@ -236,6 +236,7 @@ export default {
         // send request to collect the draft's data
         return {
           // draft data
+          draftId,
           errorLoading: null
         };
       } catch (error) {
@@ -252,6 +253,7 @@ export default {
           options: initialOptions(template.days),
           selections: initialSelections(template.days),
           extraInputs: initialExtraInputs(template.days),
+          draftId: null,
           errorLoading: null
         };
       } catch (error) {
@@ -264,6 +266,7 @@ export default {
         options: initialOptions(emptyTemplate.days),
         selections: initialSelections(emptyTemplate.days),
         extraInputs: initialExtraInputs(emptyTemplate.days),
+        draftId: null,
         errorLoading: null
       };
     }

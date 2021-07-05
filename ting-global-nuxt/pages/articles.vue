@@ -25,7 +25,7 @@ export default {
         hid: "description",
         name: "description",
         content:
-          "Featured media articles about our company and the Challenge 18 project."
+          "Featured blog articles about our company, the Challenge 18 project and the global challenges we aim to achieve."
       }
     ]
   },

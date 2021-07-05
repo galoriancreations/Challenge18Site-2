@@ -45,7 +45,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: ["vue-agile"]
+    transpile: [
+      "vue-agile"
+    ]
   },
 
   pageTransition: {
@@ -59,6 +61,9 @@ export default {
   },
 
   router: {
-    middleware: ["try-auto-login", "check-route"]
+    middleware: [
+      "check-auth",
+      "check-route"
+    ]
   }
 }

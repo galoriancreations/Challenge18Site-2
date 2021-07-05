@@ -2,7 +2,11 @@
   <section class="team-section">
     <SectionHeading small>{{ title }}</SectionHeading>
     <div class="team-section__grid">
-      <TeamMember v-for="member in team" :key="member.name" :member="member" />
+      <TeamMember
+        v-for="member in members"
+        :key="member.name"
+        :member="member"
+      />
     </div>
   </section>
 </template>
@@ -14,7 +18,7 @@ export default {
   components: { TeamMember },
   props: {
     title: String,
-    team: Array
+    members: Array
   }
 };
 </script>
