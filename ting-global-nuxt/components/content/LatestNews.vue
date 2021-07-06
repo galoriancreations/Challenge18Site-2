@@ -50,7 +50,7 @@ export default {
     },
     serverPlaceholder() {
       return this.articles
-        .map(article => `${article.title}:  ${article.excerpt}`)
+        .map(article => `${article.title}: ${article.excerpt}`)
         .join("\n\n");
     }
   }
