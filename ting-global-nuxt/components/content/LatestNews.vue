@@ -29,8 +29,6 @@ export default {
   data() {
     return {
       swiperOptions: {
-        slidesToShow: 1,
-        dots: process.client ? true : false,
         responsive: [
           {
             breakpoint: 750,

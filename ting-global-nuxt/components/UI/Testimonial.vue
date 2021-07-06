@@ -35,15 +35,6 @@ export default {
   props: {
     testimonial: Object
   },
-  data() {
-    return {
-      scrollbarSettings: {
-        suppressScrollY: false,
-        suppressScrollX: false,
-        wheelPropagation: false
-      }
-    };
-  },
   mounted() {
     Scrollbar.init(this.$refs.text);
   }
