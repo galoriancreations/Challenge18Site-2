@@ -1,17 +1,19 @@
 <template>
   <section class="testimonials">
     <SectionHeading>Testimonials</SectionHeading>
-    <agile :options="sliderOptions" class="testimonials__slider">
-      <div
-        v-for="testimonial in testimonials"
-        :key="testimonial.name"
-        class="testimonials__slide"
-      >
-        <Testimonial :testimonial="testimonial" />
-      </div>
-      <template slot="prevButton"><i class="fas fa-chevron-left"/></template>
-      <template slot="nextButton"><i class="fas fa-chevron-right"/></template>
-    </agile>
+    <client-only :placeholder="serverPlaceholder">
+      <agile :options="sliderOptions" class="testimonials__slider">
+        <div
+          v-for="testimonial in testimonials"
+          :key="testimonial.name"
+          class="testimonials__slide"
+        >
+          <Testimonial :testimonial="testimonial" />
+        </div>
+        <template slot="prevButton"><i class="fas fa-chevron-left"/></template>
+        <template slot="nextButton"><i class="fas fa-chevron-right"/></template>
+      </agile>
+    </client-only>
   </section>
 </template>
 
@@ -73,6 +75,13 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    serverPlaceholder() {
+      return this.testimonials
+        .map(testimonial => `${testimonial.name}: ${testimonial.text}`)
+        .join("\n");
+    }
   }
 };
 </script>
