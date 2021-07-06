@@ -80,7 +80,7 @@ export default {
     serverPlaceholder() {
       return this.testimonials
         .map(testimonial => `${testimonial.name}: ${testimonial.text}`)
-        .join("\n");
+        .join("\n\n");
     }
   }
 };
