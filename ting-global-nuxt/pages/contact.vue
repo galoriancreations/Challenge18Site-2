@@ -21,9 +21,6 @@ import ContactModal from "../components/content/ContactModal";
 
 export default {
   components: { ContactForm, ContactModal },
-  head: {
-    title: "Contact Us – Challenge 18"
-  },
   data() {
     return {
       showModal: false,

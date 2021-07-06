@@ -221,9 +221,6 @@ import axios from "../assets/util/axios";
 
 export default {
   components: { ChallengeOptionsInfo },
-  head: {
-    title: "Challenge Editor – Challenge 18"
-  },
   // meta: {
   //   requiresAuth: true,
   //   forOrganizations: true

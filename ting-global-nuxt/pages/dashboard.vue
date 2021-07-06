@@ -17,9 +17,6 @@ import MyDrafts from "../components/content/MyDrafts";
 
 export default {
   components: { AccountDetails, MyChallenges, ClubPlayers, MyDrafts },
-  head: {
-    title: "Dashboard – Challenge 18"
-  },
   meta: {
     requiresAuth: true
   },

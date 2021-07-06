@@ -12,11 +12,6 @@ export default {
   props: {
     error: [Error, String, Object]
   },
-  head() {
-    return {
-      title: `${this.title} – Challenge 18`
-    };
-  },
   data() {
     return {
       title:

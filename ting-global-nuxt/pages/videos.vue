@@ -18,7 +18,6 @@
 <script>
 export default {
   head: {
-    title: "Videos – Challenge 18",
     meta: [
       {
         hid: "description",

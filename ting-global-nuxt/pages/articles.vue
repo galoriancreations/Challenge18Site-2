@@ -19,7 +19,6 @@ import NewsItem from "../components/UI/NewsItem";
 export default {
   components: { NewsItem },
   head: {
-    title: "Articles – Challenge 18",
     meta: [
       {
         hid: "description",

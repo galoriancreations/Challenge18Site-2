@@ -29,7 +29,6 @@ import dekel from "../assets/images/teams/dekel.png";
 export default {
   components: { ImageWithText, Partners, TeamSection },
   head: {
-    title: "About Us – Challenge 18",
     meta: [
       {
         hid: "description",

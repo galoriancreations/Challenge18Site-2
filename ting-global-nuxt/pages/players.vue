@@ -13,9 +13,6 @@ import Player from "../components/UI/Player";
 
 export default {
   components: { Player },
-  head: {
-    title: "Players – Challenge 18"
-  },
   data() {
     return {
       players: [

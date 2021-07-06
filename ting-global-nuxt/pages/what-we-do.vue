@@ -126,7 +126,6 @@
 <script>
 export default {
   head: {
-    title: "What We Do – Challenge 18",
     meta: [
       {
         hid: "description",

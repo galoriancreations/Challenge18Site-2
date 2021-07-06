@@ -25,9 +25,6 @@ import MembershipForm from "../components/content/MembershipForm";
 
 export default {
   components: { RegisterNote, MembershipPlans, MembershipForm },
-  head: {
-    title: "Premium Membership – Challenge 18"
-  },
   meta: {
     forLoggingIn: true
   },

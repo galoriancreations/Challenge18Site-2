@@ -23,9 +23,6 @@ import LoginForm from "../components/content/LoginForm";
 
 export default {
   components: { LoginForm },
-  head: {
-    title: "Login – Challenge 18"
-  },
   meta: {
     forLoggingIn: true
   }

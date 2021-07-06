@@ -22,6 +22,11 @@ export default {
       default: true
     }
   },
+  head() {
+    return {
+      title: `${this.title} – Challenge 18`
+    };
+  },
   mounted() {
     window.scrollTo(0, 0);
   },

@@ -17,9 +17,6 @@ import RegistrationForm from "../components/content/RegistrationForm";
 
 export default {
   components: { RegistrationForm, RegisterNote },
-  head: {
-    title: "Register – Challenge 18"
-  },
   meta: {
     forLoggingIn: true
   }
