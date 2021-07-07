@@ -57,121 +57,119 @@
                 <i class="fas fa-plus" />
               </ActionButton>
             </section>
-            <client-only>
-              <section class="challenge-options__main" ref="container">
-                <SectionHeading small>
-                  {{ dayTitle }}
-                </SectionHeading>
-                <DashboardModal
-                  class="edit-day-title"
-                  :active="dayTitleEdited"
-                  :scrollbar="false"
+            <section class="challenge-options__main" ref="container">
+              <SectionHeading small>
+                {{ dayTitle }}
+              </SectionHeading>
+              <DashboardModal
+                class="edit-day-title"
+                :active="dayTitleEdited"
+                :scrollbar="false"
+              >
+                <h3 class="challenge-options__top-label">Day title</h3>
+                <textarea-autosize
+                  v-model.trim="options[dayIndex].title"
+                  class="edit-day-title__input section-heading"
+                  placeholder="Enter title here"
+                  :rows="1"
+                  ref="dayTitle"
+                />
+              </DashboardModal>
+              <div class="challenge-options__day-actions">
+                <i
+                  class="fas fa-pen options-action-button"
+                  @click="dayTitleEdited = true"
+                />
+                <i
+                  v-if="days.length > 1"
+                  class="fas fa-trash-alt options-action-button"
+                  @click="deleteDay"
+                />
+              </div>
+              <TransitionGroup
+                tag="div"
+                class="challenge-options__content"
+                :name="transitionName"
+              >
+                <div
+                  class="task-form"
+                  v-for="(task, taskIndex) in options[dayIndex].tasks"
+                  :key="task.id"
                 >
-                  <h3 class="challenge-options__top-label">Day title</h3>
-                  <textarea-autosize
-                    v-model.trim="options[dayIndex].title"
-                    class="edit-day-title__input section-heading"
-                    placeholder="Enter title here"
-                    :rows="1"
-                    ref="dayTitle"
-                  />
-                </DashboardModal>
-                <div class="challenge-options__day-actions">
-                  <i
-                    class="fas fa-pen options-action-button"
-                    @click="dayTitleEdited = true"
-                  />
-                  <i
-                    v-if="days.length > 1"
-                    class="fas fa-trash-alt options-action-button"
-                    @click="deleteDay"
-                  />
-                </div>
-                <TransitionGroup
-                  tag="div"
-                  class="challenge-options__content"
-                  :name="transitionName"
-                >
-                  <form
-                    class="task-form"
-                    v-for="(task, taskIndex) in options[dayIndex].tasks"
-                    :key="task.id"
+                  <div class="task-form__top">
+                    <h3 class="task-form__title">
+                      {{ `${taskLabel} ${taskIndex + 1}` }}
+                    </h3>
+                    <i
+                      class="fas fa-trash-alt options-action-button"
+                      @click="deleteTask(taskIndex)"
+                    />
+                  </div>
+                  <div
+                    v-for="(option, optionIndex) in task.options"
+                    :key="option.id"
+                    class="task-form__option"
                   >
-                    <div class="task-form__top">
-                      <h3 class="task-form__title">
-                        {{ `${taskLabel} ${taskIndex + 1}` }}
-                      </h3>
-                      <i
-                        class="fas fa-trash-alt options-action-button"
-                        @click="deleteTask(taskIndex)"
-                      />
-                    </div>
-                    <div
-                      v-for="(option, optionIndex) in task.options"
-                      :key="option.id"
-                      class="task-form__option"
+                    <input
+                      type="radio"
+                      v-model="selections[dayIndex][taskIndex]"
+                      :value="option.text"
+                      :id="option.id"
+                      class="task-form__radio-input"
+                    />
+                    <label :for="option.id" class="task-form__radio-label">
+                      <span class="task-form__radio-button" />
+                    </label>
+                    <label
+                      v-if="editedOption !== `${task.id}-${option.id}`"
+                      :for="option.id"
+                      class="task-form__text"
                     >
-                      <input
-                        type="radio"
-                        v-model="selections[dayIndex][taskIndex]"
-                        :value="option.text"
-                        :id="option.id"
-                        class="task-form__radio-input"
+                      <span
+                        v-html="
+                          convertedOptions[dayIndex][taskIndex][optionIndex]
+                        "
+                        v-linkified
                       />
-                      <label :for="option.id" class="task-form__radio-label">
-                        <span class="task-form__radio-button" />
-                      </label>
-                      <label
-                        v-if="editedOption !== `${task.id}-${option.id}`"
-                        :for="option.id"
-                        class="task-form__text"
-                      >
-                        <span
-                          v-html="
-                            convertedOptions[dayIndex][taskIndex][optionIndex]
-                          "
-                          v-linkified
-                        />
-                        <div class="task-form__option-actions">
-                          <div class="task-form__option-actions-wrapper">
-                            <i
-                              class="fas fa-pen options-action-button"
-                              @click="setEditedOption(task.id, option.id)"
-                            />
-                            <i
-                              class="fas fa-trash-alt options-action-button"
-                              @click="deleteOption(taskIndex, optionIndex)"
-                            />
-                          </div>
+                      <div class="task-form__option-actions">
+                        <div class="task-form__option-actions-wrapper">
+                          <i
+                            class="fas fa-pen options-action-button"
+                            @click="setEditedOption(task.id, option.id)"
+                          />
+                          <i
+                            class="fas fa-trash-alt options-action-button"
+                            @click="deleteOption(taskIndex, optionIndex)"
+                          />
                         </div>
-                      </label>
-                      <form v-else @keydown="finishEditOnEnter">
-                        <textarea-autosize
-                          :value="option.text"
-                          @input="editOption($event, taskIndex, optionIndex)"
-                          class="task-form__option-edit"
-                          placeholder="Start typing here..."
-                          :rows="1"
-                        />
-                      </form>
-                    </div>
-                    <form @keydown="addOptionOnEnter($event, taskIndex)">
+                      </div>
+                    </label>
+                    <form v-else @keydown="finishEditOnEnter">
                       <textarea-autosize
-                        v-model.trim="extraInputs[dayIndex][taskIndex]"
-                        class="task-form__extra"
-                        :placeholder="newOptionPlaceholder"
+                        :value="option.text"
+                        @input="editOption($event, taskIndex, optionIndex)"
+                        class="task-form__option-edit"
+                        placeholder="Start typing here..."
                         :rows="1"
                       />
                     </form>
-                  </form>
-                  <div key="button">
-                    <ActionButton color="white" @click="addTask">
-                      <i class="fas fa-plus" />
-                    </ActionButton>
                   </div>
-                </TransitionGroup>
-              </section>
-            </client-only>
+                  <form @keydown="addOptionOnEnter($event, taskIndex)">
+                    <textarea-autosize
+                      v-model.trim="extraInputs[dayIndex][taskIndex]"
+                      class="task-form__extra"
+                      :placeholder="newOptionPlaceholder"
+                      :rows="1"
+                    />
+                  </form>
+                </div>
+                <div key="button">
+                  <ActionButton color="white" @click="addTask">
+                    <i class="fas fa-plus" />
+                  </ActionButton>
+                </div>
+              </TransitionGroup>
+            </section>
           </div>
           <div key="publish-button">
             <BaseButton
@@ -185,16 +183,14 @@
         </TransitionGroup>
         <BaseSpinner v-if="submitting" />
         <ErrorMessage v-else-if="errorSubmitting" :error="errorSubmitting" />
-        <client-only>
-          <div class="challenge-options__floating-buttons">
-            <ActionButton color="white" @click="showInfoModal = true">
-              <i class="fas fa-info" />
-            </ActionButton>
-            <ActionButton color="white" @click="selectRandomOptions">
-              <i class="fas fa-random" />
-            </ActionButton>
-          </div>
-        </client-only>
+        <div class="challenge-options__floating-buttons">
+          <ActionButton color="white" @click="showInfoModal = true">
+            <i class="fas fa-info" />
+          </ActionButton>
+          <ActionButton color="white" @click="selectRandomOptions">
+            <i class="fas fa-random" />
+          </ActionButton>
+        </div>
       </div>
     </WhiteSection>
   </Page>
@@ -350,15 +346,15 @@ export default {
       };
     },
     finalChallengeData() {
-      const challenge = { name: this.name, language: this.language, days: [] };
-      this.options.forEach((day, dayIndex) => {
-        challenge.days.push({
+      return {
+        name: this.name,
+        language: this.language,
+        days: this.options.map((day, dayIndex) => ({
           day: dayIndex + 1,
           title: day.title,
           tasks: this.selections[dayIndex]
-        });
-      });
-      return challenge;
+        }))
+      };
     }
   },
   methods: {
@@ -498,7 +494,7 @@ export default {
     },
     selectRandomOptions() {
       const confirmed = window.confirm(
-        "Do you want to select a random option for each task?"
+        "Do you want to select a random option for each task? All your selections would be overwritten."
       );
       if (confirmed) {
         this.selections = this.options.map(day =>

@@ -77,8 +77,7 @@ export const actions = {
     },
     async loadTemplates(context, data) {
         const { user, token } = data || context.getters;
-        const { data: { templates } } = await axios.post(
-            "/xapi",
+        const { data: { templates } } = await axios.post("/xapi",
             { userID: user.id, getTemplateNames: true },
             { headers: { Authorization: `Bearer ${token}` } }
         );

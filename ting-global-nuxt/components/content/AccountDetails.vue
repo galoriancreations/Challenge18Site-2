@@ -72,7 +72,7 @@ export default {
       const { label, price } = planOptions.find(
         plan => plan.type === this.user?.plan
       );
-      return `${label} / $${price} per year`;
+      return `${label} / $${price}`;
     }
   },
   methods: {
