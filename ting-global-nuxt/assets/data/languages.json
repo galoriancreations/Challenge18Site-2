@@ -325,16 +325,6 @@
         "label": "Norwegian – norsk"
     },
     {
-        "code": "nb",
-        "name": "Norwegian Bokmål",
-        "label": "Norwegian Bokmål – norsk bokmål"
-    },
-    {
-        "code": "nn",
-        "name": "Norwegian Nynorsk",
-        "label": "Norwegian Nynorsk – nynorsk"
-    },
-    {
         "code": "oc",
         "name": "Occitan",
         "label": "Occitan"

@@ -1,4 +1,5 @@
 import uniqid from "uniqid";
+import { languageOptions } from "./options";
 
 export const usersArray = users => {
   const data = [];
@@ -113,3 +114,11 @@ export const initialData = (labels) => {
 };
 
 export const numbersArray = n => Array.from({ length: n }, (_, i) => i + 1);
+
+export const defaultLanguage = () => {
+  return process.server ?
+    "English" :
+    languageOptions.find(
+      language => language.code === navigator.language) ||
+    "English";
+}

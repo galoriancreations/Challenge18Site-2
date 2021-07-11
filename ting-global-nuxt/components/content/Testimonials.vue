@@ -44,9 +44,6 @@ export default {
         .map(testimonial => `${testimonial.name}: ${testimonial.text}`)
         .join("\n\n");
     }
-  },
-  mounted() {
-    console.log(JSON.stringify(this.testimonials));
   }
 };
 </script>
