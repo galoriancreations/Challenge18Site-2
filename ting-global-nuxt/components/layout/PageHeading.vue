@@ -24,6 +24,10 @@ export default {
   background-size: cover;
   padding: 0 $padding-sides-desktop;
 
+  @media (hover: hover) {
+    background-attachment: fixed;
+  }
+
   @include respond(mobile) {
     height: 40rem;
   }
@@ -88,8 +92,9 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/contact-bg.jpg);
+      url(../../assets/images/contact-2-bg.jpg);
     background-position-y: bottom;
+    background-position-x: 10%;
 
     @include respond(tablet-sm) {
       background-position-x: 30%;

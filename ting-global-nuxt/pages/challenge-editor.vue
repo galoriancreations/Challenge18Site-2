@@ -197,8 +197,8 @@
 </template>
 
 <script>
-import emptyTemplate from "../assets/data/empty-template";
 import {
+  emptyDays,
   initialOptions,
   initialSelections,
   initialExtraInputs,
@@ -223,7 +223,7 @@ export default {
   // },
   async asyncData({ app, store }) {
     const draftId = app.$cookies.get("draftId");
-    const { selectedTemplate, user } = store.getters;
+    const { selectedTemplate, user, token } = store.getters;
     if (draftId) {
       try {
         // send request to collect the draft's data
@@ -254,11 +254,11 @@ export default {
       }
     } else {
       return {
-        name: emptyTemplate.name,
+        name: "",
         language: user?.language || "English",
-        options: initialOptions(emptyTemplate.days),
-        selections: initialSelections(emptyTemplate.days),
-        extraInputs: initialExtraInputs(emptyTemplate.days),
+        options: initialOptions(emptyDays()),
+        selections: initialSelections(emptyDays()),
+        extraInputs: initialExtraInputs(emptyDays()),
         draftId: null,
         errorLoading: null
       };
@@ -350,6 +350,7 @@ export default {
         name: this.name,
         language: this.language,
         days: this.options.map((day, dayIndex) => ({
+          id: day.id,
           day: dayIndex + 1,
           title: day.title,
           tasks: this.selections[dayIndex]
@@ -358,9 +359,9 @@ export default {
     }
   },
   methods: {
-    async autoSave() {
+    autoSave() {
       clearTimeout(this.saveTimeout);
-      this.saveTimeout = setTimeout(() => {
+      this.saveTimeout = setTimeout(async () => {
         const savedDraft = {
           name: this.name,
           language: this.language,
@@ -515,6 +516,14 @@ export default {
       return false;
     },
     validateData() {
+      if (!this.name) {
+        this.errorSubmitting = "Challenge name can't be empty";
+        return false;
+      }
+      if (!this.language) {
+        this.errorSubmitting = "Please choose a language for the template";
+        return false;
+      }
       for (let day of this.options) {
         if (!day.title) {
           this.errorSubmitting = "One or more days was left without a title";

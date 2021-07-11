@@ -28,8 +28,7 @@
     "vue-star-rating": "^1.7.0",
     "vue-textarea-autosize": "^1.1.1",
     "vue-youtube": "^1.4.0",
-    "vuescroll": "^4.17.3",
-    "world-languages": "^1.1.2"
+    "vuescroll": "^4.17.3"
   },
   "devDependencies": {
     "fibers": "^5.0.0",

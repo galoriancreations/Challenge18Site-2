@@ -1,17 +1,6 @@
-import worldLanguages from "world-languages";
+import languages from "../data/languages";
 
-export const languageOptions = [];
-for (let key in worldLanguages) {
-    const trimmedName = worldLanguages[key].split(" - ")[0].split(" (")[0];
-    const existingItem = languageOptions.find(language => language.name === trimmedName);
-    if (!existingItem) {
-        languageOptions.push({
-            code: key,
-            name: trimmedName,
-            label: worldLanguages[key].replace(" - ", " – ")
-        });
-    }
-}
+export const languageOptions = languages;
 
 export const membershipFeatures = [
     "18 free certificates per game",

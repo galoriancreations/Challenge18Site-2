@@ -23,7 +23,7 @@
   margin-bottom: 9rem;
 
   @include respond(mobile) {
-    margin-bottom: 7rem;
+    margin-bottom: 6.5rem;
   }
 
   & > * {

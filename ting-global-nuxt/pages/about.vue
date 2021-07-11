@@ -8,8 +8,7 @@
         <BaseButton link="/membership" variant="gold">Join Us</BaseButton>
       </ImageWithText>
       <Partners small />
-      <TeamSection title="The Team" :members="theTeam" />
-      <TeamSection title="Advisors" :members="advisors" />
+      <TeamSection v-for="team in teams" :key="team.title" v-bind="team" />
     </WhiteSection>
   </Page>
 </template>
@@ -19,12 +18,7 @@ import ImageWithText from "../components/layout/ImageWithText";
 import Partners from "../components/content/Partners";
 import TeamSection from "../components/content/TeamSection";
 import mainImg from "../assets/images/about-img.jpg";
-import sharon from "../assets/images/teams/sharon.png";
-import yinon from "../assets/images/teams/yinon.jpg";
-import hanson from "../assets/images/teams/hanson.png";
-import yee from "../assets/images/teams/yee.png";
-import lee from "../assets/images/teams/lee.png";
-import dekel from "../assets/images/teams/dekel.png";
+import teams from "../assets/data/teams";
 
 export default {
   components: { ImageWithText, Partners, TeamSection },
@@ -43,50 +37,7 @@ export default {
       mainImg,
       aboutText:
         "Ting Global is the international body that conducts the 18 official pre-tournament challenge competitions, and the tournament. Teachers and students from across the globe have already completed the Ting Global Sustainability Challenge.\n 18 days of assignments that raise awareness of sustainability and leadership issues – Participation in the challenge solidifies students and raises awareness of the hot topics on the global agenda and allows participants to share their work and form thinking and action groups together.",
-      theTeam: [
-        {
-          name: "Sharon Gal-Or",
-          image: sharon,
-          role: "Founder",
-          description:
-            "Israeli ambassador for USTP, a writer, author, futurist, an innovation management & gamification specialist, advisor in the fields of education, community management, entrepreneurship & sustainability.",
-          link: "http://hk.linkedin.com/in/sharongalor"
-        },
-        {
-          name: "Yinon Hever",
-          image: yinon,
-          role: "Developer",
-          description:
-            "Full-stack web developer, specializing in planning and building modern websites and web applications, with advanced designs and optimized user experience.",
-          link: "https://github.com/yinonhever/"
-        }
-      ],
-      advisors: [
-        {
-          name: "David Hanson Jr.",
-          image: hanson,
-          description:
-            "American roboticist who is the founder and Chief Executive Officer (CEO) of Hanson Robotics, a Hong Kong-based robotics company founded in 2013."
-        },
-        {
-          name: "Lawrence Yee",
-          image: yee,
-          description:
-            "Co-President (2017-), President (2015-16), Board Director and founder of Cradle Program of AAMA-PRD chapter since 2015.  He also sits on the board of BIIA (Business Information Industry Association) since its inception in 2006."
-        },
-        {
-          name: "Newton Lee",
-          image: lee,
-          description:
-            "Computer scientist who is an author and administrator in the field of education and technology commercialization. He is known for his total information awareness book series."
-        },
-        {
-          name: "Prof. Shai Dekel",
-          image: dekel,
-          description:
-            "Visiting associate professor at the school of mathematics, Tel-Aviv University. He also serves as a principal scientist in GE Global Research and as Angel Investor in TLVseed and as a member of Akban. His research interests are theoretical approximation theory, harmonic analysis and their applications in data science."
-        }
-      ]
+      teams
     };
   }
 };

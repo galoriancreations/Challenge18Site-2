@@ -1,0 +1,46 @@
+[
+    {
+        "title": "The Team",
+        "members": [
+            {
+                "name": "Sharon Gal-Or",
+                "image": "sharon.png",
+                "role": "Founder",
+                "description": "Israeli ambassador for USTP, a writer, author, futurist, an innovation management & gamification specialist, advisor in the fields of education, community management, entrepreneurship & sustainability.",
+                "link": "http://hk.linkedin.com/in/sharongalor"
+            },
+            {
+                "name": "Yinon Hever",
+                "image": "yinon.jpg",
+                "role": "Developer",
+                "description": "Full-stack web developer, specializing in planning and building modern websites and web applications, with advanced designs and optimized user experience.",
+                "link": "https://yinonhever.com/"
+            }
+        ]
+    },
+    {
+        "title": "Advisors",
+        "members": [
+            {
+                "name": "David Hanson Jr.",
+                "image": "hanson.png",
+                "description": "American roboticist who is the founder and Chief Executive Officer (CEO) of Hanson Robotics, a Hong Kong-based robotics company founded in 2013."
+            },
+            {
+                "name": "Lawrence Yee",
+                "image": "yee.png",
+                "description": "Co-President (2017-), President (2015-16), Board Director and founder of Cradle Program of AAMA-PRD chapter since 2015.  He also sits on the board of BIIA (Business Information Industry Association) since its inception in 2006."
+            },
+            {
+                "name": "Newton Lee",
+                "image": "lee.png",
+                "description": "Computer scientist who is an author and administrator in the field of education and technology commercialization. He is known for his total information awareness book series."
+            },
+            {
+                "name": "Prof. Shai Dekel",
+                "image": "dekel.png",
+                "description": "Visiting associate professor at the school of mathematics, Tel-Aviv University. He also serves as a principal scientist in GE Global Research and as Angel Investor in TLVseed and as a member of Akban. His research interests are theoretical approximation theory, harmonic analysis and their applications in data science."
+            }
+        ]
+    }
+]

@@ -38,6 +38,12 @@ export const challengesArray = challenges => {
   return data;
 };
 
+export const emptyDays = (days = 6, tasks = 2) =>
+  numbersArray(days).map(() => ({
+    title: "",
+    tasks: numbersArray(tasks).map(() => ({ options: [] }))
+  }));
+
 export const initialOptions = options => {
   const initialOptions = [...options];
   options.forEach((day, dayIndex) => {
