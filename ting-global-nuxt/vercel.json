@@ -3,23 +3,23 @@
         {
             "src": "nuxt.config.js",
             "use": "@nuxtjs/vercel-builder",
-            "config": {},
-            "env": {
-                "VUE_APP_EMAILJS_KEY": true,
-                "VUE_APP_EMAILJS_TEMPLATE": true,
-                "VUE_APP_EMAILJS_SERVICE": true,
-                "VUE_APP_PAYPAL_SANDBOX": true,
-                "VUE_APP_PAYPAL_LIVE": true
-            },
-            "build": {
-                "env": {
-                    "VUE_APP_EMAILJS_KEY": true,
-                    "VUE_APP_EMAILJS_TEMPLATE": true,
-                    "VUE_APP_EMAILJS_SERVICE": true,
-                    "VUE_APP_PAYPAL_SANDBOX": true,
-                    "VUE_APP_PAYPAL_LIVE": true
-                }
-            }
+            "config": {}
         }
-    ]
+    ],
+    "env": {
+        "VUE_APP_EMAILJS_KEY": true,
+        "VUE_APP_EMAILJS_TEMPLATE": true,
+        "VUE_APP_EMAILJS_SERVICE": true,
+        "VUE_APP_PAYPAL_SANDBOX": true,
+        "VUE_APP_PAYPAL_LIVE": true
+    },
+    "build": {
+        "env": {
+            "VUE_APP_EMAILJS_KEY": true,
+            "VUE_APP_EMAILJS_TEMPLATE": true,
+            "VUE_APP_EMAILJS_SERVICE": true,
+            "VUE_APP_PAYPAL_SANDBOX": true,
+            "VUE_APP_PAYPAL_LIVE": true
+        }
+    }
 }
