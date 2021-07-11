@@ -51,8 +51,7 @@ export const actions = {
         if (!userId || !token || !expirationDate) return;
         const timeLeft = new Date(expirationDate).getTime() - Date.now();
         if (timeLeft <= 0) {
-            context.dispatch("logout");
-            return;
+            return context.dispatch("logout");
         }
 
         if (process.server) {
@@ -67,16 +66,16 @@ export const actions = {
         this.$cookies.removeAll();
         clearTimeout(logoutTimer);
     },
-    async updateUser(context, data) {
+    async updateUser(context, userData) {
         const { user: { id }, token } = context.getters;
         const { data: { user } } = await axios.post("/xapi",
-            { userID: id, editProfile: data || {} },
+            { userID: id, editProfile: userData || {} },
             { headers: { Authorization: `Bearer ${token}` } }
         );
         context.commit("updateUser", user);
     },
-    async loadTemplates(context, data) {
-        const { user, token } = data || context.getters;
+    async loadTemplates(context, authData) {
+        const { user, token } = authData || context.getters;
         const { data: { templates } } = await axios.post("/xapi",
             { userID: user.id, getTemplateNames: true },
             { headers: { Authorization: `Bearer ${token}` } }

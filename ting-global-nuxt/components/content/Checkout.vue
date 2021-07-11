@@ -57,9 +57,10 @@
       <PayPal
         :amount="price"
         currency="USD"
-        :client="credentials"
+        :client="paypalCredentials"
         @payment-completed="paymentCompleted"
         @payment-cancelled="paymentCancelled"
+        :env="paypalEnv"
       />
     </client-only>
     <BaseSpinner v-if="loading" />
@@ -77,10 +78,12 @@ export default {
   inject: ["details", "selectedPlan", "backToForm"],
   data() {
     return {
-      credentials: {
+      paypalCredentials: {
         sandbox: process.env.VUE_APP_PAYPAL_SANDBOX,
         production: process.env.VUE_APP_PAYPAL_LIVE
       },
+      paypalEnv:
+        process.env.NODE_ENV === "production" ? "production" : "sandbox",
       loading: false,
       error: null
     };
