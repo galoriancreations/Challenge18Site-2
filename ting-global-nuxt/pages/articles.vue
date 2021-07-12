@@ -16,6 +16,8 @@
 import articles from "../assets/data/articles";
 import NewsItem from "../components/UI/NewsItem";
 
+articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
 export default {
   components: { NewsItem },
   head: {

@@ -43,12 +43,12 @@
 </template>
 
 <script>
-import posts from "../../assets/data/articles";
+import articles from "../../assets/data/articles";
 
 export default {
   computed: {
     recentPosts() {
-      return posts
+      return articles
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 4);
     }

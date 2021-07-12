@@ -35,8 +35,18 @@ export default {
   props: {
     testimonial: Object
   },
-  mounted() {
-    Scrollbar.init(this.$refs.text);
+  inject: ["sliderCompleted"],
+  computed: {
+    showScrollbar() {
+      return this.sliderCompleted();
+    }
+  },
+  watch: {
+    showScrollbar(value) {
+      if (value) {
+        Scrollbar.init(this.$refs.text);
+      }
+    }
   }
 };
 </script>

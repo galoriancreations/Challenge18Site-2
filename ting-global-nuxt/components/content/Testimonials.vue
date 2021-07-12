@@ -1,19 +1,17 @@
 <template>
   <section class="testimonials">
     <SectionHeading>Testimonials</SectionHeading>
-    <client-only :placeholder="serverPlaceholder">
-      <agile :options="sliderOptions" class="testimonials__slider">
-        <div
-          v-for="testimonial in testimonials"
-          :key="testimonial.name"
-          class="testimonials__slide"
-        >
-          <Testimonial :testimonial="testimonial" />
-        </div>
-        <template slot="prevButton"><i class="fas fa-chevron-left"/></template>
-        <template slot="nextButton"><i class="fas fa-chevron-right"/></template>
-      </agile>
-    </client-only>
+    <agile :options="sliderOptions" class="testimonials__slider">
+      <div
+        v-for="testimonial in testimonials"
+        :key="testimonial.name"
+        class="testimonials__slide"
+      >
+        <Testimonial :testimonial="testimonial" />
+      </div>
+      <template slot="prevButton"><i class="fas fa-chevron-left"/></template>
+      <template slot="nextButton"><i class="fas fa-chevron-right"/></template>
+    </agile>
   </section>
 </template>
 
@@ -26,6 +24,8 @@ export default {
   data() {
     return {
       sliderOptions: {
+        navButtons: false,
+        dots: false,
         responsive: [
           {
             breakpoint: 750,
@@ -38,12 +38,15 @@ export default {
       testimonials
     };
   },
-  computed: {
-    serverPlaceholder() {
-      return this.testimonials
-        .map(testimonial => `${testimonial.name}: ${testimonial.text}`)
-        .join("\n\n");
-    }
+  mounted() {
+    this.sliderOptions.navButtons = true;
+    this.sliderOptions.dots = true;
+  },
+  provide() {
+    return {
+      sliderCompleted: () =>
+        this.sliderOptions.navButtons && this.sliderOptions.dots
+    };
   }
 };
 </script>
