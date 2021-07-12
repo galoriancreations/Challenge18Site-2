@@ -14,13 +14,13 @@
       </p>
     </div>
     <div class="intro__links">
-      <BaseButton v-if="!isLoggedIn" link="/register" variant="blue">
-        Join for free
+      <BaseButton link="/what-we-do" variant="blue">
+        What we do
       </BaseButton>
       <BaseButton v-if="!isLoggedIn" link="/membership" variant="gold">
-        Become a member
+        Join Us
       </BaseButton>
-      <BaseButton v-if="isLoggedIn" link="/dashboard" variant="blue">
+      <BaseButton v-if="isLoggedIn" link="/dashboard" variant="gold">
         Go do dashboard
       </BaseButton>
     </div>

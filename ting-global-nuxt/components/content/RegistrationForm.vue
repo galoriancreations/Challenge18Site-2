@@ -83,7 +83,7 @@ export default {
         phone: "",
         fullName: "",
         email: "",
-        language: null,
+        language: process.client && defaultLanguage(),
         accountType: "individual"
       },
       languageOptions,
@@ -145,9 +145,6 @@ export default {
     phone(value) {
       this.checkAvailability("phone", value, "checkPhone");
     }
-  },
-  mounted() {
-    this.formData.language = defaultLanguage();
   }
 };
 </script>

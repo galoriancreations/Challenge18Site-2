@@ -149,7 +149,7 @@ export default {
         country: "",
         email: "",
         phone: "",
-        language: null,
+        language: process.client && defaultLanguage(),
         accountType: "organization"
       },
       availability: {
@@ -212,9 +212,6 @@ export default {
     phone(value) {
       this.checkAvailability("phone", value, "checkPhone");
     }
-  },
-  mounted() {
-    this.formData.language = defaultLanguage();
   },
   provide() {
     return {
