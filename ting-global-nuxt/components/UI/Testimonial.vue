@@ -4,15 +4,14 @@
     <div class="testimonial__scroll-area" ref="text">
       <p class="testimonial__text">{{ testimonial.text }}</p>
     </div>
-    <client-only>
-      <StarRating
-        v-model="testimonial.rating"
-        :star-size="20"
-        :show-rating="false"
-        :read-only="true"
-        class="testimonial__rating"
-      />
-    </client-only>
+    <StarRating
+      v-if="isSliderReady"
+      v-model="testimonial.rating"
+      :star-size="20"
+      :show-rating="false"
+      :read-only="true"
+      class="testimonial__rating"
+    />
     <img
       class="testimonial__avatar"
       :src="testimonial.imgSrc"
@@ -37,12 +36,12 @@ export default {
   },
   inject: ["sliderCompleted"],
   computed: {
-    showScrollbar() {
+    isSliderReady() {
       return this.sliderCompleted();
     }
   },
   watch: {
-    showScrollbar(value) {
+    isSliderReady(value) {
       if (value) {
         Scrollbar.init(this.$refs.text);
       }
