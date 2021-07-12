@@ -38,7 +38,6 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    "@nuxtjs/dotenv",
     "cookie-universal-nuxt",
     "nuxt-route-meta"
   ],
@@ -68,10 +67,10 @@ export default {
   },
 
   publicRuntimeConfig: {
-    emailjsKey: process.env.VUE_APP_EMAILJS_KEY,
-    emailjsTemplate: process.env.VUE_APP_EMAILJS_TEMPLATE,
-    emailjsService: process.env.VUE_APP_EMAILJS_SERVICE,
-    paypalSandbox: process.env.VUE_APP_PAYPAL_SANDBOX,
-    paypalLive: process.env.VUE_APP_PAYPAL_LIVE
+    emailjsKey: process.env.EMAILJS_KEY,
+    emailjsTemplate: process.env.EMAILJS_TEMPLATE,
+    emailjsService: process.env.EMAILJS_SERVICE,
+    paypalSandbox: process.env.PAYPAL_SANDBOX,
+    paypalLive: process.env.PAYPAL_LIVE
   }
 }

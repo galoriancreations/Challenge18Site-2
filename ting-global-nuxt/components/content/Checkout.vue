@@ -133,7 +133,6 @@ export default {
       0,
       window.scrollY + this.$refs.container.getBoundingClientRect().top - 120
     );
-    console.log(this.$config);
   }
 };
 </script>

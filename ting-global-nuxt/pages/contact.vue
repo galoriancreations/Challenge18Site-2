@@ -54,7 +54,6 @@ export default {
     }
   },
   provide() {
-    console.log(this.$config);
     return {
       sendMessage: this.submitHanlder,
       closeModal: this.closeModal

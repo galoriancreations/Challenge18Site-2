@@ -69,6 +69,7 @@
 
 <script>
 import { languageOptions } from "../../assets/util/options";
+import { defaultLanguage } from "../../assets/util/functions";
 import axios from "../../assets/util/axios";
 import _ from "lodash";
 import CheckIcon from "../UI/CheckIcon";
@@ -82,7 +83,7 @@ export default {
         phone: "",
         fullName: "",
         email: "",
-        language: "English",
+        language: null,
         accountType: "individual"
       },
       languageOptions,
@@ -144,6 +145,9 @@ export default {
     phone(value) {
       this.checkAvailability("phone", value, "checkPhone");
     }
+  },
+  mounted() {
+    this.formData.language = defaultLanguage();
   }
 };
 </script>

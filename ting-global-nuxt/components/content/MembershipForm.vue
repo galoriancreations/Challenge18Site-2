@@ -132,6 +132,7 @@
 import Checkout from "./Checkout";
 import CheckIcon from "../UI/CheckIcon";
 import { languageOptions } from "../../assets/util/options";
+import { defaultLanguage } from "../../assets/util/functions";
 import axios from "../../assets/util/axios";
 
 export default {
@@ -148,7 +149,7 @@ export default {
         country: "",
         email: "",
         phone: "",
-        language: "English",
+        language: null,
         accountType: "organization"
       },
       availability: {
@@ -211,6 +212,9 @@ export default {
     phone(value) {
       this.checkAvailability("phone", value, "checkPhone");
     }
+  },
+  mounted() {
+    this.formData.language = defaultLanguage();
   },
   provide() {
     return {
