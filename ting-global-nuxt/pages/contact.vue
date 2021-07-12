@@ -33,10 +33,10 @@ export default {
       this.sending = true;
       try {
         await emailjs.sendForm(
-          process.env.VUE_APP_EMAILJS_SERVICE,
-          process.env.VUE_APP_EMAILJS_TEMPLATE,
+          this.$config.emailjsService,
+          this.$config.emailjsTemplate,
           form,
-          process.env.VUE_APP_EMAILJS_KEY
+          this.$config.emailjsKey
         );
         this.sending = false;
         this.error = false;
@@ -54,6 +54,7 @@ export default {
     }
   },
   provide() {
+    console.log(this.$config);
     return {
       sendMessage: this.submitHanlder,
       closeModal: this.closeModal

@@ -79,8 +79,8 @@ export default {
   data() {
     return {
       paypalCredentials: {
-        sandbox: process.env.VUE_APP_PAYPAL_SANDBOX,
-        production: process.env.VUE_APP_PAYPAL_LIVE
+        sandbox: this.$config.paypalSandbox,
+        production: this.$config.paypalLive
       },
       paypalEnv:
         process.env.NODE_ENV === "production" ? "production" : "sandbox",
@@ -133,6 +133,7 @@ export default {
       0,
       window.scrollY + this.$refs.container.getBoundingClientRect().top - 120
     );
+    console.log(this.$config);
   }
 };
 </script>

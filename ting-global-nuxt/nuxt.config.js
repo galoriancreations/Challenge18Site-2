@@ -65,5 +65,13 @@ export default {
       "check-auth",
       "check-route"
     ]
+  },
+
+  publicRuntimeConfig: {
+    emailjsKey: process.env.VUE_APP_EMAILJS_KEY,
+    emailjsTemplate: process.env.VUE_APP_EMAILJS_TEMPLATE,
+    emailjsService: process.env.VUE_APP_EMAILJS_SERVICE,
+    paypalSandbox: process.env.VUE_APP_PAYPAL_SANDBOX,
+    paypalLive: process.env.VUE_APP_PAYPAL_LIVE
   }
 }
