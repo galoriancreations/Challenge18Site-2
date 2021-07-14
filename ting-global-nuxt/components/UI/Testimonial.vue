@@ -41,10 +41,8 @@ export default {
     }
   },
   watch: {
-    isSliderReady(value) {
-      if (value) {
-        Scrollbar.init(this.$refs.text);
-      }
+    isSliderReady() {
+      Scrollbar.init(this.$refs.text);
     }
   }
 };

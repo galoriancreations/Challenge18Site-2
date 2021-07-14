@@ -83,7 +83,7 @@ export default {
         phone: "",
         fullName: "",
         email: "",
-        language: process.client && defaultLanguage(),
+        language: process.client ? defaultLanguage() : "English",
         accountType: "individual"
       },
       languageOptions,

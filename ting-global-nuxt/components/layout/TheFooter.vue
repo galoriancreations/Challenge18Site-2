@@ -3,7 +3,14 @@
     <WavePatternTop />
     <div class="footer__column">
       <h3 class="footer__heading">
-        <NuxtLink class="footer__link" to="/about">About Us</NuxtLink>
+        <NuxtLink
+          v-if="$route.name !== 'about'"
+          class="footer__link"
+          to="/about"
+        >
+          About Us
+        </NuxtLink>
+        <span v-else>About Us</span>
       </h3>
       <p class="footer__text">
         Ting Global is the international body that conducts the 18 official
@@ -22,7 +29,14 @@
     </div>
     <div class="footer__column">
       <h3 class="footer__heading">
-        <NuxtLink class="footer__link" to="/contact">Contact Us</NuxtLink>
+        <NuxtLink
+          v-if="$route.name !== 'contact'"
+          class="footer__link"
+          to="/contact"
+        >
+          Contact Us
+        </NuxtLink>
+        <span v-else>Contact Us</span>
       </h3>
       <div class="footer__contact">
         <p class="footer__text"><strong>Tel:</strong> +972-559721123</p>

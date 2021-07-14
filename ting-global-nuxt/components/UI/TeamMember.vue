@@ -5,10 +5,14 @@
       :href="member.link"
       rel="noopener noreferrer"
       target="_blank"
-    >
-      <TeamMemberImg />
-    </a>
-    <TeamMemberImg v-else />
+      class="team-member__img"
+      :style="{ backgroundImage: `url(${image})` }"
+    />
+    <div
+      v-else
+      class="team-member__img"
+      :style="{ backgroundImage: `url(${image})` }"
+    />
     <div class="team-member__card">
       <h3 class="team-member__name">
         {{ member.name }}
@@ -24,17 +28,14 @@
 </template>
 
 <script>
-import TeamMemberImg from "./TeamMemberImg";
-
 export default {
-  components: { TeamMemberImg },
   props: {
     member: Object
   },
-  provide() {
-    return {
-      member: this.member
-    };
+  computed: {
+    image() {
+      return require(`../../assets/images/teams/${this.member.image}`);
+    }
   }
 };
 </script>

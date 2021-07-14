@@ -47,7 +47,6 @@ export const actions = {
     },
     checkAuth(context) {
         const { userId, token, expirationDate } = this.$cookies.getAll();
-
         if (!userId || !token || !expirationDate) return;
         const timeLeft = new Date(expirationDate).getTime() - Date.now();
         if (timeLeft <= 0) {

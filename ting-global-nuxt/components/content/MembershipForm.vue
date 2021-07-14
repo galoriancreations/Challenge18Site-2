@@ -149,7 +149,7 @@ export default {
         country: "",
         email: "",
         phone: "",
-        language: process.client && defaultLanguage(),
+        language: process.client ? defaultLanguage() : "English",
         accountType: "organization"
       },
       availability: {
