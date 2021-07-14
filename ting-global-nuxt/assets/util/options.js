@@ -80,3 +80,8 @@ export const taskTranslations = {
     "Russian": "Задание",
     "Arabic": "مهمة"
 };
+
+export const redirects = [
+    { from: "/challenge-options", to: "/challenge-editor" },
+    { from: "/about-us", to: "/about" }
+];

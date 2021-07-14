@@ -24,7 +24,7 @@ export default {
   },
   head() {
     return {
-      title: `${this.title} – Challenge 18`
+      title: this.title && `${this.title} – Challenge 18`
     };
   },
   mounted() {

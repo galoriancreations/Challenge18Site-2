@@ -69,7 +69,6 @@
 
 <script>
 import { languageOptions } from "../../assets/util/options";
-import { defaultLanguage } from "../../assets/util/functions";
 import axios from "../../assets/util/axios";
 import _ from "lodash";
 import CheckIcon from "../UI/CheckIcon";
@@ -83,7 +82,7 @@ export default {
         phone: "",
         fullName: "",
         email: "",
-        language: process.client ? defaultLanguage() : "English",
+        language: "English",
         accountType: "individual"
       },
       languageOptions,

@@ -1,7 +1,4 @@
-const redirects = [
-    { from: "/challenge-options", to: "/challenge-editor" },
-    { from: "/about-us", to: "/about" }
-];
+import { redirects } from "../assets/util/options";
 
 export default ({ store, route, redirect }) => {
     for (let item of redirects) {

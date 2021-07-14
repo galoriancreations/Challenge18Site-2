@@ -132,7 +132,7 @@
 import Checkout from "./Checkout";
 import CheckIcon from "../UI/CheckIcon";
 import { languageOptions } from "../../assets/util/options";
-import { defaultLanguage } from "../../assets/util/functions";
+import _ from "lodash";
 import axios from "../../assets/util/axios";
 
 export default {
@@ -149,7 +149,7 @@ export default {
         country: "",
         email: "",
         phone: "",
-        language: process.client ? defaultLanguage() : "English",
+        language: "English",
         accountType: "organization"
       },
       availability: {
@@ -174,17 +174,17 @@ export default {
   },
   methods: {
     submitHandler() {
+      if (!this.plan) {
+        this.error =
+          "No plan has been selected. Please select on of the plans above.";
+        return;
+      }
       for (let key in this.availability) {
         if (this.availability[key] === "taken") {
           this.error = `${_.capitalize(key)}
             is already taken. Please try a different ${key}.`;
           return;
         }
-      }
-      if (!this.plan) {
-        this.error =
-          "No plan has been selected. Please select on of the plans above.";
-        return;
       }
       this.error = null;
       this.checkoutMode = true;
