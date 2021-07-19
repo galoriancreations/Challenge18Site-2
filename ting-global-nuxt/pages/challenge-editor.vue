@@ -360,6 +360,7 @@ export default {
   },
   methods: {
     autoSave() {
+      console.log("auto save");
       clearTimeout(this.saveTimeout);
       this.saveTimeout = setTimeout(async () => {
         const savedDraft = {

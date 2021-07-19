@@ -119,3 +119,6 @@ export const defaultLanguage = () => {
   const matchingLanguage = languageOptions.find(language => language.code === navigator.language);
   return matchingLanguage?.name || "English";
 }
+
+export const dataArrayFromObject = object =>
+  Object.keys(object).map(id => ({ id, ...object[id] }));

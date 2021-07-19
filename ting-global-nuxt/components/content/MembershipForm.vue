@@ -137,7 +137,7 @@ import axios from "../../assets/util/axios";
 
 export default {
   components: { Checkout, CheckIcon },
-  inject: ["selectedPlan"],
+  inject: ["getSelectedPlan"],
   data() {
     return {
       formData: {
@@ -169,7 +169,7 @@ export default {
       return this.formData.phone;
     },
     plan() {
-      return this.selectedPlan();
+      return this.getSelectedPlan();
     }
   },
   methods: {
@@ -199,9 +199,9 @@ export default {
       } else {
         this.timeout = setTimeout(async () => {
           this.availability[key] = "loading";
-          const response = await axios.post("/api", { [apiKey]: value });
-          this.availability[key] = response.data.result ? "available" : "taken";
-        }, 1000);
+          const { data } = await axios.post("/api", { [apiKey]: value });
+          this.availability[key] = data.result ? "available" : "taken";
+        }, 750);
       }
     }
   },

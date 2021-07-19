@@ -15,6 +15,7 @@ import image2 from "../../assets/images/partners/fers.jpg";
 import image3 from "../../assets/images/partners/hanson.jpg";
 import image4 from "../../assets/images/partners/h+.jpg";
 import image5 from "../../assets/images/partners/tlvseed.jpg";
+import image6 from "../../assets/images/partners/eretzir.jpg";
 
 export default {
   props: {
@@ -22,7 +23,7 @@ export default {
   },
   data() {
     return {
-      images: [image1, image2, image3, image4, image5],
+      images: [image1, image2, image3, image4, image5, image6],
       swiperOptions: {
         autoplay: true,
         autoplaySpeed: 2000,
@@ -56,6 +57,11 @@ export default {
   &__img {
     width: 100%;
     display: block;
+  }
+
+  &__slide:nth-child(6) &__img {
+    max-width: 10rem;
+    margin: 0 5rem;
   }
 }
 

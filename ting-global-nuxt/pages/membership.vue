@@ -46,7 +46,7 @@ export default {
   },
   provide() {
     return {
-      selectedPlan: () => this.selectedPlan,
+      getSelectedPlan: () => this.selectedPlan,
       setSelectedPlan: this.setSelectedPlan
     };
   }

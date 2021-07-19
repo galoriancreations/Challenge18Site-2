@@ -29,14 +29,7 @@
 <script>
 import JoinChallenge from "./JoinChallenge";
 import CreateChallenge from "./CreateChallenge";
-
-const myChallengesArray = challenges => {
-  const arr = [];
-  for (let key in challenges) {
-    arr.push({ id: key, ...challenges[key] });
-  }
-  return arr;
-};
+import { dataArrayFromObject } from "../../assets/util/functions";
 
 export default {
   components: { JoinChallenge, CreateChallenge },
@@ -64,7 +57,7 @@ export default {
       return this.user?.accountType === "individual";
     },
     rows() {
-      return myChallengesArray(this.user?.myChallenges);
+      return dataArrayFromObject(this.user?.myChallenges);
     }
   },
   methods: {

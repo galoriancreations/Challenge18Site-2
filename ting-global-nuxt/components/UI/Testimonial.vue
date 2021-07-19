@@ -60,12 +60,17 @@ export default {
 
   &__scroll-area {
     height: 13rem;
-    margin: 0 -1rem;
-    padding: 0 1rem;
+    margin: 0 -1.25rem;
+    padding: 0 1.25rem;
     margin-top: -2rem;
     position: relative;
     z-index: 10;
     overflow: auto;
+
+    @include respond(mobile) {
+      margin: 0 -1rem;
+      padding: 0 1rem;
+    }
   }
 
   &__text {

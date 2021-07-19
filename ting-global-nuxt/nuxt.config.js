@@ -71,7 +71,6 @@ export default {
     emailjsTemplate: process.env.EMAILJS_TEMPLATE,
     emailjsService: process.env.EMAILJS_SERVICE,
     paypalSandbox: process.env.PAYPAL_SANDBOX,
-    paypalLive: process.env.PAYPAL_LIVE,
-    leafletKey: process.env.LEAFLET_KEY
+    paypalLive: process.env.PAYPAL_LIVE
   }
 }

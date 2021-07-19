@@ -1,5 +1,6 @@
 @import "./base.scss";
 
+// GENERAL STYLES
 *,
 *::before,
 *::after {
@@ -24,6 +25,12 @@ html {
   }
 }
 
+::selection {
+  background-color: $color-gold-4;
+  color: #000;
+}
+
+// PAGE TRANSITION
 .page-enter,
 .page-leave-to {
   opacity: 0;
@@ -39,11 +46,7 @@ html {
   opacity: 1;
 }
 
-::selection {
-  background-color: $color-gold-4;
-  color: #000;
-}
-
+// TYPOGRAPHY
 h1,
 h2,
 h3,
@@ -66,6 +69,7 @@ a {
   color: inherit;
 }
 
+// RESULTS TABLE
 .results-table {
   max-width: 90rem;
   margin: auto;
@@ -94,6 +98,7 @@ a {
   }
 }
 
+// AGILE SLIDER
 .agile {
   &__actions {
     margin-top: 2.5rem;
@@ -151,6 +156,7 @@ a {
   }
 }
 
+// FORMS
 .form {
   display: flex;
   flex-direction: column;
@@ -320,6 +326,7 @@ a {
   }
 }
 
+// LANGUAGE SELECTOR
 .language-selector {
   width: 100%;
   max-width: 37rem;
@@ -330,6 +337,7 @@ a {
   }
 }
 
+// MODAL
 .modal {
   position: fixed;
   top: 0;

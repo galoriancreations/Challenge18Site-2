@@ -58,9 +58,9 @@
         :amount="price"
         currency="USD"
         :client="paypalCredentials"
+        :env="paypalEnv"
         @payment-completed="paymentCompleted"
         @payment-cancelled="paymentCancelled"
-        :env="paypalEnv"
       />
     </client-only>
     <BaseSpinner v-if="loading" />
@@ -75,7 +75,7 @@ export default {
   components: {
     PayPal: () => (process.client ? import("vue-paypal-checkout") : null)
   },
-  inject: ["details", "selectedPlan", "backToForm"],
+  inject: ["details", "getSelectedPlan", "backToForm"],
   data() {
     return {
       paypalCredentials: {
@@ -90,7 +90,7 @@ export default {
   },
   computed: {
     plan() {
-      return this.selectedPlan();
+      return this.getSelectedPlan();
     },
     languageText() {
       const matchingLanguage = languageOptions.find(
