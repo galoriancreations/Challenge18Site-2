@@ -70,12 +70,4 @@ export default {
     margin-bottom: 5rem;
   }
 }
-
-// .home .partners {
-//   margin-top: 10rem;
-
-//   @include respond(mobile) {
-//     margin-top: 7rem;
-//   }
-// }
 </style>

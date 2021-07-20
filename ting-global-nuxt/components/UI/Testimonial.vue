@@ -62,7 +62,7 @@ export default {
     height: 13rem;
     margin: 0 -1.25rem;
     padding: 0 1.25rem;
-    margin-top: -2rem;
+    margin-top: -2rem !important;
     position: relative;
     z-index: 10;
     overflow: auto;
