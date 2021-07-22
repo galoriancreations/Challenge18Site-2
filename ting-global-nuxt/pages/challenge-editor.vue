@@ -99,11 +99,23 @@
                   <div class="task-form__top">
                     <h3 class="task-form__title">
                       {{ `${taskLabel} ${taskIndex + 1}` }}
+                      <span v-if="task.isBonus">(bonus)</span>
                     </h3>
-                    <i
-                      class="fas fa-trash-alt options-action-button"
-                      @click="deleteTask(taskIndex)"
-                    />
+                    <div class="task-form__top-icons">
+                      <i
+                        :class="{
+                          'options-action-button': true,
+                          fas: task.isBonus,
+                          far: !task.isBonus,
+                          'fa-star': true
+                        }"
+                        @click="toggleTaskAsBonus(taskIndex)"
+                      />
+                      <i
+                        class="fas fa-trash-alt options-action-button"
+                        @click="deleteTask(taskIndex)"
+                      />
+                    </div>
                   </div>
                   <div
                     v-for="(option, optionIndex) in task.options"
@@ -318,14 +330,7 @@ export default {
         day.tasks.forEach((task, taskIndex) => {
           texts[dayIndex].push([]);
           task.options.forEach(option => {
-            texts[dayIndex][taskIndex].push(
-              convertAsteriks(
-                option.text
-                  .replace(" - ", " – ")
-                  .replace("<", "")
-                  .replace(">", "")
-              )
-            );
+            texts[dayIndex][taskIndex].push(convertAsteriks(option.text));
           });
         });
       });
@@ -353,7 +358,11 @@ export default {
           id: day.id,
           day: dayIndex + 1,
           title: day.title,
-          tasks: this.selections[dayIndex]
+          tasks: day.tasks.map((task, taskIndex) => ({
+            id: task.id,
+            text: this.selections[dayIndex][taskIndex],
+            isBonus: task.isBonus
+          }))
         }))
       };
     }
@@ -443,7 +452,8 @@ export default {
     addTask() {
       this.options[this.dayIndex].tasks.push({
         id: uniqid(),
-        options: []
+        options: [],
+        isBonus: false
       });
       this.selections[this.dayIndex].push("");
       this.extraInputs[this.dayIndex].push("");
@@ -460,6 +470,10 @@ export default {
         this.selections[this.dayIndex].splice(taskIndex, 1);
         this.extraInputs[this.dayIndex].splice(taskIndex, 1);
       }
+    },
+    toggleTaskAsBonus(taskIndex) {
+      const task = this.options[this.dayIndex].tasks[taskIndex];
+      task.isBonus = !task.isBonus;
     },
     addDay() {
       this.options.push({
@@ -956,16 +970,21 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
 
-    .options-action-button {
-      @media (hover: hover) {
-        opacity: 0;
-        visibility: hidden;
-      }
+  &__top-icons {
+    transition: all 0.5s;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(2, min-content);
+
+    @media (hover: hover) {
+      opacity: 0;
+      visibility: hidden;
     }
   }
 
-  &:hover &__top .options-action-button {
+  &:hover &__top-icons {
     opacity: 1;
     visibility: visible;
   }
@@ -1169,7 +1188,8 @@ export default {
     font-size: 1.55rem;
   }
 
-  &.fa-pen {
+  &.fa-pen,
+  &.fa-star {
     color: $color-blue-3;
   }
 

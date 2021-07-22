@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import SpinningLogoBg from "../components/extras/SpinningLogoBg";
 import socket from "socket.io-client";
 import { baseURL } from "../assets/util/axios";
+import SpinningLogoBg from "../components/extras/SpinningLogoBg";
 
 export default {
   components: { SpinningLogoBg },
@@ -30,18 +30,26 @@ export default {
       this.io.on("allBoards", ({ challenges }) =>
         this.$store.dispatch("results/updateResults", challenges)
       );
-      if (this.user) {
+      if (this.isLoggedIn) {
         this.io.emit("joinRoom", this.user.id);
       }
+    },
+    restartSocket() {
+      this.io.disconnect();
+      this.io = socket(baseURL);
+      this.initSocket();
     }
   },
   watch: {
     isLoggedIn(value) {
       if (value) {
-        this.$router.replace("/dashboard");
         this.io.emit("joinRoom", this.user.id);
-      } else if (this.$route.meta.requiresAuth) {
-        this.$router.replace("/");
+        this.$router.replace("/dashboard");
+      } else {
+        this.restartSocket();
+        if (this.$route.meta.requiresAuth) {
+          this.$router.replace("/");
+        }
       }
     }
   },

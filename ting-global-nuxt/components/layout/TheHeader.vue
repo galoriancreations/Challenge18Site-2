@@ -73,7 +73,6 @@ export default {
           hide: !this.isLoggedIn
         }
       ];
-
       return items.filter(item => !item.hide);
     }
   },

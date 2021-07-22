@@ -1,6 +1,7 @@
 <template>
   <WhiteSection class="team-results">
     <BaseSpinner v-if="loading" />
+    <ErrorMessage v-else-if="error" :error="error" />
     <div v-else class="team-results__grid">
       <div v-for="team in teams" :key="team.team" class="team-results__item">
         <SectionHeading>
@@ -38,6 +39,9 @@ export default {
   computed: {
     loading() {
       return this.$store.getters["results/loading"];
+    },
+    error() {
+      return this.$store.getters["results/error"];
     },
     results() {
       return this.$store.getters["results/results"];

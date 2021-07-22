@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@maxflex/v-number": "^1.0.9",
     "axios": "^0.21.1",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.9.1",

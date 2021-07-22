@@ -1,3 +1,5 @@
+import axios from "~/assets/util/axios";
+
 export const state = () => ({
     results: {},
     loading: true,
@@ -20,7 +22,7 @@ export const actions = {
         try {
 
         } catch (error) {
-
+            context.commit("setError", { ...error });
         }
     },
     updateResults(context, results) {
@@ -34,5 +36,8 @@ export const getters = {
     },
     loading(state) {
         return state.loading;
+    },
+    error(state) {
+        return state.error;
     }
 };

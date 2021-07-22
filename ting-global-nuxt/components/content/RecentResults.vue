@@ -2,6 +2,7 @@
   <section class="recent-results">
     <SectionHeading>Recent Results</SectionHeading>
     <BaseSpinner v-if="loading" />
+    <ErrorMessage v-else-if="error" :error="error" />
     <div v-else class="recent-results__content">
       <vue-good-table
         class="results-table"
@@ -58,6 +59,9 @@ export default {
     },
     loading() {
       return this.$store.getters["results/loading"];
+    },
+    error() {
+      return this.$store.getters["results/error"];
     },
     rows() {
       return challengesArray(this.results);

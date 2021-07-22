@@ -13,13 +13,13 @@
           {{ user[key] || "Not filled yet" }}
         </p>
       </div>
-      <div class="account-details__field">
+      <div class="account-details__field" v-if="languageText">
         <h4 class="account-details__title">Challenge language</h4>
         <p class="account-details__text">
-          {{ languageText || "Not filled yet" }}
+          {{ languageText }}
         </p>
       </div>
-      <div class="account-details__field" v-if="isOrganization">
+      <div class="account-details__field" v-if="planText">
         <h4 class="account-details__title">Membership plan</h4>
         <p class="account-details__text">
           {{ planText }}
@@ -69,9 +69,14 @@ export default {
       return matchingLanguage?.label;
     },
     planText() {
-      const { label, price } = planOptions.find(
+      if (this.user?.plan === "free") {
+        return "Free";
+      }
+      const matchingPlan = planOptions.find(
         plan => plan.type === this.user?.plan
       );
+      if (!matchingPlan) return;
+      const { label, price } = matchingPlan;
       return `${label} / $${price}`;
     }
   },

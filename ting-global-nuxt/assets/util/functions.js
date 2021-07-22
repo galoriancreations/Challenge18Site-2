@@ -84,7 +84,10 @@ export const initialSelections = options => {
 }
 
 export const convertAsteriks = text => {
-  const chars = text.split("");
+  const chars = text
+    .replace(" - ", " – ")
+    .replace(/(<([^>]+)>)/ig, "")
+    .split("");
   let closingTag = false;
   for (let i = 0; i < chars.length; i++) {
     if (chars[i] === "*") {
