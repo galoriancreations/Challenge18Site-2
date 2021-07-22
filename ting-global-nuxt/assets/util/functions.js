@@ -42,46 +42,30 @@ export const challengesArray = challenges => {
 export const emptyDays = (days = 6, tasks = 2) =>
   numbersArray(days).map(() => ({
     title: "",
-    tasks: numbersArray(tasks).map(() => ({ options: [] }))
+    tasks: numbersArray(tasks).map(() => ({ options: [], isBonus: false }))
   }));
 
-export const initialOptions = options => {
-  const initialOptions = [...options];
-  options.forEach((day, dayIndex) => {
-    initialOptions[dayIndex].id = day.id || uniqid();
-    day.tasks.forEach((task, taskIndex) => {
-      initialOptions[dayIndex].tasks[taskIndex].id = task.id || uniqid();
-      task.options.forEach((option, optionIndex) => {
-        initialOptions[dayIndex].tasks[taskIndex].options[optionIndex].id = option.id || uniqid();
-      });
-    });
-  });
-  return initialOptions;
-}
+export const initialOptions = options =>
+  options.map(day => ({
+    ...day,
+    id: day.id || uniqid(),
+    tasks: day.tasks.map(task => ({
+      ...task,
+      id: task.id || uniqid(),
+      options: task.options.map(option => ({
+        ...option,
+        id: option.id || uniqid()
+      }))
+    }))
+  }));
 
-export const initialExtraInputs = options => {
-  const inputs = [];
-  options.forEach((day, dayIndex) => {
-    inputs.push([]);
-    day.tasks.forEach(() => {
-      inputs[dayIndex].push("");
-    });
-  });
-  return inputs;
-}
+export const initialExtraInputs = options =>
+  options.map(day => day.tasks.map(() => ""));
 
-export const initialSelections = options => {
-  const initialSelections = [];
-  options.forEach((day, dayIndex) => {
-    initialSelections[dayIndex] = [];
-    day.tasks.forEach((task, taskIndex) => {
-      if (task.options?.length) {
-        initialSelections[dayIndex][taskIndex] = task.options[0].text;
-      }
-    });
-  });
-  return initialSelections;
-}
+export const initialSelections = options =>
+  options.map(day =>
+    day.tasks.map(task => task.options?.length ? task.options[0].text : null)
+  );
 
 export const convertAsteriks = text => {
   const chars = text
@@ -123,5 +107,5 @@ export const defaultLanguage = () => {
   return matchingLanguage?.name || "English";
 }
 
-export const dataArrayFromObject = object =>
-  Object.keys(object).map(id => ({ id, ...object[id] }));
+export const dataArrayFromObject = data =>
+  Object.keys(data).map(id => ({ id, ...data[id] }));
