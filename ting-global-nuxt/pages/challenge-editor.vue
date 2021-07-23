@@ -215,7 +215,7 @@ import {
   initialSelections,
   initialExtraInputs,
   numbersArray,
-  convertAsteriks
+  convertTaskText
 } from "../assets/util/functions";
 import {
   languageOptions,
@@ -308,37 +308,28 @@ export default {
       return taskTranslations[this.language] || "Task";
     },
     challengeNamePlaceholder() {
-      return (
-        process.client &&
-        (window.innerWidth > 600
+      return process.client
+        ? window.innerWidth > 600
           ? "Enter challenge name here"
-          : "Type name here")
-      );
+          : "Type name here"
+        : null;
     },
     newOptionPlaceholder() {
-      return (
-        process.client &&
-        (window.innerWidth > 600
+      return process.client
+        ? window.innerWidth > 600
           ? "Type and press Enter to add a new option..."
-          : "Enter new option here...")
-      );
+          : "Enter new option here..."
+        : null;
     },
     convertedOptions() {
-      const texts = [];
-      this.options.forEach((day, dayIndex) => {
-        texts.push([]);
-        day.tasks.forEach((task, taskIndex) => {
-          texts[dayIndex].push([]);
-          task.options.forEach(option => {
-            texts[dayIndex][taskIndex].push(convertAsteriks(option.text));
-          });
-        });
-      });
-      return texts;
+      return this.options.map(day =>
+        day.tasks.map(task =>
+          task.options.map(option => convertTaskText(option.text))
+        )
+      );
     },
     direction() {
-      if (rtlLanguages.includes(this.language)) return "rtl";
-      else return null;
+      return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
     user() {
       return this.$store.getters.user;

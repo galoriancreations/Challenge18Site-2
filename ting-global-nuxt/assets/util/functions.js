@@ -67,7 +67,7 @@ export const initialSelections = options =>
     day.tasks.map(task => task.options?.length ? task.options[0].text : null)
   );
 
-export const convertAsteriks = text => {
+export const convertTaskText = text => {
   const chars = text
     .replace(" - ", " – ")
     .replace(/(<([^>]+)>)/ig, "")
