@@ -661,7 +661,7 @@ export default {
     font-size: 5rem;
     font-family: "Spartan", sans-serif;
     letter-spacing: -0.5px;
-    font-weight: 700;
+    font-weight: 600;
     color: $color-blue-2;
     border: none;
     outline: none;

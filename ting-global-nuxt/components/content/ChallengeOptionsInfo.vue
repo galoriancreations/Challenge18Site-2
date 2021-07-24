@@ -65,7 +65,6 @@ export default {
   &__title {
     color: $color-blue-2;
     font-size: 3rem;
-    font-weight: 700;
     margin-bottom: 3rem;
 
     @include respond(mobile) {
