@@ -32,7 +32,6 @@
           :name="transitionName"
         >
           <div
-            v-if="options.length"
             class="challenge-options__layout"
             :style="{ direction }"
             key="layout"
@@ -662,7 +661,7 @@ export default {
     font-size: 5rem;
     font-family: "Spartan", sans-serif;
     letter-spacing: -0.5px;
-    font-weight: 600;
+    font-weight: 700;
     color: $color-blue-2;
     border: none;
     outline: none;
@@ -676,7 +675,6 @@ export default {
   &__language {
     font: inherit;
     font-size: 2.5rem;
-    font-weight: 600;
 
     @include respond(mobile) {
       font-size: 2rem;

@@ -34,7 +34,7 @@ export default {
   display: inline-block;
   font-size: 3.85rem;
   letter-spacing: -0.5px;
-  font-weight: 600;
+  font-weight: 700;
   position: relative;
   color: $color-blue-2;
   margin-bottom: 7rem;
@@ -58,7 +58,7 @@ export default {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: calc(100% + 1rem);
+    top: calc(100% + 0.8rem);
     width: 50%;
     max-width: 18rem;
     border-top: 0.5rem solid $color-blue-3;

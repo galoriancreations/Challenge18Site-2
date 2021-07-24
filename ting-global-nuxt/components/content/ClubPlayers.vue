@@ -1,12 +1,8 @@
 <template>
   <DashboardSection title="Club Players" class="club-players">
     <div v-if="!hasPlayers" class="my-challenges__empty">
-      <p>
-        You haven't listed any players yet.
-      </p>
-      <p>
-        Start adding your players to keep track of their scores and skills.
-      </p>
+      <p>You haven't listed any players yet.</p>
+      <p>Start adding your players to keep track of their scores and skills.</p>
     </div>
     <template slot="button">
       <ActionButton color="blue" @click="showAddModal = true">
@@ -29,7 +25,6 @@ export default {
   },
   data() {
     return {
-      selectedPlayer: null,
       showAddModal: false
     };
   },

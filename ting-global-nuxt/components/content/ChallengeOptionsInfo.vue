@@ -1,7 +1,7 @@
 <template>
   <DashboardModal :active="active" class="challenge-options-intro">
     <h3 class="challenge-options-intro__title">
-      {{ "Welcome to the Challenge & Template Editor" }}
+      Welcome to the Challenge & Template Editor
     </h3>
     <div class="challenge-options-intro__text">
       <p>
@@ -65,6 +65,7 @@ export default {
   &__title {
     color: $color-blue-2;
     font-size: 3rem;
+    font-weight: 700;
     margin-bottom: 3rem;
 
     @include respond(mobile) {

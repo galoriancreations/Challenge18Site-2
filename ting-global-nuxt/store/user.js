@@ -8,7 +8,7 @@ export const state = () => ({
     user: null,
     token: null,
     templates: {},
-    selectedTemplate: undefined
+    selectedTemplate: 1
 });
 
 export const mutations = {
