@@ -512,8 +512,7 @@ export default {
       }
     },
     isSelectionMatching(dayIndex, taskIndex) {
-      const { options } = this.options[dayIndex].tasks[taskIndex];
-      for (let option of options) {
+      for (let option of this.options[dayIndex].tasks[taskIndex]) {
         if (option.text === this.selections[dayIndex][taskIndex]) {
           return true;
         }
