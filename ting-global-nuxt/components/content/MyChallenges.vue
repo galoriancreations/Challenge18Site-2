@@ -65,9 +65,7 @@ export default {
       return dataArrayFromObject(this.user.myChallenges);
     },
     table() {
-      return process.client
-        ? this.$refs.tableContainer?.querySelector(".vgt-responsive")
-        : null;
+      return this.$refs.tableContainer?.querySelector(".vgt-responsive");
     }
   },
   methods: {
