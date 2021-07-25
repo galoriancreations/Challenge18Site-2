@@ -58,7 +58,7 @@ export default {
   &__content {
     padding: 4.5rem 3rem 6rem;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
 
     @include respond(mobile) {

@@ -6,11 +6,11 @@
         {{ isIndividual ? "Join" : "Create" }} your first!
       </p>
     </div>
-    <div v-else class="my-challenges__table-container">
+    <div v-else class="my-challenges__table-container" ref="table">
       <vue-good-table
         class="results-table my-challenges__table"
         :columns="columns"
-        :rows="rows"
+        :rows="challenges"
         theme="polar-bear"
       />
     </div>
@@ -30,9 +30,11 @@
 import JoinChallenge from "./JoinChallenge";
 import CreateChallenge from "./CreateChallenge";
 import { dataArrayFromObject } from "../../assets/util/functions";
+import Scrollbar from "smooth-scrollbar";
 
 export default {
   components: { JoinChallenge, CreateChallenge },
+  inject: ["io"],
   data() {
     return {
       modalOpen: false,
@@ -43,7 +45,8 @@ export default {
         { field: "numOfUsers", label: "Users", sortable: false },
         { field: "score", label: "Score", sortable: false },
         { field: "invite", label: "Invite", sortable: false }
-      ]
+      ],
+      scrollbar: null
     };
   },
   computed: {
@@ -51,13 +54,13 @@ export default {
       return this.$store.getters.user;
     },
     hasChallenges() {
-      return this.user?.myChallenges && this.rows.length > 0;
+      return !!this.user?.myChallenges && this.challenges.length > 0;
     },
     isIndividual() {
       return this.user?.accountType === "individual";
     },
-    rows() {
-      return dataArrayFromObject(this.user?.myChallenges);
+    challenges() {
+      return dataArrayFromObject(this.user.myChallenges);
     }
   },
   methods: {
@@ -67,6 +70,20 @@ export default {
     closeModal() {
       this.modalOpen = false;
     }
+  },
+  mounted() {
+    const { table } = this.$refs;
+    if (this.hasChallenges) {
+      this.scrollbar = Scrollbar.init(table);
+    }
+    this.io.on("myChallenges", () => {
+      setTimeout(() => {
+        if (!this.scrollbar) {
+          this.scrollbar = Scrollbar.init(table);
+        }
+        this.scrollbar.scrollTop = table.scrollHeight;
+      }, 10);
+    });
   },
   provide() {
     return {
@@ -95,8 +112,18 @@ export default {
     }
   }
 
-  &__table {
+  &__table-container {
+    max-height: 45rem;
+    overflow: auto;
+    align-self: flex-start;
     margin-bottom: 1.5rem;
+
+    @include respond(mobile) {
+      max-height: 40rem;
+    }
+  }
+
+  &__table {
     line-height: 1.6;
   }
 }
