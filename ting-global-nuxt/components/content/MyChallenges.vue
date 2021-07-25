@@ -6,12 +6,14 @@
         {{ isIndividual ? "Join" : "Create" }} your first!
       </p>
     </div>
-    <div v-else class="my-challenges__table-container" ref="table">
+    <div v-else class="my-challenges__table-container" ref="tableContainer">
       <vue-good-table
         class="results-table my-challenges__table"
         :columns="columns"
         :rows="challenges"
         theme="polar-bear"
+        max-height="46rem"
+        :fixed-header="true"
       />
     </div>
     <template slot="button">
@@ -61,6 +63,11 @@ export default {
     },
     challenges() {
       return dataArrayFromObject(this.user.myChallenges);
+    },
+    table() {
+      return process.client
+        ? this.$refs.tableContainer?.querySelector(".vgt-responsive")
+        : null;
     }
   },
   methods: {
@@ -72,16 +79,15 @@ export default {
     }
   },
   mounted() {
-    const { table } = this.$refs;
     if (this.hasChallenges) {
-      this.scrollbar = Scrollbar.init(table);
+      this.scrollbar = Scrollbar.init(this.table);
     }
     this.io.on("myChallenges", () => {
       setTimeout(() => {
         if (!this.scrollbar) {
-          this.scrollbar = Scrollbar.init(table);
+          this.scrollbar = Scrollbar.init(this.table);
         }
-        this.scrollbar.scrollTop = table.scrollHeight;
+        this.scrollbar.scrollTop = this.table.scrollHeight;
       }, 10);
     });
   },
@@ -113,18 +119,16 @@ export default {
   }
 
   &__table-container {
-    max-height: 45rem;
-    overflow: auto;
     align-self: flex-start;
     margin-bottom: 1.5rem;
-
-    @include respond(mobile) {
-      max-height: 40rem;
-    }
   }
 
   &__table {
     line-height: 1.6;
+
+    .scrollbar-track {
+      z-index: 50;
+    }
   }
 }
 </style>
