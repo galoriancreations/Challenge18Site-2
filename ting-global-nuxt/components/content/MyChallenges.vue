@@ -6,18 +6,18 @@
         {{ isIndividual ? "Join" : "Create" }} your first!
       </p>
     </div>
-    <div v-else class="my-challenges__table-container" ref="tableContainer">
+    <div v-else class="my-challenges__table-container">
       <vue-good-table
         class="results-table my-challenges__table"
         :columns="columns"
         :rows="challenges"
         theme="polar-bear"
         max-height="46rem"
-        :fixed-header="true"
+        :fixed-header="fixedHeader"
       />
     </div>
     <template slot="button">
-      <ActionButton color="blue" @click="openModal">
+      <ActionButton color="blue" @click="modalOpen = true">
         <i class="fas fa-plus" />
       </ActionButton>
     </template>
@@ -48,7 +48,8 @@ export default {
         { field: "score", label: "Score", sortable: false },
         { field: "invite", label: "Invite", sortable: false }
       ],
-      scrollbar: null
+      scrollbar: null,
+      fixedHeader: false
     };
   },
   computed: {
@@ -65,29 +66,37 @@ export default {
       return dataArrayFromObject(this.user.myChallenges);
     },
     table() {
-      return this.$refs.tableContainer?.querySelector(".vgt-responsive");
+      return this.$el.querySelector(".vgt-responsive");
     }
   },
   methods: {
-    openModal() {
-      this.modalOpen = true;
+    manageTableScrollbar() {
+      if (this.hasChallenges) {
+        this.scrollbar = Scrollbar.init(this.table);
+      }
+      this.io.on("myChallenges", () => {
+        setTimeout(() => {
+          if (!this.scrollbar) {
+            this.scrollbar = Scrollbar.init(this.table);
+          }
+          this.scrollbar.scrollTop = 0;
+        }, 10);
+      });
+    },
+    manageTableHeader() {
+      this.fixedHeader = window.innerWidth > 1000;
     },
     closeModal() {
       this.modalOpen = false;
     }
   },
   mounted() {
-    if (this.hasChallenges) {
-      this.scrollbar = Scrollbar.init(this.table);
-    }
-    this.io.on("myChallenges", () => {
-      setTimeout(() => {
-        if (!this.scrollbar) {
-          this.scrollbar = Scrollbar.init(this.table);
-        }
-        this.scrollbar.scrollTop = this.table.scrollHeight;
-      }, 10);
-    });
+    this.manageTableScrollbar();
+    this.manageTableHeader();
+    window.addEventListener("resize", this.manageTableHeader);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.manageTableHeader);
   },
   provide() {
     return {
@@ -117,8 +126,9 @@ export default {
   }
 
   &__table-container {
-    align-self: flex-start;
     margin-bottom: 1.5rem;
+    width: 100%;
+    align-self: flex-start;
   }
 
   &__table {

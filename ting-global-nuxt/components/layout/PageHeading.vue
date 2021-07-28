@@ -134,8 +134,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/dashboard-bg.jpeg);
-    background-position-y: 30%;
+      url(../../assets/images/membership-bg.jpeg);
   }
 
   &#challenge-options {
@@ -172,19 +171,6 @@ export default {
       font-size: 4rem;
       top: 50%;
       max-width: 40rem;
-    }
-  }
-
-  &#blogpost &__heading {
-    font-size: 4.8rem;
-    max-width: 100rem;
-
-    @include respond(tablet) {
-      font-size: 4rem;
-    }
-
-    @include respond(mobile) {
-      font-size: 3.5rem;
     }
   }
 }

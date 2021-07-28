@@ -62,6 +62,14 @@ export default {
     padding: 14rem $padding-sides-mobile 12rem;
   }
 
+  &__heading {
+    font-weight: 800;
+    font-size: 4.5rem;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 5rem;
+  }
+
   &__content {
     display: flex;
     justify-content: space-between;

@@ -14,10 +14,11 @@ export default {
   },
   computed: {
     classes() {
-      let classes = "section-heading";
-      if (this.small) classes += " section-heading--small";
-      if (this.extraClass) classes += ` ${this.extraClass}`;
-      return classes;
+      return {
+        "section-heading": true,
+        "section-heading--small": this.small,
+        [this.extraClass]: !!this.extraClass
+      };
     }
   }
 };

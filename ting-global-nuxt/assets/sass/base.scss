@@ -1,5 +1,10 @@
 // MEDIA QUERIES
 @mixin respond($breakpoint) {
+  @if $breakpoint == desktop-lg {
+    @media only screen and (min-width: 1600px) {
+      @content;
+    }
+  }
   @if $breakpoint == desktop {
     @media only screen and (min-width: 1101px) {
       @content;
