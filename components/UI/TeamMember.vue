@@ -34,10 +34,8 @@ export default {
   },
   computed: {
     image() {
-      return (
-        this.member.image &&
-        require(`../../assets/images/teams/${this.member.image}`)
-      );
+      const { image } = this.member;
+      return image && require(`../../assets/images/teams/${image}`);
     }
   }
 };
@@ -65,7 +63,7 @@ export default {
   }
 
   &__card {
-    flex: 1;
+    width: 100%;
     padding: 11rem 1.75rem 3rem;
     box-shadow: $boxshadow2;
     border-radius: 0.8rem;
