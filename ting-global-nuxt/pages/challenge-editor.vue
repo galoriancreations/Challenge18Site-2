@@ -214,6 +214,7 @@ import {
   initialSelections,
   initialExtraInputs,
   numbersArray,
+  stripHTML,
   convertTaskText
 } from "../assets/util/functions";
 import {
@@ -383,15 +384,17 @@ export default {
     addOptionOnEnter(event, taskIndex) {
       if (event.key === "Enter") {
         event.preventDefault();
-        const newOptionText = this.extraInputs[this.dayIndex][taskIndex];
+        const newOptionText = stripHTML(
+          this.extraInputs[this.dayIndex][taskIndex].trim()
+        );
         if (newOptionText) {
           this.options[this.dayIndex].tasks[taskIndex].options.push({
             id: uniqid(),
             text: newOptionText
           });
           this.selections[this.dayIndex][taskIndex] = newOptionText;
-          this.extraInputs[this.dayIndex][taskIndex] = "";
         }
+        this.extraInputs[this.dayIndex][taskIndex] = "";
       }
     },
     setEditedOption(taskId, optionId) {
@@ -401,8 +404,8 @@ export default {
     editOption(value, taskIndex, optionIndex) {
       this.options[this.dayIndex].tasks[taskIndex].options[
         optionIndex
-      ].text = value;
-      this.selections[this.dayIndex][taskIndex] = value;
+      ].text = stripHTML(value);
+      this.selections[this.dayIndex][taskIndex] = stripHTML(value);
     },
     finishEditOnEnter(event) {
       if (event.key === "Enter") {
@@ -1016,7 +1019,7 @@ export default {
     display: block;
     height: 2.8rem;
     width: 2.8rem;
-    border: 0.4rem solid $color-azure;
+    border: 0.5rem solid $color-azure;
     border-radius: 50%;
     cursor: pointer;
     position: relative;
@@ -1078,6 +1081,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: rgba($color-azure-light, 0.6);
+    border-radius: 0.4rem;
     padding: 0.5rem;
     margin-top: 0.75rem;
     transition: all 0.5s;
@@ -1115,6 +1119,7 @@ export default {
     outline: none;
     padding: 0.8rem;
     border: 0.1rem solid #ccc;
+    border-radius: 0.5rem;
     transition: all 0.5s;
 
     &:focus {

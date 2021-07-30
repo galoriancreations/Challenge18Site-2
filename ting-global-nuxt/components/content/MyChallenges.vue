@@ -83,7 +83,7 @@ export default {
         }, 10);
       });
     },
-    manageTableHeader() {
+    adjustTableHeader() {
       this.fixedHeader = window.innerWidth > 1000;
     },
     closeModal() {
@@ -92,8 +92,8 @@ export default {
   },
   mounted() {
     this.manageTableScrollbar();
-    this.manageTableHeader();
-    window.addEventListener("resize", this.manageTableHeader);
+    this.adjustTableHeader();
+    window.addEventListener("resize", this.adjustTableHeader);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.manageTableHeader);

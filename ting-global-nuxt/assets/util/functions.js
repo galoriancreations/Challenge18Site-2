@@ -64,14 +64,13 @@ export const initialExtraInputs = options =>
 
 export const initialSelections = options =>
   options.map(day =>
-    day.tasks.map(task => task.options?.length ? task.options[0].text : null)
+    day.tasks.map(task => task.options[0]?.text)
   );
 
+export const stripHTML = text => text.replace(/(<([^>]+)>)/ig, "");
+
 export const convertTaskText = text => {
-  const chars = text
-    .replace(" - ", " – ")
-    .replace(/(<([^>]+)>)/ig, "")
-    .split("");
+  const chars = stripHTML(text.replace(" - ", " – ")).split("");
   let closingTag = false;
   for (let i = 0; i < chars.length; i++) {
     if (chars[i] === "*") {
@@ -82,7 +81,7 @@ export const convertTaskText = text => {
   return chars.join("");
 }
 
-export const textInputKeys = (labels) => {
+export const textInputKeys = labels => {
   const keys = [];
   for (let key in labels) {
     if (key !== "language" && key !== "phone") {
@@ -92,7 +91,7 @@ export const textInputKeys = (labels) => {
   return keys;
 };
 
-export const initialData = (labels) => {
+export const initialData = labels => {
   const formData = {};
   for (let key in labels) {
     formData[key] = "";
@@ -100,7 +99,8 @@ export const initialData = (labels) => {
   return formData;
 };
 
-export const numbersArray = n => Array.from({ length: n }, (_, i) => i + 1);
+export const numbersArray = n =>
+  Array.from({ length: n }, (_, i) => i + 1);
 
 export const defaultLanguage = () => {
   const matchingLanguage = languageOptions.find(language => language.code === navigator.language);

@@ -80,16 +80,9 @@ export default {
     }
   }
 
-  &--white:not(.action-button):hover {
-    background-color: $color-azure;
-    color: #fff;
-  }
-
   &--white:hover {
-    @media (hover: hover) {
-      background-color: $color-azure;
-      color: #fff;
-    }
+    background-color: rgba($color-azure-light, 0.8);
+    color: $color-blue-2;
   }
 
   &--outline {
