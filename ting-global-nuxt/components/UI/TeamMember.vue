@@ -20,7 +20,7 @@
       <span v-if="member.role" class="team-member__role">
         {{ member.role }}
       </span>
-      <p class="team-member__description">
+      <p v-if="member.description" class="team-member__description">
         {{ member.description }}
       </p>
     </div>
@@ -34,7 +34,10 @@ export default {
   },
   computed: {
     image() {
-      return require(`../../assets/images/teams/${this.member.image}`);
+      return (
+        this.member.image &&
+        require(`../../assets/images/teams/${this.member.image}`)
+      );
     }
   }
 };

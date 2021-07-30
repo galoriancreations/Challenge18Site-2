@@ -385,8 +385,8 @@ export default {
       if (event.key === "Enter") {
         event.preventDefault();
         const newOptionText = stripHTML(
-          this.extraInputs[this.dayIndex][taskIndex].trim()
-        );
+          this.extraInputs[this.dayIndex][taskIndex]
+        ).trim();
         if (newOptionText) {
           this.options[this.dayIndex].tasks[taskIndex].options.push({
             id: uniqid(),
