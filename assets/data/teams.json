@@ -12,12 +12,15 @@
             {
                 "name": "Joseph Mufutu",
                 "image": "joseph.jpeg",
-                "role": "Community-Led Developer (SDG Localization)"
+                "role": "Community-Led Developer",
+                "description": "Ting Global Cultural Ambassador and community Led Developer specializing in Localizing Sustainable Development Goals (SDGs), finding pathways of trasition into sustainability & self-sufficiency.",
+                "link": "https://www.linkedin.com/in/joseph-mufutu-12107461"
             },
             {
                 "name": "Itay Tzukerman",
                 "image": "itay.jpg",
-                "role": "Resource Development"
+                "role": "Resource Development",
+                "description": ""
             },
             {
                 "name": "Kate Breeze-Raz",
@@ -34,7 +37,7 @@
             },
             {
                 "name": "Nadav Raz",
-                "image": "",
+                "image": "nadav.jpeg",
                 "role": "Developer",
                 "description": "Game developer, programming in C# in Unity and Blueprint in Unreal Engine. Developing modern games for all platforms both online and offline while maintaining high quality code documentation."
             },
