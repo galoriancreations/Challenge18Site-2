@@ -1089,7 +1089,7 @@ export default {
     @media (hover: hover) {
       position: absolute;
       width: 10rem;
-      min-height: 100%;
+      height: 100%;
       right: 0;
       top: 50%;
       transform: translateY(-50%);

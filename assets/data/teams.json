@@ -10,6 +10,22 @@
                 "link": "http://hk.linkedin.com/in/sharongalor"
             },
             {
+                "name": "Joseph Mufutu",
+                "image": "joseph.jpeg",
+                "role": "Community-Led Developer (SDG Localization)"
+            },
+            {
+                "name": "Itay Tzukerman",
+                "image": "itay.jpg",
+                "role": "Resource Development"
+            },
+            {
+                "name": "Kate Breeze-Raz",
+                "image": "",
+                "role": "Designer",
+                "description": "Digital designer, creating graphics and using digital art to enhance Challenge 18 and making it fun for everyone to play and enjoy!"
+            },
+            {
                 "name": "Yinon Hever",
                 "image": "yinon.jpg",
                 "role": "Developer",
@@ -33,11 +49,6 @@
                 "image": "",
                 "role": "Developer",
                 "description": "Program Developer and Game Designer, designing applications and games on multiple platforms, specializing in Player and User experience."
-            },
-            {
-                "name": "Joseph Mufutu",
-                "image": "joseph.jpeg",
-                "role": "Community-Led Developer (SDG Localization)"
             }
         ]
     },

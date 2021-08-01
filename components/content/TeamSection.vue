@@ -46,7 +46,6 @@ export default {
   &__grid {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
     flex-wrap: wrap;
     margin: -2rem -1.25rem;
 

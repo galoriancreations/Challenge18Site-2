@@ -70,14 +70,14 @@ export const initialSelections = options =>
 export const stripHTML = text => text.replace(/(<([^>]+)>)/ig, "");
 
 export const convertTaskText = text => {
-  const chars = stripHTML(text.replace(" - ", " – ")).split("");
+  const chars = stripHTML(text).replace(" - ", " – ").split("");
   let closingTag = false;
-  for (let i = 0; i < chars.length; i++) {
-    if (chars[i] === "*") {
-      chars[i] = !closingTag ? "<strong>" : "</strong>";
+  chars.forEach((char, index) => {
+    if (char === "*") {
+      chars[index] = !closingTag ? "<strong>" : "</strong>";
       closingTag = !closingTag;
     }
-  }
+  });
   return chars.join("");
 }
 
