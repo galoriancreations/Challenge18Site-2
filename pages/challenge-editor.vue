@@ -590,7 +590,11 @@ export default {
       this.errorSubmitting = null;
       this.submitting = true;
       try {
-        // send request to create the challenge
+        const { challenge } = await this.$axios.$post("/xapi", {
+          userID: this.user.id,
+          createChallenge: this.finalChallengeData
+        });
+        this.$router.replace(`/challenges/${challenge.id}`);
       } catch (error) {
         this.errorSubmitting = error;
       }
