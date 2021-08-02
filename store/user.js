@@ -31,7 +31,7 @@ export const mutations = {
 
 export const actions = {
     async auth(context, { mode, data }) {
-        const authData = await this.$axios.$post("/api", { [mode]: data }, { progress: false });
+        const authData = await this.$axios.$post("/api", { [mode]: data });
         const { access_token: token, user, exp } = authData;
         this.$axios.setToken(token, "Bearer");
         await context.dispatch("loadTemplates", { user });
