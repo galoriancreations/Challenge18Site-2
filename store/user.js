@@ -1,5 +1,3 @@
-import axios from "../assets/util/axios";
-
 let logoutTimer;
 
 export const namespaced = false;
@@ -33,9 +31,10 @@ export const mutations = {
 
 export const actions = {
     async auth(context, { mode, data }) {
-        const response = await axios.post("/api", { [mode]: data });
-        const { access_token: token, user, exp } = response.data;
-        await context.dispatch("loadTemplates", { user, token });
+        const authData = await this.$axios.$post("/api", { [mode]: data }, { progress: false });
+        const { access_token: token, user, exp } = authData;
+        this.$axios.setToken(token, "Bearer");
+        await context.dispatch("loadTemplates", { user });
         context.commit("setUser", { user, token });
 
         this.$cookies.set("userId", user.id);
@@ -55,6 +54,7 @@ export const actions = {
 
         if (process.server) {
             context.commit("setUser", { user: { id: userId }, token });
+            this.$axios.setToken(token, "Bearer");
         } else {
             clearTimeout(logoutTimer);
             logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
@@ -62,22 +62,21 @@ export const actions = {
     },
     logout(context) {
         context.commit("removeUser");
+        this.$axios.setToken(false);
         this.$cookies.removeAll();
         clearTimeout(logoutTimer);
     },
     async updateUser(context, userData) {
-        const { user: { id }, token } = context.getters;
-        const { data: { user } } = await axios.post("/xapi",
-            { userID: id, editProfile: userData || {} },
-            { headers: { Authorization: `Bearer ${token}` } }
+        const { user: { id } } = context.getters;
+        const { user } = await this.$axios.$post("/xapi",
+            { userID: id, editProfile: userData || {} }
         );
         context.commit("updateUser", user);
     },
     async loadTemplates(context, authData) {
-        const { user, token } = authData || context.getters;
-        const { data: { templates } } = await axios.post("/xapi",
-            { userID: user.id, getTemplateNames: true },
-            { headers: { Authorization: `Bearer ${token}` } }
+        const { user } = authData || context.getters;
+        const { templates } = await this.$axios.$post("/xapi",
+            { userID: user.id, getTemplateNames: true }
         );
         context.commit("setTemplates", templates);
     },

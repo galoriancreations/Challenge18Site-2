@@ -38,6 +38,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    "@nuxtjs/axios",
     "cookie-universal-nuxt",
     "nuxt-route-meta"
   ],
@@ -66,7 +67,14 @@ export default {
     ]
   },
 
+  axios: {
+    progress: false
+  },
+
   publicRuntimeConfig: {
+    axios: {
+      baseURL: process.env.API_URL
+    },
     emailjsKey: process.env.EMAILJS_KEY,
     emailjsTemplate: process.env.EMAILJS_TEMPLATE,
     emailjsService: process.env.EMAILJS_SERVICE,

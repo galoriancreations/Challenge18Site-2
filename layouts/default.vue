@@ -7,14 +7,13 @@
 
 <script>
 import socket from "socket.io-client";
-import { baseURL } from "../assets/util/axios";
 import SpinningLogoBg from "../components/extras/SpinningLogoBg";
 
 export default {
   components: { SpinningLogoBg },
   data() {
     return {
-      io: socket(baseURL)
+      io: socket(this.$config.axios.baseURL)
     };
   },
   computed: {
@@ -36,8 +35,13 @@ export default {
     },
     restartSocket() {
       this.io.disconnect();
-      this.io = socket(baseURL);
+      this.io = socket(this.$config.axios.baseURL);
       this.initSocket();
+    },
+    initToken() {
+      if (this.isLoggedIn) {
+        this.$axios.setToken(this.$store.getters.token, "Bearer");
+      }
     }
   },
   watch: {
@@ -55,6 +59,7 @@ export default {
   },
   mounted() {
     this.initSocket();
+    this.initToken();
   },
   provide() {
     return {

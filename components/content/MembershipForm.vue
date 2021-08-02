@@ -133,7 +133,6 @@ import Checkout from "./Checkout";
 import CheckIcon from "../UI/CheckIcon";
 import { languageOptions } from "../../assets/util/options";
 import _ from "lodash";
-import axios from "../../assets/util/axios";
 
 export default {
   components: { Checkout, CheckIcon },
@@ -199,9 +198,11 @@ export default {
       } else {
         this.timeout = setTimeout(async () => {
           this.availability[key] = "loading";
-          const { data } = await axios.post("/api", { [apiKey]: value });
-          this.availability[key] = data.result ? "available" : "taken";
-        }, 750);
+          const { result } = await this.$axios.$post("/api", {
+            [apiKey]: value
+          });
+          this.availability[key] = result ? "available" : "taken";
+        }, 500);
       }
     }
   },

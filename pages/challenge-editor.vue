@@ -225,7 +225,6 @@ import {
 } from "../assets/util/options";
 import uniqid from "uniqid";
 import ChallengeOptionsInfo from "../components/content/ChallengeOptionsInfo";
-import axios from "../assets/util/axios";
 
 export default {
   components: { ChallengeOptionsInfo },
@@ -233,9 +232,9 @@ export default {
   //   requiresAuth: true,
   //   forOrganizations: true
   // },
-  async asyncData({ app, store }) {
+  async asyncData({ app, store, $axios }) {
     const draftId = app.$cookies.get("draftId");
-    const { selectedTemplate, user, token } = store.getters;
+    const { selectedTemplate, user } = store.getters;
     if (draftId) {
       try {
         // send request to collect the draft's data
@@ -262,6 +261,7 @@ export default {
           errorLoading: null
         };
       } catch (error) {
+        console.log(error);
         return { errorLoading: error };
       }
     } else {

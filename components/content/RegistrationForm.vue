@@ -69,7 +69,6 @@
 
 <script>
 import { languageOptions } from "../../assets/util/options";
-import axios from "../../assets/util/axios";
 import _ from "lodash";
 import CheckIcon from "../UI/CheckIcon";
 
@@ -131,8 +130,10 @@ export default {
       } else {
         this.timeout = setTimeout(async () => {
           this.availability[key] = "loading";
-          const response = await axios.post("/api", { [apiKey]: value });
-          this.availability[key] = response.data.result ? "available" : "taken";
+          const { result } = await this.$axios.$post("/api", {
+            [apiKey]: value
+          });
+          this.availability[key] = result ? "available" : "taken";
         }, 500);
       }
     }

@@ -51,7 +51,6 @@
 
 <script>
 import { languageOptions } from "../../assets/util/options";
-import axios from "../../assets/util/axios";
 
 export default {
   props: {
@@ -77,9 +76,6 @@ export default {
     user() {
       return this.$store.getters.user;
     },
-    token() {
-      return this.$store.getters.token;
-    },
     userLanguage() {
       return this.user?.language;
     },
@@ -102,15 +98,11 @@ export default {
     async submitHandler() {
       this.submitting = true;
       try {
-        const response = await axios.post(
-          "/xapi",
-          {
-            userID: this.user.id,
-            userRequestChallenge: this.selectedTemplate
-          },
-          { headers: { Authorization: `Bearer ${this.token}` } }
-        );
-        this.link = response.data.invite;
+        const { invite } = await this.$axios.$post("/xapi", {
+          userID: this.user.id,
+          userRequestChallenge: this.selectedTemplate
+        });
+        this.link = invite;
         this.io.on("myChallenges", this.updateAndClose);
       } catch (error) {
         this.errorSubmitting = error;

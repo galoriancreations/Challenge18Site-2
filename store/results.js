@@ -1,5 +1,3 @@
-import axios from "~/assets/util/axios";
-
 export const state = () => ({
     results: {},
     loading: true,
