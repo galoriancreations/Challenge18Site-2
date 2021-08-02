@@ -1,5 +1,4 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "Challenge 18 – The Innovation Nation Games",
     htmlAttrs: {
@@ -19,31 +18,25 @@ export default {
     ]
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     "@/assets/sass/main.scss"
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "@/plugins/main.js"
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     "@nuxtjs/axios",
     "cookie-universal-nuxt",
     "nuxt-route-meta"
   ],
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [
       "vue-agile"
@@ -75,6 +68,10 @@ export default {
     axios: {
       baseURL: process.env.API_URL
     },
+    stuff: [
+      { id: "dxkgsjg", name: "sfzkfhaskf" },
+      { id: "sfzjsahfszf,", name: "szjkfhasjfhsa" }
+    ],
     emailjsKey: process.env.EMAILJS_KEY,
     emailjsTemplate: process.env.EMAILJS_TEMPLATE,
     emailjsService: process.env.EMAILJS_SERVICE,

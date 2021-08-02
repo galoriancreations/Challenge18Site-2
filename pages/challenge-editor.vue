@@ -233,23 +233,30 @@ export default {
   //   forOrganizations: true
   // },
   async asyncData({ app, store, $axios }) {
-    const draftId = app.$cookies.get("draftId");
-    const { selectedTemplate, user } = store.getters;
-    if (draftId) {
-      try {
-        // send request to collect the draft's data
+    try {
+      const draftId = app.$cookies.get("draftId");
+      const { selectedTemplate, user } = store.getters;
+
+      if (draftId) {
+        const { draft } = await $axios.$post("/xapi", {
+          userID: user.id,
+          draftId
+        });
         return {
-          // draft data
+          name: draft.name,
+          language: draft.language,
+          options: initialOptions(draft.days),
+          selections: initialSelections(draft.days),
+          extraInputs: initialExtraInputs(draft.days),
           draftId,
+          templateId: draft.templateId,
           errorLoading: null
         };
-      } catch (error) {
-        return { errorLoading: error };
-      }
-    } else if (selectedTemplate) {
-      try {
-        // temporary code - real code will send request to collect the template's data
-        // based on the template ID that's in the state
+      } else if (selectedTemplate) {
+        // const { template } = await $axios.$post("/xapi", {
+        //   userID: user.id,
+        //   getTemplateData: selectedTemplate
+        // });
         const template = require("../assets/data/challenge-options");
         return {
           name: template.name,
@@ -258,21 +265,24 @@ export default {
           selections: initialSelections(template.days),
           extraInputs: initialExtraInputs(template.days),
           draftId: null,
+          templateId: template.id,
           errorLoading: null
         };
-      } catch (error) {
-        console.log(error);
-        return { errorLoading: error };
+      } else {
+        return {
+          name: "",
+          language: user?.language || "English",
+          options: initialOptions(emptyDays()),
+          selections: initialSelections(emptyDays()),
+          extraInputs: initialExtraInputs(emptyDays()),
+          draftId: null,
+          templateId: null,
+          errorLoading: null
+        };
       }
-    } else {
+    } catch (error) {
       return {
-        name: "",
-        language: user?.language || "English",
-        options: initialOptions(emptyDays()),
-        selections: initialSelections(emptyDays()),
-        extraInputs: initialExtraInputs(emptyDays()),
-        draftId: null,
-        errorLoading: null
+        errorLoading: error.response?.data?.msg || {}
       };
     }
   },
@@ -286,7 +296,8 @@ export default {
       errorSubmitting: null,
       saveTimeout: null,
       transitionName: null,
-      showInfoModal: false
+      showInfoModal: false,
+      lastAutoSave: null
     };
   },
   computed: {
@@ -334,8 +345,18 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    draftData() {
+      return {
+        name: this.name,
+        language: this.language,
+        options: this.options,
+        selections: this.selections,
+        templateId: this.templateId
+      };
+    },
     finalTemplateData() {
       return {
+        id: templateId,
         name: this.name,
         language: this.language,
         days: this.options
@@ -346,9 +367,7 @@ export default {
         name: this.name,
         language: this.language,
         days: this.options.map((day, dayIndex) => ({
-          id: day.id,
-          day: dayIndex + 1,
-          title: day.title,
+          ...day,
           tasks: day.tasks.map((task, taskIndex) => ({
             id: task.id,
             text: this.selections[dayIndex][taskIndex],
@@ -359,19 +378,30 @@ export default {
     }
   },
   methods: {
+    async saveDraft() {
+      const { draftId } = await this.$axios.$post("/xapi", {
+        userID: this.user.id,
+        saveDraft: { draftId: this.draftId, draftData: this.draftData }
+      });
+      this.draftId = draftId;
+    },
+    async saveTemplate() {
+      const { templateId } = await this.$axios.$post("/xapi", {
+        userID: this.user.id,
+        saveTemplate: {
+          templateId: this.templateId,
+          templateData: this.finalTemplateData
+        }
+      });
+      this.templateId = templateId;
+    },
     autoSave() {
-      console.log("auto save");
       clearTimeout(this.saveTimeout);
       this.saveTimeout = setTimeout(async () => {
-        const savedDraft = {
-          name: this.name,
-          language: this.language,
-          options: this.options,
-          selections: this.selections
-        };
-        // send request to save the draft's data into the user account
-        // send request to save the template's data into the user account
-      }, 1000);
+        await this.saveTemplate();
+        await this.saveDraft();
+        this.lastAutoSave = new Date();
+      }, 3000);
     },
     enterKeyHandler(event) {
       if (event.key === "Enter") {
@@ -598,6 +628,8 @@ export default {
     }
   },
   mounted() {
+    if (this.errorLoading) return;
+
     setTimeout(() => {
       this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
       this.$refs.dayTitle.$el.addEventListener("keydown", this.enterKeyHandler);

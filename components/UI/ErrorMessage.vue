@@ -7,7 +7,7 @@
 <script>
 export default {
   props: {
-    error: [Error, String, Object]
+    error: null
   },
   computed: {
     message() {

@@ -38,7 +38,6 @@ export default {
 
 .image-with-text {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   &--reverse {

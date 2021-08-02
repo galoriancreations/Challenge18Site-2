@@ -25,7 +25,7 @@ export default {
     }
   },
   methods: {
-    initSocket() {
+    initSocketMethods() {
       this.io.on("allBoards", ({ challenges }) =>
         this.$store.dispatch("results/updateResults", challenges)
       );
@@ -36,7 +36,7 @@ export default {
     restartSocket() {
       this.io.disconnect();
       this.io = socket(this.$config.axios.baseURL);
-      this.initSocket();
+      this.initSocketMethods();
     },
     initToken() {
       if (this.isLoggedIn) {
@@ -58,7 +58,7 @@ export default {
     }
   },
   mounted() {
-    this.initSocket();
+    this.initSocketMethods();
     this.initToken();
   },
   provide() {
