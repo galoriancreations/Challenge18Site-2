@@ -253,11 +253,10 @@ export default {
           errorLoading: null
         };
       } else if (selectedTemplate) {
-        // const { template } = await $axios.$post("/xapi", {
-        //   userID: user.id,
-        //   getTemplateData: selectedTemplate
-        // });
-        const template = require("../assets/data/challenge-options");
+        const { template } = await $axios.$post("/xapi", {
+          userID: user.id,
+          getTemplateData: selectedTemplate
+        });
         return {
           name: template.name,
           language: template.language,
@@ -597,8 +596,8 @@ export default {
         this.$router.replace(`/challenges/${challenge.id}`);
       } catch (error) {
         this.errorSubmitting = error;
+        this.submitting = false;
       }
-      this.submitting = false;
     }
   },
   watch: {

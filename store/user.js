@@ -6,7 +6,8 @@ export const state = () => ({
     user: null,
     token: null,
     templates: {},
-    selectedTemplate: 1
+    selectedTemplate: null,
+    createdChallenge: null
 });
 
 export const mutations = {
@@ -66,10 +67,10 @@ export const actions = {
         this.$cookies.removeAll();
         clearTimeout(logoutTimer);
     },
-    async updateUser(context, userData) {
+    async updateUser(context, userData = {}) {
         const { user: { id } } = context.getters;
         const { user } = await this.$axios.$post("/xapi",
-            { userID: id, editProfile: userData || {} }
+            { userID: id, editProfile: userData }
         );
         context.commit("updateUser", user);
     },
@@ -83,18 +84,6 @@ export const actions = {
     selectTemplate(context, template) {
         context.commit("setSelectedTemplate", template);
         this.$cookies.remove("draftId");
-    },
-    async updateTemplates(context, templateData) {
-        console.log(templateData)
-        // localStorage.setItem("templates", JSON.stringify(templates));
-    },
-    updateChallenges(context, challenges) {
-        const { user } = context.getters;
-        context.commit("updateUser", { ...user, myChallenges: challenges });
-    },
-    async updateDrafts(context, draft) {
-        console.log(draft)
-        // this.$cookies.set("draftId", draft.id);
     }
 };
 

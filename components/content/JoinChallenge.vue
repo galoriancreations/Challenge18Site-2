@@ -103,15 +103,11 @@ export default {
           userRequestChallenge: this.selectedTemplate
         });
         this.link = invite;
-        this.io.on("myChallenges", this.updateAndClose);
+        this.io.on("myChallenges", this.closeModal);
       } catch (error) {
         this.errorSubmitting = error;
       }
       this.submitting = false;
-    },
-    updateAndClose(challenges) {
-      this.$store.dispatch("updateChallenges", challenges);
-      this.closeModal();
     }
   },
   watch: {

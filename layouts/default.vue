@@ -29,6 +29,9 @@ export default {
       this.io.on("allBoards", ({ challenges }) =>
         this.$store.dispatch("results/updateResults", challenges)
       );
+      this.io.on("updateUser", userData =>
+        this.$store.commit("updateUser", userData)
+      );
       if (this.isLoggedIn) {
         this.io.emit("joinRoom", this.user.id);
       }
