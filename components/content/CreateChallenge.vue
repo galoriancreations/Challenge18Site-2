@@ -4,7 +4,6 @@
     :active="active"
     class="new-challenge-modal create-challenge"
   >
-    <BaseSpinner v-if="loading" />
     <div class="new-challenge-modal__section">
       <h3 class="new-challenge-modal__subheading">Choose a language</h3>
       <v-select
@@ -40,7 +39,6 @@
         Create new template
       </BaseButton>
     </div>
-    <ErrorMessage v-if="error" :error="error" />
   </DashboardModal>
 </template>
 
@@ -55,9 +53,7 @@ export default {
   data() {
     return {
       selectedLanguage: "English",
-      templateOptions: {},
-      loading: true,
-      error: null
+      templateOptions: {}
     };
   },
   computed: {
@@ -86,16 +82,9 @@ export default {
         this.selectedLanguage = this.userLanguage;
       }
     },
-    async selectTemplate(template) {
-      this.loading = true;
-      this.error = null;
-      try {
-        await this.$store.dispatch("selectTemplate", template);
-        this.$router.push("/challenge-options");
-      } catch (error) {
-        this.error = error;
-        this.loading = false;
-      }
+    selectTemplate(template) {
+      this.$store.dispatch("selectTemplate", template);
+      this.$router.push("/challenge-options");
     }
   },
   watch: {

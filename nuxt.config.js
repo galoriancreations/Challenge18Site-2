@@ -68,10 +68,6 @@ export default {
     axios: {
       baseURL: process.env.API_URL
     },
-    stuff: [
-      { id: "dxkgsjg", name: "sfzkfhaskf" },
-      { id: "sfzjsahfszf,", name: "szjkfhasjfhsa" }
-    ],
     emailjsKey: process.env.EMAILJS_KEY,
     emailjsTemplate: process.env.EMAILJS_TEMPLATE,
     emailjsService: process.env.EMAILJS_SERVICE,

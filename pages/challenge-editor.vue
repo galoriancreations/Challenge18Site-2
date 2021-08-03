@@ -624,6 +624,9 @@ export default {
       },
       deep: true
     },
+    draftId(value) {
+      this.$cookies.set("draftId", value);
+    },
     dayTitleEdited(value) {
       if (value) {
         setTimeout(() => this.$refs.dayTitle.$el.focus(), 100);

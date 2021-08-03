@@ -2,7 +2,7 @@
 
 <script>
 export default {
-  async asyncData({ route, $axios }) {
+  async asyncData({ $axios, route }) {
     try {
       const { challenge } = await $axios.$post("/api", {
         getChallengeData: route.params.challengeId
