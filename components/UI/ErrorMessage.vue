@@ -11,14 +11,11 @@ export default {
   },
   computed: {
     message() {
-      if (typeof this.error === "string") {
-        return this.error;
-      } else {
-        return (
-          this.error.response?.data?.msg ||
-          "An error occured. Please try again in a few moments."
-        );
-      }
+      return typeof this.error === "string"
+        ? this.error
+        : this.error.response?.data?.msg ||
+            this.error.message ||
+            "An error occured. Please try again in a few moments.";
     }
   }
 };
@@ -30,7 +27,7 @@ export default {
 .error-message {
   color: $color-error;
   font-weight: 500;
-  font-size: 1.65rem;
+  font-size: 1.7rem;
   text-align: center;
   padding: 0 $padding-sides-mobile;
 

@@ -1,18 +1,19 @@
-<template> </template>
+<template>
+  <div>{{ $route.params.challengeId }}</div>
+</template>
 
 <script>
 export default {
-  async asyncData({ $axios, route }) {
+  async asyncData({ $axios, route, error }) {
     try {
       const { challenge } = await $axios.$post("/api", {
         getChallengeData: route.params.challengeId
       });
       return {
-        challenge,
-        error: null
+        challenge
       };
-    } catch (error) {
-      return { error };
+    } catch (err) {
+      error(err);
     }
   }
 };

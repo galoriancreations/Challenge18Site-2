@@ -20,7 +20,7 @@ export const actions = {
         try {
 
         } catch (error) {
-            context.commit("setError", { ...error });
+            context.commit("setError", error);
         }
     }
 };

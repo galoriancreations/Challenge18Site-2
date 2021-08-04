@@ -10,7 +10,7 @@
 <script>
 export default {
   props: {
-    error: [Error, String, Object]
+    error: null
   },
   data() {
     return {

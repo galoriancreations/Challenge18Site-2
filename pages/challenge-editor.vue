@@ -240,7 +240,7 @@ export default {
       if (draftId) {
         const { draft } = await $axios.$post("/xapi", {
           userID: user.id,
-          draftId
+          getDraftData: draftId
         });
         return {
           name: draft.name,
@@ -281,7 +281,7 @@ export default {
       }
     } catch (error) {
       return {
-        errorLoading: error.response?.data?.msg || {}
+        errorLoading: error
       };
     }
   },
@@ -1262,9 +1262,17 @@ export default {
   transform: translateX(100vw);
 }
 
+.challenge-options__layout[style="direction: rtl;"] .task-leave-to {
+  transform: translateX(-100vw);
+}
+
 .task-leave-active {
   transition: all 0.5s;
   position: absolute;
+}
+
+.challenge-options__layout[style="direction: rtl;"] .task-leave-active {
+  position: relative;
 }
 
 .task-move {
